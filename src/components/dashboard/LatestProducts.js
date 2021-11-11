@@ -12,40 +12,34 @@ import {
   ListItemAvatar,
   ListItemText
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddCircle from '@material-ui/icons/AddCircle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 const products = [
   {
     id: uuid(),
-    name: 'Dropbox',
+    name: 'Perpetual Data',
     imageUrl: '/static/images/products/product_1.png',
     updatedAt: moment().subtract(2, 'hours')
   },
   {
     id: uuid(),
-    name: 'Medium Corporation',
+    name: 'Rose Premium',
     imageUrl: '/static/images/products/product_2.png',
     updatedAt: moment().subtract(2, 'hours')
   },
   {
     id: uuid(),
-    name: 'Slack',
+    name: 'Benson Sentiment',
     imageUrl: '/static/images/products/product_3.png',
     updatedAt: moment().subtract(3, 'hours')
   },
   {
     id: uuid(),
-    name: 'Lyft',
+    name: 'Justin',
     imageUrl: '/static/images/products/product_4.png',
     updatedAt: moment().subtract(5, 'hours')
   },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: moment().subtract(9, 'hours')
-  }
 ];
 
 const LatestProducts = (props) => (
@@ -78,8 +72,9 @@ const LatestProducts = (props) => (
           <IconButton
             edge="end"
             size="small"
+            onClick={props.openCreateBotDialog}
           >
-            <MoreVertIcon />
+            <AddCircle />
           </IconButton>
         </ListItem>
       ))}

@@ -91,7 +91,7 @@ const LatestOrders = (props) => (
           <TableHead>
             <TableRow>
               <TableCell>
-                Order Ref
+                Order Bot(Signal)
               </TableCell>
               <TableCell>
                 Customer
