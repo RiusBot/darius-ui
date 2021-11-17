@@ -1,21 +1,30 @@
-import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
-import SettingsNotifications from '../components/settings/SettingsNotifications';
-import SettingsPassword from '../components/settings/SettingsPassword';
+import Head from 'next/head';
+import { Box, Container, Typography } from '@mui/material';
+import { DashboardLayout } from '../components/dashboard-layout';
+import { SettingsNotifications } from '../components/settings/settings-notifications';
+import { SettingsPassword } from '../components/settings/settings-password';
 
-const SettingsView = () => (
+const Settings = () => (
   <>
-    <Helmet>
-      <title>Settings | Material Kit</title>
-    </Helmet>
+    <Head>
+      <title>
+        Settings | Material Kit
+      </title>
+    </Head>
     <Box
+      component="main"
       sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
+        flexGrow: 1,
+        py: 8
       }}
     >
       <Container maxWidth="lg">
+        <Typography
+          sx={{ mb: 3 }}
+          variant="h4"
+        >
+          Settings
+        </Typography>
         <SettingsNotifications />
         <Box sx={{ pt: 3 }}>
           <SettingsPassword />
@@ -25,4 +34,10 @@ const SettingsView = () => (
   </>
 );
 
-export default SettingsView;
+Settings.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
+
+export default Settings;
