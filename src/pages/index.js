@@ -1,3 +1,4 @@
+import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
@@ -9,103 +10,91 @@ import { TotalCustomers } from '../components/dashboard/total-customers';
 import { TotalProfit } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
+import BotCreationDialog from '../components/dashboard/bot-creation/bot-creation-dialog';
+import ExistingBot from 'src/components/dashboard/existing-bot';
 
-const Dashboard = () => (
-  <>
-    <Head>
-      <title>
-        Dashboard | Material Kit
-      </title>
-    </Head>
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8
-      }}
-    >
-      <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
+let existingBots = ["Rose", "Tsai", "Blablabla", "test2", "3", "4", "5"];
+
+const Dashboard = () => {
+  const [open, setOpen] = useState(false);
+  const handleBotCreationDialogOpen = () => {
+    setOpen(true);
+  }
+  const handleBotCreationDialogClose = () => {
+    //TODO: save change(create bot)
+    setOpen(false);
+  }
+  return (
+    <>
+      <Head>
+        <title>
+          Dashboard | Material Kit
+        </title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8
+        }}
+      >
+        <Container maxWidth={false}>
           <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
+            container
+            spacing={3}
           >
-            <Budget />
+            <Box
+              style={{'display': 'flex', 
+                      'flexDirection': 'row',
+                      'overflowX': 'auto',
+                      'height': '250px',
+                      'padding': '30px 0 0 30px'}}
+              >
+              {existingBots.map((bot, index) => {
+                return <Box 
+                          style={{'width': '300px',
+                                  'minWidth': '300px',
+                                  'paddingRight': '30px'}}>
+                          <ExistingBot
+                            key={index}
+                            botName={bot}
+                          />
+                        </Box>
+              })}
+            </Box>
+
+            <Grid
+              item
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}
+            >
+              <LatestOrders />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={3}
+              xs={12}
+            >
+              <LatestProducts 
+                sx={{ height: '100%' }} 
+                openCreateBotDialog={handleBotCreationDialogOpen}
+                />
+            </Grid>
+
           </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalProfit sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  </>
-);
+        </Container>
+      </Box>
+
+      <BotCreationDialog
+        open={open}
+        onClose={handleBotCreationDialogClose}
+        />
+    </>
+)};
 
 Dashboard.getLayout = (page) => (
   <DashboardLayout>
