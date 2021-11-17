@@ -1,25 +1,30 @@
-import { Helmet } from 'react-helmet';
-import {
-  Box,
-  Container,
-  Grid
-} from '@material-ui/core';
-import AccountProfile from '../components/account/AccountProfile';
-import AccountProfileDetails from '../components/account/AccountProfileDetails';
+import Head from 'next/head';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { AccountProfile } from '../components/account/account-profile';
+import { AccountProfileDetails } from '../components/account/account-profile-details';
+import { DashboardLayout } from '../components/dashboard-layout';
 
 const Account = () => (
   <>
-    <Helmet>
-      <title>Account | Material Kit</title>
-    </Helmet>
+    <Head>
+      <title>
+        Account | Material Kit
+      </title>
+    </Head>
     <Box
+      component="main"
       sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
+        flexGrow: 1,
+        py: 8
       }}
     >
       <Container maxWidth="lg">
+        <Typography
+          sx={{ mb: 3 }}
+          variant="h4"
+        >
+          Account
+        </Typography>
         <Grid
           container
           spacing={3}
@@ -44,6 +49,12 @@ const Account = () => (
       </Container>
     </Box>
   </>
+);
+
+Account.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
 );
 
 export default Account;
