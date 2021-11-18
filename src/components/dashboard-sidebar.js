@@ -23,7 +23,7 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    href: '/service',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Service & Payment'
   },

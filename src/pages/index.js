@@ -1,14 +1,8 @@
 import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
-import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
-import { TasksProgress } from '../components/dashboard/tasks-progress';
-import { TotalCustomers } from '../components/dashboard/total-customers';
-import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 import BotCreationDialog from '../components/dashboard/bot-creation/bot-creation-dialog';
 import ExistingBot from 'src/components/dashboard/existing-bot';
@@ -28,7 +22,7 @@ const Dashboard = () => {
     <>
       <Head>
         <title>
-          Dashboard | Material Kit
+          Dashboard
         </title>
       </Head>
       <Box
@@ -48,7 +42,7 @@ const Dashboard = () => {
                       'flexDirection': 'row',
                       'overflowX': 'auto',
                       'height': '250px',
-                      'padding': '30px 0 0 30px'}}
+                      'paddingLeft': '30px'}}
               >
               {existingBots.map((bot, index) => {
                 return <Box 

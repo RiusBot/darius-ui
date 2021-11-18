@@ -1,17 +1,14 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
 import ServiceOptions from '../components/services/service-options';
 import ServicePayment from '../components/services/service-payment';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
 
-const Customers = () => (
+const Service = () => (
   <>
     <Head>
       <title>
-        Customers | Material Kit
+        Service and Payment
       </title>
     </Head>
     <Box
@@ -30,10 +27,10 @@ const Customers = () => (
     </Box>
   </>
 );
-Customers.getLayout = (page) => (
+Service.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default Customers;
+export default Service;
