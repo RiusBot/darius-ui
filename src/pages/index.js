@@ -80,7 +80,6 @@ const Dashboard = () => {
               xs={12}
             >
               <LatestProducts 
-                sx={{ height: '100%' }} 
                 openCreateBotDialog={handleBotCreationDialogOpen}
                 />
             </Grid>
