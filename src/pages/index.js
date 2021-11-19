@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
 import BotCreationDialog from '../components/dashboard/bot-creation/bot-creation-dialog';
 import BotCard from 'src/components/dashboard/bot-card';
@@ -31,6 +31,12 @@ const Dashboard = () => {
         }}
       >
         <Container maxWidth={false}>
+          <Typography
+            sx={{ mb: 3 }}
+            variant="h4"
+          >
+            Dashboard
+          </Typography>
           <Grid
             container
             spacing={3}

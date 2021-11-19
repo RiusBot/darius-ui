@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import ServiceOptions from '../components/services/service-options';
 import ServicePayment from '../components/services/service-payment';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -19,6 +19,12 @@ const Service = () => (
       }}
     >
       <Container maxWidth={false}>
+        <Typography
+          sx={{ mb: 3 }}
+          variant="h4"
+        >
+          Service and Payment
+        </Typography>
         <ServiceOptions />
         <Box sx={{ mt: 3 }}>
           <ServicePayment />

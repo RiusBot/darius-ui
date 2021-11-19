@@ -1,46 +1,43 @@
 import { useEffect } from 'react';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
-import { Cog as CogIcon } from '../icons/cog';
-import { Lock as LockIcon } from '../icons/lock';
-import { Selector as SelectorIcon } from '../icons/selector';
-import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
-import { User as UserIcon } from '../icons/user';
+import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/material';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PersonIcon from '@mui/icons-material/Person';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
-import { Users as UsersIcon } from '../icons/users';
-import { XCircle as XCircleIcon } from '../icons/x-circle';
-import { Logo } from './logo';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import LockIcon from '@mui/icons-material/Lock';
+import ErrorIcon from '@mui/icons-material/Error';
+import { Selector as SelectorIcon } from '../icons/selector';
 import { NavItem } from './nav-item';
 
 const items = [
   {
     href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
+    icon: (<BarChartIcon fontSize="small" />),
     title: 'Dashboard'
   },
   {
     href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
+    icon: (<SmartToyIcon fontSize="small" />),
     title: 'Products'
   },
   {
     href: '/account',
-    icon: (<UserIcon fontSize="small" />),
+    icon: (<PersonIcon fontSize="small" />),
     title: 'Account'
   },
   {
     href: '/service',
-    icon: (<UsersIcon fontSize="small" />),
+    icon: (<AttachMoneyIcon fontSize="small" />),
     title: 'Service & Payment'
   },
   {
     href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    icon: (<NoteAddIcon fontSize="small" />),
+    title: 'Tutorial'
   },
   {
     href: '/login',
@@ -54,7 +51,7 @@ const items = [
   },
   {
     href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
+    icon: (<ErrorIcon fontSize="small" />),
     title: 'Error'
   }
 ];
@@ -92,19 +89,14 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-            <NextLink
-              href="/"
-              passHref
+            <Avatar
+              sx={{
+                height: 42,
+                width: 42,
+              }}
             >
-              <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
-              </a>
-            </NextLink>
+              <SmartToyIcon />
+            </Avatar>
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
