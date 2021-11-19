@@ -23,11 +23,6 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/service',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Service & Payment'
-  },
-  {
     href: '/products',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Products'
@@ -36,6 +31,11 @@ const items = [
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
+  },
+  {
+    href: '/service',
+    icon: (<UsersIcon fontSize="small" />),
+    title: 'Service & Payment'
   },
   {
     href: '/settings',

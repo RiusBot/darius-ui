@@ -7,8 +7,6 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
-import MoneyIcon from '@mui/icons-material/Money';
-import { red } from '@mui/material/colors';
 import AddCircle from '@mui/icons-material/AddCircle'
 
 const BotCard = (props) => {
@@ -33,19 +31,18 @@ const BotCard = (props) => {
               color="textPrimary"
               variant="h4"
             >
-              {bot.interestRate}% / month
+              {bot.interestRate} / month
             </Typography>
           </Grid>
           <Grid item>
             <Avatar
+              alt={bot.channel}
+              src={bot.media}
               sx={{
-                backgroundColor: red[600],
                 height: 56,
                 width: 56
               }}
-            >
-              <MoneyIcon />
-            </Avatar>
+            />
           </Grid>
         </Grid>
         <Box

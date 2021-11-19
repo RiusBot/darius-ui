@@ -8,9 +8,9 @@ import {
   Divider,
   Typography
 } from '@mui/material';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
   city: 'Los Angeles',
   country: 'USA',
   jobTitle: 'Senior Developer',
@@ -29,13 +29,14 @@ export const AccountProfile = (props) => (
         }}
       >
         <Avatar
-          src={user.avatar}
           sx={{
             height: 64,
             mb: 2,
             width: 64
           }}
-        />
+        >
+          <SmartToyIcon/>
+        </Avatar>
         <Typography
           color="textPrimary"
           gutterBottom

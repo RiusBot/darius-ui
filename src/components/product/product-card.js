@@ -23,7 +23,10 @@ export const ProductCard = ({ product, ...rest }) => (
         <Avatar
           alt="Product"
           src={product.media}
-          variant="square"
+          sx={{
+            height: 64,
+            width: 64
+          }}
         />
       </Box>
       <Typography
@@ -32,7 +35,7 @@ export const ProductCard = ({ product, ...rest }) => (
         gutterBottom
         variant="h5"
       >
-        {product.title}
+        {product.channel}
       </Typography>
       <Typography
         align="center"
