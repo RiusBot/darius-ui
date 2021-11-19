@@ -2,12 +2,12 @@ import React from 'react';
 import { Box, TextField } from "@mui/material";
 import { FormControl, FormControlLabel, Checkbox } from "@mui/material";
 import { Divider } from "@mui/material";
-import DefaultOrderSettings from './default-order-settings';
+import DefaultConfigSettings from './default-config-settings';
 
-export default function RoseOrderSettings() {
+export default function RoseConfigSettings() {
     return (
         <div>
-            <DefaultOrderSettings/>
+            <DefaultConfigSettings/>
             <Divider variant="middle" textAlign="left" >Trigger keywords for Rose channel</Divider>
             <Box
                 m={2}

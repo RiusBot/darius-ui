@@ -1,13 +1,16 @@
 import React from "react";
 import { Dialog, Box, Typography, Button } from '@mui/material';
-import BotCreationTabs from "./bot-creation-tabs";
+import DefaultConfigSettings from "./default-config-settings";
 
+// TODO:
+// 1. Add Cancel Icon
+// 2. Modify Save Button
 function BotCreationDialog(props) {
-    const { open, onClose } = props;
+    const { open, channel, onClose } = props;
     return (
         <Dialog
-            open={props.open}
-            onClose={props.onClose}>
+            open={open}
+            onClose={onClose}>
             <Box
                 style={{
                     'height': '80vh',
@@ -15,9 +18,9 @@ function BotCreationDialog(props) {
                     'padding': '16px',
                 }}>
                 <Typography variant="h5" component="div">
-                Bot Creation
+                {channel} Bot Creation
                 </Typography>
-                <BotCreationTabs/>
+                <DefaultConfigSettings/>
                 <Button size="small">Start Bot</Button>
             </Box>
         </Dialog>

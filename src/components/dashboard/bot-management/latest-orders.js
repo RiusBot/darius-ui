@@ -4,8 +4,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Button,
-  Card,
-  CardHeader,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +13,7 @@ import {
   Tooltip
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { SeverityPill } from '../severity-pill';
+import { SeverityPill } from '../../severity-pill';
 
 const orders = [
   {
@@ -81,18 +79,20 @@ const orders = [
 ];
 
 export const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
+  <>
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
-                Order Bot(Signal)
+                Channel
               </TableCell>
               <TableCell>
-                Customer
+                Message
+              </TableCell>
+              <TableCell>
+                Signal
               </TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip
@@ -106,9 +106,6 @@ export const LatestOrders = (props) => (
                     Date
                   </TableSortLabel>
                 </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
               </TableCell>
             </TableRow>
           </TableHead>
@@ -125,9 +122,6 @@ export const LatestOrders = (props) => (
                   {order.customer.name}
                 </TableCell>
                 <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
-                </TableCell>
-                <TableCell>
                   <SeverityPill
                     color={(order.status === 'delivered' && 'success')
                     || (order.status === 'refunded' && 'error')
@@ -135,6 +129,9 @@ export const LatestOrders = (props) => (
                   >
                     {order.status}
                   </SeverityPill>
+                </TableCell>
+                <TableCell>
+                  {format(order.createdAt, 'dd/MM/yyyy')}
                 </TableCell>
               </TableRow>
             ))}
@@ -158,5 +155,5 @@ export const LatestOrders = (props) => (
         View all
       </Button>
     </Box>
-  </Card>
+  </>
 );

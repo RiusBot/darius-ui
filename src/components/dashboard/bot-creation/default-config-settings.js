@@ -5,7 +5,9 @@ import { RadioGroup, Radio } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Divider } from "@mui/material";
 
-export default function DefaultOrderSettings() {
+// TODO:
+// 1. Modify Config Settings UI
+export default function DefaultConfigSettings() {
     const [target, setTarget] = React.useState('');
 
     const handleChange = (event) => {
@@ -31,8 +33,8 @@ export default function DefaultOrderSettings() {
             <div style={{"display": "flex", "flex-direction": "row"}}>
                 <FormGroup style={{"width": "50%"}} >
                     <FormControlLabel control={<Checkbox defaultChecked/>} label="Test only" />
-                    <FormControlLabel control={<Checkbox defaultChecked/>} label="No duplicate order" />
-                    <FormControlLabel control={<Checkbox />} label="Make short order" />
+                    <FormControlLabel control={<Checkbox defaultChecked/>} label="No duplicate Order" />
+                    <FormControlLabel control={<Checkbox />} label="Make short Order" />
                     <Divider variant="middle" />
                     <FormControl style={{"width": "50%"}} >
                         <RadioGroup

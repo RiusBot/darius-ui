@@ -1,21 +1,20 @@
 import {
-    Avatar,
-    Box,
-    Card,
-    CardContent,
-    Grid,
-    Typography
-  } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import MoneyIcon from '@mui/icons-material/Money';
 import { red } from '@mui/material/colors';
+import AddCircle from '@mui/icons-material/AddCircle'
 
-const ExistingBot = (props) => {
-  const { botName } = props;
-  return (
-    <Card
-      sx={{ height: '100%' }}
-    >
+const BotCard = (props) => {
+  const { bot, openCreateBotDialog } = props;
+
+  return (<Card sx={{ height: '100%' }}>
       <CardContent>
         <Grid
           container
@@ -28,13 +27,13 @@ const ExistingBot = (props) => {
               gutterBottom
               variant="h6"
             >
-              {botName}
+              {bot.channel}
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h3"
+              variant="h4"
             >
-              $24,000
+              {bot.interestRate}% / month
             </Typography>
           </Grid>
           <Grid item>
@@ -56,26 +55,18 @@ const ExistingBot = (props) => {
             alignItems: 'center'
           }}
         >
-          <ArrowDownwardIcon sx={{ color: red[900] }} />
-          <Typography
-            sx={{
-              color: red[900],
-              mr: 1
-            }}
-            variant="body2"
+          <IconButton
+            edge="end"
+            size="small"
+            onClick={() => openCreateBotDialog(bot.channel)}
           >
-            12%
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            Since last month
-          </Typography>
+            Create
+            <AddCircle />
+          </IconButton>
         </Box>
       </CardContent>
     </Card>
   )
-};
+}
 
-export default ExistingBot;
+export default BotCard;

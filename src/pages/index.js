@@ -1,22 +1,29 @@
 import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
-import { LatestOrders } from '../components/dashboard/latest-orders';
-import { LatestProducts } from '../components/dashboard/latest-products';
 import { DashboardLayout } from '../components/dashboard-layout';
 import BotCreationDialog from '../components/dashboard/bot-creation/bot-creation-dialog';
-import ExistingBot from 'src/components/dashboard/existing-bot';
+import BotCard from 'src/components/dashboard/bot-card';
+import BotManagementCard from 'src/components/dashboard/bot-management/bot-management-card';
 
-let existingBots = ["Rose", "Tsai", "Blablabla", "test2", "3", "4", "5"];
+let bots = [{channel: "Rose Premium",
+              interestRate: 150 }, 
+            {channel: "Whale Hunt",
+              interestRate: 130 },
+            {channel: "Daily Scalp",
+              interestRate: 180 }];
+
+// TODO: 
+// 1. Move bot list to a seperate file.
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(false);
-  const handleBotCreationDialogOpen = () => {
-    setOpen(true);
+  const [{open, channel}, setOpen] = useState({open: false, channel: ""});
+  const handleBotCreationDialogOpen = (channel) => {
+    setOpen({open: true, channel: channel});
   }
   const handleBotCreationDialogClose = () => {
     //TODO: save change(create bot)
-    setOpen(false);
+    setOpen({open: false, channel: ""});
   }
   return (
     <>
@@ -41,17 +48,17 @@ const Dashboard = () => {
               style={{'display': 'flex', 
                       'flexDirection': 'row',
                       'overflowX': 'auto',
-                      'height': '250px',
+                      'height': '200px',
                       'paddingLeft': '30px'}}
               >
-              {existingBots.map((bot, index) => {
-                return <Box 
-                          style={{'width': '300px',
+              {bots.map((bot, index) => {
+                return <Box style={{'width': '400px',
                                   'minWidth': '300px',
                                   'paddingRight': '30px'}}>
-                          <ExistingBot
+                          <BotCard
                             key={index}
-                            botName={bot}
+                            bot={bot}
+                            openCreateBotDialog={handleBotCreationDialogOpen}
                           />
                         </Box>
               })}
@@ -59,23 +66,12 @@ const Dashboard = () => {
 
             <Grid
               item
-              lg={8}
+              lg={12}
               md={12}
               xl={9}
               xs={12}
             >
-              <LatestOrders />
-            </Grid>
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <LatestProducts 
-                openCreateBotDialog={handleBotCreationDialogOpen}
-                />
+              <BotManagementCard />
             </Grid>
 
           </Grid>
@@ -84,6 +80,7 @@ const Dashboard = () => {
 
       <BotCreationDialog
         open={open}
+        channel={channel}
         onClose={handleBotCreationDialogClose}
         />
     </>
