@@ -5,13 +5,14 @@ import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/ma
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PersonIcon from '@mui/icons-material/Person';
-import { UserAdd as UserAddIcon } from '../icons/user-add';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import LockIcon from '@mui/icons-material/Lock';
 import ErrorIcon from '@mui/icons-material/Error';
-import { Selector as SelectorIcon } from '../icons/selector';
-import { NavItem } from './nav-item';
+
+import { NavItem } from '@/common/components/nav-item';
+import { Selector as SelectorIcon } from '@/icons/selector';
+import { UserAdd as UserAddIcon } from '@/icons/user-add';
 
 const items = [
   {

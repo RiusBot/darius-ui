@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
-import ServiceOptions from '../components/services/service-options';
-import ServicePayment from '../components/services/service-payment';
-import { DashboardLayout } from '../components/dashboard-layout';
+import ServiceOptions from '@/features/services/components/service-options';
+import ServicePayment from '@/features/services/components/service-payment';
+import { DashboardLayout } from '@/common/components/dashboard-layout';
 
 const Service = () => (
   <>

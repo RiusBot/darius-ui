@@ -6,7 +6,7 @@ import {
   Tab,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { LatestOrders } from './latest-orders';
+import { LatestOrders } from '@/features/dashboard/components/bot-management/latest-orders';
 
 let bots = [{channel: "Rose Premium",
               interestRate: 150 }, 

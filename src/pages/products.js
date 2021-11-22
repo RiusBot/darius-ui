@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination, Typography } from '@mui/material';
-import { products } from '../data/products';
-import { ProductCard } from '../components/product/product-card';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { products } from 'data/products';
+import { ProductCard } from '@/features/product/components/product-card';
+import { DashboardLayout } from '@/common/components/dashboard-layout';
 
 const Products = () => (
   <>

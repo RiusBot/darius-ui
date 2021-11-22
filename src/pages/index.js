@@ -1,11 +1,11 @@
 import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { DashboardLayout } from '../components/dashboard-layout';
-import BotCreationDialog from '../components/dashboard/bot-creation/bot-creation-dialog';
-import BotCard from 'src/components/dashboard/bot-card';
-import BotManagementCard from 'src/components/dashboard/bot-management/bot-management-card';
-import { products } from 'src/data/products';
+import { DashboardLayout } from '@/common/components/dashboard-layout';
+import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
+import BotCard from '@/features/dashboard/components/bot-card';
+import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
+import { products } from 'data/products';
 
 const Dashboard = () => {
   const [{open, channel}, setOpen] = useState({open: false, channel: ""});
