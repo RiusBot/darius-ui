@@ -10,4 +10,4 @@
 
   - Run local server
 
-        % npm start
+        % npm run dev
