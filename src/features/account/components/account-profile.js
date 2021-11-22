@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
   Avatar,
   Box,
@@ -9,6 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import { getUserInfo } from '@/common/selectors';
 
 const user = {
   city: 'Los Angeles',
@@ -18,55 +20,46 @@ const user = {
   timezone: 'GTM-7'
 };
 
-export const AccountProfile = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
+export const AccountProfile = (props) => {
+  const userInfo = useSelector(getUserInfo);
+  return (
+    <Card {...props}>
+      <CardContent>
+        <Box
           sx={{
-            height: 64,
-            mb: 2,
-            width: 64
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
           }}
         >
-          <SmartToyIcon/>
-        </Avatar>
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h5"
+          <Avatar
+            sx={{
+              height: 64,
+              mb: 2,
+              width: 64
+            }}
+          >
+            <SmartToyIcon />
+          </Avatar>
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            variant="h5"
+          >
+            {userInfo.userName}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions>
+        <Button
+          color="primary"
+          fullWidth
+          variant="text"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.timezone}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-  </Card>
-);
+          Upload picture
+        </Button>
+      </CardActions>
+    </Card>
+  )
+};
