@@ -4,12 +4,14 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     userInfo: {
+      userId: '123',
       userName: 'dariusAdmin',
       email: 'darius@gmail.com',
     },
   },
   reducers: {
-    setUserInfo: (state, action) => {
+    updateUserInfo: () => {},
+    updateUserInfoSuccess: (state, action) => {
       state.userInfo = action.payload;
     },
   },
@@ -18,7 +20,8 @@ const appSlice = createSlice({
 const { actions, reducer } = appSlice;
 
 export const {
-  setUserInfo,
+  updateUserInfo,
+  updateUserInfoSuccess
 } = actions
 
 export default reducer;

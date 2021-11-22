@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '@/app/root-reducer';
+import rootSaga from '@/app/root-saga';
 
 const isProduction = process.env.NODE_ENV !== 'production';
 
@@ -23,7 +24,7 @@ const makeStore = () => {
     ),
 	});
 
-	//store.sagaTask = sagaMiddleware.run(rootSaga, store.dispatch);
+	store.sagaTask = sagaMiddleware.run(rootSaga, store.dispatch);
 
   return store;
 };

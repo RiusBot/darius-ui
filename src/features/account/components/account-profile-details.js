@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -11,35 +11,23 @@ import {
   TextField
 } from '@mui/material';
 import { getUserInfo } from '@/common/selectors';
-
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+import { updateUserInfo } from '@/app/app-slice';
 
 export const AccountProfileDetails = (props) => {
-  const userInfo = useSelector(getUserInfo);
-  const [values, setValues] = useState({
-    userName: userInfo.userName,
-    email: userInfo.email,
-  });
+  const dispatch = useDispatch();
+  const originalUserInfo = useSelector(getUserInfo);
+  const [userInfo, setUserInfo] = useState(originalUserInfo);
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setUserInfo({
+      ...userInfo,
       [event.target.name]: event.target.value
     });
   };
+
+  const saveEditing = () => {
+    dispatch(updateUserInfo(userInfo));
+  }
 
   return (
     <form
@@ -65,12 +53,11 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                label="User Name"
+                name="userName"
                 onChange={handleChange}
                 required
-                value={values.userName}
+                value={userInfo.userName}
                 variant="outlined"
               />
             </Grid>
@@ -85,7 +72,7 @@ export const AccountProfileDetails = (props) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={userInfo.email}
                 variant="outlined"
               />
             </Grid>
@@ -102,6 +89,7 @@ export const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={saveEditing}
           >
             Save details
           </Button>
