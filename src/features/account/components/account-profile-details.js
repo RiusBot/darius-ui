@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { getUserInfo } from '@/common/selectors';
 
 const states = [
   {
@@ -26,13 +28,10 @@ const states = [
 ];
 
 export const AccountProfileDetails = (props) => {
+  const userInfo = useSelector(getUserInfo);
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    userName: userInfo.userName,
+    email: userInfo.email,
   });
 
   const handleChange = (event) => {
@@ -71,22 +70,7 @@ export const AccountProfileDetails = (props) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
+                value={values.userName}
                 variant="outlined"
               />
             </Grid>
@@ -104,62 +88,6 @@ export const AccountProfileDetails = (props) => {
                 value={values.email}
                 variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="number"
-                value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
           </Grid>
         </CardContent>
