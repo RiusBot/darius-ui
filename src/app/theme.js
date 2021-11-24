@@ -152,14 +152,14 @@ const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
-      paper: '#FFFFFF'
+      default: 'rgba(21, 67, 96, 0.8)',
+      paper: '#F9FAFC'
     },
     divider: '#E6E8F0',
     primary: {
-      main: '#5048E5',
+      main: '#DC7633',
       light: '#828DF8',
-      dark: '#3832A0',
+      dark: '#873600',
       contrastText: '#FFFFFF'
     },
     secondary: {
@@ -194,7 +194,7 @@ const theme = createTheme({
     },
     text: {
       primary: '#121828',
-      secondary: '#65748B',
+      secondary: '#C3B292',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },

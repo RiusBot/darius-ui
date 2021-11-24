@@ -1,36 +1,59 @@
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-export const TimeseriesChart = (props) => {
-    var chart = c3.generate({
-        data: {
-            x: 'x',
-    //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
-            columns: [
-                ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
-    //            ['x', '20130101', '20130102', '20130103', '20130104', '20130105', '20130106'],
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 340, 200, 500, 250, 350]
-            ]
-        },
-        axis: {
-            x: {
-                type: 'timeseries',
-                tick: {
-                    format: '%Y-%m-%d'
-                }
-            }
-        }
-    });
-    
-    setTimeout(function () {
-        chart.load({
-            columns: [
-                ['data3', 400, 500, 450, 700, 600, 500]
-            ]
-        });
-    }, 1000);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-    return (
-        <div id="chart">hi</div>
-    )
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
 };
 
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => {return -1000 + Math.floor(Math.random() * 2000)}),
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => {return -1000 + Math.floor(Math.random() * 2000)}),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
+
+export const TimeseriesChart = () => {
+  return <Line options={options} data={data} />;
+}

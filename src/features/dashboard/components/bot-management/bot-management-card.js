@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  Box,
-  Tab,
-} from '@mui/material';
+import { Card, CardHeader, Box, Tab, Typography } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { LatestOrders } from '@/features/dashboard/components/bot-management/latest-orders';
 
@@ -44,11 +39,13 @@ export default function BotManagementCard(props) {
                         {bots.map((bot, index) => {
                             return <Tab 
                                         key={index}
-                                        label={bot.channel} 
-                                        value={index}/>
+                                        label={bot.channel} value={index}/>
                         })}
                     </TabList>
                     <TabPanel value={value}>
+                        <Typography variant="h6">
+                            Trading History
+                        </Typography>
                         <LatestOrders/>
                     </TabPanel>
                 </TabContext>

@@ -12,7 +12,8 @@ import AddCircle from '@mui/icons-material/AddCircle'
 const BotCard = (props) => {
   const { bot, openCreateBotDialog } = props;
 
-  return (<Card sx={{ height: '100%' }}>
+  return (
+    <Card sx={{ height: '100%' }}>
       <CardContent>
         <Grid
           container

@@ -21,7 +21,7 @@ export const DashboardNavbar = (props) => {
           },
           width: {
             lg: 'calc(100% - 280px)'
-          }
+          },
         }}
         {...other}>
         <Toolbar
@@ -29,7 +29,8 @@ export const DashboardNavbar = (props) => {
           sx={{
             minHeight: 64,
             left: 0,
-            px: 2
+            px: 2,
+            backgroundImage: 'linear-gradient(#111827, #154360)'
           }}
         >
           <IconButton

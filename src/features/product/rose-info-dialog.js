@@ -1,5 +1,6 @@
 import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
 
 // TODO:
 // 1. Add Cancel Icon
@@ -9,7 +10,9 @@ export const RoseInfoDialog = (props) => {
     return (
         <Dialog
             open={open}
-            onClose={onClose}>
+            onClose={onClose}
+            fullWidth
+            maxWidth="md">
             <Box
                 sx={{
                     'display': 'flex',
@@ -61,6 +64,8 @@ export const RoseInfoDialog = (props) => {
                         歷史績效回測功能之後會一同整合進機器人，可以讓使用者自己嘗試不同參數的績效<br/>
                     </Typography>
                 </Box>
+
+                <TimeseriesChart></TimeseriesChart>
 
                 <Box sx={{p:2}} >
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>

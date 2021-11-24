@@ -11,7 +11,9 @@ function BotCreationDialog(props) {
     return (
         <Dialog
             open={open}
-            onClose={onClose}>
+            onClose={onClose}
+            fullWidth
+            maxWidth="md">
             <Box
                 sx={{
                     'display': 'flex',
@@ -32,9 +34,8 @@ function BotCreationDialog(props) {
             <Divider variant="middle" />
             <Box
                 sx={{
-                    'padding': '16px 16px',
-                    'width': '600px',
-                }}>
+                    'padding': '16px',
+                    'overflow-y': 'scroll',}}>
                 <DefaultConfigSettings/>
                 <Box
                     sx={{
