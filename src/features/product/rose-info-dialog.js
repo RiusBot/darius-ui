@@ -1,0 +1,146 @@
+import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
+// TODO:
+// 1. Add Cancel Icon
+// 2. Modify Save Button
+export const RoseInfoDialog = (props) => {
+    const { open, onClose } = props;
+    return (
+        <Dialog
+            open={open}
+            onClose={onClose}>
+            <Box
+                sx={{
+                    'display': 'flex',
+                    'flex-direction': 'row',
+                    'width:': '100%',
+                    'padding': '32px 16px 8px'
+                }}>
+                <Typography variant="h5" component="div">
+                    Rose Premium
+                </Typography>
+                <IconButton
+                    style={{'marginLeft': 'auto'}}
+                    onClick={onClose}
+                >
+                    <CloseIcon fontSize="small" />
+                </IconButton>
+            </Box>
+            <Divider variant="middle" />
+            <Box
+                sx={{
+                    'width:': 800,
+                    'height': '80vh',
+                    'overflow-y': 'scroll',
+                    'padding': '16px 16px',
+                }}>
+                
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        Rose訊號替代方案
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        Rose 的付費頻道需要 **1000** usdt，使用優惠碼可以打6折 **400** usdt。<br/>
+                        我在開發機器人時也架設了雲端的推播訊號，可以供機器人使用。<br/>
+                        架設雲端訊號有<br/>
+                        1. 系統穩定性的保證<br/>
+                        2. 完整的備援機制<br/>
+                        3. 採用最高速的網路<br/>
+                    </Typography>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        Rose歷史績效分析
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        目前記錄了績效表現<br/>
+                        1. 只作短打單的全倉帳戶<br/>
+                        2. 使用最佳化演算法找出的最佳歷史回測表現的全倉帳戶<br/>
+                        歷史績效回測功能之後會一同整合進機器人，可以讓使用者自己嘗試不同參數的績效<br/>
+                    </Typography>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        短打單績效
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        短打單績效主要測量以本工具做程式下單相較於手動下單可以多賺多少利潤。<br/>
+                        具體方式是市價馬上買進後，10分鐘內出掉，沒有槓桿。<br/>
+                        程式下單比起手動下單，三個月可以多30%利潤。<br/>
+                        相較於完整按照rose的止盈止損利潤少了30倍。<br/>
+                    </Typography>
+
+                    <p style={{marginTop: 32}}>淨資產曲線：</p>
+                    <Box sx={{ textAlign: 'center' }}>
+                        <img
+                        alt="Under development"
+                        src="/static/images/products/rose_net_assets_chart.png"
+                        style={{
+                            display: 'inline-block',
+                            maxWidth: '100%',
+                            width: 760
+                        }}
+                        />
+                    </Box>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        完整歷史績效
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        這邊測量按照rose的設置，持倉5-7天的績效表現。使用最佳化演算法找出最佳的參數做設置，止損10%，止盈15-20%。<br/>
+                        具體方式是市價馬上買進後，10分鐘內出掉，沒有槓桿。<br/>
+                        單純現貨交易，3個月全倉滾績效達2000%。<br/>
+                    </Typography>
+
+                    <p style={{marginTop: 32}}>淨資產曲線：</p>
+                    <Box sx={{ textAlign: 'center' }}>
+                        <img
+                        alt="Under development"
+                        src="/static/images/products/rose_net_assets_chart_complete.png"
+                        style={{
+                            display: 'inline-block',
+                            maxWidth: '100%',
+                            width: 760
+                        }}
+                        />
+                    </Box>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        BTC價格走勢和rose開單勝率關聯分析
+                    </Typography>
+                    <p style={{marginTop: 32}}>綠為盈，紅為虧</p>
+                    <Box sx={{ textAlign: 'center' }}>
+                        <img
+                        alt="Under development"
+                        src="/static/images/products/rose_btc_analysis_chart.png"
+                        style={{
+                            display: 'inline-block',
+                            maxWidth: '100%',
+                            width: 760
+                        }}
+                        />
+                    </Box>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        實際使用心得
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        目前跑2個月都是60%up，2-3倍槓桿<br/>
+                        使用心得是勝率不錯，越快進場越好，但價格通常不會跑完整個setup，tp1 tp2 就要出掉比較好。<br/>
+                        另一點就是btc在資費過熱，大回調就會讓所有單都止損，所以偏危險的時候可以不開。<br/>
+                    </Typography>
+                </Box>
+            </Box>
+        </Dialog>
+    )
+
+}

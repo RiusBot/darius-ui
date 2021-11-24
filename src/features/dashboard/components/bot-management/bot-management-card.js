@@ -42,7 +42,10 @@ export default function BotManagementCard(props) {
                         sx={{ borderRight: 1, borderColor: 'divider' }}
                     >
                         {bots.map((bot, index) => {
-                            return <Tab label={bot.channel} value={index}/>
+                            return <Tab 
+                                        key={index}
+                                        label={bot.channel} 
+                                        value={index}/>
                         })}
                     </TabList>
                     <TabPanel value={value}>

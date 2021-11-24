@@ -5,16 +5,16 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
-import { products } from 'data/products';
+import { products } from '__data__/products';
 
 const Dashboard = () => {
-  const [{open, channel}, setOpen] = useState({open: false, channel: ""});
+  const [{open, channel}, setDialog] = useState({open: false, channel: ""});
   const handleBotCreationDialogOpen = (channel) => {
-    setOpen({open: true, channel: channel});
+    setDialog({open: true, channel: channel});
   }
   const handleBotCreationDialogClose = () => {
     //TODO: save change(create bot)
-    setOpen({open: false, channel: ""});
+    setDialog({open: false, channel: ""});
   }
   return (
     <>
@@ -49,7 +49,9 @@ const Dashboard = () => {
                       'paddingLeft': '30px'}}
               >
               {products.map((bot, index) => {
-                return <Box style={{'width': '400px',
+                return <Box 
+                          key={index}
+                          style={{'width': '400px',
                                   'minWidth': '300px',
                                   'paddingRight': '30px'}}>
                           <BotCard

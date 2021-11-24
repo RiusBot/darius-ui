@@ -5,7 +5,7 @@ import {
   CardContent,
   Grid,
   Typography,
-  IconButton,
+  Button,
 } from '@mui/material';
 import AddCircle from '@mui/icons-material/AddCircle'
 
@@ -49,17 +49,17 @@ const BotCard = (props) => {
           sx={{
             pt: 2,
             display: 'flex',
-            alignItems: 'center'
           }}
         >
-          <IconButton
-            edge="end"
+          <Button
+            color="primary"
+            endIcon={<AddCircle fontSize="small" />}
             size="small"
+            variant="contained"
             onClick={() => openCreateBotDialog(bot.channel)}
           >
             Create
-            <AddCircle />
-          </IconButton>
+          </Button>
         </Box>
       </CardContent>
     </Card>

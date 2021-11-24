@@ -1,9 +1,10 @@
 import React from "react";
-import { Dialog, Box, Typography, Button } from '@mui/material';
+import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import DefaultConfigSettings from "./default-config-settings";
+import CloseIcon from '@mui/icons-material/Close';
+import AddCircle from '@mui/icons-material/AddCircle'
 
 // TODO:
-// 1. Add Cancel Icon
 // 2. Modify Save Button
 function BotCreationDialog(props) {
     const { open, channel, onClose } = props;
@@ -12,16 +13,47 @@ function BotCreationDialog(props) {
             open={open}
             onClose={onClose}>
             <Box
-                style={{
-                    'height': '80vh',
-                    'overflow-y': 'scroll',
-                    'padding': '16px',
+                sx={{
+                    'display': 'flex',
+                    'flex-direction': 'row',
+                    'width:': '100%',
+                    'padding': '32px 16px 8px'
                 }}>
                 <Typography variant="h5" component="div">
-                {channel} Bot Creation
+                    {channel} Bot Creation
                 </Typography>
+                <IconButton
+                    style={{'marginLeft': 'auto'}}
+                    onClick={onClose}
+                >
+                    <CloseIcon fontSize="small" />
+                </IconButton>
+            </Box>
+            <Divider variant="middle" />
+            <Box
+                sx={{
+                    'padding': '16px 16px',
+                    'width': '600px',
+                }}>
                 <DefaultConfigSettings/>
-                <Button size="small">Start Bot</Button>
+                <Box
+                    sx={{
+                        pt: 2,
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}
+                    >
+                    <Button
+                        color="primary"
+                        endIcon={<AddCircle fontSize="small" />}
+                        size="small"
+                        variant="contained"
+                        onClick={() => openCreateBotDialog(bot.channel)}
+                        style={{'marginLeft': 'auto'}}
+                    >
+                        Save and Create
+                    </Button>
+                </Box>
             </Box>
         </Dialog>
     )
