@@ -1,11 +1,8 @@
 import React from 'react';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Divider } from "@mui/material";
-
-// TODO:
-// 1. Modify Config Settings UI
+import { TextField, Divider} from "@mui/material";
+import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 export default function DefaultConfigSettings() {
 
     const [{target, 
@@ -71,35 +68,45 @@ export default function DefaultConfigSettings() {
                     </Select>
                 </FormControl>
             </Box>
-            <Box sx={{p:2}}>
-                <FormControl fullWidth>
-                    <InputLabel id="stopLossType">Stop Loss Type</InputLabel>
-                    <Select
-                    name="stopLossType"
-                    id="stopLossType"
-                    value={stopLossType}
-                    label="stopLossType"
-                    onChange={handleOptionChange}
-                    >
-                        <MenuItem value={"limit"}>Limit</MenuItem>
-                        <MenuItem value={"market"}>Market</MenuItem>
-                    </Select>
-                </FormControl>
+            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{width: '50%'}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="stopLossType">Stop Loss Type</InputLabel>
+                        <Select
+                        name="stopLossType"
+                        id="stopLossType"
+                        value={stopLossType}
+                        label="stopLossType"
+                        onChange={handleOptionChange}
+                        >
+                            <MenuItem value={"limit"}>Limit</MenuItem>
+                            <MenuItem value={"market"}>Market</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{paddingLeft: '48px'}}>
+                    <InputSlider name="Stop Loss"/>
+                </Box>
             </Box>
-            <Box sx={{p:2}}>
-                <FormControl fullWidth>
-                    <InputLabel id="takeProfitType">Take Profit Type</InputLabel>
-                    <Select
-                    name="takeProfitType"
-                    id="takeProfitType"
-                    value={takeProfitType}
-                    label="takeProfitType"
-                    onChange={handleOptionChange}
-                    >
-                        <MenuItem value={"limit"}>Limit</MenuItem>
-                        <MenuItem value={"market"}>Market</MenuItem>
-                    </Select>
-                </FormControl>
+            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{width: '50%'}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="takeProfitType">Take Profit Type</InputLabel>
+                        <Select
+                        name="takeProfitType"
+                        id="takeProfitType"
+                        value={takeProfitType}
+                        label="takeProfitType"
+                        onChange={handleOptionChange}
+                        >
+                            <MenuItem value={"limit"}>Limit</MenuItem>
+                            <MenuItem value={"market"}>Market</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{paddingLeft: '48px'}}>
+                    <InputSlider name="Take Profit"/>
+                </Box>
             </Box>
             <Box
                 component="textform"
@@ -113,8 +120,6 @@ export default function DefaultConfigSettings() {
                 <TextField id="quantity" label="Quantity" variant="outlined" />
                 <TextField id="leverage" label="Leverage" variant="outlined" />
                 <TextField id="minimum-margin" label="Minimum Margin Ratio" variant="outlined" />
-                <TextField id="stop-loss" label="Stop Loss" variant="outlined" />
-                <TextField id="take-profit" label="Take Profit" variant="outlined" />
                 <TextField id="minimum-volumn" label="Minimum Volumn" variant="outlined" />
             </Box>
 
