@@ -10,7 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-import { getUserInfo } from '@/common/selectors';
+import { getUserInfo } from '@/features/account/account-selector';
 
 const user = {
   city: 'Los Angeles',
