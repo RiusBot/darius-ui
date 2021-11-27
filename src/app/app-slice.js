@@ -4,8 +4,8 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     userInfo: {
-      userId: '123',
-      userName: 'dariusAdmin',
+      userId: 3,
+      userName: 'darius_test',
       email: 'darius@gmail.com',
     },
   },
