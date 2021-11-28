@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, CardHeader, Box, Tab, Typography } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { LatestOrders } from '@/features/dashboard/components/bot-management/latest-orders';
+import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
+import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 
 let bots = [{channel: "Rose Premium",
               interestRate: 150 }, 
@@ -43,10 +44,10 @@ export default function BotManagementCard(props) {
                         })}
                     </TabList>
                     <TabPanel value={value}>
-                        <Typography variant="h6">
-                            Trading History
-                        </Typography>
-                        <LatestOrders/>
+                        <Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                            <BotTradesTable/>
+                            <BotSettings/>
+                        </Box>
                     </TabPanel>
                 </TabContext>
             </Box>

@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -10,78 +9,34 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  Tooltip
+  Tooltip,
+  Typography
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
 
 const orders = [
   {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
+    message: {
+      channel: "Rose",
+      content: "test",
+      symbol: "test",
+      action: "buy",
+      message_timestamp: 1555016400000,
+      receive_timestamp: 1555016400000,
     },
-    createdAt: 1555016400000,
-    status: 'pending'
+    status: 'open',
+    error: '',
   },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
 ];
 
-export const LatestOrders = (props) => (
+export const BotTradesTable = (props) => (
   <>
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
+        <Typography variant="h6">
+          Trading History
+        </Typography>
         <Table>
           <TableHead>
             <TableRow>
@@ -89,10 +44,16 @@ export const LatestOrders = (props) => (
                 Channel
               </TableCell>
               <TableCell>
-                Message
+                Content
               </TableCell>
               <TableCell>
-                Signal
+                Symbol
+              </TableCell>
+              <TableCell>
+                Action
+              </TableCell>
+              <TableCell>
+                Status
               </TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip
@@ -103,27 +64,46 @@ export const LatestOrders = (props) => (
                     active
                     direction="desc"
                   >
-                    Date
+                    Message Timestamp
+                  </TableSortLabel>
+                </Tooltip>
+              </TableCell>
+              <TableCell sortDirection="desc">
+                <Tooltip
+                  enterDelay={300}
+                  title="Sort"
+                >
+                  <TableSortLabel
+                    active
+                    direction="desc"
+                  >
+                    Received Timestamp
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {orders.map((order, index) => (
               <TableRow
                 hover
-                key={order.id}
+                key={index}
               >
                 <TableCell>
-                  {order.ref}
+                  {order.message.channel}
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  {order.message.content}
+                </TableCell>
+                <TableCell>
+                  {order.message.symbol}
+                </TableCell>
+                <TableCell>
+                  {order.message.action}
                 </TableCell>
                 <TableCell>
                   <SeverityPill
-                    color={(order.status === 'delivered' && 'success')
+                    color={(order.status === 'open' && 'success')
                     || (order.status === 'refunded' && 'error')
                     || 'warning'}
                   >
@@ -131,7 +111,10 @@ export const LatestOrders = (props) => (
                   </SeverityPill>
                 </TableCell>
                 <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
+                  {format(order.message.message_timestamp, 'dd/MM/yyyy mm:ss')}
+                </TableCell>
+                <TableCell>
+                  {format(order.message.receive_timestamp, 'dd/MM/yyyy mm:ss')}
                 </TableCell>
               </TableRow>
             ))}
@@ -139,7 +122,7 @@ export const LatestOrders = (props) => (
         </Table>
       </Box>
     </PerfectScrollbar>
-    <Box
+    {/* <Box
       sx={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -154,6 +137,6 @@ export const LatestOrders = (props) => (
       >
         View all
       </Button>
-    </Box>
+    </Box> */}
   </>
 );

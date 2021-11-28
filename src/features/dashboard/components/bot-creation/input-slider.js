@@ -2,15 +2,10 @@ import * as React from 'react';
 import { Box, Grid, Typography, Slider } from '@mui/material';
 
 const marks = [{value: 0, label: '0'}, 
-            //    {value: 1, label: '0.1'}, 
                {value: 2, label: '0.2'}, 
-            //    {value: 3, label: '0.3'}, 
                {value: 4, label: '0.4'},
-            //    {value: 5, label: '0.5'}, 
                {value: 6, label: '0.6'},
-            //    {value: 7, label: '0.7'}, 
                {value: 8, label: '0.8'},
-            //    {value: 9, label: '0.9'},
                {value: 10, label: '1'}]
 function valuetext(value) {
     return `${value}`;
