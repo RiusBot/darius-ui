@@ -1,0 +1,11 @@
+steps:
+# build the container image
+- name: "gcr.io/cloud-builders/docker"
+  args:
+  - build
+  - "--tag=gcr.io/darius-332003/darius-ui"
+  - "--file=Dockerfile"
+  - "--cache-from=gcr.io/darius-332003/darius-ui:latest"
+  - .
+images:
+- "gcr.io/darius-332003/darius-ui:latest"
