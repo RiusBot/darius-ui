@@ -25,35 +25,86 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      display: false
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Rose Backtest Complete Line Chart',
     },
   },
+  scales: {
+    y: {
+        ticks: {
+          beginAtZero: false,
+          callback(value) {
+            return `${value*100}%`;
+          }
+        }
+      }
+  }
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => {return -1000 + Math.floor(Math.random() * 2000)}),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+export const TimeseriesChart = (props) => {
+  const { data } = props;
+  const [chartData, setChartData] = React.useState({labels:[], datasets: []});
+  React.useEffect(() => {
+    if (data.length === 0){ 
+      return;
+    } else {
+      const labels = data.map((row, id) => {return (id%3 == 0)? row.date.split(" ")[0] : ""});
+      const startValue = parseInt(data[0].balance);
+      setChartData( {
+        labels,
+        datasets: [
+          {
+            label: 'Complete',
+            data: data.map((row) => {return parseInt(row.balance)/startValue}),
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          }
+        ]
+      });
+    }
+  }, [data]);
+  
+  const lineOptions = {
+    onClick: (e, element) => {
+      if (element.length > 0) {
+        var ind = element[0]._index;
+        alert(ind);
+      }
     },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => {return -1000 + Math.floor(Math.random() * 2000)}),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            display: false
+          }
+        }
+      ],
+      yAxes: [
+        {
+          // stacked: true,
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            beginAtZero: true,
+            // Return an empty string to draw the tick line but hide the tick label
+            // Return `null` or `undefined` to hide the tick line entirely
+            userCallback(value) {
+              // Convert the number to a string and splite the string every 3 charaters from the end
+              value = value.toString();
+              value = value.split(/(?=(?:...)*$)/);
+  
+              // Convert the array to a string and format the output
+              value = value.join(".");
+              return `Rp.${value}`;
+            }
+          }
+        }
+      ]
     },
-  ],
-};
-
-export const TimeseriesChart = () => {
-  return <Line options={options} data={data} />;
+  };
+  return <Line options={options} data={chartData} />;
 }

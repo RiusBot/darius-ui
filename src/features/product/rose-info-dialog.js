@@ -1,12 +1,29 @@
+import React from 'react';
+import Papa from 'papaparse';
 import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
 
-// TODO:
-// 1. Add Cancel Icon
-// 2. Modify Save Button
 export const RoseInfoDialog = (props) => {
     const { open, onClose } = props;
+    const [backtestRecords, setRecords] = React.useState({complete: [], short: []})
+
+    React.useEffect(() => {
+        async function getData(file) {
+          const path = '/data/backtest_record/rose_backtest_' + file + '.csv';
+          const response = await fetch(path);
+          const reader = response.body.getReader();
+          const result = await reader.read(); // raw array
+          const decoder = new TextDecoder('utf-8');
+          const csv = decoder.decode(result.value); // the csv text
+          const results = Papa.parse(csv, { header: true }); // object with { data, errors, meta }
+          const data = results.data; // array of objects
+          setRecords({...backtestRecords, [file]: data});
+        }
+        getData('complete');
+        getData('short');
+      }, [])
+
     return (
         <Dialog
             open={open}
@@ -16,7 +33,7 @@ export const RoseInfoDialog = (props) => {
             <Box
                 sx={{
                     'display': 'flex',
-                    'flex-direction': 'row',
+                    'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 16px 8px'
                 }}>
@@ -35,7 +52,7 @@ export const RoseInfoDialog = (props) => {
                 sx={{
                     'width:': 800,
                     'height': '80vh',
-                    'overflow-y': 'scroll',
+                    'overflowY': 'scroll',
                     'padding': '16px 16px',
                 }}>
                 
@@ -52,7 +69,6 @@ export const RoseInfoDialog = (props) => {
                         3. 採用最高速的網路<br/>
                     </Typography>
                 </Box>
-
                 <Box sx={{p:2}} >
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
                         Rose歷史績效分析
@@ -65,7 +81,6 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
                 </Box>
 
-                <TimeseriesChart></TimeseriesChart>
 
                 <Box sx={{p:2}} >
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
@@ -102,18 +117,10 @@ export const RoseInfoDialog = (props) => {
                         單純現貨交易，3個月全倉滾績效達2000%。<br/>
                     </Typography>
 
-                    <p style={{marginTop: 32}}>淨資產曲線：</p>
-                    <Box sx={{ textAlign: 'center' }}>
-                        <img
-                        alt="Under development"
-                        src="/static/images/products/rose_net_assets_chart_complete.png"
-                        style={{
-                            display: 'inline-block',
-                            maxWidth: '100%',
-                            width: 760
-                        }}
-                        />
-                    </Box>
+                    <p style={{marginTop: 32}}>淨資產曲線：</p> 
+                    <TimeseriesChart
+                        data={backtestRecords.complete}
+                    />
                 </Box>
 
                 <Box sx={{p:2}} >
