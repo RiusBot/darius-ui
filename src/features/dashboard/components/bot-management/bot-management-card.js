@@ -16,8 +16,8 @@ let bots = [{channel: "Rose Premium",
 // 2. get working bot list from api
 // 3. get order history from api
 export default function BotManagementCard(props) {
-
-    const [value, setValue] = React.useState(0);
+    const { openConfirmDialog } = props;
+    const [value, setValue] = React.useState('0');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -40,13 +40,16 @@ export default function BotManagementCard(props) {
                         {bots.map((bot, index) => {
                             return <Tab 
                                         key={index}
-                                        label={bot.channel} value={index}/>
+                                        label={bot.channel} 
+                                        value={`${index}`}/>
                         })}
                     </TabList>
                     <TabPanel value={value}>
                         <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                             <BotTradesTable/>
-                            <BotSettings/>
+                            <BotSettings
+                                openConfirmDialog={openConfirmDialog}
+                                />
                         </Box>
                     </TabPanel>
                 </TabContext>

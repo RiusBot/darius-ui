@@ -94,17 +94,9 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p>
-                    <Box sx={{ textAlign: 'center' }}>
-                        <img
-                        alt="Under development"
-                        src="/static/images/products/rose_net_assets_chart.png"
-                        style={{
-                            display: 'inline-block',
-                            maxWidth: '100%',
-                            width: 760
-                        }}
-                        />
-                    </Box>
+                    <TimeseriesChart
+                        data={backtestRecords.short}
+                    />
                 </Box>
 
                 <Box sx={{p:2}} >

@@ -22,7 +22,8 @@ const setting = {
     margin: "50",
     minimum_volume: "50",
 }
-export const BotSettings = () => {
+export const BotSettings = (props) => {
+    const { openConfirmDialog } = props;
     return (
         <Box sx={{ padding: '0 32px' }}>
             <Typography variant="h6">
@@ -60,7 +61,7 @@ export const BotSettings = () => {
                     endIcon={<DeleteForeverIcon fontSize="small" />}
                     size="small"
                     variant="contained"
-                    onClick={() => openCreateBotDialog(bot.channel)}
+                    onClick={() => openConfirmDialog("botDelete")}
                     sx={{mt: 2}}
                 >
                     Delete Bot

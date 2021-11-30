@@ -4,8 +4,6 @@ import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircle from '@mui/icons-material/AddCircle'
 
-// TODO:
-// 2. Modify Save Button
 function BotCreationDialog(props) {
     const { open, channel, onClose } = props;
     return (
@@ -49,7 +47,7 @@ function BotCreationDialog(props) {
                         endIcon={<AddCircle fontSize="small" />}
                         size="small"
                         variant="contained"
-                        onClick={() => openCreateBotDialog(bot.channel)}
+                        onClick={() => onClose}
                         style={{'marginLeft': 'auto'}}
                     >
                         Save and Create

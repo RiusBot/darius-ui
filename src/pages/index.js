@@ -6,15 +6,27 @@ import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
+import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 
 const Dashboard = () => {
-  const [{open, channel}, setDialog] = useState({open: false, channel: ""});
-  const handleBotCreationDialogOpen = (channel) => {
-    setDialog({open: true, channel: channel});
+  const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
+  const [botDeleteDialog, setBotDeleteDialog] = useState({open: false});
+  const handleDialogOpen = (dialog, channel) => {
+    switch (dialog) {
+      case 'botCreate':
+        setBotCreateDialog({open: true, channel: channel});
+        break;
+      case 'botDelete':
+        setBotDeleteDialog({open: true});
+        break;
+    }
   }
-  const handleBotCreationDialogClose = () => {
+  const handleDeleteDialogClose = () => {
+    setBotDeleteDialog({open: false});
+  }
+  const handleCreateDialogClose = () => {
     //TODO: save change(create bot)
-    setDialog({open: false, channel: ""});
+    setBotCreateDialog({open: false, channel: ""});
   }
   return (
     <>
@@ -57,7 +69,7 @@ const Dashboard = () => {
                           <BotCard
                             key={index}
                             bot={bot}
-                            openCreateBotDialog={handleBotCreationDialogOpen}
+                            openCreateBotDialog={handleDialogOpen}
                           />
                         </Box>
               })}
@@ -70,7 +82,9 @@ const Dashboard = () => {
               xl={9}
               xs={12}
             >
-              <BotManagementCard />
+              <BotManagementCard 
+                openConfirmDialog={handleDialogOpen}
+                />
             </Grid>
 
           </Grid>
@@ -78,10 +92,15 @@ const Dashboard = () => {
       </Box>
 
       <BotCreationDialog
-        open={open}
-        channel={channel}
-        onClose={handleBotCreationDialogClose}
+        open={botCreateDialog.open}
+        channel={botCreateDialog.channel}
+        onClose={handleCreateDialogClose}
         />
+
+      <ConfirmDialog
+        open={botDeleteDialog.open}
+        onClose={handleDeleteDialogClose}
+      />
     </>
 )};
 

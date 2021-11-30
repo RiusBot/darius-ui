@@ -57,7 +57,7 @@ const BotCard = (props) => {
             endIcon={<AddCircle fontSize="small" />}
             size="small"
             variant="contained"
-            onClick={() => openCreateBotDialog(bot.channel)}
+            onClick={() => openCreateBotDialog("botCreate", bot.channel)}
           >
             Create
           </Button>
