@@ -3,20 +3,53 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
-export default function DefaultConfigSettings() {
+
+const configs = ['target', 'orderType', 'stopLossType', 'stopLoss', 'takeProfitType',
+                 'takeProfit', 'quantity', 'leverage', 'minimumMargin', 'minimumVolume']
+export default function DefaultConfigSettings(props) {
+    const { createDisabled } = props;
     const [orderOptions, setOrders] = React.useState({test: true,
                                                        duplicate: false})
-    const [configOptions, setConfigs] = React.useState({target: 'spot',
-                                                        orderType: 'limit', 
-                                                        stopLossType: 'limit', 
-                                                        takeProfitType: 'limit'});
+    const [configOptions, setConfigs] = React.useState({ });
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
     const handleOptionChange = (event) => {
-        // TODO: Add value check for textfields
         setConfigs({...configOptions, [event.target.name]: event.target.value});
     };
+    const handleSliderChange = (event, newValue) => {
+        setConfigs({...configOptions, [event.target.name]: newValue/10});
+    }
+    const checkOptionsValid = (option) => {
+        switch (option) {
+            case 'target':
+            case 'orderType':
+            case 'stopLossType':
+            case 'takeProfitType':
+                return (configOptions[option] !== undefined);
+            case 'stopLoss':
+            case 'takeProfit':
+                return (0 < configOptions[option] && configOptions[option] < 1);
+            case 'quantity':
+                return (configOptions[option] > 100);
+            case 'leverage':
+            case 'minimumMargin':
+            case 'minimumVolume':
+                return (configOptions[option] > 0);
+        }
+    }
+    React.useEffect(() => {
+        function checkOptionsReady() {
+          for (let i = 0; i < configs.length; i ++) {
+            if (!checkOptionsValid(configs[i])) {
+                return false;
+            }
+          }
+          return true;
+        }
+        const optionsReady = checkOptionsReady();
+        createDisabled(!optionsReady)
+      }, [orderOptions, configOptions])
     return (
         <Box sx={{m:2}} >
             <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
@@ -87,7 +120,11 @@ export default function DefaultConfigSettings() {
                     </FormControl>
                 </Box>
                 <Box sx={{paddingLeft: '48px'}}>
-                    <InputSlider name="Stop Loss"/>
+                    <InputSlider 
+                        name="Stop Loss"
+                        id="stopLoss"
+                        handleSliderChange={handleSliderChange}
+                        value={configOptions.stopLoss}/>
                 </Box>
             </Box>
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
@@ -106,7 +143,11 @@ export default function DefaultConfigSettings() {
                     </FormControl>
                 </Box>
                 <Box sx={{paddingLeft: '48px'}}>
-                    <InputSlider name="Take Profit"/>
+                    <InputSlider 
+                        name="Take Profit"
+                        id="takeProfit"
+                        handleSliderChange={handleSliderChange}
+                        value={configOptions.takeProfit}/>
                 </Box>
             </Box>
             <Box

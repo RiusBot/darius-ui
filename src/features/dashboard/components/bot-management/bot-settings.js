@@ -9,23 +9,15 @@ import {
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-
-const setting = {
-    target: "SPOT",
-    order_type: "limit",
-    stop_loss_type: "limit",
-    stop_loss: "0.5",
-    take_profit_type: "limit",
-    take_profit: "0.5",
-    quantity: "50",
-    leverage: "50",
-    margin: "50",
-    minimum_volume: "50",
-}
 export const BotSettings = (props) => {
-    const { openConfirmDialog } = props;
+    const { openConfirmDialog, setting } = props;
     return (
-        <Box sx={{ padding: '0 32px' }}>
+        <Box 
+            sx={{ margin: '-32px 0 32px 32px', 
+                  padding: '32px',
+                  border: '1px solid #C3B292',
+                  borderRadius: '16px',
+                  width: '100%' }}>
             <Typography variant="h6">
                 Bot Settings
             </Typography>
@@ -62,7 +54,7 @@ export const BotSettings = (props) => {
                     size="small"
                     variant="contained"
                     onClick={() => openConfirmDialog("botDelete")}
-                    sx={{mt: 2}}
+                    sx={{mt: 2,}}
                 >
                     Delete Bot
                 </Button>

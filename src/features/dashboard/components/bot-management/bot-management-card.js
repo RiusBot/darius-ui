@@ -12,9 +12,22 @@ let bots = [{channel: "Rose Premium",
               interestRate: 180 }];
 
 // TODO: 
-// 1. add bot management area (ex. delete )
 // 2. get working bot list from api
 // 3. get order history from api
+
+const setting = {
+    target: "SPOT",
+    order_type: "limit",
+    stop_loss_type: "limit",
+    stop_loss: "0.5",
+    take_profit_type: "limit",
+    take_profit: "0.5",
+    quantity: "50",
+    leverage: "50",
+    margin: "50",
+    minimum_volume: "50",
+}
+
 export default function BotManagementCard(props) {
     const { openConfirmDialog } = props;
     const [value, setValue] = React.useState('0');
@@ -22,6 +35,10 @@ export default function BotManagementCard(props) {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const getBotSetting = (id) => {
+        return setting;   
+    }
 
     return (
         <Card>
@@ -49,6 +66,7 @@ export default function BotManagementCard(props) {
                             <BotTradesTable/>
                             <BotSettings
                                 openConfirmDialog={openConfirmDialog}
+                                setting={getBotSetting(value)}
                                 />
                         </Box>
                     </TabPanel>

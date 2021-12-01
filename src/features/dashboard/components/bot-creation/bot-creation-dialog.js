@@ -6,6 +6,10 @@ import AddCircle from '@mui/icons-material/AddCircle'
 
 function BotCreationDialog(props) {
     const { open, channel, onClose } = props;
+    const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
+    const handleCreateButton = (disabled) => {
+        setCreateButtonDisabled(disabled);
+    }
     return (
         <Dialog
             open={open}
@@ -34,7 +38,9 @@ function BotCreationDialog(props) {
                 sx={{
                     'padding': '16px',
                     'overflow-y': 'scroll',}}>
-                <DefaultConfigSettings/>
+                <DefaultConfigSettings
+                    createDisabled={handleCreateButton}
+                />
                 <Box
                     sx={{
                         pt: 2,
@@ -44,11 +50,12 @@ function BotCreationDialog(props) {
                     >
                     <Button
                         color="primary"
+                        style={{'marginLeft': 'auto'}}
                         endIcon={<AddCircle fontSize="small" />}
                         size="small"
                         variant="contained"
                         onClick={() => onClose}
-                        style={{'marginLeft': 'auto'}}
+                        disabled={createButtonDisabled}
                     >
                         Save and Create
                     </Button>

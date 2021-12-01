@@ -12,24 +12,7 @@ function valuetext(value) {
   }
 
 export default function InputSlider(props) {
-  const { name } = props;
-  const [value, setValue] = React.useState(0);
-
-  const handleSliderChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleInputChange = (event) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
-  };
-
-  const handleBlur = () => {
-    if (value < 0) {
-      setValue(0);
-    } else if (value > 10) {
-      setValue(10);
-    }
-  };
+  const { name, id, handleSliderChange, value } = props;
 
   return (
     <Box sx={{ width: 320 }}>
@@ -39,6 +22,7 @@ export default function InputSlider(props) {
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
           <Slider
+            name={id}
             aria-label="Always visible"
             value={value}
             onChange={handleSliderChange}
