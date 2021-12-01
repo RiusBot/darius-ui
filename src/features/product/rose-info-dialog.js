@@ -35,7 +35,7 @@ export const RoseInfoDialog = (props) => {
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
-                    'padding': '32px 16px 8px'
+                    'padding': '32px 24px 32px'
                 }}>
                 <Typography variant="h5" component="div">
                     Rose Premium

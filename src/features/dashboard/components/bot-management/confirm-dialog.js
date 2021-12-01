@@ -11,8 +11,8 @@ export const ConfirmDialog = (props) => {
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
       >
-        <DialogTitle id="confirm-dialog-title">
-          {"Are you sure you want to close this bot?"}
+        <DialogTitle id="confirm-dialog-title" sx={{pt:2}}>
+          {"Are you sure you want to delete this bot?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="confirm-dialog-description">

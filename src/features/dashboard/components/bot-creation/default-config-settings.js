@@ -4,25 +4,18 @@ import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material
 import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 export default function DefaultConfigSettings() {
-
-    const [{target, 
-            orderType, 
-            stopLossType, 
-            takeProfitType}, setOptions] = React.useState({target: 'spot',
-                                                           orderType: 'limit', 
-                                                           stopLossType: 'limit', 
-                                                           takeProfitType: 'limit'});
-
+    const [orderOptions, setOrders] = React.useState({test: true,
+                                                       duplicate: false})
+    const [configOptions, setConfigs] = React.useState({target: 'spot',
+                                                        orderType: 'limit', 
+                                                        stopLossType: 'limit', 
+                                                        takeProfitType: 'limit'});
+    const handleCheckBoxChange = (event) => {
+        setOrders({...orderOptions, [event.target.id]: event.target.checked});
+    }
     const handleOptionChange = (event) => {
-        console.log(event);
-        switch (event.target.name) {
-            case "orderType":
-                setOptions({orderType: event.target.value});
-            case "stopLossType":
-                setOptions({stopLossType: event.target.value});
-            case "takeProfitType":
-                setOptions({takeProfitType: event.target.value});
-        }
+        // TODO: Add value check for textfields
+        setConfigs({...configOptions, [event.target.name]: event.target.value});
     };
     return (
         <Box sx={{m:2}} >
@@ -30,8 +23,18 @@ export default function DefaultConfigSettings() {
                 Order Settings
             </Typography>
             <FormGroup >
-                <FormControlLabel control={<Checkbox defaultChecked/>} label="Test only" />
-                <FormControlLabel control={<Checkbox defaultChecked/>} label="No duplicate Order" />
+                <FormControlLabel 
+                    control={<Checkbox 
+                                id="test"
+                                checked={orderOptions.test}
+                                onChange={handleCheckBoxChange}/>} 
+                    label="Test only" />
+                <FormControlLabel 
+                    control={<Checkbox 
+                                id="duplicate"
+                                checked={orderOptions.duplicate}
+                                onChange={handleCheckBoxChange}/>} 
+                    label="No duplicate Order" />
             </FormGroup>
             <Divider />
             <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
@@ -39,13 +42,13 @@ export default function DefaultConfigSettings() {
             </Typography>
             <Box sx={{p:2}}>
                 <FormControl fullWidth>
-                    <InputLabel id="target">Target</InputLabel>
+                    <InputLabel >Target</InputLabel>
                     <Select
-                    name="target"
-                    id="target"
-                    value={target}
-                    label="Target"
-                    onChange={handleOptionChange}
+                        name="target"
+                        id="target"
+                        value={configOptions.target}
+                        label="Target"
+                        onChange={handleOptionChange}
                     >
                         <MenuItem value={"spot"}>SPOT</MenuItem>
                         <MenuItem value={"margin"}>MARGIN</MenuItem>
@@ -55,11 +58,11 @@ export default function DefaultConfigSettings() {
             </Box>
             <Box sx={{p:2}}>
                 <FormControl fullWidth>
-                    <InputLabel id="orderType">Order Type</InputLabel>
+                    <InputLabel >Order Type</InputLabel>
                     <Select
                     name="orderType"
                     id="orderType"
-                    value={orderType}
+                    value={configOptions.orderType}
                     label="orderType"
                     onChange={handleOptionChange}
                     >
@@ -71,11 +74,10 @@ export default function DefaultConfigSettings() {
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
                 <Box sx={{width: '50%'}}>
                     <FormControl fullWidth>
-                        <InputLabel id="stopLossType">Stop Loss Type</InputLabel>
+                        <InputLabel>Stop Loss Type</InputLabel>
                         <Select
                         name="stopLossType"
-                        id="stopLossType"
-                        value={stopLossType}
+                        value={configOptions.stopLossType}
                         label="stopLossType"
                         onChange={handleOptionChange}
                         >
@@ -91,11 +93,10 @@ export default function DefaultConfigSettings() {
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
                 <Box sx={{width: '50%'}}>
                     <FormControl fullWidth>
-                        <InputLabel id="takeProfitType">Take Profit Type</InputLabel>
+                        <InputLabel>Take Profit Type</InputLabel>
                         <Select
                         name="takeProfitType"
-                        id="takeProfitType"
-                        value={takeProfitType}
+                        value={configOptions.takeProfitType}
                         label="takeProfitType"
                         onChange={handleOptionChange}
                         >
@@ -109,18 +110,66 @@ export default function DefaultConfigSettings() {
                 </Box>
             </Box>
             <Box
-                component="textform"
                 sx={{
-                    '& > :not(style)': { m: 1, width: '28ch' },
+                    '& > :not(style)': { m: 1, },
+                    display: "flex",
+                    flexDirection: "column"
                 }}
                 noValidate
                 autoComplete="off"
-                style={{"display": "flex", "flexDirection": "column"}}
                 >
-                <TextField id="quantity" label="Quantity" variant="outlined" />
-                <TextField id="leverage" label="Leverage" variant="outlined" />
-                <TextField id="minimum-margin" label="Minimum Margin Ratio" variant="outlined" />
-                <TextField id="minimum-volumn" label="Minimum Volumn" variant="outlined" />
+                <Box sx={{display: "flex", flexDirection: "row"}}>
+                    <Box sx={{width: '30%'}}>
+                        <TextField 
+                            required fullWidth
+                            name="quantity" 
+                            label="Quantity" 
+                            variant="outlined" 
+                            onChange={handleOptionChange}/>
+                    </Box>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >Limit: Quantity > 100</Typography>
+                    </Box>
+                </Box>
+                <Box sx={{display: "flex", flexDirection: "row"}}>
+                    <Box sx={{width: '30%'}}>
+                        <TextField 
+                            required fullWidth
+                            name="leverage" 
+                            label="Leverage" 
+                            variant="outlined" 
+                            onChange={handleOptionChange}/>
+                    </Box>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >Limit: Leverage > 0</Typography>
+                    </Box>
+                </Box>
+                <Box sx={{display: "flex", flexDirection: "row"}}>
+                    <Box sx={{width: '30%'}}>
+                        <TextField 
+                            required fullWidth
+                            name="minimumMargin" 
+                            label="Minimum Margin Ratio" 
+                            variant="outlined" 
+                            onChange={handleOptionChange}/>
+                    </Box>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >Limit: Margin > 0</Typography>
+                    </Box>
+                </Box>
+                <Box sx={{display: "flex", flexDirection: "row"}}>
+                    <Box sx={{width: '30%'}}>
+                        <TextField 
+                            required fullWidth
+                            name="minimumVolume" 
+                            label="Minimum Volume" 
+                            variant="outlined"
+                            onChange={handleOptionChange}/>
+                    </Box>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >Limit: Volume > 0</Typography>
+                    </Box>
+                </Box>
             </Box>
 
         </Box>
