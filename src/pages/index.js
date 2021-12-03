@@ -1,4 +1,5 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
@@ -7,8 +8,17 @@ import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
+import { getUserBots } from '@/features/dashboard/dashboard-slice';
+import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  useEffect (() => {  
+    dispatch(getUserBots({userId: 3}))
+    },[]
+  );
+  const userBots = useSelector(getUserBotsFromState);
+  console.log(userBots);
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false});
   const handleDialogOpen = (dialog, channel) => {
