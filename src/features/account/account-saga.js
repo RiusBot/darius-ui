@@ -6,7 +6,7 @@ import {
   updateUserInfoSuccess
 } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
-import { getUserAuth } from '@/common/selectors';
+import { getAuthUser } from '@/common/selectors';
 
 function* updateUserSaga({ payload: newUserInfo }) {
   const axios = yield getAxios();
@@ -30,9 +30,9 @@ function* updateUserSaga({ payload: newUserInfo }) {
 
 function* createUserSaga() {
   const axios = yield getAxios();
-  const userAuth = yield select(getUserAuth);
+  const auth = yield select(getAuthUser);
   const data = {
-    uid: userAuth.uid,
+    uid: auth.uid,
   }
   const url = `/api/v1/create_user`;
   const requestMethod = 'POST';
