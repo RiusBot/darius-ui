@@ -6,6 +6,8 @@ import {
   botDeletionSuccess,
   getUserBots,
   getUserBotsSuccess,
+  getBotTrades,
+  getBotTradesSuccess,
 } from '@/features/dashboard/dashboard-slice';
 import getAxios from '@/common/utils/getAxios';
 
@@ -67,21 +69,40 @@ function* deleteBotSaga({ payload: deleteBotInfo }) {
   }
 }
 
-function* getUserBotsSaga({ payload: userID }) {
+function* getUserBotsSaga({ payload: userInfo }) {
   const axios = yield getAxios();
   const url = `/api/v1/get_user_bots`;
   const requestMethod = 'GET';
-  const data = {
-    user_id: userId,
+  const params = {
+    user_id: userInfo.userId,
   }
   try {
     const res = yield axios(url, {
       method: requestMethod,
-      data,
+      params
     });
-    yield put(getUserBotsSuccess(res));
+    yield put(getUserBotsSuccess(res.data));
   } catch(error) {
     const errorMsg = 'Failed to get user bots';
+  }
+}
+
+function* getBotTradesSaga({ payload: botInfo }) {
+  const axios = yield getAxios();
+  const url = `/api/v1/get_bot_trades`;
+  const requestMethod = 'GET';
+  const params = {
+    user_id: botInfo.userId,
+    bot_id: botInfo.botId,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params
+    });
+    yield put(getBotTradesSuccess(res.data));
+  } catch(error) {
+    const errorMsg = 'Failed to get bot trades'
   }
 }
 
@@ -90,6 +111,7 @@ function* dashboardSaga() {
     takeLatest(createBot.toString(), createBotSaga),
     takeLatest(deleteBot.toString(), deleteBotSaga),
     takeLatest(getUserBots.toString(), getUserBotsSaga),
+    takeLatest(getBotTrades.toString(), getBotTradesSaga),
   ]);
 }
 

@@ -1,21 +1,14 @@
-import { format } from 'date-fns';
+import { React, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import {
-  Box,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Tooltip,
-  Typography
-} from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { format } from 'date-fns';
+import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
+import { Box, Tooltip, Typography } from '@mui/material';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
+import { getBotTrades } from '@/features/dashboard/dashboard-slice';
+import { getBotTradesFromState } from '@/features/dashboard/dashboard-selector';
 
-const orders = [
+const blankTrade = [
   {
     message: {
       channel: "Rose",
@@ -29,114 +22,105 @@ const orders = [
     error: '',
   },
 ];
+export const BotTradesTable = (props) => {
+  const dispatch = useDispatch();
+  const { botId } = props;
+  const [botTrades, setBotTrades] = useState([]);
 
-export const BotTradesTable = (props) => (
-  <>
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Typography variant="h6">
-          Trading History
-        </Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Channel
-              </TableCell>
-              <TableCell>
-                Content
-              </TableCell>
-              <TableCell>
-                Symbol
-              </TableCell>
-              <TableCell>
-                Action
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
+  useEffect (() => {  
+      dispatch(getBotTrades({userId: 2, botId: botId}));
+      },[]
+  );
+  const allBotTrades = useSelector(getBotTradesFromState);
+
+  useEffect (() => {
+    if (allBotTrades[botId]) {
+      setBotTrades(allBotTrades[botId]);
+    }
+  }, [allBotTrades]);
+  console.log(botTrades);
+
+
+  return (
+    <>
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 520, width: 800 }}>
+          <Typography variant="h6">
+            Trading History
+          </Typography>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sortDirection="desc">
+                  <Tooltip
+                    enterDelay={300}
+                    title="Sort"
                   >
-                    Message Timestamp
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Received Timestamp
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order, index) => (
-              <TableRow
-                hover
-                key={index}
-              >
-                <TableCell>
-                  {order.message.channel}
+                    <TableSortLabel
+                      active
+                      direction="desc"
+                    >
+                      Message Timestamp
+                    </TableSortLabel>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
-                  {order.message.content}
+                  Symbol
                 </TableCell>
                 <TableCell>
-                  {order.message.symbol}
+                  Action
                 </TableCell>
                 <TableCell>
-                  {order.message.action}
-                </TableCell>
-                <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'open' && 'success')
-                    || (order.status === 'refunded' && 'error')
-                    || 'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
-                </TableCell>
-                <TableCell>
-                  {format(order.message.message_timestamp, 'dd/MM/yyyy mm:ss')}
-                </TableCell>
-                <TableCell>
-                  {format(order.message.receive_timestamp, 'dd/MM/yyyy mm:ss')}
+                  Status
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    {/* <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody>
+              {botTrades.map((trade, index) => (
+                <TableRow
+                  hover
+                  key={index}
+                >
+                  <TableCell>
+                    {format(trade.message.message_timestamp, 'dd/MM/yyyy mm:ss')}
+                  </TableCell>
+                  <TableCell>
+                    {trade.message.symbol}
+                  </TableCell>
+                  <TableCell>
+                    {trade.message.action}
+                  </TableCell>
+                  <TableCell>
+                    <SeverityPill
+                      color={(trade.status === 'open' && 'success')
+                      || (trade.status === 'refunded' && 'error')
+                      || 'warning'}
+                    >
+                      {trade.status}
+                    </SeverityPill>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      {/* <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
-      </Button>
-    </Box> */}
-  </>
-);
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box> */}
+    </>
+  );
+}

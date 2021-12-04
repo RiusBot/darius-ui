@@ -7,7 +7,6 @@ export const ConfirmDialog = (props) => {
     return (
       <Dialog
         open={open}
-        onClose={onClose}
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
       >
@@ -16,8 +15,8 @@ export const ConfirmDialog = (props) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="confirm-dialog-description">
-            After you delete the bot, it will no longer be functioning.
-            You will have to recreate it from start.
+            After you delete the bot, it will no longer be functioning and creating trade orders.
+            You will have to recreate another bot from sketch.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

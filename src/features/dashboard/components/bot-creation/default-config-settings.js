@@ -4,12 +4,12 @@ import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material
 import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 
-const configs = ['target', 'orderType', 'stopLossType', 'stopLoss', 'takeProfitType',
+const mockAPIs = ['testAPI11111', 'testAPI222222', 'testAPI333333'];
+const configs = ['api', 'target', 'orderType', 'stopLossType', 'stopLoss', 'takeProfitType',
                  'takeProfit', 'quantity', 'leverage', 'minimumMargin', 'minimumVolume']
 export default function DefaultConfigSettings(props) {
     const { createDisabled } = props;
-    const [orderOptions, setOrders] = React.useState({test: true,
-                                                       duplicate: false})
+    const [orderOptions, setOrders] = React.useState({test: true, duplicate: false})
     const [configOptions, setConfigs] = React.useState({ });
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
@@ -22,6 +22,7 @@ export default function DefaultConfigSettings(props) {
     }
     const checkOptionsValid = (option) => {
         switch (option) {
+            case 'api':
             case 'target':
             case 'orderType':
             case 'stopLossType':
@@ -69,6 +70,26 @@ export default function DefaultConfigSettings(props) {
                                 onChange={handleCheckBoxChange}/>} 
                     label="No duplicate Order" />
             </FormGroup>
+            <Divider />
+            <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
+                API Settings
+            </Typography>
+            <Box sx={{p:2}}>
+                <FormControl fullWidth>
+                    <InputLabel >API</InputLabel>
+                    <Select
+                        name="api"
+                        id="api"
+                        value={configOptions.api}
+                        label="api"
+                        onChange={handleOptionChange}
+                    >
+                        {mockAPIs.map((api, idx) => (
+                            <MenuItem value={idx}>{api}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
             <Divider />
             <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
                 Config Settings

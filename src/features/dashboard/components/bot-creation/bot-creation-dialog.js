@@ -2,7 +2,6 @@ import React from "react";
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
-import AddCircle from '@mui/icons-material/AddCircle'
 
 function BotCreationDialog(props) {
     const { open, channel, onClose } = props;
@@ -51,7 +50,6 @@ function BotCreationDialog(props) {
                     <Button
                         color="primary"
                         style={{'marginLeft': 'auto'}}
-                        endIcon={<AddCircle fontSize="small" />}
                         size="small"
                         variant="contained"
                         onClick={() => onClose}

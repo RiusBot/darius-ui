@@ -67,7 +67,7 @@ const Products = () => {
               ))}
             </Grid>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -79,7 +79,7 @@ const Products = () => {
               count={3}
               size="small"
             />
-          </Box>
+          </Box> */}
         </Container>
       </Box>
 

@@ -19,7 +19,7 @@ export const RoseInfoDialog = (props) => {
           const results = Papa.parse(csv, { header: true }); // object with { data, errors, meta }
           const data = results.data; // array of objects
           setRecords({...backtestRecords, [file]: data});
-          console.log(file, data);
+        //   console.log(file, data);
         }
         getData('complete');
         getData('short');

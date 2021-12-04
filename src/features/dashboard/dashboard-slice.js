@@ -4,6 +4,7 @@ const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState: {
     userBots: [],
+    userBotTrades: {},
   },
   reducers: {
     createBot: () => {},
@@ -16,9 +17,11 @@ const dashboardSlice = createSlice({
     },
     getUserBots: () => {},
     getUserBotsSuccess: (state, action) => {
-      // TODO: update user bot list
       state.userBots = action.payload;
-      console.log(action.payload);
+    },
+    getBotTrades: () => {},
+    getBotTradesSuccess: (state, action) => {
+      state.userBotTrades[action.payload[0].bot_id] = action.payload;
     }
   },
 });
@@ -32,6 +35,8 @@ export const {
   botDeletionSuccess,
   getUserBots,
   getUserBotsSuccess,
+  getBotTrades,
+  getBotTradesSuccess,
 } = actions
 
 export default reducer;
