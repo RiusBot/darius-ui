@@ -34,7 +34,6 @@ function* createUserSaga() {
   const data = {
     uid: userAuth.uid,
   }
-  console.log('rayy', data);
   const url = `/api/v1/create_user`;
   const requestMethod = 'POST';
   try {
