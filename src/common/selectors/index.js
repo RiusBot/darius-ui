@@ -1,3 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getAppState = (state) => state.app;
+const getFirebaseState = (state) => state.firebase;
+
+export const getUserAuth = createSelector(getFirebaseState, (firebase) => firebase.auth);
+

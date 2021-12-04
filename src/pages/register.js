@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
+import { useFirebase } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import {
   Box,
@@ -14,14 +16,17 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { createUser } from '@/app/app-slice';
 
 const Register = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const firebase = useFirebase();
+  
   const formik = useFormik({
     initialValues: {
       email: '',
-      firstName: '',
-      lastName: '',
+      username: '',
       password: '',
       policy: false
     },
@@ -33,16 +38,11 @@ const Register = () => {
         .max(255)
         .required(
           'Email is required'),
-      firstName: Yup
+      username: Yup
         .string()
         .max(255)
         .required(
-          'First name is required'),
-      lastName: Yup
-        .string()
-        .max(255)
-        .required(
-          'Last name is required'),
+          'Username is required'),
       password: Yup
         .string()
         .max(255)
@@ -55,8 +55,16 @@ const Register = () => {
           'This field must be checked'
         )
     }),
-    onSubmit: () => {
-      router.push('/');
+    onSubmit: (values) => {
+      const { email, password, username } = values;
+      firebase.createUser(
+        { email, password },
+        { displayName: username, email}
+      )
+      .then(() => {
+        dispatch(createUser());
+        router.push("/");
+      });
     }
   });
 
@@ -105,27 +113,15 @@ const Register = () => {
               </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              helperText={formik.touched.username && formik.errors.username}
+              label="Username"
               margin="normal"
-              name="firstName"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.firstName}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
-              fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
-              margin="normal"
-              name="lastName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.lastName}
+              value={formik.values.username}
               variant="outlined"
             />
             <TextField

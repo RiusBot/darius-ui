@@ -5,7 +5,7 @@ const appSlice = createSlice({
   initialState: {
     userInfo: {
       userId: 3,
-      userName: 'darius_test',
+      username: 'darius_test',
       email: 'darius@gmail.com',
     },
   },
@@ -14,6 +14,8 @@ const appSlice = createSlice({
     updateUserInfoSuccess: (state, action) => {
       state.userInfo = action.payload;
     },
+    createUser: () => {},
+    createUserSussess: () => {},
   },
 });
 
@@ -21,7 +23,9 @@ const { actions, reducer } = appSlice;
 
 export const {
   updateUserInfo,
-  updateUserInfoSuccess
+  updateUserInfoSuccess,
+  createUser,
+  createUserSussess,
 } = actions
 
 export default reducer;
