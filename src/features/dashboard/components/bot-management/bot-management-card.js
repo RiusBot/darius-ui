@@ -44,7 +44,7 @@ export default function BotManagementCard(props) {
         <Card>
             <CardHeader title="Working Bot Management" />
             <Box
-                sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 500 }}
+                sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', minHeight: '460px', paddingRight: '32px' }}
             >
                 <TabContext value={value}>
                     <TabList
@@ -52,7 +52,7 @@ export default function BotManagementCard(props) {
                         variant="scrollable"
                         onChange={handleChange}
                         aria-label="Vertical tabs example"
-                        sx={{ borderRight: 1, borderColor: 'divider' }}
+                        sx={{ borderRight: 1, borderColor: 'divider', minWidth: '120px' }}
                     >
                         {bots.map((bot, index) => {
                             return <Tab 
@@ -61,13 +61,15 @@ export default function BotManagementCard(props) {
                                         value={`${index}`}/>
                         })}
                     </TabList>
-                    <TabPanel value={value}>
+                    <TabPanel value={value} sx={{ overflowX: 'scroll', overflowY: 'hidden'}}>
                         <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                             <BotTradesTable/>
-                            <BotSettings
-                                openConfirmDialog={openConfirmDialog}
-                                setting={getBotSetting(value)}
-                                />
+                            <Box sx={{ minWidth: '320px' }} >
+                                <BotSettings
+                                    openConfirmDialog={openConfirmDialog}
+                                    setting={getBotSetting(value)}
+                                    />
+                            </Box>
                         </Box>
                     </TabPanel>
                 </TabContext>

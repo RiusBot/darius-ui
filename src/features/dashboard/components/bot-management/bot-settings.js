@@ -13,7 +13,7 @@ export const BotSettings = (props) => {
     const { openConfirmDialog, setting } = props;
     return (
         <Box 
-            sx={{ margin: '-32px 0 32px 32px', 
+            sx={{ margin: '-24px 0 32px 32px', 
                   padding: '32px',
                   border: '1px solid #C3B292',
                   borderRadius: '16px',
