@@ -10,7 +10,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '@/utils/create-emotion-cache';
 import theme from '@/app/theme';
 import { wrapper } from '@/app/store'
-import firebase from '@/common/utils/firebase';
+import firebase from '@/utils/firebase';
 
 const clientSideEmotionCache = createEmotionCache();
 
