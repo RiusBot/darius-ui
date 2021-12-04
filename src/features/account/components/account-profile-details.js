@@ -54,10 +54,10 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="User Name"
-                name="userName"
+                name="username"
                 onChange={handleChange}
                 required
-                value={userInfo.userName}
+                value={userInfo.username}
                 variant="outlined"
               />
             </Grid>

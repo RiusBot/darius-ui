@@ -9,7 +9,7 @@ function* updateUserSaga({ payload: newUserInfo }) {
   const axios = yield getAxios();
   const data = { 
     user_id: newUserInfo.userId,
-    user_name: newUserInfo.userName,
+    user_name: newUserInfo.username,
     email: newUserInfo.email
   };
   const url = `/api/v1/update_user_profile`;

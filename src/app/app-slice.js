@@ -5,7 +5,7 @@ const appSlice = createSlice({
   initialState: {
     userInfo: {
       userId: 3,
-      userName: 'darius_test',
+      username: 'darius_test',
       email: 'darius@gmail.com',
     },
   },

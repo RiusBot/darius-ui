@@ -1,19 +1,33 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux'
 import { useFormik } from 'formik';
+import { useFirebase } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '@/icons/facebook';
 import { Google as GoogleIcon } from '@/icons/google';
 
 const Login = () => {
   const router = useRouter();
+  
+  const firebase = useFirebase()
+  const auth = useSelector(state => state.firebase.auth)
+  const loginWithGoogle = () => {
+    firebase
+      .login({
+        provider: "google",
+        type: "popup",
+      })
+      .then(() => {
+        router.push("/");
+      });
+  };
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: 'test@darius.com',
+      password: 'test123'
     },
     validationSchema: Yup.object({
       email: Yup
@@ -29,8 +43,11 @@ const Login = () => {
         .required(
           'Password is required')
     }),
-    onSubmit: () => {
-      router.push('/');
+    onSubmit: (values) => {
+      firebase.login(values)
+      .then(() => {
+        router.push("/");
+      });
     }
   });
 
@@ -86,26 +103,10 @@ const Login = () => {
                 md={6}
               >
                 <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={formik.handleSubmit}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
                   fullWidth
                   color="error"
                   startIcon={<GoogleIcon />}
-                  onClick={formik.handleSubmit}
+                  onClick={loginWithGoogle}
                   size="large"
                   variant="contained"
                 >

@@ -46,7 +46,7 @@ export const AccountProfile = (props) => {
             gutterBottom
             variant="h5"
           >
-            {userInfo.userName}
+            {userInfo.username}
           </Typography>
         </Box>
       </CardContent>
