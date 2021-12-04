@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useFirebase } from 'react-redux-firebase'
@@ -15,16 +16,12 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { createUser } from '@/app/app-slice';
 
 const Register = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const firebase = useFirebase();
-  const createNewUser = ({ email, password, username }) => {
-    firebase.createUser(
-      { email, password },
-      { username, email }
-    )
-  }
   
   const formik = useFormik({
     initialValues: {
@@ -59,8 +56,15 @@ const Register = () => {
         )
     }),
     onSubmit: (values) => {
-      createNewUser(values)
-      router.push("/");
+      const { email, password, username } = values;
+      firebase.createUser(
+        { email, password },
+        { displayName: username, email}
+      )
+      .then(() => {
+        dispatch(createUser());
+        router.push("/");
+      });
     }
   });
 
