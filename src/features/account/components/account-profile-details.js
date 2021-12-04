@@ -53,7 +53,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="User Name"
+                label="Username"
                 name="username"
                 onChange={handleChange}
                 required

@@ -42,7 +42,7 @@ const Register = () => {
         .string()
         .max(255)
         .required(
-          'User name is required'),
+          'Username is required'),
       password: Yup
         .string()
         .max(255)
@@ -116,7 +116,7 @@ const Register = () => {
               error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
               helperText={formik.touched.username && formik.errors.username}
-              label="User Name"
+              label="Username"
               margin="normal"
               name="username"
               onBlur={formik.handleBlur}
