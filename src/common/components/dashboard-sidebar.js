@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/material';
@@ -11,6 +12,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { NavItem } from '@/common/components/nav-item';
 import { Selector as SelectorIcon } from '@/icons/selector';
 import { UserAdd as UserAddIcon } from '@/icons/user-add';
+import { getUserProfile } from '@/common/selectors';
 
 const items = [
   {
@@ -48,6 +50,7 @@ const items = [
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
+  const profile = useSelector(getUserProfile);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
@@ -80,12 +83,11 @@ export const DashboardSidebar = (props) => {
           <Box sx={{ p: 3 }}>
             <Avatar
               sx={{
-                height: 42,
-                width: 42,
+                height: 40,
+                width: 40,
               }}
-            >
-              <SmartToyIcon />
-            </Avatar>
+              src={profile.avatarUrl}
+            />
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
@@ -105,7 +107,7 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Acme Inc
+                  {profile.displayName}
                 </Typography>
                 <Typography
                   color="neutral.400"
@@ -116,13 +118,6 @@ export const DashboardSidebar = (props) => {
                   : Premium
                 </Typography>
               </div>
-              <SelectorIcon
-                sx={{
-                  color: 'neutral.500',
-                  width: 14,
-                  height: 14
-                }}
-              />
             </Box>
           </Box>
         </div>

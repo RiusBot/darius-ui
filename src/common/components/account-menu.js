@@ -80,7 +80,7 @@ export default function AccountMenu() {
           <ListItemIcon>
             <PersonIcon fontSize="small" />
           </ListItemIcon> 
-          My account
+          Your account
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>
