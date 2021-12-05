@@ -1,17 +1,14 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
+import { isEmpty } from 'react-redux-firebase'
 import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-import LockIcon from '@mui/icons-material/Lock';
-
 import { NavItem } from '@/common/components/nav-item';
-import { Selector as SelectorIcon } from '@/icons/selector';
-import { UserAdd as UserAddIcon } from '@/icons/user-add';
 import { getUserProfile } from '@/common/selectors';
 
 const items = [
@@ -34,16 +31,6 @@ const items = [
     href: '/settings',
     icon: (<NoteAddIcon fontSize="small" />),
     title: 'Tutorial'
-  },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
   },
 ];
 
@@ -79,7 +66,19 @@ export const DashboardSidebar = (props) => {
           height: '100%'
         }}
       >
-        <div>
+        {isEmpty(profile)
+        && <Box sx={{ p: 3 }}>
+          <Avatar
+            sx={{
+              height: 40,
+              width: 40,
+            }}
+          >
+            <SmartToyIcon />
+          </Avatar>
+        </Box>}
+        {!isEmpty(profile)
+         && <div>
           <Box sx={{ p: 3 }}>
             <Avatar
               sx={{
@@ -120,7 +119,7 @@ export const DashboardSidebar = (props) => {
               </div>
             </Box>
           </Box>
-        </div>
+        </div>}
         <Divider
           sx={{
             borderColor: '#2D3748',

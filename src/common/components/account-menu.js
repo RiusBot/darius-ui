@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase';
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
 import Logout from '@mui/icons-material/Logout';
-import { getUserProfile } from '../selectors';
+import { getUserProfile } from '@/common/selectors';
 
 export default function AccountMenu() {
   const profile = useSelector(getUserProfile);
@@ -32,16 +31,15 @@ export default function AccountMenu() {
       router.push('/')
     })
   }
+
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
-          <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-            <Avatar sx={{ height: 40, width: 40, ml: 1 }} src={profile.avatarUrl} />
-            <ArrowDropDownIcon color={anchorEl? 'primary': ''} />
-          </IconButton>
-        </Tooltip>
-      </Box>
+      <Tooltip title="Account settings">
+        <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
+          <Avatar sx={{ height: 40, width: 40, ml: 1 }} src={profile.avatarUrl} />
+          <ArrowDropDownIcon color={anchorEl ? 'primary' : ''} />
+        </IconButton>
+      </Tooltip>
       <Menu
         anchorEl={anchorEl}
         open={open}
