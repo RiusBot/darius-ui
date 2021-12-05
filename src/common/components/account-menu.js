@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import { useFirebase } from 'react-redux-firebase';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -15,6 +16,7 @@ import Logout from '@mui/icons-material/Logout';
 
 export default function AccountMenu() {
   const router = useRouter();
+  const firebase = useFirebase();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -23,6 +25,11 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+    return firebase.logout().then(() => {
+      router.push('/')
+    })
+  }
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -76,7 +83,7 @@ export default function AccountMenu() {
           My account
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
