@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Box, IconButton, Toolbar, Typography, Avatar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
+import AccountMenu from '@/common/components/account-menu';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3]
 }));
-// TODO: add logout dropdown list
+
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
 
@@ -45,18 +45,7 @@ export const DashboardNavbar = (props) => {
             <MenuIcon fontSize="small" />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <Avatar
-            sx={{
-              height: 40,
-              width: 40,
-              ml: 1
-            }}
-          >
-            <SmartToyIcon />
-          </Avatar>
-          <Typography sx={{ml: 1, color: "#BDBDBD"}}>
-            bb04902103333@gmail.com
-          </Typography>
+          <AccountMenu/>
         </Toolbar>
       </DashboardNavbarRoot>
     </>
