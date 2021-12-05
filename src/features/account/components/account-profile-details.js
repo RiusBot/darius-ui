@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useFirebase } from 'react-redux-firebase'
 import {
   Box,
   Button,
@@ -10,24 +11,25 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { getUserInfo } from '@/features/account/account-selector';
+import { getUserProfile } from '@/common/selectors';
 import { updateUserInfo } from '@/app/app-slice';
 
 export const AccountProfileDetails = (props) => {
-  const dispatch = useDispatch();
-  const originalUserInfo = useSelector(getUserInfo);
-  const [userInfo, setUserInfo] = useState(originalUserInfo);
+  const firebase = useFirebase()
+  const originalProfile = useSelector(getUserProfile);
+  const [profile, setProfile] = useState(originalProfile);
 
   const handleChange = (event) => {
-    setUserInfo({
-      ...userInfo,
+    setProfile({
+      ...profile,
       [event.target.name]: event.target.value
     });
   };
 
-  const saveEditing = () => {
-    dispatch(updateUserInfo(userInfo));
-  }
+  const updateUserProfile = () => {
+    const { displayName, email } = profile
+    return firebase.updateProfile({ displayName, email })
+  };
 
   return (
     <form
@@ -54,25 +56,10 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Username"
-                name="username"
+                name="displayName"
                 onChange={handleChange}
                 required
-                value={userInfo.username}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Email Address"
-                name="email"
-                onChange={handleChange}
-                required
-                value={userInfo.email}
+                value={profile.displayName}
                 variant="outlined"
               />
             </Grid>
@@ -89,9 +76,9 @@ export const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
-            onClick={saveEditing}
+            onClick={updateUserProfile}
           >
-            Save details
+            Save
           </Button>
         </Box>
       </Card>

@@ -2,26 +2,14 @@ import { useSelector } from 'react-redux';
 import {
   Avatar,
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
-  Divider,
   Typography
 } from '@mui/material';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import { getUserInfo } from '@/features/account/account-selector';
-
-const user = {
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
+import { getUserProfile } from '@/common/selectors';
 
 export const AccountProfile = (props) => {
-  const userInfo = useSelector(getUserInfo);
+  const userProfile = useSelector(getUserProfile);
   return (
     <Card {...props}>
       <CardContent>
@@ -38,28 +26,24 @@ export const AccountProfile = (props) => {
               mb: 2,
               width: 64
             }}
-          >
-            <SmartToyIcon />
-          </Avatar>
+            src={userProfile.avatarUrl} 
+          />
           <Typography
             color="textPrimary"
             gutterBottom
-            variant="h5"
+            variant="h6"
           >
-            {userInfo.username}
+            {userProfile.displayName}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            gutterBottom
+            variant="subtitle1"
+          >
+            {userProfile.email}
           </Typography>
         </Box>
       </CardContent>
-      <Divider />
-      <CardActions>
-        <Button
-          color="primary"
-          fullWidth
-          variant="text"
-        >
-          Upload picture
-        </Button>
-      </CardActions>
     </Card>
   )
 };
