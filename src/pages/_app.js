@@ -1,5 +1,8 @@
 import Head from 'next/head';
 import { useStore } from 'react-redux';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import { CacheProvider } from '@emotion/react';
@@ -10,17 +13,17 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '@/utils/create-emotion-cache';
 import theme from '@/app/theme';
 import { wrapper } from '@/app/store'
-import firebase from '@/utils/firebase';
+import { firebaseConfig, rrfConfig } from '@/config/firebase';
 
 const clientSideEmotionCache = createEmotionCache();
+
+// Initialize Firebase instance
+firebase.initializeApp(firebaseConfig);
+firebase.firestore()
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const rrfConfig = {
-    userProfile: "users",
-    useFirestoreForProfile: true,
-  };
   const store =  useStore()
   const rrfProps = {
     firebase,
