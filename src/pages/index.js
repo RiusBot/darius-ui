@@ -40,16 +40,10 @@ const Dashboard = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 4
         }}
       >
         <Container maxWidth={false}>
-          <Typography
-            sx={{ mb: 3 }}
-            variant="h4"
-          >
-            Dashboard
-          </Typography>
           <Grid
             container
             spacing={3}
@@ -106,7 +100,9 @@ const Dashboard = () => {
 )};
 
 Dashboard.getLayout = (page) => (
-  <DashboardLayout>
+  <DashboardLayout
+    pageName="Dashboard"
+  >
     {page}
   </DashboardLayout>
 );

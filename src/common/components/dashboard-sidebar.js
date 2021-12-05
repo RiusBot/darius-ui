@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import PersonIcon from '@mui/icons-material/Person';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import LockIcon from '@mui/icons-material/Lock';
-import ErrorIcon from '@mui/icons-material/Error';
 
 import { NavItem } from '@/common/components/nav-item';
 import { Selector as SelectorIcon } from '@/icons/selector';
@@ -24,11 +22,6 @@ const items = [
     href: '/products',
     icon: (<SmartToyIcon fontSize="small" />),
     title: 'Products'
-  },
-  {
-    href: '/account',
-    icon: (<PersonIcon fontSize="small" />),
-    title: 'Account'
   },
   {
     href: '/service',
@@ -50,11 +43,6 @@ const items = [
     icon: (<UserAddIcon fontSize="small" />),
     title: 'Register'
   },
-  {
-    href: '/404',
-    icon: (<ErrorIcon fontSize="small" />),
-    title: 'Error'
-  }
 ];
 
 export const DashboardSidebar = (props) => {

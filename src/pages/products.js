@@ -30,23 +30,17 @@ const Products = () => {
     <>
       <Head>
         <title>
-          Products
+          Products | Darius
         </title>
       </Head>
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 4
         }}
       >
         <Container maxWidth={false}>
-          <Typography
-            sx={{ m: 1 }}
-            variant="h4"
-          >
-            Products
-          </Typography>
           <Box sx={{ pt: 3 }}>
             <Grid
               container
@@ -92,7 +86,9 @@ const Products = () => {
 };
 
 Products.getLayout = (page) => (
-  <DashboardLayout>
+  <DashboardLayout
+    pageName="Products"
+  >
     {page}
   </DashboardLayout>
 );

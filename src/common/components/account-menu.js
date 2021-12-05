@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -8,13 +9,14 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
 import Logout from '@mui/icons-material/Logout';
+import { getUserProfile } from '../selectors';
 
 export default function AccountMenu() {
+  const profile = useSelector(getUserProfile);
   const router = useRouter();
   const firebase = useFirebase();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,12 +35,10 @@ export default function AccountMenu() {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography sx={{ml: 1, color: "#BDBDBD"}}>bb04902103333@gmail.com</Typography>
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-            <Avatar sx={{ height: 40, width: 40, ml: 1 }}>
-              <SmartToyIcon />
-            </Avatar>
+            <Avatar sx={{ height: 40, width: 40, ml: 1 }} src={profile.avatarUrl} />
+            <ArrowDropDownIcon color={anchorEl? 'primary': ''} />
           </IconButton>
         </Tooltip>
       </Box>

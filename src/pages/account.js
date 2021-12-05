@@ -9,23 +9,17 @@ const Account = () => (
   <>
     <Head>
       <title>
-        Account 
+        Account | Darius
       </title>
     </Head>
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 4
       }}
     >
       <Container maxWidth="lg">
-        <Typography
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
-          Account
-        </Typography>
         <Grid
           container
           spacing={3}
@@ -53,7 +47,9 @@ const Account = () => (
 );
 
 Account.getLayout = (page) => (
-  <DashboardLayout>
+  <DashboardLayout
+    pageName="Account"
+  >
     {page}
   </DashboardLayout>
 );

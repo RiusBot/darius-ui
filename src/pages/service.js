@@ -15,16 +15,10 @@ const Service = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 4
       }}
     >
       <Container maxWidth={false}>
-        <Typography
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
-          Service and Payment
-        </Typography>
         <ServiceOptions />
         <Box sx={{ mt: 3 }}>
           <ServicePayment />
@@ -34,7 +28,9 @@ const Service = () => (
   </>
 );
 Service.getLayout = (page) => (
-  <DashboardLayout>
+  <DashboardLayout
+    pageName="Service and Payment"
+  >
     {page}
   </DashboardLayout>
 );

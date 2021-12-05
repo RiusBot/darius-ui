@@ -54,7 +54,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | Darius</title>
       </Head>
       <Box
         component="main"

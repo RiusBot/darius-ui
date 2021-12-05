@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountMenu from '@/common/components/account-menu';
 
@@ -9,8 +10,18 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   boxShadow: theme.shadows[3]
 }));
 
+const Title = styled(Typography)`
+  margin-left: 16px;
+`;
+
+const Subtitle = styled.span`
+  &::before {
+    content: ' ． ';
+  }
+`;
+
 export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, ...other } = props;
+  const { title, subtitle, onSidebarOpen, ...other } = props;
 
   return (
     <>
@@ -44,6 +55,12 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
+          <Title
+            variant="h6"
+          >
+            {title}
+            {subtitle && <Subtitle>{subtitle}</Subtitle>}
+          </Title>
           <Box sx={{ flexGrow: 1 }} />
           <AccountMenu/>
         </Toolbar>
@@ -53,5 +70,7 @@ export const DashboardNavbar = (props) => {
 };
 
 DashboardNavbar.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
   onSidebarOpen: PropTypes.func
 };

@@ -8,23 +8,17 @@ const Settings = () => (
   <>
     <Head>
       <title>
-        Settings | Material Kit
+        Settings | Darius
       </title>
     </Head>
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 4
       }}
     >
       <Container maxWidth="lg">
-        <Typography
-          sx={{ mb: 3 }}
-          variant="h4"
-        >
-          Settings
-        </Typography>
         <SettingsNotifications />
         <Box sx={{ pt: 3 }}>
           <SettingsPassword />
@@ -35,7 +29,9 @@ const Settings = () => (
 );
 
 Settings.getLayout = (page) => (
-  <DashboardLayout>
+  <DashboardLayout
+    pageName='Settings'
+  >
     {page}
   </DashboardLayout>
 );

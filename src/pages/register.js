@@ -72,7 +72,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register | Material Kit
+          Register | Darius
         </title>
       </Head>
       <Box
