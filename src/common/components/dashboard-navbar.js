@@ -37,19 +37,15 @@ const RightMenu = styled(Box)`
 `;
 
 export const DashboardNavbar = (props) => {
-  const { title, subtitle, onSidebarOpen, ...other } = props;
+  const { title, subtitle, isSidebarOpen, onSidebarOpen, ...other } = props;
   const auth = useSelector(getAuthUser);
 
   return (
     <>
       <DashboardNavbarRoot
         sx={{
-          left: {
-            lg: 280
-          },
-          width: {
-            lg: 'calc(100% - 280px)'
-          },
+          left: isSidebarOpen ? 280 : 0,
+          width: isSidebarOpen ? 'calc(100% - 280px)' : '100%'
         }}
         {...other}>
         <Toolbar
@@ -64,10 +60,7 @@ export const DashboardNavbar = (props) => {
           <IconButton
             onClick={onSidebarOpen}
             sx={{
-              display: {
-                xs: 'inline-flex',
-                lg: 'none'
-              }
+              display: isSidebarOpen ? 'none' : 'inline-flex',
             }}
           >
             <MenuIcon fontSize="small" />

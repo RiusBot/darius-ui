@@ -14,19 +14,19 @@ const AuthIsLoaded = ({ children }) => {
   return children
 }
 
-const DashboardLayoutRoot = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flex: '1 1 auto',
-  maxWidth: '100%',
-  paddingTop: 64,
-  [theme.breakpoints.up('lg')]: {
-    paddingLeft: 280
-  }
-}));
+
 
 export const DashboardLayout = (props) => {
   const { children, pageName } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const DashboardLayoutRoot = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flex: '1 1 auto',
+    maxWidth: '100%',
+    paddingTop: 64,
+    paddingLeft: isSidebarOpen ? 280 : 0,
+  }));
 
   return (
     <>
@@ -44,7 +44,7 @@ export const DashboardLayout = (props) => {
           </AuthIsLoaded>
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar title="Darius" subtitle={pageName} onSidebarOpen={() => setSidebarOpen(true)} />
+      <DashboardNavbar title="Darius" subtitle={pageName} isSidebarOpen={isSidebarOpen} onSidebarOpen={() => setSidebarOpen(true)} />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}

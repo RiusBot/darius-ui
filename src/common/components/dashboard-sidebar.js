@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { isEmpty } from 'react-redux-firebase'
-import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar } from '@mui/material';
+import { IconButton, DrawerHeader } from '@mui/material';
+import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar} from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -67,7 +69,7 @@ export const DashboardSidebar = (props) => {
         }}
       >
         {isEmpty(profile)
-        && <Box sx={{ p: 3 }}>
+        && <Box sx={{ p: 3, display: 'flex', flexDirection: 'row' }}>
           <Avatar
             sx={{
               height: 40,
@@ -76,10 +78,17 @@ export const DashboardSidebar = (props) => {
           >
             <SmartToyIcon />
           </Avatar>
+          <IconButton sx={{marginLeft: 'auto'}} onClick={onClose}>
+            <ChevronLeftIcon 
+              sx={{
+                height: 40,
+                width: 40
+              }}/>
+          </IconButton>
         </Box>}
         {!isEmpty(profile)
          && <div>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3, display: 'flex', flexDirection: 'row' }}>
             <Avatar
               sx={{
                 height: 40,
@@ -87,6 +96,13 @@ export const DashboardSidebar = (props) => {
               }}
               src={profile.avatarUrl}
             />
+            <IconButton sx={{marginLeft: 'auto'}} onClick={onClose}>
+              <ChevronLeftIcon 
+                sx={{
+                  height: 40,
+                  width: 40
+                }}/>
+            </IconButton>
           </Box>
           <Box sx={{ px: 2 }}>
             <Box
@@ -120,6 +136,7 @@ export const DashboardSidebar = (props) => {
             </Box>
           </Box>
         </div>}
+        
         <Divider
           sx={{
             borderColor: '#2D3748',
@@ -144,7 +161,7 @@ export const DashboardSidebar = (props) => {
     return (
       <Drawer
         anchor="left"
-        open
+        open={open}
         PaperProps={{
           sx: {
             backgroundColor: 'neutral.900',
@@ -152,7 +169,7 @@ export const DashboardSidebar = (props) => {
             width: 280
           }
         }}
-        variant="permanent"
+        variant="persistent"
       >
         {content}
       </Drawer>
