@@ -23,6 +23,10 @@ const items = [
     href: '/products',
     icon: (<SmartToyIcon fontSize="small" />),
     title: 'Products'
+  },{
+    href: '/apiSetting',
+    icon: (<NoteAddIcon fontSize="small" />),
+    title: 'API Key Setting'
   },
   {
     href: '/service',
@@ -51,7 +55,7 @@ export const DashboardSidebar = (props) => {
         return;
       }
 
-      if (open) {
+      if (open && !lgUp) {
         onClose?.();
       }
     },

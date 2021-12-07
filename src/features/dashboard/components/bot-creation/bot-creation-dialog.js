@@ -17,16 +17,16 @@ function BotCreationDialog(props) {
             maxWidth="md">
             <Box
                 sx={{
-                    'display': 'flex',
-                    'flex-direction': 'row',
-                    'width:': '100%',
-                    'padding': '32px 16px 8px'
+                    display: 'flex',
+                    flexDirection: 'row',
+                    width: '100%',
+                    padding: '32px 16px 8px'
                 }}>
                 <Typography variant="h5" component="div">
                     {channel} Bot Creation
                 </Typography>
                 <IconButton
-                    style={{'marginLeft': 'auto'}}
+                    style={{marginLeft: 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
@@ -35,8 +35,8 @@ function BotCreationDialog(props) {
             <Divider variant="middle" />
             <Box
                 sx={{
-                    'padding': '16px',
-                    'overflow-y': 'scroll',}}>
+                    padding: '16px',
+                    overflowY: 'scroll',}}>
                 <DefaultConfigSettings
                     createDisabled={handleCreateButton}
                 />
@@ -49,7 +49,7 @@ function BotCreationDialog(props) {
                     >
                     <Button
                         color="primary"
-                        style={{'marginLeft': 'auto'}}
+                        style={{marginLeft: 'auto'}}
                         size="small"
                         variant="contained"
                         onClick={() => onClose}

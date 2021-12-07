@@ -5,12 +5,12 @@ import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 
 const mockAPIs = ['testAPI11111', 'testAPI222222', 'testAPI333333'];
-const configs = ['api', 'target', 'orderType', 'stopLossType', 'stopLoss', 'takeProfitType',
-                 'takeProfit', 'quantity', 'leverage', 'minimumMargin', 'minimumVolume']
 export default function DefaultConfigSettings(props) {
     const { createDisabled } = props;
     const [orderOptions, setOrders] = React.useState({test: true, duplicate: false})
-    const [configOptions, setConfigs] = React.useState({ });
+    const [configOptions, setConfigs] = React.useState({api: '', target: '', orderType: '', stopLossType: '', stopLoss: 0,
+                                                        takeProfitTyype: '', takeProfit: 0, quantity: '', leverage: '', 
+                                                        minimumMargin: '', minimumVolume: ''});
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
@@ -41,8 +41,8 @@ export default function DefaultConfigSettings(props) {
     }
     React.useEffect(() => {
         function checkOptionsReady() {
-          for (let i = 0; i < configs.length; i ++) {
-            if (!checkOptionsValid(configs[i])) {
+          for (let i = 0; i < Object.keys(configOptions).length; i ++) {
+            if (!checkOptionsValid(Object.keys(configOptions)[i])) {
                 return false;
             }
           }
@@ -85,7 +85,7 @@ export default function DefaultConfigSettings(props) {
                         onChange={handleOptionChange}
                     >
                         {mockAPIs.map((api, idx) => (
-                            <MenuItem value={idx}>{api}</MenuItem>
+                            <MenuItem key={idx} value={idx}>{api}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
