@@ -40,50 +40,46 @@ const Dashboard = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 4
+          padding: '64px 32px'
         }}
       >
-        <Container maxWidth={false}>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Box
-              style={{'display': 'flex', 
-                      'flexDirection': 'row',
-                      'overflowX': 'auto',
-                      'height': '200px',
-                      'paddingLeft': '30px'}}
-              >
-              {products.map((bot, index) => {
-                return <Box 
-                          key={index}
-                          style={{'width': '400px',
-                                  'minWidth': '300px',
-                                  'paddingRight': '30px'}}>
-                          <BotCard
-                            key={index}
-                            bot={bot}
-                            openCreateBotDialog={handleDialogOpen}
-                          />
-                        </Box>
-              })}
-            </Box>
-
-            <Grid
-              item
-              lg={12}
-              md={12}
-              xl={9}
-              xs={12}
+        <Grid
+          container
+          spacing={3}
+        >
+          <Box
+            style={{display: 'flex', 
+                    flexDirection: 'row',
+                    overflowX: 'auto',
+                    height: '200px',
+                    paddingLeft: '30px'}}
             >
-              <BotManagementCard 
-                openConfirmDialog={handleDialogOpen}
-                />
-            </Grid>
+            {products.map((bot, index) => {
+              return <Box 
+                        key={index}
+                        style={{'minWidth': '340px',
+                                'paddingRight': '30px'}}>
+                        <BotCard
+                          key={index}
+                          bot={bot}
+                          openCreateBotDialog={handleDialogOpen}
+                        />
+                      </Box>
+            })}
+          </Box>
 
-          </Grid>
-        </Container>
+          <Box
+            sx={{
+              padding: '32px',
+              width: '100%'
+            }}
+          >
+            <BotManagementCard 
+              openConfirmDialog={handleDialogOpen}
+              />
+          </Box>
+
+        </Grid>
       </Box>
 
       <BotCreationDialog

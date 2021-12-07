@@ -4,22 +4,8 @@ import { Card, CardHeader, Box, Tab, Typography } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
-import { getBotTradesSuccess, getUserBots } from '@/features/dashboard/dashboard-slice';
+import { getUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
-
-const blankConfig = {
-    api: { api: "", exchange: "" },
-    target: "",
-    order_type: "",
-    stop_loss_type: "",
-    stop_loss: "",
-    take_profit_type: "",
-    take_profit: "",
-    quantity: "",
-    leverage: "",
-    margin: "",
-    minimum_volume: "",
-}
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
@@ -35,11 +21,28 @@ export default function BotManagementCard(props) {
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
-    const getBotConfig = (value) => {
-        return (userBots.length) ? userBots[parseInt(value)].config : blankConfig;
-    }
-    const getBotId = (value) => {
-        return (userBots.length) ? userBots[parseInt(value)].bot_id : 0;
+
+    if (!userBots.length) {
+        return (
+            <Card>
+                <CardHeader title="Working Bot Management" />
+                    <Box
+                        sx={{ display: 'flex', 
+                            flexGrow: 1, 
+                            bgcolor: 'background.paper', 
+                            minHeight: '460px', 
+                            minWidth: '840px',
+                            paddingRight: '32px' }}
+                    >
+                        <Typography 
+                            color="textSecondary"
+                            variant="button"
+                            sx={{ textAlign: 'center', width: '100%'}}>
+                            You have no working bots currently, start one from the above now!
+                        </Typography>
+                    </Box>
+            </Card>
+        )
     }
 
     return (
@@ -71,12 +74,12 @@ export default function BotManagementCard(props) {
                     <TabPanel value={value} sx={{ overflowX: 'scroll', overflowY: 'hidden'}}>
                         <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                             <BotTradesTable
-                                botId={getBotId(value)}
+                                botId={userBots[parseInt(value)].bot_id}
                             />
                             <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
                                 <BotSettings
                                     openConfirmDialog={openConfirmDialog}
-                                    config={getBotConfig(value)}
+                                    config={userBots[parseInt(value)].config}
                                     />
                             </Box>
                         </Box>
