@@ -13,7 +13,7 @@ const BotCard = (props) => {
   const { bot, openCreateBotDialog } = props;
 
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%', width: '100%' }}>
       <CardContent>
         <Grid
           container
@@ -22,17 +22,11 @@ const BotCard = (props) => {
         >
           <Grid item>
             <Typography
-              color="textSecondary"
+              color="textPrimary"
               gutterBottom
-              variant="h6"
+              variant="h5"
             >
               {bot.channel}
-            </Typography>
-            <Typography
-              color="textPrimary"
-              variant="h4"
-            >
-              {bot.interestRate} / month
             </Typography>
           </Grid>
           <Grid item>
@@ -40,8 +34,9 @@ const BotCard = (props) => {
               alt={bot.channel}
               src={bot.media}
               sx={{
-                height: 56,
-                width: 56
+                display: 'flex',
+                height: 64,
+                width: 64
               }}
             />
           </Grid>
@@ -49,7 +44,6 @@ const BotCard = (props) => {
         <Box
           sx={{
             pt: 2,
-            display: 'flex',
           }}
         >
           <Button
