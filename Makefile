@@ -30,7 +30,7 @@ set-project:
 	gcloud config set project $(PROJECT_ID)
 
 build: set-project
-	gcloud builds submit --config cloudbuild-docker.yaml --timeout=60m
+	gcloud builds submit --config cloudbuild.yaml --timeout=60m
 
 deploy: set-project
 	gcloud app deploy --image-url="gcr.io/$(PROJECT_ID)/$(IMAGE_NAME):latest"

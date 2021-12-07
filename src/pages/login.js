@@ -7,7 +7,7 @@ import { useFirebase } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Google as GoogleIcon } from '@/icons/google';
+import { Google as GoogleIcon } from '@/icons/Google';
 
 const Login = () => {
   const router = useRouter();

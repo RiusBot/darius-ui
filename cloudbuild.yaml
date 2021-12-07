@@ -4,7 +4,7 @@ steps:
   args:
   - build
   - "--tag=gcr.io/darius-332003/darius-ui"
-  - "--file=Dockerfile"
+  - "--file=./Dockerfile"
   - "--cache-from=gcr.io/darius-332003/darius-ui:latest"
   - .
 images:
