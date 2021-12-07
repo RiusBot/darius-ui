@@ -59,24 +59,11 @@ export const RoseInfoDialog = (props) => {
                 
                 <Box sx={{p:2}} >
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        Rose訊號替代方案
-                    </Typography>
-                    <Typography varient="body1" componenet="div">
-                        Rose 的付費頻道需要 **1000** usdt，使用優惠碼可以打6折 **400** usdt。<br/>
-                        我在開發機器人時也架設了雲端的推播訊號，可以供機器人使用。<br/>
-                        架設雲端訊號有<br/>
-                        1. 系統穩定性的保證<br/>
-                        2. 完整的備援機制<br/>
-                        3. 採用最高速的網路<br/>
-                    </Typography>
-                </Box>
-                <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
                         Rose歷史績效分析
                     </Typography>
                     <Typography varient="body1" componenet="div">
                         目前記錄了績效表現<br/>
-                        1. 只作短打單的全倉帳戶<br/>
+                        1. 計算程式交易比手動交易額外收益的全倉帳戶<br/>
                         2. 使用最佳化演算法找出的最佳歷史回測表現的全倉帳戶<br/>
                         歷史績效回測功能之後會一同整合進機器人，可以讓使用者自己嘗試不同參數的績效<br/>
                     </Typography>
@@ -88,10 +75,10 @@ export const RoseInfoDialog = (props) => {
                         短打單績效
                     </Typography>
                     <Typography varient="body1" componenet="div">
-                        短打單績效主要測量以本工具做程式下單相較於手動下單可以多賺多少利潤。<br/>
+                        短打單績效主要測量以程式下單相較於手動下單可以多賺多少利潤。<br/>
                         具體方式是市價馬上買進後，10分鐘內出掉，沒有槓桿。<br/>
                         程式下單比起手動下單，三個月可以多30%利潤。<br/>
-                        相較於完整按照rose的止盈止損利潤少了30倍。<br/>
+                        完整按照rose的止盈止損利潤會是30倍。<br/>
                     </Typography>
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p>
@@ -140,8 +127,8 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
                     <Typography varient="body1" componenet="div">
                         目前跑2個月都是60%up，2-3倍槓桿<br/>
-                        使用心得是勝率不錯，越快進場越好，但價格通常不會跑完整個setup，tp1 tp2 就要出掉比較好。<br/>
-                        另一點就是btc在資費過熱，大回調就會讓所有單都止損，所以偏危險的時候可以不開。<br/>
+                        使用心得是勝率不錯，越快進場越好，但價格通常不會跑完整個setup，tp1 tp2 就要出掉比較好或是把止損往上拉。<br/>
+                        另一點就是btc在資費過熱，大回調就會讓所有單都止損，所以市場過熱的時候可以止損近一點。<br/>
                     </Typography>
                 </Box>
             </Box>
