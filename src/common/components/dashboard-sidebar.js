@@ -28,7 +28,7 @@ const items = [
     title: 'Service & Payment'
   },
   {
-    href: '/settings',
+    href: '/tutorial',
     icon: (<NoteAddIcon fontSize="small" />),
     title: 'Tutorial'
   },
