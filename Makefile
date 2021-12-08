@@ -33,7 +33,8 @@ build: set-project
 	gcloud builds submit --config cloudbuild.yaml --timeout=60m
 
 deploy: set-project
-	gcloud app deploy --image-url="gcr.io/$(PROJECT_ID)/$(IMAGE_NAME):latest"
+	gcloud app deploy --project=$(PROJECT_ID)
+#	gcloud app deploy --image-url="gcr.io/$(PROJECT_ID)/$(IMAGE_NAME):latest"
 
 browse:
 	gcloud app browse --project=$(PROJECT_ID)

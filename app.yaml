@@ -1,17 +1,13 @@
 # configuration document: https://cloud.google.com/appengine/docs/
 
-runtime: nodejs10
-service: evicon
+env: standard
+runtime: nodejs16
+service: darius-ui
 
 handlers:
-  # Serve all static files with urls ending with a file extension
-- url: /(.*\..+)$ 
-  static_files: dist/\1
-  upload: dist/(.*\..+)$
-  # catch all handler to index.html
-- url: /.*
-  static_files: dist/index.html
-  upload: dist/index.html
+  - url: /.*
+    secure: always
+    script: auto
 
 resources:
   cpu: 2
@@ -24,11 +20,3 @@ liveness_check:
   timeout_sec: 4
   failure_threshold: 2
   success_threshold: 2
-  
-env_variables:
-  NEXT_PUBLIC_FIREBASE_API_KEY: AIzaSyCE9NOZtXCQGFN1UQt7WT5iouioPdkt2bU
-  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: darius-test-7ff29.firebaseapp.com
-  NEXT_PUBLIC_FIREBASE_PROJECT_ID: darius-test-7ff29
-  NEXT_PUBLIC_FIREBASE_STOREAGE_BUCKET: darius-test-7ff29.appspot.com
-  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: 807144843929
-  NEXT_PUBLIC_FIREBASE_APP_ID: 1:807144843929:web:c6e019052ffa49efdde608
