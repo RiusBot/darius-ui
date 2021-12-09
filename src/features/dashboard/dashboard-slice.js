@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState: {
+    userApi: [],
     userBots: [],
     userBotTrades: {},
   },
@@ -22,6 +23,11 @@ const dashboardSlice = createSlice({
     getBotTrades: () => {},
     getBotTradesSuccess: (state, action) => {
       state.userBotTrades[action.payload[0].bot_id] = action.payload;
+    },
+    getUserApi: () => {},
+    getUserApiSuccess: (state, action) => {
+      console.log(action.payload);
+      state.userApi = action.payload;
     }
   },
 });
@@ -37,6 +43,8 @@ export const {
   getUserBotsSuccess,
   getBotTrades,
   getBotTradesSuccess,
+  getUserApi,
+  getUserApiSuccess,
 } = actions
 
 export default reducer;

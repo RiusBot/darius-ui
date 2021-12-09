@@ -8,32 +8,35 @@ import {
   getUserBotsSuccess,
   getBotTrades,
   getBotTradesSuccess,
+  getUserApi,
+  getUserApiSuccess,
 } from '@/features/dashboard/dashboard-slice';
 import getAxios from '@/common/utils/getAxios';
 
 function* createBotSaga({ payload: createBotInfo }) {
   const axios = yield getAxios();
   const data = { 
-    user_id: createBotInfo.userId,
-    api_id: createBotInfo.apiId,
+    uid: createBotInfo.userId,
     config: {
       api: {
+        api_id: createBotInfo.config.api.id,
         api_key: createBotInfo.config.api.apiKey,
         api_secret: createBotInfo.config.api.apiSecret,
         exchange: createBotInfo.config.api.exchange,
+        subaccount: createBotInfo.config.api.subaccount,
       },
-      test: createBotInfo.config.test,
-      duplicate: createBotInfo.config.duplicate,
-      target: createBotInfo.config.target,
-      quantity: createBotInfo.config.quantity,
-      leverage: createBotInfo.config.leverage,
-      margin: createBotInfo.config.margin,
-      minimum_volume: createBotInfo.config.minimumVolume,
-      stop_loss: createBotInfo.config.stopLoss,
-      take_profit: createBotInfo.config.takeProfit,
-      order_type: createBotInfo.config.orderType,
-      stop_loss_type: createBotInfo.config.stopLossType,
-      take_profit_type: createBotInfo.config.takeProfitType
+      test: createBotInfo.orderOptions.test,
+      duplicate: createBotInfo.orderOptions.duplicate,
+      target: createBotInfo.configOptions.target,
+      quantity: createBotInfo.configOptions.quantity,
+      leverage: createBotInfo.configOptions.leverage,
+      margin: createBotInfo.configOptions.margin,
+      minimum_volume: createBotInfo.configOptions.minimumVolume,
+      stop_loss: createBotInfo.configOptions.stopLoss,
+      take_profit: createBotInfo.configOptions.takeProfit,
+      order_type: createBotInfo.configOptions.orderType,
+      stop_loss_type: createBotInfo.configOptions.stopLossType,
+      take_profit_type: createBotInfo.configOptions.takeProfitType
     },
     channel: createBotInfo.channel
   };
@@ -55,7 +58,7 @@ function* deleteBotSaga({ payload: deleteBotInfo }) {
   const url = `/api/v1/delete_user_bot`;
   const requestMethod = 'DELETE';
   const data = {
-    user_id: deleteBotInfo.userId,
+    uid: deleteBotInfo.userId,
     bot_id: deleteBotInfo.botId,
   }
   try {
@@ -74,7 +77,8 @@ function* getUserBotsSaga({ payload: userInfo }) {
   const url = `/api/v1/get_user_bots`;
   const requestMethod = 'GET';
   const params = {
-    user_id: userInfo.userId,
+    uid: userInfo.userId,
+    subaccount: userInfo.subaccount,
   }
   try {
     const res = yield axios(url, {
@@ -106,12 +110,31 @@ function* getBotTradesSaga({ payload: botInfo }) {
   }
 }
 
+function* getUserApiSaga({ payload: userInfo }) {
+  const axios = yield getAxios();
+  const url = `/api/v1/get_user_api`;
+  const requestMethod = 'GET';
+  const params = {
+    uid: userInfo.userId,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params
+    });
+    yield put(getUserApiSuccess(res.data));
+  } catch(error) {
+    const errorMsg = 'Failed to get user API';
+  }
+}
+
 function* dashboardSaga() {
   yield all([
     takeLatest(createBot.toString(), createBotSaga),
     takeLatest(deleteBot.toString(), deleteBotSaga),
     takeLatest(getUserBots.toString(), getUserBotsSaga),
     takeLatest(getBotTrades.toString(), getBotTradesSaga),
+    takeLatest(getUserApi.toString(), getUserApiSaga),
   ]);
 }
 

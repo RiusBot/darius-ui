@@ -1,17 +1,25 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Grid, } from '@mui/material';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
+import { getUserApi } from '@/features/dashboard/dashboard-slice';
 
 const Dashboard = () => {
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false});
+
+  const dispatch = useDispatch();
+  useEffect (() => {  
+      dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}))
+      },[]
+  );
+
   const handleDialogOpen = (dialog, channel) => {
     switch (dialog) {
       case 'botCreate':

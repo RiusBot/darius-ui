@@ -13,7 +13,7 @@ export default function BotManagementCard(props) {
     const [value, setValue] = useState('0');
 
     useEffect (() => {  
-        dispatch(getUserBots({userId: 2}))
+        dispatch(getUserBots({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3"}))
         },[]
     );
     const userBots = useSelector(getUserBotsFromState);

@@ -1,13 +1,28 @@
 import React from "react";
+import { useDispatch } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
+import { createBot } from '@/features/dashboard/dashboard-slice';
 
 function BotCreationDialog(props) {
+    const dispatch = useDispatch();
     const { open, channel, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
+    const [orderOptions, setOrders] = React.useState({test: true, duplicate: false});
+    const [configOptions, setConfigs] = React.useState({api: '', target: '', orderType: '', stopLossType: '', stopLoss: 0,
+                                                        takeProfitType: '', takeProfit: 0, quantity: '', leverage: '', 
+                                                        minimumMargin: '', minimumVolume: ''});
     const handleCreateButton = (disabled) => {
         setCreateButtonDisabled(disabled);
+    }
+    const createBotInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+                           orderOptions: [orderOptions],
+                           configOptions: [configOptions]
+                           };
+    const createButtonClicked = () => {
+        dispatch(createBot(createBotInfo));
+        onClose();
     }
     return (
         <Dialog
@@ -39,6 +54,10 @@ function BotCreationDialog(props) {
                     overflowY: 'scroll',}}>
                 <DefaultConfigSettings
                     createDisabled={handleCreateButton}
+                    configOptions={configOptions}
+                    setConfigs={setConfigs}
+                    orderOptions={orderOptions}
+                    setOrders={setOrders}
                 />
                 <Box
                     sx={{
@@ -52,7 +71,7 @@ function BotCreationDialog(props) {
                         style={{marginLeft: 'auto'}}
                         size="small"
                         variant="contained"
-                        onClick={() => onClose}
+                        onClick={createButtonClicked}
                         disabled={createButtonDisabled}
                     >
                         Save and Create
