@@ -32,7 +32,7 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfit':
                 return (0 < configOptions[option] && configOptions[option] < 1);
             case 'quantity':
-                return (configOptions[option] > 100);
+                return (configOptions[option] > 30);
             case 'leverage':
             case 'minimumMargin':
             case 'minimumVolume':
@@ -190,7 +190,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Quantity > 100</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Limit: Quantity > 30</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
