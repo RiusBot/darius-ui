@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const appSlice = createSlice({
   name: 'app',
-  initialState: {
-    },
-  },
+  initialState: {},
   reducers: {
     createUser: () => {},
     createUserSussess: () => {},
