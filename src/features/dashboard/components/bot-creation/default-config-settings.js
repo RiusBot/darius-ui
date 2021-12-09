@@ -32,11 +32,11 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfit':
                 return (0 < configOptions[option] && configOptions[option] < 1);
             case 'quantity':
-                return (configOptions[option] > 100);
+                return (parseInt(configOptions[option]) > 100);
             case 'leverage':
             case 'minimumMargin':
             case 'minimumVolume':
-                return (configOptions[option] > 0);
+                return (parseInt(configOptions[option]) > 0);
         }
     }
     React.useEffect(() => {
@@ -52,8 +52,8 @@ export default function DefaultConfigSettings(props) {
         createDisabled(!optionsReady)
       }, [orderOptions, configOptions])
 
-    const ApiOption = (userApi) => {
-        if (userApi == undefined || userApi.length == undefined || userApi.length == 0) {
+    const ApiOption = () => {
+        if (userApi == undefined || Object.keys(userApi).length == 0 ) {
             return (<Typography color="textSecondary" variant="button" component="div">
                         Please add your api keys first in the API Key Settins page
                     </Typography>)
@@ -67,8 +67,8 @@ export default function DefaultConfigSettings(props) {
                         label="api"
                         onChange={handleOptionChange}
                     >
-                        {userApi.map((api, idx) => (
-                            <MenuItem key={idx} value={idx}>{api}</MenuItem>
+                        {Object.values(userApi).map((api) => (
+                            <MenuItem key={api.api_id} value={api.api_id}>{api.api_key}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>)
@@ -113,9 +113,9 @@ export default function DefaultConfigSettings(props) {
                         label="Target"
                         onChange={handleOptionChange}
                     >
-                        <MenuItem value={"spot"}>SPOT</MenuItem>
-                        <MenuItem value={"margin"}>MARGIN</MenuItem>
-                        <MenuItem value={"future"}>FUTURE</MenuItem>
+                        <MenuItem value={"SPOT"}>SPOT</MenuItem>
+                        <MenuItem value={"MARGIN"}>MARGIN</MenuItem>
+                        <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
@@ -129,8 +129,8 @@ export default function DefaultConfigSettings(props) {
                     label="orderType"
                     onChange={handleOptionChange}
                     >
-                        <MenuItem value={"limit"}>Limit</MenuItem>
-                        <MenuItem value={"market"}>Market</MenuItem>
+                        <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                        <MenuItem value={"MARKET"}>MARKET</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
@@ -144,8 +144,8 @@ export default function DefaultConfigSettings(props) {
                         label="stopLossType"
                         onChange={handleOptionChange}
                         >
-                            <MenuItem value={"limit"}>Limit</MenuItem>
-                            <MenuItem value={"market"}>Market</MenuItem>
+                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -167,8 +167,8 @@ export default function DefaultConfigSettings(props) {
                         label="takeProfitType"
                         onChange={handleOptionChange}
                         >
-                            <MenuItem value={"limit"}>Limit</MenuItem>
-                            <MenuItem value={"market"}>Market</MenuItem>
+                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -199,7 +199,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Quantity > 100</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Quantity > 100</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -212,7 +212,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Leverage > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Leverage > 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -225,7 +225,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Margin > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Margin > 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -238,7 +238,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Volume > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Volume > 0</Typography>
                     </Box>
                 </Box>
             </Box>

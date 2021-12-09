@@ -1,9 +1,9 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
-  createBot,
-  botCreationSuccess,
-  deleteBot,
-  botDeletionSuccess,
+  createUserBot,
+  createUserBotSuccess,
+  deleteUserBot,
+  deleteUserBotSuccess,
   getUserBots,
   getUserBotsSuccess,
   getBotTrades,
@@ -13,25 +13,20 @@ import {
 } from '@/features/dashboard/dashboard-slice';
 import getAxios from '@/common/utils/getAxios';
 
-function* createBotSaga({ payload: createBotInfo }) {
+function* createUserBotSaga({ payload: createBotInfo }) {
+  console.log(createBotInfo);
   const axios = yield getAxios();
   const data = { 
     uid: createBotInfo.userId,
     config: {
-      api: {
-        api_id: createBotInfo.config.api.id,
-        api_key: createBotInfo.config.api.apiKey,
-        api_secret: createBotInfo.config.api.apiSecret,
-        exchange: createBotInfo.config.api.exchange,
-        subaccount: createBotInfo.config.api.subaccount,
-      },
+      api_id: createBotInfo.configOptions.api,
       test: createBotInfo.orderOptions.test,
       duplicate: createBotInfo.orderOptions.duplicate,
       target: createBotInfo.configOptions.target,
-      quantity: createBotInfo.configOptions.quantity,
-      leverage: createBotInfo.configOptions.leverage,
-      margin: createBotInfo.configOptions.margin,
-      minimum_volume: createBotInfo.configOptions.minimumVolume,
+      quantity: parseInt(createBotInfo.configOptions.quantity),
+      leverage: parseInt(createBotInfo.configOptions.leverage),
+      margin: parseInt(createBotInfo.configOptions.margin),
+      minimum_volume: parseInt(createBotInfo.configOptions.minimumVolume),
       stop_loss: createBotInfo.configOptions.stopLoss,
       take_profit: createBotInfo.configOptions.takeProfit,
       order_type: createBotInfo.configOptions.orderType,
@@ -47,13 +42,13 @@ function* createBotSaga({ payload: createBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(botCreationSuccess(createBotInfo));
+    yield put(createUserBotSuccess(createBotInfo));
   } catch(error) {
     const errorMsg = 'Failed to create new bot';
   }
 };
 
-function* deleteBotSaga({ payload: deleteBotInfo }) {
+function* deleteUserBotSaga({ payload: deleteBotInfo }) {
   const axios = yield getAxios();
   const url = `/api/v1/delete_user_bot`;
   const requestMethod = 'DELETE';
@@ -66,7 +61,7 @@ function* deleteBotSaga({ payload: deleteBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(botDeletionSuccess(deleteBotInfo));
+    yield put(deleteUserBotSuccess(deleteBotInfo));
   } catch(error) {
     const errorMsg = 'Failed to delete bot';
   }
@@ -96,7 +91,7 @@ function* getBotTradesSaga({ payload: botInfo }) {
   const url = `/api/v1/get_bot_trades`;
   const requestMethod = 'GET';
   const params = {
-    user_id: botInfo.userId,
+    uid: botInfo.userId,
     bot_id: botInfo.botId,
   }
   try {
@@ -130,8 +125,8 @@ function* getUserApiSaga({ payload: userInfo }) {
 
 function* dashboardSaga() {
   yield all([
-    takeLatest(createBot.toString(), createBotSaga),
-    takeLatest(deleteBot.toString(), deleteBotSaga),
+    takeLatest(createUserBot.toString(), createUserBotSaga),
+    takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
     takeLatest(getUserBots.toString(), getUserBotsSaga),
     takeLatest(getBotTrades.toString(), getBotTradesSaga),
     takeLatest(getUserApi.toString(), getUserApiSaga),

@@ -38,7 +38,6 @@ export const BotTradesTable = (props) => {
       setBotTrades(allBotTrades[botId]);
     }
   }, [allBotTrades]);
-  console.log(botTrades);
 
 
   return (

@@ -3,17 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState: {
-    userApi: [],
+    userApi: {},
     userBots: [],
     userBotTrades: {},
   },
   reducers: {
-    createBot: () => {},
-    botCreationSuccess: (state, action) => {
+    createUserBot: () => {},
+    createUserBotSuccess: (state, action) => {
       // TODO: update user bot list 
     },
-    deleteBot: () => {},
-    botDeletionSuccess: (state, action) => {
+    deleteUserBot: () => {},
+    deleteUserBotSuccess: (state, action) => {
       // TODO: update user bot list
     },
     getUserBots: () => {},
@@ -26,8 +26,9 @@ const dashboardSlice = createSlice({
     },
     getUserApi: () => {},
     getUserApiSuccess: (state, action) => {
-      console.log(action.payload);
-      state.userApi = action.payload;
+      action.payload.forEach((api) => {
+        state.userApi[api.api_id] = api;
+      });
     }
   },
 });
@@ -35,10 +36,10 @@ const dashboardSlice = createSlice({
 const { actions, reducer } = dashboardSlice;
 
 export const {
-  createBot,
-  botCreationSuccess,
-  deleteBot,
-  botDeletionSuccess,
+  createUserBot,
+  createUserBotSuccess,
+  deleteUserBot,
+  deleteUserBotSuccess,
   getUserBots,
   getUserBotsSuccess,
   getBotTrades,

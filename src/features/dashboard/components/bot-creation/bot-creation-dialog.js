@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
-import { createBot } from '@/features/dashboard/dashboard-slice';
+import { createUserBot } from '@/features/dashboard/dashboard-slice';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
@@ -17,11 +17,12 @@ function BotCreationDialog(props) {
         setCreateButtonDisabled(disabled);
     }
     const createBotInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
-                           orderOptions: [orderOptions],
-                           configOptions: [configOptions]
+                           orderOptions: orderOptions,
+                           configOptions: configOptions,
+                           channel: channel,
                            };
     const createButtonClicked = () => {
-        dispatch(createBot(createBotInfo));
+        dispatch(createUserBot(createBotInfo));
         onClose();
     }
     return (
