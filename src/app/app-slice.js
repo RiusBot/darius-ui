@@ -3,29 +3,38 @@ import { createSlice } from '@reduxjs/toolkit';
 const appSlice = createSlice({
   name: 'app',
   initialState: {
-    userInfo: {
-      userId: 3,
-      username: 'darius_test',
-      email: 'darius@gmail.com',
+    snackbarInfo: {
+      open: false, message: '', severity: 'info'
     },
   },
   reducers: {
-    updateUserInfo: () => {},
-    updateUserInfoSuccess: (state, action) => {
-      state.userInfo = action.payload;
-    },
     createUser: () => {},
     createUserSussess: () => {},
+    updateSnackbar: (state, action) => {
+      state.snackbarInfo = {
+        open: true,
+        message: action.payload.msg,
+        severity: action.payload.type,
+      };
+    },
+    closeSnackbar: (state) => {
+      const snackbarInfo = {
+        ...state.snackbarInfo,
+        open: false,
+        message: ''
+      }
+      state.snackbarInfo = snackbarInfo;
+    },
   },
 });
 
 const { actions, reducer } = appSlice;
 
 export const {
-  updateUserInfo,
-  updateUserInfoSuccess,
   createUser,
   createUserSussess,
+  updateSnackbar,
+  closeSnackbar,
 } = actions
 
 export default reducer;

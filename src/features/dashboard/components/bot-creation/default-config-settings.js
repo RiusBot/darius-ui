@@ -1,16 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
+import { getUserApiFromState } from '@/features/dashboard/dashboard-selector';
 
-const mockAPIs = ['testAPI11111', 'testAPI222222', 'testAPI333333'];
 export default function DefaultConfigSettings(props) {
-    const { createDisabled } = props;
-    const [orderOptions, setOrders] = React.useState({test: true, duplicate: false})
-    const [configOptions, setConfigs] = React.useState({api: '', target: '', orderType: '', stopLossType: '', stopLoss: 0,
-                                                        takeProfitTyype: '', takeProfit: 0, quantity: '', leverage: '', 
-                                                        minimumMargin: '', minimumVolume: ''});
+    const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
+    const userApi = useSelector(getUserApiFromState);
+    const [sliderOptions, setSliders] = React.useState({stopLoss: 0, takeProfit: 0});
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
@@ -18,6 +17,7 @@ export default function DefaultConfigSettings(props) {
         setConfigs({...configOptions, [event.target.name]: event.target.value});
     };
     const handleSliderChange = (event, newValue) => {
+        setSliders({...sliderOptions, [event.target.name]: newValue});
         setConfigs({...configOptions, [event.target.name]: newValue/10});
     }
     const checkOptionsValid = (option) => {
@@ -27,16 +27,16 @@ export default function DefaultConfigSettings(props) {
             case 'orderType':
             case 'stopLossType':
             case 'takeProfitType':
-                return (configOptions[option] !== undefined);
+                return (configOptions[option] !== undefined && configOptions[option] != '');
             case 'stopLoss':
             case 'takeProfit':
                 return (0 < configOptions[option] && configOptions[option] < 1);
             case 'quantity':
-                return (configOptions[option] > 30);
+                return (parseInt(configOptions[option]) > 30);
             case 'leverage':
             case 'minimumMargin':
             case 'minimumVolume':
-                return (configOptions[option] > 0);
+                return (parseInt(configOptions[option]) > 0);
         }
     }
     React.useEffect(() => {
@@ -51,6 +51,28 @@ export default function DefaultConfigSettings(props) {
         const optionsReady = checkOptionsReady();
         createDisabled(!optionsReady)
       }, [orderOptions, configOptions])
+
+    const ApiOption = () => {
+        if (userApi == undefined || Object.keys(userApi).length == 0 ) {
+            return (<Typography color="textSecondary" variant="button" component="div">
+                        Please add your api keys first in the API Key Settins page
+                    </Typography>)
+        }
+        return (<FormControl fullWidth>
+                    <InputLabel >API</InputLabel>
+                    <Select
+                        name="api"
+                        id="api"
+                        value={configOptions.api}
+                        label="api"
+                        onChange={handleOptionChange}
+                    >
+                        {Object.values(userApi).map((api) => (
+                            <MenuItem key={api.api_id} value={api.api_id}>{api.api_key}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>)
+      }
     return (
         <Box sx={{m:2}} >
             <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
@@ -75,20 +97,7 @@ export default function DefaultConfigSettings(props) {
                 API Settings
             </Typography>
             <Box sx={{p:2}}>
-                <FormControl fullWidth>
-                    <InputLabel >API</InputLabel>
-                    <Select
-                        name="api"
-                        id="api"
-                        value={configOptions.api}
-                        label="api"
-                        onChange={handleOptionChange}
-                    >
-                        {mockAPIs.map((api, idx) => (
-                            <MenuItem key={idx} value={idx}>{api}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                <ApiOption/>
             </Box>
             <Divider />
             <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
@@ -104,9 +113,9 @@ export default function DefaultConfigSettings(props) {
                         label="Target"
                         onChange={handleOptionChange}
                     >
-                        <MenuItem value={"spot"}>SPOT</MenuItem>
-                        <MenuItem value={"margin"}>MARGIN</MenuItem>
-                        <MenuItem value={"future"}>FUTURE</MenuItem>
+                        <MenuItem value={"SPOT"}>SPOT</MenuItem>
+                        <MenuItem value={"MARGIN"}>MARGIN</MenuItem>
+                        <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
@@ -120,8 +129,8 @@ export default function DefaultConfigSettings(props) {
                     label="orderType"
                     onChange={handleOptionChange}
                     >
-                        <MenuItem value={"limit"}>Limit</MenuItem>
-                        <MenuItem value={"market"}>Market</MenuItem>
+                        <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                        <MenuItem value={"MARKET"}>MARKET</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
@@ -135,8 +144,8 @@ export default function DefaultConfigSettings(props) {
                         label="stopLossType"
                         onChange={handleOptionChange}
                         >
-                            <MenuItem value={"limit"}>Limit</MenuItem>
-                            <MenuItem value={"market"}>Market</MenuItem>
+                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -145,7 +154,7 @@ export default function DefaultConfigSettings(props) {
                         name="Stop Loss"
                         id="stopLoss"
                         handleSliderChange={handleSliderChange}
-                        value={configOptions.stopLoss}/>
+                        value={sliderOptions.stopLoss}/>
                 </Box>
             </Box>
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
@@ -158,8 +167,8 @@ export default function DefaultConfigSettings(props) {
                         label="takeProfitType"
                         onChange={handleOptionChange}
                         >
-                            <MenuItem value={"limit"}>Limit</MenuItem>
-                            <MenuItem value={"market"}>Market</MenuItem>
+                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -168,7 +177,7 @@ export default function DefaultConfigSettings(props) {
                         name="Take Profit"
                         id="takeProfit"
                         handleSliderChange={handleSliderChange}
-                        value={configOptions.takeProfit}/>
+                        value={sliderOptions.takeProfit}/>
                 </Box>
             </Box>
             <Box
@@ -203,7 +212,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Leverage > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Leverage > 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -216,7 +225,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Margin > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Margin > 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -229,7 +238,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Volume > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >LIMIT: Volume > 0</Typography>
                     </Box>
                 </Box>
             </Box>

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
     Box,
     Button,
@@ -10,7 +11,23 @@ import {
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const BotSettings = (props) => {
-    const { openConfirmDialog, config } = props;
+    const { openConfirmDialog, config, botId, userApi } = props;
+    const ApiKey = () => {
+        if (userApi[config.api_id]) {
+            return (
+                <>
+                    <Typography variant="body1" sx={{pt: 1, display: 'block', width: '320px', wordWrap: 'break-word'}}>
+                        <strong>API key :</strong> &emsp; {userApi[config.api_id].api_key}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Exchange :</strong> &emsp; {userApi[config.api_id].exchange}
+                    </Typography>
+                </>
+            );
+        } else {
+            return (<></>);
+        }
+    }
     return (
         <Box 
             sx={{ margin: '-24px 0 32px 32px', 
@@ -27,7 +44,7 @@ export const BotSettings = (props) => {
                     endIcon={<DeleteForeverIcon fontSize="small" />}
                     size="small"
                     variant="contained"
-                    onClick={() => openConfirmDialog("botDelete")}
+                    onClick={() => openConfirmDialog({action: "botDelete", botId: botId})}
                     sx={{marginLeft: 'auto'}}
                 >
                     Delete
@@ -39,12 +56,7 @@ export const BotSettings = (props) => {
                     <FormControlLabel disabled control={<Checkbox color="primary"/>} label="No duplicate Order" />
                 </FormGroup>
                 <Divider />
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>API key :</strong> &emsp; {config.api.api_key}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Exchange :</strong> &emsp; {config.api.exchange}
-                </Typography>
+                <ApiKey/>
                 <Typography variant="body1" sx={{pt: 1}}>
                     <strong>Target :</strong> &emsp; {config.target}
                 </Typography>

@@ -28,7 +28,7 @@ export const BotTradesTable = (props) => {
   const [botTrades, setBotTrades] = useState([]);
 
   useEffect (() => {  
-      dispatch(getBotTrades({userId: 2, botId: botId}));
+      dispatch(getBotTrades({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", botId: botId}));
       },[]
   );
   const allBotTrades = useSelector(getBotTradesFromState);
@@ -38,7 +38,6 @@ export const BotTradesTable = (props) => {
       setBotTrades(allBotTrades[botId]);
     }
   }, [allBotTrades]);
-  console.log(botTrades);
 
 
   return (

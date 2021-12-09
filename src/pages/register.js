@@ -16,12 +16,31 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { createUser } from '@/app/app-slice';
+import Snackbar from '@/common/components/snackbar';
+import { createUser, updateSnackbar } from '@/app/app-slice';
 
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const firebase = useFirebase();
+
+  const signUpWithPassword = (values) => {
+    const { email, password, username } = values;
+      firebase.createUser(
+        { email, password },
+        { displayName: username, email}
+      )
+      .then(() => {
+        dispatch(createUser());
+        firebase.auth().currentUser.sendEmailVerification()
+        firebase.logout()
+        router.push("/login");
+      })
+      .catch((error) => {
+        console.log('rayy', error.message);
+        dispatch(updateSnackbar({ type: 'error', msg: error.message }))
+      });
+  }
   
   const formik = useFormik({
     initialValues: {
@@ -55,16 +74,9 @@ const Register = () => {
           'This field must be checked'
         )
     }),
-    onSubmit: (values) => {
-      const { email, password, username } = values;
-      firebase.createUser(
-        { email, password },
-        { displayName: username, email}
-      )
-      .then(() => {
-        dispatch(createUser());
-        router.push("/");
-      });
+    onSubmit: (values, actions) => {
+      signUpWithPassword(values);
+      actions.setSubmitting(false);
     }
   });
 
@@ -196,7 +208,7 @@ const Register = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign Up Now
+                Sign Up
               </Button>
             </Box>
             <Typography
@@ -218,6 +230,7 @@ const Register = () => {
               </NextLink>
             </Typography>
           </form>
+          <Snackbar />
         </Container>
       </Box>
     </>

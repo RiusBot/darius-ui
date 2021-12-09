@@ -9,11 +9,11 @@ import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
-    const { openConfirmDialog } = props;
+    const { openConfirmDialog, userApi } = props;
     const [value, setValue] = useState('0');
 
     useEffect (() => {  
-        dispatch(getUserBots({userId: 2}))
+        dispatch(getUserBots({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3"}))
         },[]
     );
     const userBots = useSelector(getUserBotsFromState);
@@ -78,6 +78,8 @@ export default function BotManagementCard(props) {
                             />
                             <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
                                 <BotSettings
+                                    userApi={userApi}
+                                    botId={userBots[parseInt(value)].bot_id}
                                     openConfirmDialog={openConfirmDialog}
                                     config={userBots[parseInt(value)].config}
                                     />

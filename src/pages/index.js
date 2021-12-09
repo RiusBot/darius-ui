@@ -1,32 +1,45 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Grid, } from '@mui/material';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
+import { getUserApi, deleteUserBot } from '@/features/dashboard/dashboard-slice';
+import { getUserApiFromState } from '@/features/dashboard/dashboard-selector';
 
 const Dashboard = () => {
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
-  const [botDeleteDialog, setBotDeleteDialog] = useState({open: false});
-  const handleDialogOpen = (dialog, channel) => {
-    switch (dialog) {
+  const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
+
+  const dispatch = useDispatch();
+  useEffect (() => {  
+    dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}));
+    },[]
+  );
+  const userApi = useSelector(getUserApiFromState);
+  const confirmDeleteBot = () => {
+    dispatch(deleteUserBot({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", botId: botDeleteDialog.botId}));
+    handleDeleteDialogClose();
+  }
+
+  const handleDialogOpen = (dialog) => {
+    switch (dialog.action) {
       case 'botCreate':
-        setBotCreateDialog({open: true, channel: channel});
+        setBotCreateDialog({open: true, channel: dialog.channel});
         break;
       case 'botDelete':
-        setBotDeleteDialog({open: true});
+        setBotDeleteDialog({open: true, botId: dialog.botId});
         break;
     }
   }
   const handleDeleteDialogClose = () => {
-    setBotDeleteDialog({open: false});
+    setBotDeleteDialog({open: false, botId: null});
   }
   const handleCreateDialogClose = () => {
-    //TODO: save change(create bot)
     setBotCreateDialog({open: false, channel: ""});
   }
   return (
@@ -75,6 +88,7 @@ const Dashboard = () => {
             }}
           >
             <BotManagementCard 
+              userApi={userApi}
               openConfirmDialog={handleDialogOpen}
               />
           </Box>
@@ -90,6 +104,7 @@ const Dashboard = () => {
 
       <ConfirmDialog
         open={botDeleteDialog.open}
+        onConfirm={confirmDeleteBot}
         onClose={handleDeleteDialogClose}
       />
     </>

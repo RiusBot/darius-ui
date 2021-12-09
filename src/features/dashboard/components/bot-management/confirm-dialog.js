@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } 
 import { Button } from '@mui/material';
 
 export const ConfirmDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, onConfirm } = props;
     return (
       <Dialog
         open={open}
@@ -20,7 +20,7 @@ export const ConfirmDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Continue and Delete</Button>
+          <Button onClick={onConfirm}>Continue and Delete</Button>
           <Button onClick={onClose} autoFocus>
             Cancel
           </Button>

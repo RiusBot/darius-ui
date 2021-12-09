@@ -38,13 +38,16 @@ export const ProductCard = (props) => {
         >
           {product.channel}
         </Typography>
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="body1"
-        >
-          {product.description}
-        </Typography>
+        {product.description.map((line, idx) => (
+          <Typography
+            key={idx}
+            align="center"
+            color="textPrimary"
+            variant="body1"
+          >
+            {line}
+          </Typography>
+        ))}
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
