@@ -1,16 +1,19 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import { useFirebase } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
+import Snackbar from '@/common/components/snackbar';
+import { updateSnackbar } from '@/app/app-slice';
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   
   const firebase = useFirebase()
   const auth = useSelector(state => state.firebase.auth)
@@ -27,11 +30,15 @@ const Login = () => {
     firebase.login(values)
       .then(() => {
         if (!auth.emailVerified) {
+          dispatch(updateSnackbar({ type: 'error', msg: 'Email verfication needed.' }))
           firebase.logout()
         } else {
           router.push('/');
         }
       })
+      .catch(error => {
+        dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
+      });
   };
   const formik = useFormik({
     initialValues: {
@@ -195,6 +202,7 @@ const Login = () => {
               </NextLink>
             </Typography>
           </form>
+          <Snackbar />
         </Container>
       </Box>
     </>
