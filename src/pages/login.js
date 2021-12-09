@@ -24,6 +24,9 @@ const Login = () => {
     })
       .then(() => {
         router.push("/");
+      })
+      .catch((error) => {
+        dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   };
   const loginWithPassword = (values) => {
