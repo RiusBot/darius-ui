@@ -12,7 +12,6 @@ import {
   TextField
 } from '@mui/material';
 import { getUserProfile } from '@/common/selectors';
-import { updateUserInfo } from '@/app/app-slice';
 
 export const AccountProfileDetails = (props) => {
   const firebase = useFirebase()
