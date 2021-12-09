@@ -63,7 +63,9 @@ const Register = () => {
       )
       .then(() => {
         dispatch(createUser());
-        router.push("/");
+        firebase.auth().currentUser.sendEmailVerification()
+        firebase.logout()
+        router.push("/login");
       });
     }
   });
@@ -196,7 +198,7 @@ const Register = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign Up Now
+                Sign Up
               </Button>
             </Box>
             <Typography

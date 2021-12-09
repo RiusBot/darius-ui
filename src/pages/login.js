@@ -15,14 +15,23 @@ const Login = () => {
   const firebase = useFirebase()
   const auth = useSelector(state => state.firebase.auth)
   const loginWithGoogle = () => {
-    firebase
-      .login({
-        provider: "google",
-        type: "popup",
-      })
+    firebase.login({
+      provider: "google",
+      type: "popup",
+    })
       .then(() => {
         router.push("/");
       });
+  };
+  const loginWithPassword = (values) => {
+    firebase.login(values)
+      .then(() => {
+        if (!auth.emailVerified) {
+          firebase.logout()
+        } else {
+          router.push('/');
+        }
+      })
   };
   const formik = useFormik({
     initialValues: {
@@ -43,11 +52,9 @@ const Login = () => {
         .required(
           'Password is required')
     }),
-    onSubmit: (values) => {
-      firebase.login(values)
-      .then(() => {
-        router.push("/");
-      });
+    onSubmit: (values, actions) => {
+      loginWithPassword(values);
+      actions.setSubmitting(false);
     }
   });
 
