@@ -5,12 +5,14 @@ import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
 import appReducer from '@/app/app-slice';
 import dashboardReducer from '@/features/dashboard/dashboard-slice';
+import apiReducer from '@/features/api/api-slice';
 
 const combined = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   app: appReducer,
   dashboard: dashboardReducer,
+  api: apiReducer,
 });
 
 const rootReducer = (state, action) => {

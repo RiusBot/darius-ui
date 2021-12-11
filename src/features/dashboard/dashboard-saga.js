@@ -105,31 +105,12 @@ function* getBotTradesSaga({ payload: botInfo }) {
   }
 }
 
-function* getUserApiSaga({ payload: userInfo }) {
-  const axios = yield getAxios();
-  const url = `/api/v1/get_user_api`;
-  const requestMethod = 'GET';
-  const params = {
-    uid: userInfo.userId,
-  }
-  try {
-    const res = yield axios(url, {
-      method: requestMethod,
-      params
-    });
-    yield put(getUserApiSuccess(res.data));
-  } catch(error) {
-    const errorMsg = 'Failed to get user API';
-  }
-}
-
 function* dashboardSaga() {
   yield all([
     takeLatest(createUserBot.toString(), createUserBotSaga),
     takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
     takeLatest(getUserBots.toString(), getUserBotsSaga),
     takeLatest(getBotTrades.toString(), getBotTradesSaga),
-    takeLatest(getUserApi.toString(), getUserApiSaga),
   ]);
 }
 

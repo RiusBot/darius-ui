@@ -1,31 +1,50 @@
 import { React, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';;
 import Head from 'next/head';
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography, Button, IconButton } from '@mui/material';
 import { Card, CardHeader, CardContent, Divider, TextField } from '@mui/material';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
+import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
+import { getUserApi } from '@/features/api/api-slice';
+import { getUserApiFromState } from '@/features/api/api-selector';
+import { createUserApi, deleteUserApi } from '@/features/api/api-slice';
+
 
 const exchanges = ['Binance', 'FTX'];
 
 const apiSetting = () => {
-  const [isAddApiReady, setAddApi] = useState(false);
-  const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: ''});
+  const dispatch = useDispatch();
+  const [isApiCreateReady, setApiCreate] = useState(false);
+  const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});
+
+  useEffect (() => {
+    dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}));
+    },[]
+  );
+  const userApi = useSelector(getUserApiFromState);
 
   const handleChange = (event) => {
     setApiValues({
       ...apiValues,
       [event.target.name]: event.target.value
     });
-    console.log(apiValues);
   };
 
   const checkValuesValid = (field) => {
     switch (field) {
         case 'key':
         case 'secret':
-          return (apiValues[field] !== undefined && apiValues[field].length != 0);
+          return (apiValues[field].length != 0);
         case 'exchange':
           return (apiValues[field] == 'binance' || apiValues[field] == 'ftx');
+        case 'subaccount':
+          if (apiValues.exchange == 'ftx') {
+            return (apiValues[field].length != 0);
+          } else {
+            return true;
+          }
     }
   }
 
@@ -39,31 +58,83 @@ const apiSetting = () => {
       return true;
     }
     const isApiReady = checkValuesReady();
-    setAddApi(isApiReady)
+    setApiCreate(isApiReady)
   }, [apiValues])
 
-  return (
-    <>
-      <Head>
-        <title>
-          API Key Setting
-        </title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 4
-        }}
-      >
-        <Container maxWidth={false}>
-        <Card>
-          <CardHeader
-            subheader="Each user can set at most 3 API keys at a time."
-            title="Current API Keys"
-          />
-          <Divider />
-          <CardContent>
+  const clearFormData = () => {
+    setApiValues({key: '', secret: '', exchange: '', subaccount: ''});
+  }
+
+  const createButtonClicked = () => {
+        const createApiInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+                               api: apiValues
+                               };
+        dispatch(createUserApi(createApiInfo));
+        clearFormData();
+    }
+
+  const deleteApi = (apiId) => {
+    //TODO: confirm dialog
+    console.log(apiId);
+    dispatch(deleteUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+                            apiId: apiId}));
+  } 
+
+  const CurrentApiList = () => {
+    if (Object.keys(userApi).length == 0) {
+      return (<></>);
+    } 
+    return (
+      <>
+      {Object.values(userApi).map((api, id) => (
+        <Box key={id} >
+          <Box sx={{display: 'flex', flexDirection: 'row'}} >
+            <IconButton
+              onClick={deleteApi(api.api_id)}
+              color="error"
+            >
+                <RemoveIcon fontSize="small" />
+            </IconButton>
+            <Typography
+              sx={{marginLeft: '32px', marginTop: 'auto'}}
+              color="textPrimary"
+              gutterBottom
+              variant="h6"
+              >
+              {api.api_key}
+            </Typography>
+          </Box>
+
+          <Typography
+            sx={{marginLeft: '72px'}}
+            color="textPrimary"
+            gutterBottom
+            variant="button"
+            >
+            Exchange: {api.exchange}
+          </Typography>
+
+          <Typography
+            sx={{display: (api.exchange == 'ftx') ? 'flex' : 'none',
+                 marginLeft: '72px'}}
+            color="textPrimary"
+            gutterBottom
+            variant="button"
+            >
+            Subaccount: {api.subaccount}
+          </Typography>
+        </Box>
+      ))}
+      </>
+    );
+  }
+
+  const AddApiForm = () => {
+    if (Object.keys(userApi).length == 3) {
+      return (<></>);
+    }
+    return (<>
+        <CardContent>
             <Typography
                 color="textPrimary"
                 gutterBottom
@@ -86,6 +157,16 @@ const apiSetting = () => {
                 </Select>
             </FormControl>
             <TextField
+              sx={{display: (apiValues.exchange == 'ftx') ? 'flex' : 'none'}}
+              fullWidth
+              label="Subaccount"
+              margin="normal"
+              name="subaccount"
+              onChange={handleChange}
+              value={apiValues.subaccount}
+              variant="outlined"
+            />
+            <TextField
               fullWidth
               label="API key"
               margin="normal"
@@ -103,23 +184,52 @@ const apiSetting = () => {
               value={apiValues.secret}
               variant="outlined"
             />
-          </CardContent>
-          <Divider />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              p: 2
-            }}
+        </CardContent>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2
+          }}
+        >
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={!isApiCreateReady}
+            onClick={createButtonClicked}
           >
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={!isAddApiReady}
-            >
-              Add API Key
-            </Button>
+            Add API Key
+          </Button>
+        </Box>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Head>
+        <title>
+          API Key Setting
+        </title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 4
+        }}
+      >
+        <Container maxWidth={false}>
+        <Card>
+          <CardHeader
+            subheader="Each user is allowed to set at most 3 API keys at a time."
+            title="Current API Keys"
+          />
+          <Box sx={{padding: '0 32px 32px'}} >
+            <CurrentApiList/>
           </Box>
+          <Divider />
+          <AddApiForm/>
         </Card>
         </Container>
       </Box>

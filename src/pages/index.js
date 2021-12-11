@@ -8,14 +8,15 @@ import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
-import { getUserApi, deleteUserBot } from '@/features/dashboard/dashboard-slice';
-import { getUserApiFromState } from '@/features/dashboard/dashboard-selector';
+import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
+import { getUserApi } from '@/features/api/api-slice';
+import { getUserApiFromState } from '@/features/api/api-selector';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
-  const dispatch = useDispatch();
   useEffect (() => {  
     dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}));
     },[]
@@ -83,7 +84,7 @@ const Dashboard = () => {
 
           <Box
             sx={{
-              padding: '32px',
+              padding: '32px 0 32px 32px',
               width: '100%'
             }}
           >

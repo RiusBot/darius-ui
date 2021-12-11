@@ -16,12 +16,13 @@ function BotCreationDialog(props) {
     const handleCreateButton = (disabled) => {
         setCreateButtonDisabled(disabled);
     }
-    const createBotInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
-                           orderOptions: orderOptions,
-                           configOptions: configOptions,
-                           channel: channel,
-                           };
+    
     const createButtonClicked = () => {
+        const createBotInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+                               orderOptions: orderOptions,
+                               configOptions: configOptions,
+                               channel: channel,
+                               };
         dispatch(createUserBot(createBotInfo));
         onClose();
     }

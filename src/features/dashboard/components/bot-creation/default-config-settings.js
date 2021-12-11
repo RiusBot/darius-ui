@@ -4,7 +4,7 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
-import { getUserApiFromState } from '@/features/dashboard/dashboard-selector';
+import { getUserApiFromState } from '@/features/api/api-selector';
 
 export default function DefaultConfigSettings(props) {
     const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
