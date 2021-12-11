@@ -4,11 +4,9 @@ import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
 
-export const RoseInfoDialog = (props) => {
+export const WhaleHuntInfoDialog = (props) => {
     const { open, onClose } = props;
-    const [completeRecords, setCompleteRecords] = React.useState([]);
-
-    const [shortRecords, setShortRecords] = React.useState([])
+    const [backtestRecords, setRecords] = React.useState({complete: [], short: []})
 
     React.useEffect(() => {
         async function getData(file) {
@@ -20,15 +18,12 @@ export const RoseInfoDialog = (props) => {
           const csv = decoder.decode(result.value); // the csv text
           const results = Papa.parse(csv, { header: true }); // object with { data, errors, meta }
           const data = results.data; // array of objects
-          return data;
+          setRecords({...backtestRecords, [file]: data});
+        //   console.log(file, data);
         }
-        getData('short').then(data => {
-            setShortRecords(data);
-        });
-        getData('complete').then(data => {
-            setCompleteRecords(data);
-        });
-      }, []);
+        getData('complete');
+        getData('short');
+      }, [])
 
     return (
         <Dialog
@@ -44,7 +39,7 @@ export const RoseInfoDialog = (props) => {
                     'padding': '32px 24px 32px'
                 }}>
                 <Typography variant="h5" component="div">
-                    Rose Premium
+                    Whale Hunting
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -88,7 +83,7 @@ export const RoseInfoDialog = (props) => {
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p>
                     <TimeseriesChart
-                        data={shortRecords}
+                        data={backtestRecords.short}
                     />
                 </Box>
 
@@ -104,7 +99,7 @@ export const RoseInfoDialog = (props) => {
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p> 
                     <TimeseriesChart
-                        data={completeRecords}
+                        data={backtestRecords.complete}
                     />
                 </Box>
 

@@ -5,17 +5,19 @@ import { products } from '__data__/products';
 import { ProductCard } from '@/features/product/components/product-card';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { RoseInfoDialog } from '@/features/product/rose-info-dialog';
+import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
+import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 
 const Products = () => {
-  const [{rose, whaleHunt, dailyScalping}, setShowInfoDialog] = useState({rose: false, 
-                                                                           whaleHunt: false, 
-                                                                           dailyScalping: false});
+  const [infoDialog, setShowInfoDialog] = useState({rose: false, 
+                                                    whaleHunt: false, 
+                                                    dailyScalping: false});
   const handleBotInfoDialogOpen = (channel) => {
     switch (channel) {
       case "Rose Premium":
         setShowInfoDialog({rose: true, whaleHunt: false, dailyScalping: false});
         break;
-      case "Whale Humt":
+      case "Whale Hunt":
         setShowInfoDialog({rose: false, whaleHunt: true, dailyScalping: false});
         break;
       case "Daily Scalping":
@@ -78,7 +80,15 @@ const Products = () => {
       </Box>
 
       <RoseInfoDialog
-        open={rose}
+        open={infoDialog.rose}
+        onClose={handleBotInfoDialogClose}
+        />
+      <WhaleHuntInfoDialog
+        open={infoDialog.whaleHunt}
+        onClose={handleBotInfoDialogClose}
+        />
+      <DailyScalpingInfoDialog
+        open={infoDialog.dailyScalping}
         onClose={handleBotInfoDialogClose}
         />
     </>
