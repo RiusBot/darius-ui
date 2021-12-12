@@ -17,7 +17,7 @@ const Login = () => {
   
   const firebase = useFirebase()
   const auth = useSelector(state => state.firebase.auth)
-  const loginWithGoogle = () => {
+  const SignInWithGoogle = () => {
     firebase.login({
       provider: "google",
       type: "popup",
@@ -29,7 +29,7 @@ const Login = () => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   };
-  const loginWithPassword = (values) => {
+  const SignInWithPassword = (values) => {
     firebase.login(values)
       .then(() => {
         if (!auth.emailVerified) {
@@ -63,7 +63,7 @@ const Login = () => {
           'Password is required')
     }),
     onSubmit: (values, actions) => {
-      loginWithPassword(values);
+      SignInWithPassword(values);
       actions.setSubmitting(false);
     }
   });
@@ -102,13 +102,6 @@ const Login = () => {
               >
                 Sign in
               </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Sign in on the internal platform
-              </Typography>
             </Box>
             <Grid
               container
@@ -117,17 +110,16 @@ const Login = () => {
               <Grid
                 item
                 xs={12}
-                md={6}
               >
                 <Button
                   fullWidth
                   color="error"
                   startIcon={<GoogleIcon />}
-                  onClick={loginWithGoogle}
+                  onClick={SignInWithGoogle}
                   size="large"
                   variant="contained"
                 >
-                  Login with Google
+                  Sign in with Google
                 </Button>
               </Grid>
             </Grid>
@@ -142,7 +134,7 @@ const Login = () => {
                 color="textSecondary"
                 variant="body1"
               >
-                or login with email address
+                or
               </Typography>
             </Box>
             <TextField
@@ -180,7 +172,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Sign In
               </Button>
             </Box>
             <Typography
@@ -200,7 +192,7 @@ const Login = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Sign Up
+                  Create account
                 </Link>
               </NextLink>
             </Typography>
