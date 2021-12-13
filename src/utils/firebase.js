@@ -1,4 +1,8 @@
-export const firebaseConfig = {
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -7,7 +11,13 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-export const rrfConfig = {
-  userProfile: "users",
-  useFirestoreForProfile: true,
-};
+// Initialize Firebase
+try {
+	firebase.initializeApp(firebaseConfig);
+	firebase.firestore();
+	console.log("Firebase Initialized");
+} catch (err) {
+	console.log("Error Initializing Firebase", err);
+}
+
+export default firebase;

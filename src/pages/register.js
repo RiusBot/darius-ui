@@ -33,7 +33,6 @@ const Register = () => {
       .then(() => {
         dispatch(createUser());
         firebase.auth().currentUser.sendEmailVerification()
-        firebase.logout()
         router.push("/login");
       })
       .catch((error) => {
