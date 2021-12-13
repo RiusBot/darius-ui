@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
-import { useFirebase } from 'react-redux-firebase'
+import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -22,31 +23,20 @@ const Login = () => {
       provider: "google",
       type: "popup",
     })
-      .then(() => {
-        router.push("/");
-      })
       .catch((error) => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   };
   const SignInWithPassword = (values) => {
     firebase.login(values)
-      .then(() => {
-        if (!auth.emailVerified) {
-          dispatch(updateSnackbar({ type: 'error', msg: 'Email verfication needed.' }))
-          firebase.logout()
-        } else {
-          router.push('/');
-        }
-      })
       .catch(error => {
         dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
       });
   };
   const formik = useFormik({
     initialValues: {
-      email: 'test@darius.com',
-      password: 'test123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -67,6 +57,17 @@ const Login = () => {
       actions.setSubmitting(false);
     }
   });
+
+  useEffect(() => {
+    if (isLoaded(auth) && !isEmpty(auth)) {
+      if (auth.emailVerified) {
+        router.push('/');
+      } else {
+        dispatch(updateSnackbar({ type: 'error', msg: 'Email verfication needed.' }));
+        firebase.logout();
+      }
+    }
+  }, [auth]);
 
   return (
     <>
