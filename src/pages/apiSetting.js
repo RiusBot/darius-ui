@@ -10,12 +10,13 @@ import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
 import { createUserApi, deleteUserApi } from '@/features/api/api-slice';
+import { getAuthUser } from '@/common/selectors';
 
 
 const exchanges = ['Binance', 'FTX'];
 
 const apiSetting = () => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
   const [isApiCreateReady, setApiCreate] = useState(false);
   const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});

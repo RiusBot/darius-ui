@@ -11,9 +11,10 @@ import { ConfirmDialog } from '@/features/dashboard/components/bot-management/co
 import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
+import { getAuthUser } from '@/common/selectors';
 
 const Dashboard = () => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});

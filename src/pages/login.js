@@ -11,13 +11,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
 import { updateSnackbar } from '@/app/app-slice';
+import { getAuthUser } from '@/common/selectors';
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   
   const firebase = useFirebase()
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = useSelector(getAuthUser)
   const SignInWithGoogle = () => {
     firebase.login({
       provider: "google",

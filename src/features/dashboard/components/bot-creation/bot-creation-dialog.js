@@ -4,10 +4,11 @@ import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/mater
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
 import { createUserBot } from '@/features/dashboard/dashboard-slice';
+import { getAuthUser } from '@/common/selectors';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.firebase.auth)
+    const auth = useSelector(getAuthUser)
     const { open, channel, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
     const [orderOptions, setOrders] = React.useState({test: true, duplicate: false});

@@ -7,6 +7,7 @@ import { Box, Tooltip, Typography } from '@mui/material';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
 import { getBotTrades } from '@/features/dashboard/dashboard-slice';
 import { getBotTradesFromState } from '@/features/dashboard/dashboard-selector';
+import { getAuthUser } from '@/common/selectors';
 
 const blankTrade = [
   {
@@ -23,7 +24,7 @@ const blankTrade = [
   },
 ];
 export const BotTradesTable = (props) => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
   const { botId } = props;
   const [botTrades, setBotTrades] = useState([]);

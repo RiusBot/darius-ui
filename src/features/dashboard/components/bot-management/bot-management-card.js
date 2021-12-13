@@ -6,9 +6,10 @@ import { BotTradesTable } from '@/features/dashboard/components/bot-management/b
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 import { getUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
+import { getAuthUser } from '@/common/selectors';
 
 export default function BotManagementCard(props) {
-    const auth = useSelector(state => state.firebase.auth)
+    const auth = useSelector(getAuthUser)
     const dispatch = useDispatch();
     const { openConfirmDialog, userApi } = props;
     const [value, setValue] = useState('0');
