@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,6 +7,7 @@ import { createUserBot } from '@/features/dashboard/dashboard-slice';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.firebase.auth)
     const { open, channel, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
     const [orderOptions, setOrders] = React.useState({test: true, duplicate: false});
@@ -18,7 +19,7 @@ function BotCreationDialog(props) {
     }
     
     const createButtonClicked = () => {
-        const createBotInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+        const createBotInfo = {userId: auth.uid,
                                orderOptions: orderOptions,
                                configOptions: configOptions,
                                channel: channel,

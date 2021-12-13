@@ -13,17 +13,18 @@ import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
 
 const Dashboard = () => {
+  const auth = useSelector(state => state.firebase.auth)
   const dispatch = useDispatch();
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
   useEffect (() => {  
-    dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}));
+    dispatch(getUserApi({userId: auth.uid, subaccount: "test-1"}));
     },[]
   );
   const userApi = useSelector(getUserApiFromState);
   const confirmDeleteBot = () => {
-    dispatch(deleteUserBot({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", botId: botDeleteDialog.botId}));
+    dispatch(deleteUserBot({userId: auth.uid, botId: botDeleteDialog.botId}));
     handleDeleteDialogClose();
   }
 

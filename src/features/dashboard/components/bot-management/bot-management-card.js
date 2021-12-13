@@ -8,12 +8,13 @@ import { getUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
 
 export default function BotManagementCard(props) {
+    const auth = useSelector(state => state.firebase.auth)
     const dispatch = useDispatch();
     const { openConfirmDialog, userApi } = props;
     const [value, setValue] = useState('0');
 
     useEffect (() => {  
-        dispatch(getUserBots({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3"}))
+        dispatch(getUserBots({userId: auth.uid}))
         },[]
     );
     const userBots = useSelector(getUserBotsFromState);

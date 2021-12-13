@@ -23,12 +23,13 @@ const blankTrade = [
   },
 ];
 export const BotTradesTable = (props) => {
+  const auth = useSelector(state => state.firebase.auth)
   const dispatch = useDispatch();
   const { botId } = props;
   const [botTrades, setBotTrades] = useState([]);
 
   useEffect (() => {  
-      dispatch(getBotTrades({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", botId: botId}));
+      dispatch(getBotTrades({userId: auth.uid, botId: botId}));
       },[]
   );
   const allBotTrades = useSelector(getBotTradesFromState);

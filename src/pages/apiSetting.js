@@ -15,12 +15,13 @@ import { createUserApi, deleteUserApi } from '@/features/api/api-slice';
 const exchanges = ['Binance', 'FTX'];
 
 const apiSetting = () => {
+  const auth = useSelector(state => state.firebase.auth)
   const dispatch = useDispatch();
   const [isApiCreateReady, setApiCreate] = useState(false);
   const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});
 
   useEffect (() => {
-    dispatch(getUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3", subaccount: "test-1"}));
+    dispatch(getUserApi({userId: auth.uid, subaccount: "test-1"}));
     },[]
   );
   const userApi = useSelector(getUserApiFromState);
@@ -66,7 +67,7 @@ const apiSetting = () => {
   }
 
   const createButtonClicked = () => {
-        const createApiInfo = {userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+        const createApiInfo = {userId: auth.uid,
                                api: apiValues
                                };
         dispatch(createUserApi(createApiInfo));
@@ -76,7 +77,7 @@ const apiSetting = () => {
   const deleteApi = (apiId) => {
     //TODO: confirm dialog
     console.log(apiId);
-    dispatch(deleteUserApi({userId: "lnkniyQLCNPlJz4cH0k3ejeh9ZB3",
+    dispatch(deleteUserApi({userId: auth.uid,
                             apiId: apiId}));
   } 
 
