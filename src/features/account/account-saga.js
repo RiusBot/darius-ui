@@ -5,7 +5,6 @@ import {
 } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
-import firebase from '@/utils/firebase';
 
 function* createUserSaga() {
   const axios = yield getAxios();
@@ -26,7 +25,6 @@ function* createUserSaga() {
   } catch(error) {
     const errorMsg = 'Failed to create user';
   }
-  firebase.logout();
 };
 
 function* accountSaga() {

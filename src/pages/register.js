@@ -32,11 +32,10 @@ const Register = () => {
       )
       .then(() => {
         dispatch(createUser());
-        firebase.auth().currentUser.sendEmailVerification()
+        firebase.auth().currentUser.sendEmailVerification();
         router.push("/login");
       })
       .catch((error) => {
-        console.log('rayy', error.message);
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   }

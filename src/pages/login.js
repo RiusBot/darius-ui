@@ -10,7 +10,7 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
-import { updateSnackbar } from '@/app/app-slice';
+import { createUser, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
 
 const Login = () => {
@@ -24,6 +24,12 @@ const Login = () => {
       provider: "google",
       type: "popup",
     })
+      .then((result) => {
+        const additionalUserInfo = result.additionalUserInfo;
+        if (additionalUserInfo.isNewUser) {
+          dispatch(createUser());
+        }
+      })
       .catch((error) => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
@@ -64,7 +70,7 @@ const Login = () => {
       if (auth.emailVerified) {
         router.push('/');
       } else {
-        dispatch(updateSnackbar({ type: 'error', msg: 'Email verfication needed.' }));
+        dispatch(updateSnackbar({ type: 'info', msg: 'Verification email is sent, please click the confirmation link and login again.' }));
         firebase.logout();
       }
     }
