@@ -10,7 +10,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-const DariusSnackBar = () => {
+const RiusbotSnackBar = () => {
   const dispatch = useDispatch();
 
   const snackbarInfo = useSelector(getSnackbarInfo);
@@ -31,4 +31,4 @@ const DariusSnackBar = () => {
   )
 };
 
-export default DariusSnackBar;
+export default RiusbotSnackBar;

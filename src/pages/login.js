@@ -79,7 +79,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Darius</title>
+        <title>Login | RiusBot</title>
       </Head>
       <Box
         component="main"

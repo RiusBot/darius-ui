@@ -32,7 +32,7 @@ const Products = () => {
     <>
       <Head>
         <title>
-          Products | Darius
+          Products | RiusBot
         </title>
       </Head>
       <Box

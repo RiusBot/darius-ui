@@ -44,7 +44,7 @@ export const DashboardLayout = (props) => {
           </AuthIsLoaded>
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar title="Darius" subtitle={pageName} isSidebarOpen={isSidebarOpen} onSidebarOpen={() => setSidebarOpen(true)} />
+      <DashboardNavbar title="RiusBot" subtitle={pageName} isSidebarOpen={isSidebarOpen} onSidebarOpen={() => setSidebarOpen(true)} />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}

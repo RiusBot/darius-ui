@@ -7,7 +7,7 @@ const NotFound = () => (
   <>
     <Head>
       <title>
-        404 | Darius
+        404 | RiusBot
       </title>
     </Head>
     <Box

@@ -9,7 +9,7 @@ const Account = () => (
   <>
     <Head>
       <title>
-        Account | Darius
+        Account | RiusBot
       </title>
     </Head>
     <Box

@@ -6,7 +6,7 @@ const Tutorial = () => (
   <>
     <Head>
       <title>
-        Tutorial
+        Tutorial | RiusBot
       </title>
     </Head>
     <Box

@@ -47,7 +47,7 @@ const Dashboard = () => {
     <>
       <Head>
         <title>
-          Dashboard
+          Dashboard | RiusBot
         </title>
       </Head>
       <Box

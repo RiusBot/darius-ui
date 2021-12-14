@@ -80,7 +80,7 @@ const apiSetting = () => {
     <>
       <Head>
         <title>
-          API Key Setting
+          API Key Setting | RiusBot
         </title>
       </Head>
       <Box

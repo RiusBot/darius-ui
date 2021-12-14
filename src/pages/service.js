@@ -8,7 +8,7 @@ const Service = () => (
   <>
     <Head>
       <title>
-        Service and Payment
+        Service and Payment | RiusBot
       </title>
     </Head>
     <Box

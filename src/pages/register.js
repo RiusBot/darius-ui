@@ -82,7 +82,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register | Darius
+          Register | RiusBot
         </title>
       </Head>
       <Box
