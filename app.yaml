@@ -2,7 +2,7 @@
 
 env: standard
 runtime: nodejs16
-service: darius-ui
+service: default
 
 handlers:
   - url: /.*

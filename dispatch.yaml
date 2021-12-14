@@ -1,0 +1,9 @@
+dispatch:
+  - url: "*/.*"
+    service: default
+
+  # - url: "darius-ui.riusbot.com/*"
+  #   service: darius-ui
+
+  # - url: "darius-backend.riusbot.com/*"
+  #   service: darius-backend

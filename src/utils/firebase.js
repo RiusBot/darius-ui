@@ -16,6 +16,7 @@ try {
 	firebase.initializeApp(firebaseConfig);
 	firebase.firestore();
 	console.log("Firebase Initialized");
+	console.log(firebaseConfig);
 } catch (err) {
 	console.log("Error Initializing Firebase", err);
 }
