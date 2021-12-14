@@ -6,23 +6,22 @@ import { Card, CardHeader, CardContent, Divider, TextField } from '@mui/material
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
-import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
+import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
 import { createUserApi, deleteUserApi } from '@/features/api/api-slice';
-import { getAuthUser } from '@/common/selectors';
 
 
 const exchanges = ['Binance', 'FTX'];
 
 const apiSetting = () => {
-  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
   const [isApiCreateReady, setApiCreate] = useState(false);
+  const [apiDeleteDialog, setApiDeleteDialog] = useState({open: false, apiId: null});
   const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});
 
   useEffect (() => {
-    dispatch(getUserApi({userId: auth.uid, subaccount: "test-1"}));
+    dispatch(getUserApi());
     },[]
   );
   const userApi = useSelector(getUserApiFromState);
@@ -68,19 +67,16 @@ const apiSetting = () => {
   }
 
   const createButtonClicked = () => {
-        const createApiInfo = {userId: auth.uid,
-                               api: apiValues
-                               };
+        const createApiInfo = {api: apiValues};
         dispatch(createUserApi(createApiInfo));
         clearFormData();
     }
 
-  const deleteApi = (apiId) => {
-    //TODO: confirm dialog
-    console.log(apiId);
-    dispatch(deleteUserApi({userId: auth.uid,
-                            apiId: apiId}));
-  } 
+  const confirmDeleteApi = () => {
+    console.log(apiDeleteDialog.apiId);
+    dispatch(deleteUserApi({apiId: apiDeleteDialog.apiId}));
+    setApiDeleteDialog({open: false, apiId: null});
+  }
 
   const CurrentApiList = () => {
     if (Object.keys(userApi).length == 0) {
@@ -92,7 +88,7 @@ const apiSetting = () => {
         <Box key={id} >
           <Box sx={{display: 'flex', flexDirection: 'row'}} >
             <IconButton
-              onClick={deleteApi(api.api_id)}
+              onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
               color="error"
             >
                 <RemoveIcon fontSize="small" />
@@ -235,6 +231,12 @@ const apiSetting = () => {
         </Card>
         </Container>
       </Box>
+      <ConfirmDialog
+        open={apiDeleteDialog.open}
+        onConfirm={confirmDeleteApi}
+        onClose={() => setApiDeleteDialog({open: false, apiId: null})}
+        object="API"
+      />
     </>
   );
 };

@@ -13,7 +13,8 @@ const apiSlice = createSlice({
       });
     },
     createUserApi: () => {},
-    createUserApiSuccess: (state, action) => {
+    createUserApiSuccess: (state, action, apiInfo) => {
+      getUserApi();
     },
     deleteUserApi: () => {},
     deleteUserApiSuccess: (state, action) => {

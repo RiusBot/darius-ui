@@ -8,13 +8,15 @@ import {
   deleteUserApiSuccess,
 } from '@/features/api/api-slice';
 import getAxios from '@/common/utils/getAxios';
+import { getAuthUser } from '@/common/selectors';
 
 function* getUserApiSaga({ payload: userInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_api`;
   const requestMethod = 'GET';
   const params = {
-    uid: userInfo.userId,
+    uid: auth.uid,
   }
   try {
     const res = yield axios(url, {
@@ -29,10 +31,11 @@ function* getUserApiSaga({ payload: userInfo }) {
 
 function* createUserApiSaga({ payload: apiInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/create_user_api`;
   const requestMethod = 'POST';
   const data = {
-    uid: apiInfo.userId,
+    uid: auth.uid,
     api_key: apiInfo.api.key,
     api_secret: apiInfo.api.secret,
     exchange: apiInfo.api.exchange,
@@ -51,10 +54,11 @@ function* createUserApiSaga({ payload: apiInfo }) {
 
 function* deleteUserApiSaga({ payload: apiInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/delete_user_api`;
   const requestMethod = 'DELETE';
   const data = {
-    uid: apiInfo.userId,
+    uid: auth.uid,
     api_id: apiInfo.apiId,
   }
   try {

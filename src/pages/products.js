@@ -9,24 +9,24 @@ import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 
 const Products = () => {
-  const [infoDialog, setShowInfoDialog] = useState({rose: false, 
-                                                    whaleHunt: false, 
-                                                    dailyScalping: false});
+  const [infoDialog, setShowInfoDialog] = useState({ROSE: false, 
+                                                    WHALE: false, 
+                                                    DAILY: false});
   const handleBotInfoDialogOpen = (channel) => {
     switch (channel) {
-      case "Rose Premium":
-        setShowInfoDialog({rose: true, whaleHunt: false, dailyScalping: false});
+      case "ROSE":
+        setShowInfoDialog({ROSE: true, WHALE: false, DAILY: false});
         break;
-      case "Whale Hunt":
-        setShowInfoDialog({rose: false, whaleHunt: true, dailyScalping: false});
+      case "WHALE":
+        setShowInfoDialog({ROSE: false, WHALE: true, DAILY: false});
         break;
-      case "Daily Scalping":
-        setShowInfoDialog({rose: false, whaleHunt: false, dailyScalping: true});
+      case "DAILY":
+        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: true});
         break;
     }
   }
   const handleBotInfoDialogClose = () => {
-    setShowInfoDialog({rose: false, whaleHunt: false, dailyScalping: false});
+    setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false});
   }
   return (
     <>
@@ -84,11 +84,11 @@ const Products = () => {
         onClose={handleBotInfoDialogClose}
         />
       <WhaleHuntInfoDialog
-        open={infoDialog.whaleHunt}
+        open={infoDialog.WHALE}
         onClose={handleBotInfoDialogClose}
         />
       <DailyScalpingInfoDialog
-        open={infoDialog.dailyScalping}
+        open={infoDialog.DAILY}
         onClose={handleBotInfoDialogClose}
         />
     </>

@@ -4,12 +4,10 @@ import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/mater
 import DefaultConfigSettings from "./default-config-settings";
 import CloseIcon from '@mui/icons-material/Close';
 import { createUserBot } from '@/features/dashboard/dashboard-slice';
-import { getAuthUser } from '@/common/selectors';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
-    const auth = useSelector(getAuthUser)
-    const { open, channel, onClose } = props;
+    const { open, channel, channelDisplayName, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
     const [orderOptions, setOrders] = React.useState({test: true, duplicate: false});
     const [configOptions, setConfigs] = React.useState({api: '', target: '', orderType: '', stopLossType: '', stopLoss: 0,
@@ -20,8 +18,8 @@ function BotCreationDialog(props) {
     }
     
     const createButtonClicked = () => {
-        const createBotInfo = {userId: auth.uid,
-                               orderOptions: orderOptions,
+        console.log("Create Button Clicked");
+        const createBotInfo = {orderOptions: orderOptions,
                                configOptions: configOptions,
                                channel: channel,
                                };
@@ -42,7 +40,7 @@ function BotCreationDialog(props) {
                     padding: '32px 16px 8px'
                 }}>
                 <Typography variant="h5" component="div">
-                    {channel} Bot Creation
+                    {channelDisplayName} Bot Creation
                 </Typography>
                 <IconButton
                     style={{marginLeft: 'auto'}}

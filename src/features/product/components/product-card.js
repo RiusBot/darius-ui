@@ -36,7 +36,7 @@ export const ProductCard = (props) => {
           gutterBottom
           variant="h5"
         >
-          {product.channel}
+          {product.channelDisplayName}
         </Typography>
         {product.description.map((line, idx) => (
           <Typography

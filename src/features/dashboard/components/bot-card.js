@@ -26,12 +26,12 @@ const BotCard = (props) => {
               gutterBottom
               variant="h5"
             >
-              {bot.channel}
+              {bot.channelDisplayName}
             </Typography>
           </Grid>
           <Grid item>
             <Avatar
-              alt={bot.channel}
+              alt={bot.channelDisplayName}
               src={bot.media}
               sx={{
                 display: 'flex',
@@ -51,7 +51,9 @@ const BotCard = (props) => {
             endIcon={<AddCircle fontSize="small" />}
             size="small"
             variant="contained"
-            onClick={() => openCreateBotDialog({action: "botCreate", channel: bot.channel})}
+            onClick={() => openCreateBotDialog({action: "botCreate", 
+                                                channel: bot.channel, 
+                                                channelDisplayName: bot.channelDisplayName})}
           >
             Create
           </Button>

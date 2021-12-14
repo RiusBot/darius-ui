@@ -8,16 +8,15 @@ import {
   getUserBotsSuccess,
   getBotTrades,
   getBotTradesSuccess,
-  getUserApi,
-  getUserApiSuccess,
 } from '@/features/dashboard/dashboard-slice';
 import getAxios from '@/common/utils/getAxios';
+import { getAuthUser } from '@/common/selectors';
 
 function* createUserBotSaga({ payload: createBotInfo }) {
-  console.log(createBotInfo);
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const data = { 
-    uid: createBotInfo.userId,
+    uid: auth.uid,
     config: {
       api_id: createBotInfo.configOptions.api,
       test: createBotInfo.orderOptions.test,
@@ -50,10 +49,11 @@ function* createUserBotSaga({ payload: createBotInfo }) {
 
 function* deleteUserBotSaga({ payload: deleteBotInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/delete_user_bot`;
   const requestMethod = 'DELETE';
   const data = {
-    uid: deleteBotInfo.userId,
+    uid: auth.uid,
     bot_id: deleteBotInfo.botId,
   }
   try {
@@ -69,11 +69,11 @@ function* deleteUserBotSaga({ payload: deleteBotInfo }) {
 
 function* getUserBotsSaga({ payload: userInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_bots`;
   const requestMethod = 'GET';
   const params = {
-    uid: userInfo.userId,
-    subaccount: userInfo.subaccount,
+    uid: auth.uid,
   }
   try {
     const res = yield axios(url, {
@@ -88,10 +88,11 @@ function* getUserBotsSaga({ payload: userInfo }) {
 
 function* getBotTradesSaga({ payload: botInfo }) {
   const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
   const url = `/api/v1/get_bot_trades`;
   const requestMethod = 'GET';
   const params = {
-    uid: botInfo.userId,
+    uid: auth.uid,
     bot_id: botInfo.botId,
   }
   try {

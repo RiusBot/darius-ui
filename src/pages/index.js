@@ -11,28 +11,26 @@ import { ConfirmDialog } from '@/features/dashboard/components/bot-management/co
 import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
-import { getAuthUser } from '@/common/selectors';
 
 const Dashboard = () => {
-  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
-  const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: ""});
+  const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: "", channelDisplayName: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
   useEffect (() => {  
-    dispatch(getUserApi({userId: auth.uid, subaccount: "test-1"}));
+    dispatch(getUserApi());
     },[]
   );
   const userApi = useSelector(getUserApiFromState);
   const confirmDeleteBot = () => {
-    dispatch(deleteUserBot({userId: auth.uid, botId: botDeleteDialog.botId}));
+    dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
     handleDeleteDialogClose();
   }
 
   const handleDialogOpen = (dialog) => {
     switch (dialog.action) {
       case 'botCreate':
-        setBotCreateDialog({open: true, channel: dialog.channel});
+        setBotCreateDialog({open: true, channel: dialog.channel, channelDisplayName: dialog.channelDisplayName});
         break;
       case 'botDelete':
         setBotDeleteDialog({open: true, botId: dialog.botId});
@@ -102,6 +100,7 @@ const Dashboard = () => {
       <BotCreationDialog
         open={botCreateDialog.open}
         channel={botCreateDialog.channel}
+        channelDisplayName={botCreateDialog.channelDisplayName}
         onClose={handleCreateDialogClose}
         />
 
@@ -109,6 +108,7 @@ const Dashboard = () => {
         open={botDeleteDialog.open}
         onConfirm={confirmDeleteBot}
         onClose={handleDeleteDialogClose}
+        object="BOT"
       />
     </>
 )};
