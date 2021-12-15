@@ -20,6 +20,9 @@ export default function DefaultConfigSettings(props) {
         setSliders({...sliderOptions, [event.target.name]: newValue});
         setConfigs({...configOptions, [event.target.name]: newValue/10});
     }
+    const parseFloatRound = (value) => {
+        return Math.round(parseFloat(value), -3);
+    }
     const checkOptionsValid = (option) => {
         switch (option) {
             case 'api':
@@ -29,14 +32,17 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfitType':
                 return (configOptions[option] !== undefined && configOptions[option] != '');
             case 'stopLoss':
+                return (0 <= configOptions[option] && configOptions[option] < 1);
             case 'takeProfit':
-                return (0 < configOptions[option] && configOptions[option] < 1);
+                return (0 <= configOptions[option] && configOptions[option] < 5);
             case 'quantity':
-                return (parseInt(configOptions[option]) > 30);
+                return (parseFloatRound(configOptions[option]) >= 30);
             case 'leverage':
+                return (parseFloatRound(configOptions[option]) > 0);
             case 'minimumMargin':
+                return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
             case 'minimumVolume':
-                return (parseInt(configOptions[option]) > 0);
+                return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
         }
     }
     React.useEffect(() => {
@@ -151,7 +157,7 @@ export default function DefaultConfigSettings(props) {
                 </Box>
                 <Box sx={{paddingLeft: '48px'}}>
                     <InputSlider 
-                        name="Stop Loss"
+                        name="Stop Loss ( Select 0 if no use )"
                         id="stopLoss"
                         handleSliderChange={handleSliderChange}
                         value={sliderOptions.stopLoss}/>
@@ -174,7 +180,7 @@ export default function DefaultConfigSettings(props) {
                 </Box>
                 <Box sx={{paddingLeft: '48px'}}>
                     <InputSlider 
-                        name="Take Profit"
+                        name="Take Profit ( Select 0 if no use )"
                         id="takeProfit"
                         handleSliderChange={handleSliderChange}
                         value={sliderOptions.takeProfit}/>
@@ -199,7 +205,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Limit: Quantity > 30</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Quantity > 30</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -212,7 +218,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >LIMIT: Leverage > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Leverage > 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -220,12 +226,12 @@ export default function DefaultConfigSettings(props) {
                         <TextField 
                             required fullWidth
                             name="minimumMargin" 
-                            label="Minimum Margin Ratio" 
+                            label="Minimum Margin Ratio/level" 
                             variant="outlined" 
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >LIMIT: Margin > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Margin > 0 ( Leave blank if no use )</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -238,11 +244,10 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >LIMIT: Volume > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Volume > 0 ( Leave blank if no use )</Typography>
                     </Box>
                 </Box>
             </Box>
-
         </Box>
     );
 }

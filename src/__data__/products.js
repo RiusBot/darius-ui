@@ -15,7 +15,7 @@ export const products = [
     media: '/static/images/products/whale-hunt.png',
   },
   {
-    channel: 'DAILY',
+    channel: 'DAILYSCALP',
     channelDisplayName: 'Daily Scalping',
     description: ['Altcenter Signals for Crypto & Forex Trading',
                   'Scalping makes profits within a short period of time with automated bot trading & reliable safety machinism & high accuracy signals.'],

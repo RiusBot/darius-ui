@@ -20,7 +20,7 @@ const Products = () => {
       case "WHALE":
         setShowInfoDialog({ROSE: false, WHALE: true, DAILY: false});
         break;
-      case "DAILY":
+      case "DAILYSCALP":
         setShowInfoDialog({ROSE: false, WHALE: false, DAILY: true});
         break;
     }

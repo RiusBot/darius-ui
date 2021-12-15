@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Box, Typography, Button } from '@mui/material';
 import { CardContent, TextField } from '@mui/material';
@@ -7,6 +8,7 @@ import { createUserApi } from '@/features/api/api-slice';
 const exchanges = ['Binance', 'FTX'];
 
 export const ApiCreateForm = (props) => {
+    const dispatch = useDispatch();
     const { display } = props;
     const [isApiCreateReady, setApiCreate] = useState(false);
     const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});
