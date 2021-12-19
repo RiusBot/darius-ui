@@ -70,7 +70,7 @@ const Login = () => {
       if (auth.emailVerified) {
         router.push('/');
       } else {
-        dispatch(updateSnackbar({ type: 'info', msg: 'Verification email is sent, please click the confirmation link and login again.' }));
+        dispatch(updateSnackbar({ type: 'warning', msg: 'Email verification is needed, please click the confirmation link and login again.' }));
         firebase.logout();
       }
     }

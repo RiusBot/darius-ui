@@ -30,14 +30,20 @@ const Register = () => {
         { email, password },
         { displayName: username, email}
       )
-      .then(() => {
-        dispatch(createUser());
-        firebase.auth().currentUser.sendEmailVerification();
-        router.push("/login");
-      })
-      .catch((error) => {
-        dispatch(updateSnackbar({ type: 'error', msg: error.message }))
-      });
+        .then(() => {
+          dispatch(createUser());   
+        })
+        .then(() => {
+          firebase.auth().currentUser.sendEmailVerification();
+          dispatch(updateSnackbar({ type: 'info', msg: 'Verification email is sent, please click the confirmation link and login again.' }));
+          firebase.logout();
+        })
+        .then(() => {
+          router.push("/login");
+        })
+        .catch((error) => {
+          dispatch(updateSnackbar({ type: 'error', msg: error.message }))
+        });
   }
   
   const formik = useFormik({
