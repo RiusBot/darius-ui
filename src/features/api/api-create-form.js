@@ -73,8 +73,8 @@ export const ApiCreateForm = (props) => {
                 <Select
                     name="exchange"
                     id="exchange"
-                    value={apiValues.exchange}
                     label="exchange"
+                    value={apiValues.exchange}
                     onChange={handleChange}
                 >
                     {exchanges.map((exchange, idx) => (
@@ -83,32 +83,35 @@ export const ApiCreateForm = (props) => {
                 </Select>
             </FormControl>
             <TextField
-            sx={{display: (apiValues.exchange == 'ftx') ? 'flex' : 'none'}}
-            fullWidth
-            label="Subaccount"
-            margin="normal"
-            name="subaccount"
-            onChange={handleChange}
-            value={apiValues.subaccount}
-            variant="outlined"
+                sx={{display: (apiValues.exchange == 'ftx') ? 'flex' : 'none'}}
+                fullWidth
+                label="Subaccount"
+                margin="normal"
+                name="subaccount"
+                inputProps={{ maxLength: 32 }}
+                onChange={handleChange}
+                value={apiValues.subaccount}
+                variant="outlined"
             />
             <TextField
-            fullWidth
-            label="API key"
-            margin="normal"
-            name="key"
-            onChange={handleChange}
-            value={apiValues.key}
-            variant="outlined"
+                fullWidth
+                label="API key"
+                margin="normal"
+                name="key"
+                inputProps={{ maxLength: 64 }}
+                onChange={handleChange}
+                value={apiValues.key}
+                variant="outlined"
             />
             <TextField
-            fullWidth
-            label="Secret"
-            margin="normal"
-            name="secret"
-            onChange={handleChange}
-            value={apiValues.secret}
-            variant="outlined"
+                fullWidth
+                label="Secret"
+                margin="normal"
+                name="secret"
+                inputProps={{ maxLength: 64 }}
+                onChange={handleChange}
+                value={apiValues.secret}
+                variant="outlined"
             />
         </CardContent>
         <Box

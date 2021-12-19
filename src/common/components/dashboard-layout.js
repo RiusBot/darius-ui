@@ -14,8 +14,6 @@ const AuthIsLoaded = ({ children }) => {
   return children
 }
 
-
-
 export const DashboardLayout = (props) => {
   const { children, pageName } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);

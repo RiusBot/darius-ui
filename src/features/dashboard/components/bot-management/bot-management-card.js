@@ -6,6 +6,7 @@ import { BotTradesTable } from '@/features/dashboard/components/bot-management/b
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 import { getUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBotsFromState } from '@/features/dashboard/dashboard-selector';
+import { getBotTrades } from '@/features/dashboard/dashboard-slice';
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
@@ -14,10 +15,13 @@ export default function BotManagementCard(props) {
 
     useEffect (() => {  
         dispatch(getUserBots());
-        },[]
+      },[]
     );
     const userBots = useSelector(getUserBotsFromState);
-    
+    const getCurrentBotTrades = (botId) => {
+        dispatch(getBotTrades({botId: botId}));
+    }
+     
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -75,6 +79,7 @@ export default function BotManagementCard(props) {
                         <Box sx={{ display: 'flex', flexDirection: 'row'}} >
                             <BotTradesTable
                                 botId={userBots[parseInt(value)].bot_id}
+                                getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
                             />
                             <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
                                 <BotSettings

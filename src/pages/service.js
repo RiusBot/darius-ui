@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
+import { withAuth } from '@/common/utils/auth';
 import ServiceOptions from '@/features/services/components/service-options';
 import ServicePayment from '@/features/services/components/service-payment';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
@@ -35,4 +36,4 @@ Service.getLayout = (page) => (
   </DashboardLayout>
 );
 
-export default Service;
+export default withAuth(Service);

@@ -24,7 +24,7 @@ const makeStore = () => {
       getDefaultMiddleware({ 
         thunk: false,
         serializableCheck: {
-          ignoredActions: [actionTypes.LOGIN]
+          ignoredActions: [actionTypes.LOGIN, actionTypes.LOGIN_ERROR]
         }
       }).concat(getMiddlewares([sagaMiddleware]))
     ),

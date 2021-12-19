@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import App from 'next/app';
 import { useStore } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
@@ -14,7 +15,7 @@ import firebase from '@/utils/firebase';
 
 const clientSideEmotionCache = createEmotionCache();
 
-const App = (props) => {
+const MyApp = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const store =  useStore()
@@ -53,5 +54,9 @@ const App = (props) => {
     </CacheProvider>
   );
 };
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
+};
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(MyApp);

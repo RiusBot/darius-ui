@@ -1,0 +1,36 @@
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from "next/router";
+import { isLoaded, isEmpty } from 'react-redux-firebase'
+import LinearProgress from '@mui/material/LinearProgress';
+import { getAuthUser } from '@/common/selectors';
+import { updateSnackbar } from '@/app/app-slice';
+
+
+export const withAuth = Component => {
+  const Auth = (props) => {
+    const router = useRouter();
+    const dispatch = useDispatch()
+    const auth = useSelector(getAuthUser)
+    const { isLoggedIn } = isLoaded(auth) && !isEmpty(auth);
+    
+    if (!isLoggedIn) {
+      dispatch(updateSnackbar({ type: 'info', msg: 'Please login before entering dashboard' }))
+      if (typeof window === 'undefined') {
+        return <LinearProgress />;
+      } else {
+        router.push('/login');
+      }
+    }
+
+    return (
+      <Component {...props} />
+    );
+  };
+
+  if (Component.getInitialProps) {
+    Auth.getInitialProps = Component.getInitialProps;
+  }
+
+  return Auth;
+};

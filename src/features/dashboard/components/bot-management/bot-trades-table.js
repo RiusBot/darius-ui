@@ -3,44 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { format } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
-import { Box, Tooltip, Typography } from '@mui/material';
+import { Box, Tooltip, Typography, Popover } from '@mui/material';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
-import { getBotTrades } from '@/features/dashboard/dashboard-slice';
+import { BotTradesDetailPopup } from '@/features/dashboard/components/bot-management/bot-trades-detail-popup';
 import { getBotTradesFromState } from '@/features/dashboard/dashboard-selector';
-import { getAuthUser } from '@/common/selectors';
 
-const blankTrade = [
-  {
-    message: {
-      channel: "Rose",
-      content: "test",
-      symbol: "test",
-      action: "buy",
-      message_timestamp: 1555016400000,
-      receive_timestamp: 1555016400000,
-    },
-    status: 'open',
-    error: '',
-  },
-];
 export const BotTradesTable = (props) => {
-  const auth = useSelector(getAuthUser)
   const dispatch = useDispatch();
   const { botId } = props;
   const [botTrades, setBotTrades] = useState([]);
+  const [tradeDetail, setTradeDetail] = useState({info: null, anchorEl: null, open: false});
 
-  useEffect (() => {  
-      dispatch(getBotTrades({userId: auth.uid, botId: botId}));
-      },[]
-  );
   const allBotTrades = useSelector(getBotTradesFromState);
-
   useEffect (() => {
     if (allBotTrades[botId]) {
       setBotTrades(allBotTrades[botId]);
     }
   }, [allBotTrades]);
-
 
   return (
     <>
@@ -81,6 +60,7 @@ export const BotTradesTable = (props) => {
                 <TableRow
                   hover
                   key={index}
+                  onClick={(event) => setTradeDetail({info: trade, anchorEl: event.currentTarget, open: true})}
                 >
                   <TableCell>
                     {format(trade.message.message_timestamp, 'dd/MM/yyyy mm:ss')}
@@ -106,6 +86,19 @@ export const BotTradesTable = (props) => {
           </Table>
         </Box>
       </PerfectScrollbar>
+      <Popover
+        open={tradeDetail.open}
+        anchorEl={tradeDetail.anchorEl}
+        onClose={() => setTradeDetail({info: null, anchorEl: null, open: false})}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <BotTradesDetailPopup
+          tradeDetail={tradeDetail.info}
+        />
+      </Popover>
       {/* <Box
         sx={{
           display: 'flex',

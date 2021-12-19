@@ -6,6 +6,12 @@ import { TextField, Divider} from "@mui/material";
 import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 import { getUserApiFromState } from '@/features/api/api-selector';
 
+
+const limits = { quantity: { min: 30, max: 10000000000 },
+                 leverage: { min: 0, max: 10000000000 },
+                 margin: { min: 0, max: 1000 },
+                 volume: { min: 0, max: 10000000000 }};
+
 export default function DefaultConfigSettings(props) {
     const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
     const userApi = useSelector(getUserApiFromState);
@@ -14,7 +20,16 @@ export default function DefaultConfigSettings(props) {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
     const handleOptionChange = (event) => {
-        setConfigs({...configOptions, [event.target.name]: event.target.value});
+        var name = event.target.name;
+        var value
+        if (Object.keys(limits).includes(name)) {
+            value = parseFloatRound(event.target.value);
+            if (value > limits[name].max) value = limits[name].max;
+            if (value < limits[name].min) value = limits[name].min;
+        } else {
+            value = event.target.value;
+        }
+        setConfigs({...configOptions, [name]: value});
     };
     const handleSliderChange = (event, newValue) => {
         setSliders({...sliderOptions, [event.target.name]: newValue});
@@ -39,9 +54,9 @@ export default function DefaultConfigSettings(props) {
                 return (parseFloatRound(configOptions[option]) >= 30);
             case 'leverage':
                 return (parseFloatRound(configOptions[option]) > 0);
-            case 'minimumMargin':
+            case 'margin':
                 return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
-            case 'minimumVolume':
+            case 'volume':
                 return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
         }
     }
@@ -183,6 +198,7 @@ export default function DefaultConfigSettings(props) {
                         name="Take Profit ( Select 0 if no use )"
                         id="takeProfit"
                         handleSliderChange={handleSliderChange}
+                        
                         value={sliderOptions.takeProfit}/>
                 </Box>
             </Box>
@@ -199,52 +215,64 @@ export default function DefaultConfigSettings(props) {
                     <Box sx={{width: '30%'}}>
                         <TextField 
                             required fullWidth
+                            type="number"
                             name="quantity" 
                             label="Quantity" 
                             variant="outlined" 
+                            inputProps={{ min: limits.quantity.min, max: limits.quantity.max }}
+                            value={configOptions.quantity}
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Quantity > 30</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Quantity &gt; 30</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
                     <Box sx={{width: '30%'}}>
                         <TextField 
                             required fullWidth
+                            type="number"
                             name="leverage" 
                             label="Leverage" 
                             variant="outlined" 
+                            inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
+                            value={configOptions.leverage}
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Leverage > 0</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Leverage &gt; 0</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
                     <Box sx={{width: '30%'}}>
                         <TextField 
-                            required fullWidth
-                            name="minimumMargin" 
+                            fullWidth
+                            type="number"
+                            name="margin" 
                             label="Minimum Margin Ratio/level" 
                             variant="outlined" 
+                            inputProps={{ min: limits.margin.min, max: limits.margin.max }}
+                            value={configOptions.margin}
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Margin > 0 ( Leave blank if no use )</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Margin &gt; 0 ( Leave blank if no use )</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
                     <Box sx={{width: '30%'}}>
                         <TextField 
-                            required fullWidth
-                            name="minimumVolume" 
+                            fullWidth
+                            type="number"
+                            name="volume" 
                             label="Minimum Volume" 
                             variant="outlined"
+                            inputProps={{ min: limits.volume.min, max: limits.volume.max }}
+                            value={configOptions.volume}
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Volume > 0 ( Leave blank if no use )</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( Leave blank if no use )</Typography>
                     </Box>
                 </Box>
             </Box>

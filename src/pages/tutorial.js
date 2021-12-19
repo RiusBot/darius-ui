@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Box, Card } from '@mui/material';
+import { withAuth } from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 
 const Tutorial = () => (
@@ -30,4 +31,4 @@ Tutorial.getLayout = (page) => (
   </DashboardLayout>
 );
 
-export default Tutorial;
+export default withAuth(Tutorial);
