@@ -28,11 +28,11 @@ const items = [
     icon: (<NoteAddIcon fontSize="small" />),
     title: 'API Key Setting'
   },
-  {
-    href: '/service',
-    icon: (<AttachMoneyIcon fontSize="small" />),
-    title: 'Service & Payment'
-  },
+  // {
+  //   href: '/service',
+  //   icon: (<AttachMoneyIcon fontSize="small" />),
+  //   title: 'Service & Payment'
+  // },
   {
     href: '/tutorial',
     icon: (<NoteAddIcon fontSize="small" />),
