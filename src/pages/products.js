@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination, Typography } from '@mui/material';
 import { products } from '__data__/products';
+import { withAuth } from '@/common/utils/auth';
 import { ProductCard } from '@/features/product/components/product-card';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { RoseInfoDialog } from '@/features/product/rose-info-dialog';
@@ -103,4 +104,4 @@ Products.getLayout = (page) => (
   </DashboardLayout>
 );
 
-export default Products;
+export default withAuth(Products);
