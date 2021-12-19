@@ -3,14 +3,13 @@ import {
   getUserApi,
   getUserApiSuccess,
   createUserApi,
-  createUserApiSuccess,
   deleteUserApi,
-  deleteUserApiSuccess,
 } from '@/features/api/api-slice';
+import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
 
-function* getUserApiSaga({ payload: userInfo }) {
+function* getUserApiSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_api`;
@@ -26,6 +25,7 @@ function* getUserApiSaga({ payload: userInfo }) {
     yield put(getUserApiSuccess(res.data));
   } catch(error) {
     const errorMsg = 'Failed to get user API';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
   }
 }
 
@@ -46,9 +46,10 @@ function* createUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
-    yield put(createUserApiSuccess(res.data));
+    yield put(getUserApi());
   } catch(error) {
     const errorMsg = 'Failed to create user API';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
   }
 }
 
@@ -66,9 +67,10 @@ function* deleteUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
-    yield put(getUserApiSuccess(res.data));
+    yield put(getUserApi());
   } catch(error) {
     const errorMsg = 'Failed to delete user API';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
   }
 }
 

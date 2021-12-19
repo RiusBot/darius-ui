@@ -7,6 +7,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { withAuth } from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
+import Snackbar from '@/common/components/snackbar';
 import { ApiCreateForm } from '@/features/api/api-create-form';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
@@ -107,6 +108,7 @@ const apiSetting = () => {
         </Card>
         </Container>
       </Box>
+      <Snackbar />
       <ConfirmDialog
         open={apiDeleteDialog.open}
         onConfirm={confirmDeleteApi}

@@ -9,6 +9,7 @@ import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { products } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
+import Snackbar from '@/common/components/snackbar';
 import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
@@ -96,6 +97,7 @@ const Dashboard = () => {
           </Box>
 
         </Grid>
+        <Snackbar />
       </Box>
 
       <BotCreationDialog
