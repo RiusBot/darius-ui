@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { useFirebase } from 'react-redux-firebase'
 import * as Yup from 'yup';
+import * as EmailValidator from 'email-validator';
 import {
   Box,
   Button,
@@ -23,9 +24,31 @@ const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const firebase = useFirebase();
+    
+  const emailNormalize = (email) => {
+    var token = email.split('@');
+    var name = token[0];
+    var host = token[1];
+    name = name.replace(/\W/g, "");
+    return name + '@' + host;
+  }
+  const emailValidate = (email) => {
+    var normemail = emailNormalize(email);
+    console.log(normemail);
+    console.log(EmailValidator.validate(email));
+    console.log(EmailValidator.validate(normemail));
+    if (EmailValidator.validate(email) && EmailValidator.validate(normemail))
+      return normemail;
+    return "";
+  }
 
   const signUpWithPassword = (values) => {
     const { email, password, username } = values;
+    email = emailValidate(email);
+    console.log(email);
+    if (email === "")
+      dispatch(updateSnackbar({ type: 'error', msg: "Invalid email" }));
+    else {
       firebase.createUser(
         { email, password },
         { displayName: username, email}

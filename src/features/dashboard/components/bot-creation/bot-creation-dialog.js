@@ -12,7 +12,7 @@ function BotCreationDialog(props) {
     const [orderOptions, setOrders] = React.useState({test: true, duplicate: false});
     const [configOptions, setConfigs] = React.useState({api: '', target: '', orderType: '', stopLossType: '', stopLoss: 0,
                                                         takeProfitType: '', takeProfit: 0, quantity: '', leverage: '', 
-                                                        minimumMargin: '', minimumVolume: ''});
+                                                        margin: '', volume: ''});
     const handleCreateButton = (disabled) => {
         setCreateButtonDisabled(disabled);
     }

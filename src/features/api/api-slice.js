@@ -13,12 +13,7 @@ const apiSlice = createSlice({
       });
     },
     createUserApi: () => {},
-    createUserApiSuccess: (state, action, apiInfo) => {
-      getUserApi();
-    },
     deleteUserApi: () => {},
-    deleteUserApiSuccess: (state, action) => {
-    }
   },
 });
 
@@ -28,9 +23,7 @@ export const {
   getUserApi,
   getUserApiSuccess,
   createUserApi,
-  createUserApiSuccess,
   deleteUserApi,
-  deleteUserApiSuccess,
 } = actions
 
 export default reducer;
