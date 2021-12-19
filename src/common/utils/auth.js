@@ -6,14 +6,16 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { getAuthUser } from '@/common/selectors';
 import { updateSnackbar } from '@/app/app-slice';
 
-
-export const withAuth = Component => {
+const withAuth = Component => {
   const Auth = (props) => {
     const router = useRouter();
     const dispatch = useDispatch()
     const auth = useSelector(getAuthUser)
     
     useEffect(() => {
+      if (!isLoaded(auth)) {
+        return <LinearProgress />
+      }
       if (isLoaded(auth)) {
         if (isEmpty(auth)) {
           dispatch(updateSnackbar({ type: 'info', msg: 'Please login before entering dashboard' }))
@@ -41,3 +43,5 @@ export const withAuth = Component => {
 
   return Auth;
 };
+
+export default withAuth;

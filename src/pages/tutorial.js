@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Card } from '@mui/material';
-import { withAuth } from '@/common/utils/auth';
+import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 
 const Tutorial = () => (
