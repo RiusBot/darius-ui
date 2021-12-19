@@ -8,13 +8,7 @@ const dashboardSlice = createSlice({
   },
   reducers: {
     createUserBot: () => {},
-    createUserBotSuccess: (state, action) => {
-      // TODO: update user bot list 
-    },
     deleteUserBot: () => {},
-    deleteUserBotSuccess: (state, action) => {
-      // TODO: update user bot list
-    },
     getUserBots: () => {},
     getUserBotsSuccess: (state, action) => {
       state.userBots = action.payload;
@@ -30,9 +24,7 @@ const { actions, reducer } = dashboardSlice;
 
 export const {
   createUserBot,
-  createUserBotSuccess,
   deleteUserBot,
-  deleteUserBotSuccess,
   getUserBots,
   getUserBotsSuccess,
   getBotTrades,
