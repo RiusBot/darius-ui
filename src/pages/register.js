@@ -31,24 +31,21 @@ const Register = () => {
     var host = token[1];
     name = name.replace(/\W/g, "");
     return name + '@' + host;
-  }
+  };
   const emailValidate = (email) => {
     var normemail = emailNormalize(email);
-    console.log(normemail);
-    console.log(EmailValidator.validate(email));
-    console.log(EmailValidator.validate(normemail));
-    if (EmailValidator.validate(email) && EmailValidator.validate(normemail))
+    if (EmailValidator.validate(email) && EmailValidator.validate(normemail)) {
       return normemail;
+    }
     return "";
-  }
+  };
 
   const signUpWithPassword = (values) => {
     const { email, password, username } = values;
     email = emailValidate(email);
-    console.log(email);
-    if (email === "")
+    if (email === "") {
       dispatch(updateSnackbar({ type: 'error', msg: "Invalid email" }));
-    else {
+    } else {
       firebase.createUser(
         { email, password },
         { displayName: username, email}
@@ -67,7 +64,9 @@ const Register = () => {
         .catch((error) => {
           dispatch(updateSnackbar({ type: 'error', msg: error.message }))
         });
-  }
+    }
+  };
+
   
   const formik = useFormik({
     initialValues: {
