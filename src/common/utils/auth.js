@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from "next/router";
 import { isLoaded, isEmpty } from 'react-redux-firebase'
@@ -12,17 +12,20 @@ export const withAuth = Component => {
     const router = useRouter();
     const dispatch = useDispatch()
     const auth = useSelector(getAuthUser)
-    const { isLoggedIn } = isLoaded(auth) && !isEmpty(auth);
     
-    if (!isLoggedIn) {
-      dispatch(updateSnackbar({ type: 'info', msg: 'Please login before entering dashboard' }))
-      if (typeof window === 'undefined') {
-        return <LinearProgress />;
-      } else {
-        router.push('/login');
+    useEffect(() => {
+      if (isLoaded(auth)) {
+        if (isEmpty(auth)) {
+          dispatch(updateSnackbar({ type: 'info', msg: 'Please login before entering dashboard' }))
+          if (typeof window === 'undefined') {
+            return <LinearProgress />;
+          } else {
+            router.push('/login');
+          }
+        }
       }
-    }
-
+    }, [auth]);
+    
     return (
       <Component {...props} />
     );
@@ -30,6 +33,10 @@ export const withAuth = Component => {
 
   if (Component.getInitialProps) {
     Auth.getInitialProps = Component.getInitialProps;
+  }
+
+  if (Component.getLayout) {
+    Auth.getLayout = Component.getLayout;
   }
 
   return Auth;
