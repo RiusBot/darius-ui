@@ -56,15 +56,38 @@ export const DailyScalpingInfoDialog = (props) => {
                     'overflowY': 'scroll',
                     'padding': '16px 16px',
                 }}>
+                  
                 <Box sx={{p:2}} >
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        完整歷史績效
+                        AltCenter Daily Scalping
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        來自altcenter的daily scalping signal，目前實際回測結果跟他報表很接近，勝率接近6成，少數厲害的訊號<br/>
+                        <a href="https://best-trading-signals.com/">官網</a>&nbsp;
+                        <a href="https://t.me/Altcenter">Telegram</a>&nbsp;
+                        <a href="https://best-trading-signals.com/results/">精美的每月報表</a><br/>
+                        這個訊號官網售價夭壽貴，一個月500U，終生3500U。
+                    </Typography>
+                </Box>
+                
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        實測績效
                     </Typography>
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p> 
                     <TimeseriesChart
                         data={completeRecords}
                     />
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        回測交易紀錄
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQXSuC0Fw9BvWnG8iIPCSM3Tyz-H3epbRApXHtgN2fEv09iILasI8QAc1y8E8mUPvtADbw9pXVwzmo6/pubhtml?gid=500420307&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="3000"></iframe>
+                    </Typography>
                 </Box>
 
             </Box>

@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+const { initializeAppCheck, ReCaptchaEnterpriseProvider } = require("firebase/app-check");
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,12 +14,20 @@ const firebaseConfig = {
 
 // Initialize Firebase
 try {
-	firebase.initializeApp(firebaseConfig);
-	firebase.firestore();
-	console.log("Firebase Initialized");
-	console.log(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore();
+  console.log("Firebase Initialized");
 } catch (err) {
-	console.log("Error Initializing Firebase", err);
+  console.log("Error Initializing Firebase", err);
 }
+
+// try {
+//   const appCheck = initializeAppCheck(app, {
+//     provider: new ReCaptchaEnterpriseProvider("6Ldlk7UdAAAAAGIchxvhR5nUajO6aPE0xlZ7h-dg"),
+//     isTokenAutoRefreshEnabled: true
+//   });
+// } catch (err) {
+//   console.log("Error Initializing appCheck", err);
+// }
 
 export default firebase;

@@ -38,6 +38,11 @@ export const options = {
           }
         }
       }
+  },
+  elements: {
+    line: {
+      tension: 1
+    }
   }
 };
 
