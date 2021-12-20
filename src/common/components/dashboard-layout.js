@@ -3,6 +3,16 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from '@/common/components/dashboard-navbar';
 import { DashboardSidebar } from '@/common/components/dashboard-sidebar';
+import { useSelector } from 'react-redux';
+import { isLoaded } from 'react-redux-firebase';
+import LinearProgress from '@mui/material/LinearProgress';
+import { getAuthUser } from '@/common/selectors';
+
+const AuthIsLoaded = ({ children }) => {
+  const auth = useSelector(getAuthUser)
+  if (!isLoaded(auth)) return <LinearProgress/>;
+  return children
+}
 
 export const DashboardLayout = (props) => {
   const { children, pageName } = props;
@@ -27,7 +37,9 @@ export const DashboardLayout = (props) => {
             width: '100%'
           }}
         >
-          {children}
+          <AuthIsLoaded>
+            {children}
+          </AuthIsLoaded>
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar title="RiusBot" subtitle={pageName} isSidebarOpen={isSidebarOpen} onSidebarOpen={() => setSidebarOpen(true)} />
