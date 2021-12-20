@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { format } from 'date-fns';
+import { format, fromUnixTime } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { Box, Tooltip, Typography, Popover } from '@mui/material';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
@@ -63,7 +63,7 @@ export const BotTradesTable = (props) => {
                   onClick={(event) => setTradeDetail({info: trade, anchorEl: event.currentTarget, open: true})}
                 >
                   <TableCell>
-                    {format(trade.message.message_timestamp, 'dd/MM/yyyy mm:ss')}
+                    {format(fromUnixTime(trade.message.message_timestamp), 'dd/MM/yyyy mm:ss')}
                   </TableCell>
                   <TableCell>
                     {trade.message.symbol}

@@ -41,3 +41,6 @@ browse:
 
 log:
 	gcloud app logs tail -s $(IMAGE_NAME)
+    
+clean:
+	@find . -name ".ipynb*" -exec rm -rv {} +

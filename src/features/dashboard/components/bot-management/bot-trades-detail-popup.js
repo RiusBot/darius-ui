@@ -1,5 +1,6 @@
 import { React } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { format, fromUnixTime } from 'date-fns';
 
 export const BotTradesDetailPopup = (props) => {
     const { tradeDetail } = props;
@@ -10,13 +11,7 @@ export const BotTradesDetailPopup = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell sortDirection="desc">
-                  Channel
-                </TableCell>
-                <TableCell>
                   Content
-                </TableCell>
-                <TableCell>
-                  Price
                 </TableCell>
                 <TableCell>
                   Entry
@@ -34,14 +29,8 @@ export const BotTradesDetailPopup = (props) => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell>
-                  {tradeDetail.message.channel}
-                </TableCell>
                 <TableCell sx={{width: '300px'}}>
                   {tradeDetail.message.content}
-                </TableCell>
-                <TableCell>
-                  {tradeDetail.message.price}
                 </TableCell>
                 <TableCell>
                   {tradeDetail.message.entry}
