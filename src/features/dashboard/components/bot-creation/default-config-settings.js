@@ -174,6 +174,8 @@ export default function DefaultConfigSettings(props) {
                     <InputSlider 
                         name="Stop Loss ( Select 0 if no use )"
                         id="stopLoss"
+                        min={0}
+                        max={1}
                         handleSliderChange={handleSliderChange}
                         value={sliderOptions.stopLoss}/>
                 </Box>
@@ -197,8 +199,9 @@ export default function DefaultConfigSettings(props) {
                     <InputSlider 
                         name="Take Profit ( Select 0 if no use )"
                         id="takeProfit"
+                        min={0}
+                        max={5}
                         handleSliderChange={handleSliderChange}
-                        
                         value={sliderOptions.takeProfit}/>
                 </Box>
             </Box>

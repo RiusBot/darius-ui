@@ -81,7 +81,7 @@ const Products = () => {
       </Box>
 
       <RoseInfoDialog
-        open={infoDialog.rose}
+        open={infoDialog.ROSE}
         onClose={handleBotInfoDialogClose}
         />
       <WhaleHuntInfoDialog
