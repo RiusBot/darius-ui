@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { Box, Container, Typography, IconButton } from '@mui/material';
 import { Card, CardHeader, Divider, } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { withAuth } from '@/common/utils/auth';
+import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import Snackbar from '@/common/components/snackbar';

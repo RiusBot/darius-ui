@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
 
-import { withAuth } from '@/common/utils/auth';
+import withAuth from '@/common/utils/auth';
 import { AccountProfile } from '@/features/account/components/account-profile';
 import { AccountProfileDetails } from '@/features/account/components/account-profile-details';
 import { DashboardLayout } from '@/common/components/dashboard-layout';

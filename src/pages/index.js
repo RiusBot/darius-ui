@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Box, Grid, } from '@mui/material';
-import { withAuth } from '@/common/utils/auth';
+import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
