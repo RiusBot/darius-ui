@@ -47,7 +47,7 @@ function* createUserApiSaga({ payload: apiInfo }) {
       data
     });
     yield put(getUserApi());
-  } catch(error) {
+  } catch(error) { 
     const errorMsg = 'Failed to create user API';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
   }

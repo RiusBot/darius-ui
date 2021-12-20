@@ -40,7 +40,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(getUserBots);
+    yield put(getUserBots());
   } catch(error) {
     const errorMsg = 'Failed to create new bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
@@ -61,7 +61,7 @@ function* deleteUserBotSaga({ payload: deleteBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(getUsetBots);
+    yield put(getUserBots());
   } catch(error) {
     const errorMsg = 'Failed to delete bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
