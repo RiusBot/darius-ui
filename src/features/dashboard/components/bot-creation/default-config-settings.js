@@ -252,14 +252,14 @@ export default function DefaultConfigSettings(props) {
                             fullWidth
                             type="number"
                             name="margin" 
-                            label="Minimum Margin Ratio/level" 
+                            label="Minimum Margin Ratio/level"
                             variant="outlined" 
                             inputProps={{ min: limits.margin.min, max: limits.margin.max }}
                             value={configOptions.margin}
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Margin &gt; 0 ( Leave blank if no use )</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Margin &gt; 0 ( 0 if no use )</Typography>
                     </Box>
                 </Box>
                 <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -275,7 +275,7 @@ export default function DefaultConfigSettings(props) {
                             onChange={handleOptionChange}/>
                     </Box>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( Leave blank if no use )</Typography>
+                        <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( 0 if no use )</Typography>
                     </Box>
                 </Box>
             </Box>

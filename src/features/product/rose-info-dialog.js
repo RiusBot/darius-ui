@@ -26,7 +26,7 @@ export const RoseInfoDialog = (props) => {
             setShortRecords(data);
         });
         getData('complete').then(data => {
-            setCompleteRecords(data);
+            setCompleteRecords(data.slice(0, -15));
         });
       }, []);
 

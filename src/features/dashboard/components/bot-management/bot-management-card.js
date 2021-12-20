@@ -26,6 +26,26 @@ export default function BotManagementCard(props) {
         setValue(newValue);
     };
 
+    const BotInfo = (props) => {
+      const { value }= props;
+      if (userBots[parseInt(value)]) {
+        return (<Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                            <BotTradesTable
+                                botId={userBots[parseInt(value)].bot_id}
+                                getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
+                            />
+                            <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
+                                <BotSettings
+                                    userApi={userApi}
+                                    botId={userBots[parseInt(value)].bot_id}
+                                    openConfirmDialog={openConfirmDialog}
+                                    config={userBots[parseInt(value)].config}
+                                    />
+                            </Box>
+                        </Box>);
+      }
+    }
+
     if (!userBots.length) {
         return (
             <Card>
@@ -76,20 +96,7 @@ export default function BotManagementCard(props) {
                         })}
                     </TabList>
                     <TabPanel value={value} sx={{ overflowX: 'scroll', overflowY: 'hidden'}}>
-                        <Box sx={{ display: 'flex', flexDirection: 'row'}} >
-                            <BotTradesTable
-                                botId={userBots[parseInt(value)].bot_id}
-                                getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
-                            />
-                            <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
-                                <BotSettings
-                                    userApi={userApi}
-                                    botId={userBots[parseInt(value)].bot_id}
-                                    openConfirmDialog={openConfirmDialog}
-                                    config={userBots[parseInt(value)].config}
-                                    />
-                            </Box>
-                        </Box>
+                        <BotInfo value={value}/>
                     </TabPanel>
                 </TabContext>
             </Box>
