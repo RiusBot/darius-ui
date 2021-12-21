@@ -52,8 +52,8 @@ export const BotSettings = (props) => {
             </Box>
             <Box sx={{pt: 2,}} >
                 <FormGroup >
-                    <FormControlLabel disabled checked control={<Checkbox color="primary"/>} label="Test only" />
-                    <FormControlLabel disabled control={<Checkbox color="primary"/>} label="No duplicate Order" />
+                    <FormControlLabel disabled checked={config.test} control={<Checkbox color="primary"/>} label="Test only" />
+                    <FormControlLabel disabled checked={config.duplicate} control={<Checkbox color="primary"/>} label="No duplicate Order" />
                 </FormGroup>
                 <Divider />
                 <ApiKey/>
