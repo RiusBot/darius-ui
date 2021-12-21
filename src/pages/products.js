@@ -48,10 +48,10 @@ const Products = () => {
               container
               spacing={3}
             >
-              {products.map((product) => (
+              {products.map((product, idx) => (
                 <Grid
                   item
-                  key={product.id}
+                  key={idx}
                   lg={4}
                   md={6}
                   xs={12}
