@@ -8,7 +8,8 @@
     "deploy": "make deploy",
     "export": "next export",
     "lint": "next lint",
-    "lint-fix": "next lint --fix"
+    "lint-fix": "next lint --fix",
+    "eslint": "eslint src/**/*.js src/**/*.jsx"
   },
   "dependencies": {
     "@emotion/cache": "^11.5.0",
@@ -53,7 +54,11 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^7.32.0",
-    "eslint-config-next": "^12.0.3-canary.7"
+    "eslint-config-next": "^12.0.3-canary.7",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-typescript": "^0.14.0"
   }
 }
