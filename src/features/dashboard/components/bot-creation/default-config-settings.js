@@ -49,7 +49,7 @@ export default function DefaultConfigSettings(props) {
             case 'stopLoss':
                 return (0 <= configOptions[option] && configOptions[option] < 1);
             case 'takeProfit':
-                return (0 <= configOptions[option] && configOptions[option] < 5);
+                return (0 <= configOptions[option] && configOptions[option] <= 5);
             case 'quantity':
                 return (parseFloatRound(configOptions[option]) >= 30);
             case 'leverage':
