@@ -1,127 +1,186 @@
-import { React, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import { Box, Grid, } from '@mui/material';
-import withAuth from '@/common/utils/auth';
+import { Box, Card, Typography } from '@mui/material';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
-import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
-import BotCard from '@/features/dashboard/components/bot-card';
-import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
-import { products } from '__data__/products';
-import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
-import Snackbar from '@/common/components/snackbar';
-import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
-import { getUserApi } from '@/features/api/api-slice';
-import { getUserApiFromState } from '@/features/api/api-selector';
 
-const Dashboard = () => {
-  const dispatch = useDispatch();
-  const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: "", channelDisplayName: ""});
-  const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
+const Tutorial = () => (
+  <>
+    <Head>
+      <title>
+        Tutorial | RiusBot
+      </title>
+    </Head>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        padding: '64px'
+      }}
+    >
+      <Card sx={{heigh: '100%', width: '100%', padding: '32px'}}>
+        <Box sx={{p:2}} >
 
-  useEffect (() => {  
-    dispatch(getUserApi());
-    },[]
-  );
-  const userApi = useSelector(getUserApiFromState);
-  const confirmDeleteBot = () => {
-    dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
-    handleDeleteDialogClose();
-  }
+          <Typography variant="h4" component="div" sx={{padding: '8px 0 16px'}}>
+              簡單3步驟，開始執行策略機器人<br/>
+          </Typography>
 
-  const handleDialogOpen = (dialog) => {
-    switch (dialog.action) {
-      case 'botCreate':
-        setBotCreateDialog({open: true, channel: dialog.channel, channelDisplayName: dialog.channelDisplayName});
-        break;
-      case 'botDelete':
-        setBotDeleteDialog({open: true, botId: dialog.botId});
-        break;
-    }
-  }
-  const handleDeleteDialogClose = () => {
-    setBotDeleteDialog({open: false, botId: null});
-  }
-  const handleCreateDialogClose = () => {
-    setBotCreateDialog({open: false, channel: ""});
-  }
-  return (
-    <>
-      <Head>
-        <title>
-          Dashboard | RiusBot
-        </title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          padding: '64px 32px'
-        }}
-      >
-        <Grid
-          container
-          spacing={3}
-        >
-          <Box
-            style={{display: 'flex', 
-                    flexDirection: 'row',
-                    overflowX: 'auto',
-                    height: '200px',
-                    paddingLeft: '30px'}}
-            >
-            {products.map((bot, index) => {
-              return <Box 
-                        key={index}
-                        style={{'minWidth': '340px',
-                                'paddingRight': '30px'}}>
-                        <BotCard
-                          key={index}
-                          bot={bot}
-                          openCreateBotDialog={handleDialogOpen}
-                        />
-                      </Box>
-            })}
+          <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+              1. 註冊<br/>
+          </Typography>
+          <Box sx={{ textAlign: 'left' }}>
+              <Typography varient="body1" componenet="div">
+                  首先進入登入頁面<br/>
+                  目前註冊支援兩種方式:<br/>
+                  1. google帳號註冊<br/>
+                  2. 信箱註冊<br/>
+              </Typography>
+              <img
+              alt="Under development"
+              src="/static/images/tutorial/register.png"
+              style={{
+                  display: 'inline-block',
+                  maxWidth: '100%',
+                  width: 760
+              }}
+              /><br/><br/>
+              <Typography varient="body1" componenet="div">
+                  信箱註冊頁面<br/>
+              </Typography>
+              <img
+                alt="Under development"
+                src="/static/images/tutorial/email_register.png"
+                style={{
+                    display: 'inline-block',
+                    maxWidth: '100%',
+                    width: 760
+                }}
+              /><br/><br/>
+              <Typography varient="body1" componenet="div">
+                  google登入則會直接出現跳轉頁面<br/>
+              </Typography>
+              <img
+                alt="Under development"
+                src="/static/images/tutorial/google_register.png"
+                style={{
+                    display: 'inline-block',
+                    maxWidth: '100%',
+                    width: 760
+                }}
+              /><br/><br/>
           </Box>
 
-          <Box
-            sx={{
-              padding: '32px 0 32px 32px',
-              width: '100%'
+
+          <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+              2. 綁訂交易所apikey<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/api.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
             }}
-          >
-            <BotManagementCard 
-              userApi={userApi}
-              openConfirmDialog={handleDialogOpen}
-              />
-          </Box>
+          /><br/><br/>
+          <Typography varient="body1" componenet="div">
+              1. 綁訂的api列表，目前每位用戶限制最多3組api<br/>
+              2. 填入交易所apikey和api secret，目前只支援binance和ftx，子帳戶功能只支援ftx，需要開起交易權限。<br/>
+              3. 刪除綁訂api按鈕<br/>
+          </Typography><br/>
+          <Typography varient="body1" componenet="div">
+              使用幣安的用戶，到幣安用戶設定，建立api<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/binance_create_api.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
+          <Typography varient="body1" componenet="div">
+              開起交易權限，選擇無限制IP<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/binance_api_permission.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
+          <Typography varient="body1" componenet="div">
+              使用FTX的用戶，到FTX用戶設定，建立api，選擇交易權限<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/ftx_api.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
 
-        </Grid>
-        <Snackbar />
-      </Box>
 
-      <BotCreationDialog
-        open={botCreateDialog.open}
-        channel={botCreateDialog.channel}
-        channelDisplayName={botCreateDialog.channelDisplayName}
-        onClose={handleCreateDialogClose}
-        />
+          <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+              3. 機器人面版<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/dashboard.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
+          <Typography varient="body1" componenet="div">
+              1. 建立新的機器人，目前每位用戶限制最多5個機器人，建立新機器人前先綁訂交易所apikey<br/>
+              2. 正在運行中的機器人<br/>
+              3. 機器人的交易紀錄，點進去有詳細的訊息跟資訊<br/>
+          </Typography><br/><br/>
 
-      <ConfirmDialog
-        open={botDeleteDialog.open}
-        onConfirm={confirmDeleteBot}
-        onClose={handleDeleteDialogClose}
-        object="BOT"
-      />
-    </>
-)};
+          <Typography varient="body1" componenet="div">
+              機器人設定圖解<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/bot_config.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
 
-Dashboard.getLayout = (page) => (
+          <Typography varient="body1" componenet="div">
+              點擊交易紀錄會出現詳細訊息，右手邊則是運行中的機器人設置，關閉按鈕在右上方<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/running_bot.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
+
+
+        </Box>
+      </Card>
+    </Box>
+  </>
+);
+
+Tutorial.getLayout = (page) => (
   <DashboardLayout
-    pageName="Dashboard"
+    pageName='Tutorial'
   >
     {page}
   </DashboardLayout>
 );
 
-export default withAuth(Dashboard);
+export default Tutorial;

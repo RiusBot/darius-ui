@@ -16,14 +16,20 @@ import { getUserProfile } from '@/common/selectors';
 const items = [
   {
     href: '/',
-    icon: (<BarChartIcon fontSize="small" />),
-    title: 'Dashboard'
+    icon: (<NoteAddIcon fontSize="small" />),
+    title: 'Tutorial'
   },
   {
     href: '/products',
     icon: (<SmartToyIcon fontSize="small" />),
     title: 'Products'
-  },{
+  },
+  {
+    href: '/dashboard',
+    icon: (<BarChartIcon fontSize="small" />),
+    title: 'Dashboard'
+  },
+  {
     href: '/apiSetting',
     icon: (<NoteAddIcon fontSize="small" />),
     title: 'API Key Setting'
@@ -33,11 +39,6 @@ const items = [
   //   icon: (<AttachMoneyIcon fontSize="small" />),
   //   title: 'Service & Payment'
   // },
-  {
-    href: '/tutorial',
-    icon: (<NoteAddIcon fontSize="small" />),
-    title: 'Tutorial'
-  },
 ];
 
 export const DashboardSidebar = (props) => {
@@ -83,7 +84,7 @@ export const DashboardSidebar = (props) => {
             <SmartToyIcon />
           </Avatar>
           <IconButton sx={{marginLeft: 'auto'}} onClick={onClose}>
-            <ChevronLeftIcon 
+            <ChevronLeftIcon
               sx={{
                 height: 40,
                 width: 40
@@ -101,7 +102,7 @@ export const DashboardSidebar = (props) => {
               src={profile.avatarUrl}
             />
             <IconButton sx={{marginLeft: 'auto'}} onClick={onClose}>
-              <ChevronLeftIcon 
+              <ChevronLeftIcon
                 sx={{
                   height: 40,
                   width: 40
@@ -140,7 +141,7 @@ export const DashboardSidebar = (props) => {
             </Box>
           </Box>
         </div>}
-        
+
         <Divider
           sx={{
             borderColor: '#2D3748',

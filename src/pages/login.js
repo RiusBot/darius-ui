@@ -16,7 +16,7 @@ import { getAuthUser } from '@/common/selectors';
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  
+
   const firebase = useFirebase()
   const auth = useSelector(getAuthUser)
   const SignInWithGoogle = () => {
@@ -68,7 +68,7 @@ const Login = () => {
   useEffect(() => {
     if (isLoaded(auth) && !isEmpty(auth)) {
       if (auth.emailVerified) {
-        router.push('/');
+        router.push('/dashboard');
       } else {
         dispatch(updateSnackbar({ type: 'warning', msg: 'Email verification is needed, please click the confirmation link and login again.' }));
         firebase.logout();

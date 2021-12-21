@@ -2,7 +2,6 @@ import { React, useState } from 'react';
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination, Typography } from '@mui/material';
 import { products } from '__data__/products';
-import withAuth from '@/common/utils/auth';
 import { ProductCard } from '@/features/product/components/product-card';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { RoseInfoDialog } from '@/features/product/rose-info-dialog';
@@ -10,8 +9,8 @@ import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 
 const Products = () => {
-  const [infoDialog, setShowInfoDialog] = useState({ROSE: false, 
-                                                    WHALE: false, 
+  const [infoDialog, setShowInfoDialog] = useState({ROSE: false,
+                                                    WHALE: false,
                                                     DAILY: false});
   const handleBotInfoDialogOpen = (channel) => {
     switch (channel) {
@@ -57,8 +56,8 @@ const Products = () => {
                   md={6}
                   xs={12}
                 >
-                  <ProductCard 
-                    product={product} 
+                  <ProductCard
+                    product={product}
                     openInfoDialog={handleBotInfoDialogOpen} />
                 </Grid>
               ))}
@@ -104,4 +103,4 @@ Products.getLayout = (page) => (
   </DashboardLayout>
 );
 
-export default withAuth(Products);
+export default Products;
