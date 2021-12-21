@@ -24,7 +24,7 @@ const apiSetting = () => {
   const userApi = useSelector(getUserApiFromState);
 
   const confirmDeleteApi = () => {
-    console.log(apiDeleteDialog.apiId);
+    // console.log(apiDeleteDialog.apiId);
     dispatch(deleteUserApi({apiId: apiDeleteDialog.apiId}));
     setApiDeleteDialog({open: false, apiId: null});
   }

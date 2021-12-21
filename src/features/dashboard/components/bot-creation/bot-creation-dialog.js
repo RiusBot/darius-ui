@@ -18,7 +18,7 @@ function BotCreationDialog(props) {
     }
     
     const createButtonClicked = () => {
-        console.log("Create Button Clicked");
+        // console.log("Create Button Clicked");
         const createBotInfo = {orderOptions: orderOptions,
                                configOptions: configOptions,
                                channel: channel,

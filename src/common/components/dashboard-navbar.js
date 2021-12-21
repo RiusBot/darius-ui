@@ -79,7 +79,6 @@ export const DashboardNavbar = (props) => {
               : isEmpty(auth)
                 ? <>
                     <NavItem href='/login' title='Login' icon={<LockIcon fontSize="small" />} />
-                    <NavItem href='/register' title='Register' icon={<UserAddIcon fontSize="small" />} />
                   </>
                 :<AccountMenu/>
             }

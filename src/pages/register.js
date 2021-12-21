@@ -29,7 +29,7 @@ const Register = () => {
     var token = email.split('@');
     var name = token[0];
     var host = token[1];
-    name = name.replace(/\W/g, "");
+    name = name.replace(/[^a-zA-Z0-9.]+/g, "");
     return name + '@' + host;
   };
   const emailValidate = (email) => {

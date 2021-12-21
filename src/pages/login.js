@@ -12,10 +12,18 @@ import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
 import { createUser, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
+import * as EmailValidator from 'email-validator';
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const emailNormalize = (email) => {
+    var token = email.split('@');
+    var name = token[0];
+    var host = token[1];
+    name = name.replace(/[^a-zA-Z0-9.]+/g, "");
+    return name + '@' + host;
+  };
 
   const firebase = useFirebase()
   const auth = useSelector(getAuthUser)
@@ -35,6 +43,7 @@ const Login = () => {
       });
   };
   const SignInWithPassword = (values) => {
+    values.email = emailNormalize(values.email)
     firebase.login(values)
       .catch(error => {
         dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
