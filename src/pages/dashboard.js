@@ -68,7 +68,8 @@ const Dashboard = () => {
                     flexDirection: 'row',
                     overflowX: 'auto',
                     height: '200px',
-                    paddingLeft: '30px'}}
+                    paddingLeft: '30px',
+                    paddingBottom: '16px'}}
             >
             {products.map((bot, index) => {
               return <Box 
@@ -123,5 +124,4 @@ Dashboard.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
-
 export default withAuth(Dashboard);

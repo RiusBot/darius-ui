@@ -89,7 +89,14 @@ const theme = createTheme({
           flex: '1 1 auto',
           flexDirection: 'column',
           minHeight: '100%',
-          width: '100%'
+          width: '100%',
+          '*::-webkit-scrollbar-track': {
+            display: 'none',
+          },
+          '*::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba( 0, 0, 0, 0.3)',
+            borderRadius: '10px',
+          }
         },
         '#__next': {
           display: 'flex',
@@ -295,7 +302,7 @@ const theme = createTheme({
       fontSize: '1.125rem',
       lineHeight: 1.375
     }
-  }
+  },
 });
 
 export default theme;
