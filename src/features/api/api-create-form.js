@@ -28,11 +28,7 @@ export const ApiCreateForm = (props) => {
             case 'exchange':
             return (apiValues[field] == 'binance' || apiValues[field] == 'ftx');
             case 'subaccount':
-            if (apiValues.exchange == 'ftx') {
-                return (apiValues[field].length != 0);
-            } else {
-                return true;
-            }
+            return true;
         }
     }
 
