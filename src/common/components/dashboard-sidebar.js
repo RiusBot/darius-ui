@@ -3,12 +3,17 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { isEmpty } from 'react-redux-firebase'
-import { IconButton, Button } from '@mui/material';
+import { IconButton, Button, Link } from '@mui/material';
 import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar} from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import EmailIcon from '@mui/icons-material/Email';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { NavItem } from '@/common/components/nav-item';
@@ -165,16 +170,29 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ margin: '16px auto',  }}>
-        <Button
-            color="secondary"
-            startIcon={<EmailIcon fontSize="small" />}
-            size="small"
-            variant="contained"
-          >
-            <a href="mailto:bb04902103@gmail.com">
-              Contact Us
-            </a>
-          </Button>
+          <Link href="mailto:bb04902103@gmail.com" color="inherit" rel="noreferrer" target="_blank">
+            <EmailIcon sx={{ fontSize: 30 }} />
+          </Link>
+          &nbsp;&nbsp;
+          <Link href="https://t.me/OrderBotFQ" color="inherit" rel="noreferrer" target="_blank">
+            <TelegramIcon sx={{ fontSize: 30 }} />
+          </Link>
+          &nbsp;&nbsp;
+          <Link href="" color="inherit" rel="noreferrer">
+            <GitHubIcon sx={{ fontSize: 30 }} />
+          </Link>
+          &nbsp;&nbsp;
+          <Link href="" color="inherit" rel="noreferrer">
+            <FacebookIcon sx={{ fontSize: 30 }} />
+          </Link>
+          &nbsp;&nbsp;
+          <Link href="" color="inherit" rel="noreferrer">
+            <TwitterIcon sx={{ fontSize: 30 }} />
+          </Link>
+          &nbsp;&nbsp;
+          <Link href="" color="inherit" rel="noreferrer">
+            <MenuBookIcon sx={{ fontSize: 30 }} />
+          </Link>
         </Box>
       </Box>
     </>
