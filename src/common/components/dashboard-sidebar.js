@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { isEmpty } from 'react-redux-firebase'
-import { IconButton, DrawerHeader } from '@mui/material';
+import { IconButton, Button } from '@mui/material';
 import { Box, Divider, Drawer, Typography, useMediaQuery, Avatar} from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import EmailIcon from '@mui/icons-material/Email';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { NavItem } from '@/common/components/nav-item';
@@ -157,6 +158,23 @@ export const DashboardSidebar = (props) => {
               title={item.title}
             />
           ))}
+        </Box>
+        <Divider
+          sx={{
+            borderColor: '#2D3748',
+          }}
+        />
+        <Box sx={{ margin: '16px auto',  }}>
+        <Button
+            color="secondary"
+            startIcon={<EmailIcon fontSize="small" />}
+            size="small"
+            variant="contained"
+          >
+            <a href="mailto:bb04902103@gmail.com">
+              Contact Us
+            </a>
+          </Button>
         </Box>
       </Box>
     </>

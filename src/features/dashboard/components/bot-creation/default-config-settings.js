@@ -23,9 +23,8 @@ export default function DefaultConfigSettings(props) {
         var name = event.target.name;
         var value
         if (Object.keys(limits).includes(name)) {
-            value = parseFloatRound(event.target.value);
+            value = parseFloat(event.target.value);
             if (value > limits[name].max) value = limits[name].max;
-            if (value < limits[name].min) value = limits[name].min;
         } else {
             value = event.target.value;
         }
@@ -36,7 +35,7 @@ export default function DefaultConfigSettings(props) {
         setConfigs({...configOptions, [event.target.name]: newValue/10});
     }
     const parseFloatRound = (value) => {
-        return Math.round(parseFloat(value), -3);
+        return Math.round10(parseFloat(value), -3);
     }
     const checkOptionsValid = (option) => {
         switch (option) {
@@ -51,7 +50,7 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfit':
                 return (0 <= configOptions[option] && configOptions[option] <= 5);
             case 'quantity':
-                return (parseFloatRound(configOptions[option]) >= 30);
+                return (parseFloatRound(configOptions[option]) >= limits.quantity.min);
             case 'leverage':
                 return (parseFloatRound(configOptions[option]) > 0);
             case 'margin':
@@ -222,7 +221,7 @@ export default function DefaultConfigSettings(props) {
                             name="quantity" 
                             label="Quantity" 
                             variant="outlined" 
-                            inputProps={{ min: limits.quantity.min, max: limits.quantity.max }}
+                            inputProps={{ min: 0, max: limits.quantity.max }}
                             value={configOptions.quantity}
                             onChange={handleOptionChange}/>
                     </Box>
