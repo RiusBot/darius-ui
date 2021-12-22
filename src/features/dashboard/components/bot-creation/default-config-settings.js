@@ -35,7 +35,7 @@ export default function DefaultConfigSettings(props) {
         setConfigs({...configOptions, [event.target.name]: newValue/10});
     }
     const parseFloatRound = (value) => {
-        return Math.round10(parseFloat(value), -3);
+        return Math.round(parseFloat(value), -3);
     }
     const checkOptionsValid = (option) => {
         switch (option) {
@@ -50,13 +50,13 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfit':
                 return (0 <= configOptions[option] && configOptions[option] <= 5);
             case 'quantity':
-                return (parseFloatRound(configOptions[option]) >= limits.quantity.min);
+                return (parseFloat(configOptions[option]) >= 30);
             case 'leverage':
-                return (parseFloatRound(configOptions[option]) > 0);
+                return (parseFloat(configOptions[option]) > 0);
             case 'margin':
-                return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
+                return (configOptions[option] == "" || parseFloat(configOptions[option]) >= 0);
             case 'volume':
-                return (configOptions[option] == "" || parseFloatRound(configOptions[option]) >= 0);
+                return (configOptions[option] == "" || parseFloat(configOptions[option]) >= 0);
         }
     }
     React.useEffect(() => {
