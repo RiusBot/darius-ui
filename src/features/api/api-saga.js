@@ -23,9 +23,9 @@ function* getUserApiSaga() {
       params
     });
     yield put(getUserApiSuccess(res.data));
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to get user API';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
@@ -46,10 +46,11 @@ function* createUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
+    console.log(res);
     yield put(getUserApi());
-  } catch(error) { 
+  } catch({response}) { 
     const errorMsg = 'Failed to create user API';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
@@ -68,9 +69,9 @@ function* deleteUserApiSaga({ payload: apiInfo }) {
       data
     });
     yield put(getUserApi());
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to delete user API';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 

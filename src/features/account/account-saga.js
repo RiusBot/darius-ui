@@ -3,6 +3,7 @@ import {
   createUser,
   createUserSussess,
 } from '@/app/app-slice';
+import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
 
@@ -22,8 +23,9 @@ function* createUserSaga() {
     if (res.status === 200) {
       yield put(createUserSussess())
     }
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to create user';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 };
 

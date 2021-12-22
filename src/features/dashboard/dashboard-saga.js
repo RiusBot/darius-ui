@@ -41,9 +41,9 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       data,
     });
     yield put(getUserBots());
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to create new bot';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 };
 
@@ -62,9 +62,9 @@ function* deleteUserBotSaga({ payload: deleteBotInfo }) {
       data,
     });
     yield put(getUserBots());
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to delete bot';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
@@ -82,9 +82,9 @@ function* getUserBotsSaga({ payload: userInfo }) {
       params
     });
     yield put(getUserBotsSuccess(res.data));
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to get user bots';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
@@ -103,9 +103,9 @@ function* getBotTradesSaga({ payload: botInfo }) {
       params
     });
     yield put(getBotTradesSuccess(res.data));
-  } catch(error) {
+  } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${error.message}` }));
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
