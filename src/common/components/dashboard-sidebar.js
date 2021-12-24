@@ -190,7 +190,7 @@ export const DashboardSidebar = (props) => {
             <TwitterIcon sx={{ fontSize: 30 }} />
           </Link>
           &nbsp;&nbsp;
-          <Link href="https://zircon-lemonade-940.notion.site/Auto-Order-Bot-6c0666ad394f4855923f8c05f73bdae8" color="inherit" rel="noreferrer">
+          <Link href="https://zircon-lemonade-940.notion.site/Auto-Order-Bot-6c0666ad394f4855923f8c05f73bdae8" color="inherit" rel="noreferrer" target="_blank">
             <MenuBookIcon sx={{ fontSize: 30 }} />
           </Link>
         </Box>

@@ -32,7 +32,7 @@ export const ConfirmDialog = (props) => {
           <DialogSubtitle/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onConfirm}>Continue and Delete</Button>
+          <Button onClick={onConfirm}>Delete</Button>
           <Button onClick={onClose} autoFocus>
             Cancel
           </Button>
