@@ -7,137 +7,123 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
-  Grid,
-  Typography
+  Typography,
+  Avatar
 } from '@mui/material';
 import { ServiceCurrentSubscription } from '@/features/services/components/service-current-subscription';
-import { products } from '__data__/products';
+import { products, productMedia } from '__data__/products';
 
-const mockSubscriptions = [{channel: 'ROSE',
-                            expireDate: '2021/12/12'}, 
-                           {channel: 'WHALE',
-                            expireDate: '2021/12/23'}];
+const mockSubscriptions = {ROSE: {expireDate: '2021/12/12'}, 
+                           WHALE: {expireDate: '2021/12/23'}};
 
-const ServiceOptions = (props) => (
-  <form {...props}>
-    <Card>
-      <CardHeader
-        subheader="Currently subscribed services and according expire date."
-        title="Current Subscribed Services"
-      />
-      <Box sx={{padding: '0 32px 32px'}} >
-        <ServiceCurrentSubscription
-          subscriptions={mockSubscriptions}
+const ServiceOptions = (props) => {
+  const selectableSignals = products.filter(bot => {
+    return ! (Object.keys(mockSubscriptions).includes(bot.channel));
+  });
+
+  const SignalOptions = () => {
+    if (selectableSignals.length == 0) return (<></>);
+
+    return (
+      <Box sx={{display: 'flex', flexDirection: 'column'}}>
+        {selectableSignals.map((signal, idx) => (
+          <Box key={idx} sx={{display: 'flex', flexDirection: 'row'}}>
+            <Avatar
+              alt={signal.channel}
+              src={productMedia[signal.channel].media}
+              sx={{
+                display: 'flex',
+                height: 32,
+                width: 32,
+                margin: '8px'
+              }}
+            />
+            <Typography
+              sx={{margin: 'auto 64px auto 8px'}}
+              color="textPrimary"
+              gutterBottom
+              variant="h6"
+            >
+              {signal.channelDisplayName}
+            </Typography>
+
+            <FormControlLabel
+            sx={{padding: '0 32px'}}
+            control={<Checkbox />}
+            label="1 month"
+            />
+            <FormControlLabel
+            sx={{padding: '0 32px'}}
+            control={<Checkbox />}
+            label="6 month"
+            />
+            <FormControlLabel
+            sx={{padding: '0 32px'}}
+            control={<Checkbox />}
+            label="12 month (1 year)"
+            />
+          </Box>
+        ))}
+      </Box>
+    );
+  }
+
+  return (
+    <>
+      <Card>
+        <CardHeader
+          subheader="Currently subscribed services and according expire date."
+          title="Current Subscribed Services"
         />
-      </Box>
-      <Divider />
-      <CardContent>
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h6"
-        >
-          Select another service and subscription plan.
-        </Typography>
-        <Grid
-          container
-          spacing={6}
-          wrap="wrap"
-        >
-          <Grid
-            item
-            md={4}
-            sm={6}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-            xs={12}
+        <Box sx={{padding: '0 32px 32px'}} >
+          <ServiceCurrentSubscription
+            subscriptions={mockSubscriptions}
+          />
+        </Box>
+        <Divider />
+        <CardContent>
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            variant="h6"
           >
-            <Typography
-              color="rgba(0, 0, 0, 0.5)"
-              gutterBottom
-              variant="h6"
-            >
-              Signals
-            </Typography>
-            <FormControlLabel
-              control={(
-                <Checkbox
-                  color="primary"
-                  defaultChecked
-                />
-              )}
-              label="Perpetual Data"
-            />
-            <FormControlLabel
-              control={(
-                <Checkbox
-                  color="primary"
-                  defaultChecked
-                />
-              )}
-              label="Rose Premium"
-            />
-          </Grid>
-          <Grid
-            item
-            md={4}
-            sm={6}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-            xs={12}
+            Unsubscribed Signals
+          </Typography>
+          <Typography
+            color="textSecondary"
+            gutterBottom
+            variant="h7"
           >
-            <Typography
-              color="rgba(0, 0, 0, 0.5)"
-              gutterBottom
-              variant="h6"
-            >
-              Subscription Plan
-            </Typography>
-            <FormControlLabel
-              control={(
-                <Checkbox
-                  color="primary"
-                  defaultChecked
-                />
-              )}
-              label="1 month"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="6 month"
-            />
-            <FormControlLabel
-              control={(
-                <Checkbox
-                  color="primary"
-                />
-              )}
-              label="12 month (1 year)"
-            />
-          </Grid>
-        </Grid>
-      </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color="primary"
-          variant="contained"
+            Select another service and subscription plan.
+          </Typography>
+          <SignalOptions />
+        </CardContent>
+        <Divider />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2
+          }}
         >
-          Save
-        </Button>
-      </Box>
-    </Card>
-  </form>
-);
+          <Button
+            sx={{margin: '0 8px'}}
+            color="primary"
+            variant="contained"
+          >
+            See Calculated Service Fee
+          </Button>
+          <Button
+            sx={{margin: '0 8px'}}
+            color="primary"
+            variant="contained"
+          >
+            Save and Submit
+          </Button>
+        </Box>
+      </Card>
+    </>
+  );
+};
 
 export default ServiceOptions;

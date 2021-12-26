@@ -13,36 +13,37 @@ export const ServiceCurrentSubscription = (props) => {
     } 
     return (
       <>
-      {Object.values(subscriptions).map((bot, id) => (
+      {Object.keys(subscriptions).map((bot, id) => (
         <Box key={id} >
-          <Box sx={{display: 'flex', flexDirection: 'row'}} >
+          <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '32px'}} >
             <Avatar
-              alt={bot.channel}
-              src={productMedia[bot.channel].media}
+              alt={bot}
+              src={productMedia[bot].media}
               sx={{
                 display: 'flex',
                 height: 64,
                 width: 64
               }}
             />
-            <Typography
-              sx={{margin: 'auto 32px'}}
-              color="textPrimary"
-              gutterBottom
-              variant="h6"
-              >
-              {productMedia[bot.channel].channelDisplayName}
-            </Typography>
+            <Box sx={{margin: 'auto 32px'}}>
+                <Typography
+                    color="textPrimary"
+                    gutterBottom
+                    variant="h6"
+                >
+                {productMedia[bot].channelDisplayName}
+                </Typography>
+                <Typography
+                    color="rgba(0, 0, 0, 0.5)"
+                    gutterBottom
+                    variant="button"
+                >
+                Expire Date: {subscriptions[bot].expireDate}
+                </Typography>
+            </Box>
           </Box>
 
-            <Typography
-                sx={{marginLeft: '104px'}}
-                color="rgba(0, 0, 0, 0.5)"
-                gutterBottom
-                variant="button"
-            >
-            Expire Date: {bot.expireDate}
-            </Typography>
+            
         </Box>
       ))}
       </>
