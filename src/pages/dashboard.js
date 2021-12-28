@@ -74,7 +74,7 @@ const Dashboard = () => {
             {products.map((bot, index) => {
               return <Box 
                         key={index}
-                        style={{'minWidth': '340px',
+                        style={{'minWidth': '360px',
                                 'paddingRight': '30px'}}>
                         <BotCard
                           key={index}

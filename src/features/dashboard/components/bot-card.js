@@ -34,7 +34,6 @@ const BotCard = (props) => {
               alt={bot.channelDisplayName}
               src={bot.media}
               sx={{
-                display: 'flex',
                 height: 64,
                 width: 64
               }}
