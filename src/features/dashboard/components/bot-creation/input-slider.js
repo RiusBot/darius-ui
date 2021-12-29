@@ -35,6 +35,7 @@ export default function InputSlider(props) {
             getAriaValueText={valueText}
             max={max*10}
             min={min}
+            step={0.000001}
             valueLabelFormat={labelText}
             valueLabelDisplay="auto"
           />

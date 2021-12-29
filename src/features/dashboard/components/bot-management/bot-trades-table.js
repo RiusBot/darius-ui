@@ -63,7 +63,7 @@ export const BotTradesTable = (props) => {
                   onClick={(event) => setTradeDetail({info: trade, anchorEl: event.currentTarget, open: true})}
                 >
                   <TableCell>
-                    {format(fromUnixTime(trade.message.message_timestamp), 'dd/MM/yyyy mm:ss')}
+                    {format(fromUnixTime(trade.message.message_timestamp), 'dd/MM/yyyy kk:mm')}
                   </TableCell>
                   <TableCell>
                     {trade.message.symbol}
