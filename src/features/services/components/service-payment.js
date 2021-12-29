@@ -59,6 +59,7 @@ const ServicePayment = (props) => {
           }}
         >
           <Button
+            sx={{margin: '0 8px'}}
             color="primary"
             variant="contained"
           >

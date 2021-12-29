@@ -22,3 +22,18 @@ export const products = [
     media: '/static/images/products/daily-scalp.png',
   },
 ];
+
+export const productMedia = {
+  'ROSE': {
+    channelDisplayName: 'Rose Premium',
+    media: '/static/images/products/rose.png',
+  },
+  'WHALE': {
+    channelDisplayName: 'Whale Hunting',
+    media: '/static/images/products/whale-hunt.png',
+  },
+  'DAILYSCALP': {
+    channelDisplayName: 'Daily Scalping',
+    media: '/static/images/products/daily-scalp.png',
+  }
+}

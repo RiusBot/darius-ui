@@ -44,6 +44,7 @@ export default function BotManagementCard(props) {
                             </Box>
                         </Box>);
       }
+      return (<></>);
     }
 
     if (!userBots.length) {
