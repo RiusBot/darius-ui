@@ -27,8 +27,8 @@ const ServicePayment = (props) => {
     <form {...props}>
       <Card>
         <CardHeader
-          subheader="The total service fee is $50 USDC for a month."
-          title="Payment"
+          subheader="The total amount of deposit remain in your account."
+          title="Remain"
         />
         <Divider />
         <CardContent>
@@ -39,6 +39,16 @@ const ServicePayment = (props) => {
                 >
                 Please enter the wallet address used for payment and click "Confirm".
             </Typography>
+          <TextField
+            fullWidth
+            label="Amount"
+            type="number"
+            margin="normal"
+            name="amount"
+            onChange={handleChange}
+            value={values.amount}
+            variant="outlined"
+          />
           <TextField
             fullWidth
             label="Wallet Address"

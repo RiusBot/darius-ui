@@ -10,7 +10,7 @@ import {
   Typography,
   Avatar
 } from '@mui/material';
-import { ServiceCurrentSubscription } from '@/features/services/components/service-current-subscription';
+import { ServiceCurrentSubscription } from '@/features/service/components/service-current-subscription';
 import { products, productMedia } from '__data__/products';
 
 const mockSubscriptions = {ROSE: {expireDate: '2021/12/12'}, 
@@ -73,7 +73,7 @@ const ServiceOptions = (props) => {
       <Card>
         <CardHeader
           subheader="Currently subscribed services and according expire date."
-          title="Current Subscribed Services"
+          title="Current Subscriptions"
         />
         <Box sx={{padding: '0 32px 32px'}} >
           <ServiceCurrentSubscription
@@ -94,11 +94,19 @@ const ServiceOptions = (props) => {
             gutterBottom
             variant="h7"
           >
-            Select another service and subscription plan.
+            Select a new service and create a subscription plan.
           </Typography>
           <SignalOptions />
         </CardContent>
         <Divider />
+        <Box sx={{padding: '16px 32px 0'}} >
+          <Typography
+            color="textPrimary"
+            variant="h6"
+          >
+            The total service fee is $50 USDC.
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: 'flex',
@@ -111,14 +119,7 @@ const ServiceOptions = (props) => {
             color="primary"
             variant="contained"
           >
-            See Calculated Service Fee
-          </Button>
-          <Button
-            sx={{margin: '0 8px'}}
-            color="primary"
-            variant="contained"
-          >
-            Save and Submit
+            Submit Subscription and Confirm Payment
           </Button>
         </Box>
       </Card>

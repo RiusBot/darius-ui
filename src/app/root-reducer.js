@@ -6,6 +6,7 @@ import { firestoreReducer } from 'redux-firestore';
 import appReducer from '@/app/app-slice';
 import dashboardReducer from '@/features/dashboard/dashboard-slice';
 import apiReducer from '@/features/api/api-slice';
+import serviceReducer from '@/features/service/service-slice';
 
 const combined = combineReducers({
   firebase: firebaseReducer,
@@ -13,6 +14,7 @@ const combined = combineReducers({
   app: appReducer,
   dashboard: dashboardReducer,
   api: apiReducer,
+  service: serviceReducer,
 });
 
 const rootReducer = (state, action) => {
