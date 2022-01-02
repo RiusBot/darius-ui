@@ -3,19 +3,20 @@ import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
-import InputSlider from "@/features/dashboard/components/bot-creation/input-slider";
 import { getUserApiFromState } from '@/features/api/api-selector';
 
 
-const limits = { quantity: { min: 30, max: 10000000000 },
+const limits = { stopLoss: { min: 0, max: 1},
+                 takeProfit: { min: 0, max: 5 },
+                 quantity: { min: 30, max: 10000000000 },
                  leverage: { min: 0, max: 10000000000 },
                  margin: { min: 0, max: 1000 },
-                 volume: { min: 0, max: 10000000000 }};
+                 volume: { min: 0, max: 10000000000 }
+                };
 
 export default function DefaultConfigSettings(props) {
     const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
     const userApi = useSelector(getUserApiFromState);
-    const [sliderOptions, setSliders] = React.useState({stopLoss: 0, takeProfit: 0});
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
@@ -23,40 +24,35 @@ export default function DefaultConfigSettings(props) {
         var name = event.target.name;
         var value
         if (Object.keys(limits).includes(name)) {
-            value = parseFloat(event.target.value);
-            if (value > limits[name].max) value = limits[name].max;
+            if (event.target.value == '') {
+                value = '';
+            } else {
+                value = parseFloat(event.target.value);
+                if (value > limits[name].max) value = limits[name].max;
+            }
         } else {
             value = event.target.value;
         }
         setConfigs({...configOptions, [name]: value});
     };
-    const handleSliderChange = (event, newValue) => {
-        setSliders({...sliderOptions, [event.target.name]: newValue});
-        setConfigs({...configOptions, [event.target.name]: newValue/10});
-    }
-    const parseFloatRound = (value) => {
-        return Math.round(parseFloat(value), -3);
-    }
     const checkOptionsValid = (option) => {
+        if (configOptions[option] === '') return false;
         switch (option) {
             case 'api':
             case 'target':
             case 'orderType':
             case 'stopLossType':
             case 'takeProfitType':
-                return (configOptions[option] !== undefined && configOptions[option] != '');
+                return (configOptions[option] != '');
             case 'stopLoss':
-                return (0 <= configOptions[option] && configOptions[option] < 1);
             case 'takeProfit':
-                return (0 <= configOptions[option] && configOptions[option] <= 5);
-            case 'quantity':
-                return (parseFloat(configOptions[option]) >= 30);
+                return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'leverage':
                 return (parseFloat(configOptions[option]) > 0);
+            case 'quantity':
             case 'margin':
-                return (configOptions[option] == "" || parseFloat(configOptions[option]) >= 0);
             case 'volume':
-                return (configOptions[option] == "" || parseFloat(configOptions[option]) >= 0);
+                return (parseFloat(configOptions[option]) >= limits[option].min);
         }
     }
     React.useEffect(() => {
@@ -169,14 +165,19 @@ export default function DefaultConfigSettings(props) {
                         </Select>
                     </FormControl>
                 </Box>
-                <Box sx={{paddingLeft: '48px'}}>
-                    <InputSlider 
-                        name="Stop Loss ( Select 0 if no use )"
-                        id="stopLoss"
-                        min={0}
-                        max={1}
-                        handleSliderChange={handleSliderChange}
-                        value={sliderOptions.stopLoss}/>
+                <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                    <TextField 
+                        required fullWidth
+                        type="number"
+                        name="stopLoss" 
+                        label="StopLoss" 
+                        variant="outlined" 
+                        inputProps={{ min: limits.stopLoss.min, max: limits.stopLoss.max }}
+                        value={configOptions.stopLoss}
+                        onChange={handleOptionChange}/>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >1 &gt; Stop Loss &gt; 0 </Typography>
+                    </Box>
                 </Box>
             </Box>
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
@@ -194,14 +195,19 @@ export default function DefaultConfigSettings(props) {
                         </Select>
                     </FormControl>
                 </Box>
-                <Box sx={{paddingLeft: '48px'}}>
-                    <InputSlider 
-                        name="Take Profit ( Select 0 if no use )"
-                        id="takeProfit"
-                        min={0}
-                        max={5}
-                        handleSliderChange={handleSliderChange}
-                        value={sliderOptions.takeProfit}/>
+                <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                    <TextField 
+                        required fullWidth
+                        type="number"
+                        name="takeProfit" 
+                        label="TakeProfit" 
+                        variant="outlined" 
+                        inputProps={{ min: limits.takeProfit.min, max: limits.takeProfit.max }}
+                        value={configOptions.takeProfit}
+                        onChange={handleOptionChange}/>
+                    <Box sx={{padding: "24px 0 0 24px"}}>
+                        <Typography variant="button" display="block" gutterBottom >5 &gt; Take Profit &gt; 0 </Typography>
+                    </Box>
                 </Box>
             </Box>
             <Box
