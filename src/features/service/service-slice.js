@@ -15,8 +15,11 @@ const serviceSlice = createSlice({
     getPlanByID: () => {},
     getPlanByIDSuccess: () => {
 
+    },
+    getUserSubscription: () => {},
+    getUserSubscriptionSuccess: (state, action) => {
+      state.subscriptions = action.payload;
     }
-    
   },
 });
 
@@ -27,6 +30,8 @@ export const {
   getAllPlanSuccess,
   getPlanByID,
   getPlanByIDSuccess,
+  getUserSubscription,
+  getUserSubscriptionSuccess,
 } = actions
 
 export default reducer;

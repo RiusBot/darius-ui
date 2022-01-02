@@ -7,17 +7,20 @@ import ServiceOptions from '@/features/service/components/service-options';
 import ServicePayment from '@/features/service/components/service-payment';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
-import { getAllPlan } from '@/features/service/service-slice';
-import { getPlansFromState } from '@/features/service/service-selector';
+import { getAllPlan, getUserSubscription } from '@/features/service/service-slice';
+import { getPlansFromState, getSubscriptionsFromState } from '@/features/service/service-selector';
 
 const Service = () => {
   const dispatch = useDispatch();
   useEffect (() => {  
     dispatch(getAllPlan());
+    dispatch(getUserSubscription());
     },[]
   );
   const plans = useSelector(getPlansFromState);
   console.log(plans);
+  const subscriptions = useSelector(getSubscriptionsFromState);
+  console.log(subscriptions);
 
   return (
     <>

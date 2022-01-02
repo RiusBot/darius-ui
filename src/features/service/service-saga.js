@@ -4,6 +4,8 @@ import {
   getAllPlanSuccess,
   getPlanByID,
   getPlanByIDSuccess,
+  getUserSubscription,
+  getUserSubscriptionSuccess,
 } from '@/features/service/service-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -50,10 +52,31 @@ function* getPlanByIDSaga({ payload: planId }) {
   }
 }
 
+function* getUserSubscriptionSaga() {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/get_user_subscription`;
+  const requestMethod = 'GET';
+  const params = {
+    uid: auth.uid,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params,
+    });
+    yield put(getUserSubscriptionSuccess(res.data));
+  } catch({response}) {
+    const errorMsg = 'Failed to get user subscriptions.';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
 function* serviceSaga() {
   yield all([
     takeLatest(getAllPlan.toString(), getAllPlanSaga),
     takeLatest(getPlanByID.toString(), getPlanByIDSaga),
+    takeLatest(getUserSubscription.toString(), getUserSubscriptionSaga),
   ]);
 }
 
