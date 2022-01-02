@@ -18,9 +18,7 @@ const Service = () => {
     },[]
   );
   const plans = useSelector(getPlansFromState);
-  console.log(plans);
   const subscriptions = useSelector(getSubscriptionsFromState);
-  console.log(subscriptions);
 
   return (
     <>
@@ -37,7 +35,10 @@ const Service = () => {
         }}
       >
         <Container maxWidth={false}>
-          <ServiceOptions />
+          <ServiceOptions 
+            subscriptions={subscriptions}
+            plans={plans}
+          />
           <Box sx={{ mt: 3 }}>
             <ServicePayment />
           </Box>

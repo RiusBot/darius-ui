@@ -1,24 +1,29 @@
-import {
-    Box,
-    Avatar,
-    Typography
-} from '@mui/material';
+import { Box, Avatar, Typography } from '@mui/material';
 import { productMedia } from '__data__/products';
 
 export const ServiceCurrentSubscription = (props) => {
     const { subscriptions } = props;
 
     if (Object.keys(subscriptions).length == 0) {
-      return (<></>);
+      return (
+        <>
+          <Typography 
+              color="textSecondary"
+              variant="button"
+              sx={{ textAlign: 'center', width: '100%'}}>
+              You have no subscriptions currently, start one by selecting one of the plans below now!
+          </Typography>
+        </>
+      );
     } 
     return (
       <>
-      {Object.keys(subscriptions).map((bot, id) => (
+      {subscriptions.map((sub, id) => (
         <Box key={id} >
           <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '32px'}} >
             <Avatar
-              alt={bot}
-              src={productMedia[bot].media}
+              alt={sub.plan.channel}
+              src={productMedia[sub.plan.channel].media}
               sx={{
                 display: 'flex',
                 height: 64,
@@ -31,14 +36,14 @@ export const ServiceCurrentSubscription = (props) => {
                     gutterBottom
                     variant="h6"
                 >
-                {productMedia[bot].channelDisplayName}
+                {productMedia[sub.plan.channel].channelDisplayName}
                 </Typography>
                 <Typography
                     color="rgba(0, 0, 0, 0.5)"
                     gutterBottom
                     variant="button"
                 >
-                Expire Date: {subscriptions[bot].expireDate}
+                Expire Date: {sub.expire_date}
                 </Typography>
             </Box>
           </Box>

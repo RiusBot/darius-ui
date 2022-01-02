@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -11,57 +12,80 @@ import {
   Avatar
 } from '@mui/material';
 import { ServiceCurrentSubscription } from '@/features/service/components/service-current-subscription';
-import { products, productMedia } from '__data__/products';
-
-const mockSubscriptions = {ROSE: {expireDate: '2021/12/12'}, 
-                           WHALE: {expireDate: '2021/12/23'}};
+import { productMedia } from '__data__/products';
 
 const ServiceOptions = (props) => {
-  const selectableSignals = products.filter(bot => {
-    return ! (Object.keys(mockSubscriptions).includes(bot.channel));
+  const { subscriptions, plans } = props;
+  const [checked, setChecked] = useState({'ROSE': null,  'WHALE': null, 'DAILYSCALP': null});
+  const [totalPrice, setTotalPrice] = useState(0);
+  const selectablePlans = {};
+
+  useEffect(() => {
+    var price = 0;
+    Object.keys(checked).forEach(channel => {
+      if (checked[channel] != null) {
+        price += selectablePlans[channel][parseInt(checked[channel])].price;
+      }
+    });
+    setTotalPrice(price);
+  },[checked]);
+
+  Object.keys(plans).filter(channel => {
+    if (Object.keys(productMedia).includes(channel)) {
+      selectablePlans[channel] = plans[channel];
+    }
   });
 
+  const handleCheckBox = (event) => {
+    switch (event.target.checked) {
+      case true:
+        setChecked({...checked, [event.target.name]: event.target.id});
+        break;
+      case false:
+        setChecked({...checked, [event.target.name]: null});
+        break;
+    }
+  }
+
   const SignalOptions = () => {
-    if (selectableSignals.length == 0) return (<></>);
+    if (selectablePlans.length == 0) return (<></>);
 
     return (
-      <Box sx={{display: 'flex', flexDirection: 'column'}}>
-        {selectableSignals.map((signal, idx) => (
-          <Box key={idx} sx={{display: 'flex', flexDirection: 'row'}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', paddingTop: '32px'}}>
+        {Object.keys(selectablePlans).map((channel, idx) => (
+          <Box key={idx} sx={{display: 'flex', flexDirection: 'row', height: '64px'}}>
             <Avatar
-              alt={signal.channel}
-              src={productMedia[signal.channel].media}
+              alt={channel}
+              src={productMedia[channel].media}
               sx={{
                 display: 'flex',
-                height: 32,
-                width: 32,
+                height: 48,
+                width: 48,
                 margin: '8px'
               }}
             />
             <Typography
-              sx={{margin: 'auto 64px auto 8px'}}
+              sx={{margin: 'auto 64px auto 8px', width: '160px'}}
               color="textPrimary"
               gutterBottom
               variant="h6"
             >
-              {signal.channelDisplayName}
+              {productMedia[channel].channelDisplayName}
             </Typography>
 
-            <FormControlLabel
-            sx={{padding: '0 32px'}}
-            control={<Checkbox />}
-            label="1 month"
-            />
-            <FormControlLabel
-            sx={{padding: '0 32px'}}
-            control={<Checkbox />}
-            label="6 month"
-            />
-            <FormControlLabel
-            sx={{padding: '0 32px'}}
-            control={<Checkbox />}
-            label="12 month (1 year)"
-            />
+            {Object.values(selectablePlans[channel]).map((plan, index) => (
+              <FormControlLabel
+                key={index}
+                sx={{padding: '0 32px'}}
+                control={<Checkbox 
+                          id={(plan.plan_id).toString()}
+                          checked={(checked[plan.channel] === plan.plan_id.toString())? true : false}
+                          />}
+                name={plan.channel}
+                label={plan.day + " Days, $" + plan.price}
+                onChange={handleCheckBox}
+              />
+            ))}
           </Box>
         ))}
       </Box>
@@ -77,7 +101,7 @@ const ServiceOptions = (props) => {
         />
         <Box sx={{padding: '0 32px 32px'}} >
           <ServiceCurrentSubscription
-            subscriptions={mockSubscriptions}
+            subscriptions={subscriptions}
           />
         </Box>
         <Divider />
@@ -104,7 +128,7 @@ const ServiceOptions = (props) => {
             color="textPrimary"
             variant="h6"
           >
-            The total service fee is $50 USDC.
+            The total service fee is ${totalPrice} USD.
           </Typography>
         </Box>
         <Box
