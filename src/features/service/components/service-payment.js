@@ -9,9 +9,12 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { LocalizationProvider, DatePicker } from '@mui/lab';
 
 const ServicePayment = (props) => {
   const [values, setValues] = useState({
+    date: '',
     password: '',
     address: ''
   });
@@ -32,23 +35,40 @@ const ServicePayment = (props) => {
         />
         <Divider />
         <CardContent>
-            <Typography
-                color="textPrimary"
-                gutterBottom
-                variant="h6"
-                >
-                Please enter the wallet address used for payment and click "Confirm".
-            </Typography>
-          <TextField
-            fullWidth
-            label="Amount"
-            type="number"
-            margin="normal"
-            name="amount"
-            onChange={handleChange}
-            value={values.amount}
-            variant="outlined"
-          />
+          <Typography
+              color="textPrimary"
+              gutterBottom
+              variant="h6"
+              >
+              Please enter the wallet address used for payment and click "Confirm".
+          </Typography>
+          <Box
+            sx={{paddingTop: '32px', display: 'flex', flexDirection: 'row'}}
+          >
+            <LocalizationProvider 
+              dateAdapter={AdapterDateFns}
+            >
+              <DatePicker
+                label="Transaction Date"
+                value={values.date}
+                onChange={(newValue) => {
+                  setValues({...values, date: newValue});
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <TextField
+              sx={{margin: 'auto 0 auto 32px'}}
+              fullWidth
+              label="Transaction Amount (USD)"
+              type="number"
+              margin="normal"
+              name="amount"
+              onChange={handleChange}
+              value={values.amount}
+              variant="outlined"
+            />
+          </Box>
           <TextField
             fullWidth
             label="Wallet Address"

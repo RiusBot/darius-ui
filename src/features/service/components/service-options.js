@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Box,
   Button,
@@ -13,22 +14,14 @@ import {
 } from '@mui/material';
 import { ServiceCurrentSubscription } from '@/features/service/components/service-current-subscription';
 import { productMedia } from '__data__/products';
+import { createUserSubscription } from '@/features/service/service-slice';
 
 const ServiceOptions = (props) => {
+  const dispatch = useDispatch();
   const { subscriptions, plans } = props;
-  const [checked, setChecked] = useState({'ROSE': null,  'WHALE': null, 'DAILYSCALP': null});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [checked, setChecked] = useState('');
+  const [price, setPrice] = useState(0);
   const selectablePlans = {};
-
-  useEffect(() => {
-    var price = 0;
-    Object.keys(checked).forEach(channel => {
-      if (checked[channel] != null) {
-        price += selectablePlans[channel][parseInt(checked[channel])].price;
-      }
-    });
-    setTotalPrice(price);
-  },[checked]);
 
   Object.keys(plans).filter(channel => {
     if (Object.keys(productMedia).includes(channel)) {
@@ -39,12 +32,19 @@ const ServiceOptions = (props) => {
   const handleCheckBox = (event) => {
     switch (event.target.checked) {
       case true:
-        setChecked({...checked, [event.target.name]: event.target.id});
+        setChecked(event.target.id);
+        setPrice(plans[event.target.name][event.target.id].price);
         break;
       case false:
-        setChecked({...checked, [event.target.name]: null});
+        setChecked('');
+        setPrice(0);
         break;
     }
+  }
+
+  const onClickSubmit = () => {
+    // TODO: check fee <= balance
+    dispatch(createUserSubscription(parseInt(checked)));
   }
 
   const SignalOptions = () => {
@@ -79,7 +79,7 @@ const ServiceOptions = (props) => {
                 sx={{padding: '0 32px'}}
                 control={<Checkbox 
                           id={(plan.plan_id).toString()}
-                          checked={(checked[plan.channel] === plan.plan_id.toString())? true : false}
+                          checked={(checked === plan.plan_id.toString())? true : false}
                           />}
                 name={plan.channel}
                 label={plan.day + " Days, $" + plan.price}
@@ -111,14 +111,14 @@ const ServiceOptions = (props) => {
             gutterBottom
             variant="h6"
           >
-            Unsubscribed Signals
+            Unsubscribed Channels
           </Typography>
           <Typography
             color="textSecondary"
             gutterBottom
             variant="h7"
           >
-            Select a new service and create a subscription plan.
+            Subscribe to new channels one at a time.
           </Typography>
           <SignalOptions />
         </CardContent>
@@ -128,7 +128,7 @@ const ServiceOptions = (props) => {
             color="textPrimary"
             variant="h6"
           >
-            The total service fee is ${totalPrice} USD.
+            The selected service fee is ${price} USD.
           </Typography>
         </Box>
         <Box
@@ -142,6 +142,8 @@ const ServiceOptions = (props) => {
             sx={{margin: '0 8px'}}
             color="primary"
             variant="contained"
+            disabled={checked == ''}
+            onClick={onClickSubmit}
           >
             Submit Subscription and Confirm Payment
           </Button>

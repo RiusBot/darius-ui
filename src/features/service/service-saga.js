@@ -6,6 +6,7 @@ import {
   getPlanByIDSuccess,
   getUserSubscription,
   getUserSubscriptionSuccess,
+  createUserSubscription,
 } from '@/features/service/service-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -47,7 +48,7 @@ function* getPlanByIDSaga({ payload: planId }) {
     });
     yield put(getPlanByIDSuccess(res.data));
   } catch({response}) {
-    const errorMsg = 'Failed to get plan with plan ID: ' + planId.toString();
+    const errorMsg = 'Failed to get plan';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
@@ -72,11 +73,33 @@ function* getUserSubscriptionSaga() {
   }
 }
 
+function* createUserSubscriptionSaga({ payload: planId }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/create_user_subscription`;
+  const requestMethod = 'POST';
+  const data = {
+    uid: auth.uid,
+    plan_id: planId,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data,
+    });
+    yield put(getUserSubscription());
+  } catch({response}) {
+    const errorMsg = 'Failed to create user subscription.';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
 function* serviceSaga() {
   yield all([
     takeLatest(getAllPlan.toString(), getAllPlanSaga),
     takeLatest(getPlanByID.toString(), getPlanByIDSaga),
     takeLatest(getUserSubscription.toString(), getUserSubscriptionSaga),
+    takeLatest(createUserSubscription.toString(), createUserSubscriptionSaga),
   ]);
 }
 
