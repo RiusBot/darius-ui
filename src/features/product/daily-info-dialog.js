@@ -88,6 +88,9 @@ export const DailyScalpingInfoDialog = (props) => {
                     <Typography varient="body1" componenet="div">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQXSuC0Fw9BvWnG8iIPCSM3Tyz-H3epbRApXHtgN2fEv09iILasI8QAc1y8E8mUPvtADbw9pXVwzmo6/pubhtml?gid=500420307&amp;single=true&amp;widget=true&amp;headers=false" width="100%" height="3000"></iframe>
                     </Typography>
+
+                    回測分析:&nbsp; &nbsp;
+                    <a href="https://zircon-lemonade-940.notion.site/Daily-scalping-c843df6faa854fcc86cffad6fe29a8f1">https://zircon-lemonade-940.notion.site/Daily-scalping-c843df6faa854fcc86cffad6fe29a8f1</a>
                 </Box>
 
             </Box>

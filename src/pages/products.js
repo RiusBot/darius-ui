@@ -7,6 +7,7 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { RoseInfoDialog } from '@/features/product/rose-info-dialog';
 import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
+import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
 
 const Products = () => {
   const [infoDialog, setShowInfoDialog] = useState({ROSE: false,
@@ -15,18 +16,21 @@ const Products = () => {
   const handleBotInfoDialogOpen = (channel) => {
     switch (channel) {
       case "ROSE":
-        setShowInfoDialog({ROSE: true, WHALE: false, DAILY: false});
+        setShowInfoDialog({ROSE: true, WHALE: false, DAILY: false, PERPETUAL: false});
         break;
       case "WHALE":
-        setShowInfoDialog({ROSE: false, WHALE: true, DAILY: false});
+        setShowInfoDialog({ROSE: false, WHALE: true, DAILY: false, PERPETUAL: false});
         break;
       case "DAILYSCALP":
-        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: true});
+        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: true, PERPETUAL: false});
+        break;
+      case "PERPETUAL":
+        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false, PERPETUAL: true});
         break;
     }
   }
   const handleBotInfoDialogClose = () => {
-    setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false});
+    setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false, PERPETUAL: false});
   }
   return (
     <>
@@ -89,6 +93,10 @@ const Products = () => {
         />
       <DailyScalpingInfoDialog
         open={infoDialog.DAILY}
+        onClose={handleBotInfoDialogClose}
+        />
+      <PerpetualInfoDialog
+        open={infoDialog.PERPETUAL}
         onClose={handleBotInfoDialogClose}
         />
     </>

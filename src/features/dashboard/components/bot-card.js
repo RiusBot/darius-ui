@@ -24,7 +24,7 @@ const BotCard = (props) => {
             <Typography
               color="textPrimary"
               gutterBottom
-              variant="h5"
+              variant="h6"
             >
               {bot.channelDisplayName}
             </Typography>

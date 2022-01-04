@@ -21,6 +21,12 @@ export const products = [
                   'Scalping makes profits within a short period of time with automated bot trading & reliable safety machinism & high accuracy signals.'],
     media: '/static/images/products/daily-scalp.png',
   },
+  {
+    channel: 'PERPETUAL',
+    channelDisplayName: 'Binance\nPerpetual',
+    description: ['Trading strategy created by Benson and Tcat using LSUR, OI and Funding rate data from Binance.', 'Update every 15 minutes.'],
+    media: '/static/images/products/binance_perpetual.jpg',
+  },
 ];
 
 export const productMedia = {
@@ -35,5 +41,9 @@ export const productMedia = {
   'DAILYSCALP': {
     channelDisplayName: 'Daily Scalping',
     media: '/static/images/products/daily-scalp.png',
+  },
+  'PERPETUAL': {
+    channelDisplayName: 'Binance Perpetual',
+    media: '/static/images/products/binance_perpetual.jpg',
   }
 }
