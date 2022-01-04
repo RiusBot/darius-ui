@@ -1,7 +1,7 @@
 import { Box, Avatar, Typography } from '@mui/material';
 import { productMedia } from '__data__/products';
 
-export const ServiceCurrentSubscription = (props) => {
+export const SubscriptionCurrent = (props) => {
     const { subscriptions } = props;
 
     if (Object.keys(subscriptions).length == 0) {

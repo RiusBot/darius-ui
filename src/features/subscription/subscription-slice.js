@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const serviceSlice = createSlice({
-  name: 'service',
+const subscriptionSlice = createSlice({
+  name: 'subscription',
   initialState: {
     plans: {},
     subscriptions: [],
@@ -31,7 +31,7 @@ const serviceSlice = createSlice({
   },
 });
 
-const { actions, reducer } = serviceSlice;
+const { actions, reducer } = subscriptionSlice;
 
 export const {
   getAllPlan,

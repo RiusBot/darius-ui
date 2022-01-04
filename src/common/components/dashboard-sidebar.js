@@ -41,9 +41,9 @@ const items = [
     title: 'API Key Setting'
   },
   // {
-  //   href: '/service',
+  //   href: '/subscription',
   //   icon: (<AttachMoneyIcon fontSize="small" />),
-  //   title: 'Service & Payment'
+  //   title: 'Subscription & Payment'
   // },
 ];
 

@@ -12,11 +12,11 @@ import {
   Typography,
   Avatar
 } from '@mui/material';
-import { ServiceCurrentSubscription } from '@/features/service/components/service-current-subscription';
+import { SubscriptionCurrent } from '@/features/subscription/components/subscription-current';
 import { productMedia } from '__data__/products';
-import { createUserSubscription } from '@/features/service/service-slice';
+import { createUserSubscription } from '@/features/subscription/subscription-slice';
 
-const ServiceOptions = (props) => {
+const SubscriptionPlans = (props) => {
   const dispatch = useDispatch();
   const { subscriptions, plans } = props;
   const [checked, setChecked] = useState('');
@@ -96,11 +96,11 @@ const ServiceOptions = (props) => {
     <>
       <Card>
         <CardHeader
-          subheader="Currently subscribed services and according expire date."
+          subheader="Currently subscribed channels and according expire date."
           title="Current Subscriptions"
         />
         <Box sx={{padding: '0 32px 32px'}} >
-          <ServiceCurrentSubscription
+          <SubscriptionCurrent
             subscriptions={subscriptions}
           />
         </Box>
@@ -153,4 +153,4 @@ const ServiceOptions = (props) => {
   );
 };
 
-export default ServiceOptions;
+export default SubscriptionPlans;

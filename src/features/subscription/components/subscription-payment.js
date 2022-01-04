@@ -12,7 +12,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 
-const ServicePayment = (props) => {
+const SubscriptionPayment = (props) => {
   const [values, setValues] = useState({
     date: '',
     password: '',
@@ -101,4 +101,4 @@ const ServicePayment = (props) => {
   );
 };
 
-export default ServicePayment;
+export default SubscriptionPayment;

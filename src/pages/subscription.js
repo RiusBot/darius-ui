@@ -3,14 +3,14 @@ import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Container, Typography } from '@mui/material';
 import withAuth from '@/common/utils/auth';
-import ServiceOptions from '@/features/service/components/service-options';
-import ServicePayment from '@/features/service/components/service-payment';
+import SubscriptionPlans from '@/features/subscription/components/subscription-plans';
+import SubscriptionPayment from '@/features/subscription/components/subscription-payment';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
-import { getAllPlan, getUserSubscription } from '@/features/service/service-slice';
-import { getPlansFromState, getSubscriptionsFromState } from '@/features/service/service-selector';
+import { getAllPlan, getUserSubscription } from '@/features/subscription/subscription-slice';
+import { getPlansFromState, getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
 
-const Service = () => {
+const Subscription = () => {
   const dispatch = useDispatch();
   useEffect (() => {  
     dispatch(getAllPlan());
@@ -24,7 +24,7 @@ const Service = () => {
     <>
       <Head>
         <title>
-          Service and Payment | RiusBot
+          Subscription and Plans | RiusBot
         </title>
       </Head>
       <Box
@@ -35,12 +35,12 @@ const Service = () => {
         }}
       >
         <Container maxWidth={false}>
-          <ServiceOptions 
+          <SubscriptionPlans 
             subscriptions={subscriptions}
             plans={plans}
           />
           <Box sx={{ mt: 3 }}>
-            <ServicePayment />
+            <SubscriptionPayment />
           </Box>
         </Container>
         <Snackbar />
@@ -48,12 +48,12 @@ const Service = () => {
     </>
   );
 }
-Service.getLayout = (page) => (
+Subscription.getLayout = (page) => (
   <DashboardLayout
-    pageName="Service and Payment"
+    pageName="Subscription and Plans"
   >
     {page}
   </DashboardLayout>
 );
 
-export default withAuth(Service);
+export default withAuth(Subscription);

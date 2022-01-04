@@ -7,7 +7,7 @@ import {
   getUserSubscription,
   getUserSubscriptionSuccess,
   createUserSubscription,
-} from '@/features/service/service-slice';
+} from '@/features/subscription/subscription-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
@@ -94,7 +94,7 @@ function* createUserSubscriptionSaga({ payload: planId }) {
   }
 }
 
-function* serviceSaga() {
+function* subscriptionSaga() {
   yield all([
     takeLatest(getAllPlan.toString(), getAllPlanSaga),
     takeLatest(getPlanByID.toString(), getPlanByIDSaga),
@@ -103,4 +103,4 @@ function* serviceSaga() {
   ]);
 }
 
-export default serviceSaga;
+export default subscriptionSaga;
