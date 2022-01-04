@@ -46,7 +46,6 @@ function* createUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
-    console.log(res);
     yield put(getUserApi());
   } catch({response}) { 
     const errorMsg = 'Failed to create user API';

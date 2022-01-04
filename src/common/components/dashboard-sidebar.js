@@ -43,7 +43,12 @@ const items = [
   // {
   //   href: '/subscription',
   //   icon: (<AttachMoneyIcon fontSize="small" />),
-  //   title: 'Subscription & Payment'
+  //   title: 'Subscription & Plans'
+  // },
+  // {
+  //   href: '/transaction',
+  //   icon: (<AttachMoneyIcon fontSize="small" />),
+  //   title: 'Transaction & Payment'
   // },
 ];
 

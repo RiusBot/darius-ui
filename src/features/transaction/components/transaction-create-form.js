@@ -12,10 +12,10 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 
-const SubscriptionPayment = (props) => {
+const TransactionCreateForm = (props) => {
   const [values, setValues] = useState({
     date: '',
-    password: '',
+    amount: '',
     address: ''
   });
 
@@ -33,6 +33,14 @@ const SubscriptionPayment = (props) => {
           subheader="The total amount of deposit remain in your account."
           title="Remain"
         />
+        <Typography
+          sx={{padding: '0 32px 16px'}}
+          color="textPrimary"
+          gutterBottom
+          variant="h6"
+          >
+          $ 50
+        </Typography>
         <Divider />
         <CardContent>
           <Typography
@@ -40,7 +48,14 @@ const SubscriptionPayment = (props) => {
               gutterBottom
               variant="h6"
               >
-              Please enter the wallet address used for payment and click "Confirm".
+              Create a new Transaction.
+          </Typography>
+          <Typography
+              color="textSecondary"
+              gutterBottom
+              variant="h6"
+              >
+              Please enter the date, amount, and wallet address of your transaction.
           </Typography>
           <Box
             sx={{paddingTop: '32px', display: 'flex', flexDirection: 'row'}}
@@ -93,7 +108,7 @@ const SubscriptionPayment = (props) => {
             color="primary"
             variant="contained"
           >
-            Confirm
+            Create Transaction
           </Button>
         </Box>
       </Card>
@@ -101,4 +116,4 @@ const SubscriptionPayment = (props) => {
   );
 };
 
-export default SubscriptionPayment;
+export default TransactionCreateForm;

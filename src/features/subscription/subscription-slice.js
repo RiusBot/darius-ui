@@ -9,7 +9,6 @@ const subscriptionSlice = createSlice({
   reducers: {
     getAllPlan: () => {},
     getAllPlanSuccess: (state, action) => {
-      console.log(action);
       if (action.payload.length == 0) return;
       state.plans = {};
       action.payload.forEach(plan => {

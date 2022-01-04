@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, Card, CardHeader, CardContent, Divider } from '@mui/material';
 import withAuth from '@/common/utils/auth';
 import SubscriptionPlans from '@/features/subscription/components/subscription-plans';
-import SubscriptionPayment from '@/features/subscription/components/subscription-payment';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
 import { getAllPlan, getUserSubscription } from '@/features/subscription/subscription-slice';
@@ -40,7 +39,21 @@ const Subscription = () => {
             plans={plans}
           />
           <Box sx={{ mt: 3 }}>
-            <SubscriptionPayment />
+            <Card>
+              <CardHeader
+                subheader="The amount of deposit remain in your account.  
+                           Head to the Transaction & Payment page to increase your deposit."
+                title="Remain"
+              />  
+              <Typography
+                  sx={{padding: '0 32px 16px'}}
+                  color="textPrimary"
+                  gutterBottom
+                  variant="h6"
+                  >
+                  $ 50
+              </Typography>
+            </Card>
           </Box>
         </Container>
         <Snackbar />

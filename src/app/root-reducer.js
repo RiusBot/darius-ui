@@ -7,6 +7,7 @@ import appReducer from '@/app/app-slice';
 import dashboardReducer from '@/features/dashboard/dashboard-slice';
 import apiReducer from '@/features/api/api-slice';
 import subscriptionReducer from '@/features/subscription/subscription-slice';
+import transactionReducer from '@/features/transaction/transaction-slice';
 
 const combined = combineReducers({
   firebase: firebaseReducer,
@@ -15,6 +16,7 @@ const combined = combineReducers({
   dashboard: dashboardReducer,
   api: apiReducer,
   subscription: subscriptionReducer,
+  transaction: transactionReducer,
 });
 
 const rootReducer = (state, action) => {
