@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useDispatch } from 'react-redux';
@@ -18,7 +19,7 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Snackbar from '@/common/components/snackbar';
-import { createUser, updateSnackbar } from '@/app/app-slice';
+import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 
 const Register = () => {
   const router = useRouter();
@@ -41,6 +42,11 @@ const Register = () => {
   };
 
   const signUpWithPassword = (values) => {
+    grecaptcha.enterprise.ready(async () => {
+      const action = 'REGISTER'
+      const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
+      dispatch(createRecaptchaAccessment({ token, action }));
+    });
     const { email, password, username } = values;
     email = emailValidate(email);
     if (email === "") {
@@ -131,7 +137,7 @@ const Register = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Home
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>

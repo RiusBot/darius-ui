@@ -10,6 +10,8 @@ const appSlice = createSlice({
   reducers: {
     createUser: () => {},
     createUserSussess: () => {},
+    createRecaptchaAccessment: () => {},
+    createRecaptchaAccessmentSuccess: () => {},
     updateSnackbar: (state, action) => {
       state.snackbarInfo = {
         open: true,
@@ -33,6 +35,8 @@ const { actions, reducer } = appSlice;
 export const {
   createUser,
   createUserSussess,
+  createRecaptchaAccessment,
+  createRecaptchaAccessmentSuccess,
   updateSnackbar,
   closeSnackbar,
 } = actions

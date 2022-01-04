@@ -2,6 +2,8 @@ import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
   createUser,
   createUserSussess,
+  createRecaptchaAccessment,
+  createRecaptchaAccessmentSuccess,
 } from '@/app/app-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -29,9 +31,31 @@ function* createUserSaga() {
   }
 };
 
+function* createRecaptchaAccessmentSaga({ payload: { token, action } }) {
+  const axios = yield getAxios();
+  const data = {
+    token,
+    action,
+  }
+  const url = `/api/v1/recaptcha_assessment`;
+  const requestMethod = 'POST';
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data,
+    });
+    if (res.status === 200) {
+      yield put(createRecaptchaAccessmentSuccess())
+    }
+  } catch({response}) {
+    const errorMsg = 'Failed to create recaptcha assessment';
+  }
+};
+
 function* accountSaga() {
   yield all([
     takeLatest(createUser.toString(), createUserSaga),
+    takeLatest(createRecaptchaAccessment.toString(), createRecaptchaAccessmentSaga),
   ]);
 }
 

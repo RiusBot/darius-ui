@@ -32,12 +32,15 @@ const MyApp = (props) => {
 
   const getLayout = Component.getLayout || ((page) => page);
 
+  const recaptchaEnterpriseApi = `https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY}`
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
           RiusBot
         </title>
+        <script src={ recaptchaEnterpriseApi }></script>
         <meta
           name="viewport"
           content="initial-scale=1, width=device-width"
