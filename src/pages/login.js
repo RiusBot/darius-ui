@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
-import { createUser, updateSnackbar } from '@/app/app-slice';
+import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
 import * as EmailValidator from 'email-validator';
 
@@ -42,6 +42,14 @@ const Login = () => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   };
+  const handleGoogleSignInClick = () => {
+    SignInWithGoogle()
+    grecaptcha.enterprise.ready(async () => {
+      const action = 'LOGIN'
+      const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
+      dispatch(createRecaptchaAccessment({ token, action }));
+    });
+  }
   const SignInWithPassword = (values) => {
     values.email = emailNormalize(values.email)
     firebase.login(values)
@@ -70,6 +78,11 @@ const Login = () => {
     }),
     onSubmit: (values, actions) => {
       SignInWithPassword(values);
+      grecaptcha.enterprise.ready(async () => {
+        const action = 'LOGIN'
+        const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
+        dispatch(createRecaptchaAccessment({ token, action }));
+      });
       actions.setSubmitting(false);
     }
   });
@@ -108,7 +121,7 @@ const Login = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Home
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -132,7 +145,7 @@ const Login = () => {
                   fullWidth
                   color="error"
                   startIcon={<GoogleIcon />}
-                  onClick={SignInWithGoogle}
+                  onClick={handleGoogleSignInClick}
                   size="large"
                   variant="contained"
                 >

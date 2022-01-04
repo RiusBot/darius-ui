@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase';
@@ -18,7 +18,7 @@ export default function AccountMenu() {
   const profile = useSelector(getUserProfile);
   const router = useRouter();
   const firebase = useFirebase();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +28,7 @@ export default function AccountMenu() {
   };
   const handleLogout = () => {
     return firebase.logout().then(() => {
-      router.push('/')
+      router.push('/login')
     })
   }
 
