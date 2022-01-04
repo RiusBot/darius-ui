@@ -6,8 +6,9 @@ import { TextField, Divider} from "@mui/material";
 import { getUserApiFromState } from '@/features/api/api-selector';
 
 
-const limits = { stopLoss: { min: 0, max: 1},
-                 takeProfit: { min: 0, max: 5 },
+const limits = { stopLoss: { min: 0, max: 100},
+                 takeProfit: { min: 0, max: 500 },
+                 callback: { binance: {min: 0.1, max: 5}, ftx: {min: -30, max: 30}},
                  quantity: { min: 30, max: 10000000000 },
                  leverage: { min: 0, max: 10000000000 },
                  margin: { min: 0, max: 1000 },
@@ -35,6 +36,13 @@ export default function DefaultConfigSettings(props) {
         }
         setConfigs({...configOptions, [name]: value});
     };
+    const exchange = configOptions['api'] ? userApi[configOptions['api']].exchange : "binance";
+    const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.stopLoss.max;
+    const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.stopLoss.min;
+    const slLabel = (configOptions['stopLossType'] === 'TRAILING') ? "Callback" : "Stop Loss";
+    const tpLimitMax = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max;
+    const tpLimitMin = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min;
+    const tpLabel = (configOptions['takeProfitType'] === 'TRAILING') ? "Callback" : "Take Profit";
     const checkOptionsValid = (option) => {
         if (configOptions[option] === '') return false;
         switch (option) {
@@ -45,7 +53,12 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfitType':
                 return (configOptions[option] != '');
             case 'stopLoss':
+                if (configOptions['stopLossType'] == 'TRAILING')
+                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] < limits['callback'][exchange].max);
+                return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'takeProfit':
+                if (configOptions['takeProfitType'] == 'TRAILING')
+                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] < limits['callback'][exchange].max);
                 return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'leverage':
                 return (parseFloat(configOptions[option]) > 0);
@@ -162,6 +175,7 @@ export default function DefaultConfigSettings(props) {
                         >
                             <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
                             <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -170,13 +184,16 @@ export default function DefaultConfigSettings(props) {
                         required fullWidth
                         type="number"
                         name="stopLoss" 
-                        label="StopLoss" 
+                        label={slLabel}
                         variant="outlined" 
-                        inputProps={{ min: limits.stopLoss.min, max: limits.stopLoss.max }}
+                        inputProps={{
+                            min: slLimitMin,
+                            max: slLimitMax
+                        }}
                         value={configOptions.stopLoss}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >1 &gt; Stop Loss &gt; 0 </Typography>
+                        <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
                     </Box>
                 </Box>
             </Box>
@@ -192,6 +209,7 @@ export default function DefaultConfigSettings(props) {
                         >
                             <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
                             <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -200,13 +218,16 @@ export default function DefaultConfigSettings(props) {
                         required fullWidth
                         type="number"
                         name="takeProfit" 
-                        label="TakeProfit" 
+                        label={tpLabel}
                         variant="outlined" 
-                        inputProps={{ min: limits.takeProfit.min, max: limits.takeProfit.max }}
+                        inputProps={{
+                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min,
+                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max
+                        }}
                         value={configOptions.takeProfit}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >5 &gt; Take Profit &gt; 0 </Typography>
+                        <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
                     </Box>
                 </Box>
             </Box>
