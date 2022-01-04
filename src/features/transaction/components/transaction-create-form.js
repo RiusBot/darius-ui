@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Box,
   Button,
@@ -11,13 +12,26 @@ import {
 } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
+import { createUserTransaction } from '@/features/transaction/transaction-slice';
 
 const TransactionCreateForm = (props) => {
+  const dispatch = useDispatch();
   const [values, setValues] = useState({
     date: '',
     amount: '',
-    address: ''
+    wallet: ''
   });
+  const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    function isSubmitReady() {
+      for (var i = 0; i < Object.keys(values).length; i ++) {
+        if (Object.values(values)[i] == '') return false;
+      }
+      return true;
+    }
+    setCreateButtonDisabled(!isSubmitReady())
+  }, [values]);
 
   const handleChange = (event) => {
     setValues({
@@ -25,9 +39,14 @@ const TransactionCreateForm = (props) => {
       [event.target.name]: event.target.value
     });
   };
+ 
+  const onClickSubmit = () => {
+    // TODO: fix date format
+    dispatch(createUserTransaction(values));
+  }
 
   return (
-    <form {...props}>
+    <>
       <Card>
         <CardHeader
           subheader="The total amount of deposit remain in your account."
@@ -88,10 +107,10 @@ const TransactionCreateForm = (props) => {
             fullWidth
             label="Wallet Address"
             margin="normal"
-            name="address"
+            name="wallet"
             onChange={handleChange}
             type="password"
-            value={values.address}
+            value={values.wallet}
             variant="outlined"
           />
         </CardContent>
@@ -107,12 +126,14 @@ const TransactionCreateForm = (props) => {
             sx={{margin: '0 8px'}}
             color="primary"
             variant="contained"
+            disabled={createButtonDisabled}
+            onClick={onClickSubmit}
           >
             Create Transaction
           </Button>
         </Box>
       </Card>
-    </form>
+    </>
   );
 };
 

@@ -5,9 +5,10 @@ import { Box, Container, Typography } from '@mui/material';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
-import { createUserTransaction, getUserTransaction } from '@/features/transaction/transaction-slice';
+import { getUserTransaction } from '@/features/transaction/transaction-slice';
 import { getTransactionsFromState } from '@/features/transaction/transaction-selector';
 import TransactionCreateForm from '@/features/transaction/components/transaction-create-form';
+import TransactionTable from '@/features/transaction/components/transaction-table';
 
 const Transaction = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,6 @@ const Transaction = () => {
     dispatch(getUserTransaction());
     },[]
   );
-  const transactions = useSelector(getTransactionsFromState);
 
   return (
     <>
@@ -32,8 +32,9 @@ const Transaction = () => {
         }}
       >
         <Container maxWidth={false}>
+          <TransactionCreateForm />
           <Box sx={{ mt: 3 }}>
-            <TransactionCreateForm />
+            <TransactionTable />
           </Box>
         </Container>
         <Snackbar />

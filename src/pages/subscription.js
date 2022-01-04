@@ -6,6 +6,7 @@ import withAuth from '@/common/utils/auth';
 import SubscriptionPlans from '@/features/subscription/components/subscription-plans';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
+import { SubscriptionCurrent } from '@/features/subscription/components/subscription-current';
 import { getAllPlan, getUserSubscription } from '@/features/subscription/subscription-slice';
 import { getPlansFromState, getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
 
@@ -34,10 +35,22 @@ const Subscription = () => {
         }}
       >
         <Container maxWidth={false}>
-          <SubscriptionPlans 
-            subscriptions={subscriptions}
-            plans={plans}
-          />
+          <Card>
+            <CardHeader
+              subheader="Currently subscribed channels and according expire date."
+              title="Subscriptions"
+            />
+            <Box sx={{padding: '0 32px 32px'}} >
+              <SubscriptionCurrent
+                subscriptions={subscriptions}
+              />
+            </Box>
+            <Divider />
+            <SubscriptionPlans 
+              subscriptions={subscriptions}
+              plans={plans}
+            />
+          </Card>
           <Box sx={{ mt: 3 }}>
             <Card>
               <CardHeader

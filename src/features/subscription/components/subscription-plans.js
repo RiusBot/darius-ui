@@ -12,7 +12,6 @@ import {
   Typography,
   Avatar
 } from '@mui/material';
-import { SubscriptionCurrent } from '@/features/subscription/components/subscription-current';
 import { productMedia } from '__data__/products';
 import { createUserSubscription } from '@/features/subscription/subscription-slice';
 
@@ -94,61 +93,49 @@ const SubscriptionPlans = (props) => {
 
   return (
     <>
-      <Card>
-        <CardHeader
-          subheader="Currently subscribed channels and according expire date."
-          title="Current Subscriptions"
-        />
-        <Box sx={{padding: '0 32px 32px'}} >
-          <SubscriptionCurrent
-            subscriptions={subscriptions}
-          />
-        </Box>
-        <Divider />
-        <CardContent>
-          <Typography
-            color="textPrimary"
-            gutterBottom
-            variant="h6"
-          >
-            Unsubscribed Channels
-          </Typography>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="h7"
-          >
-            Subscribe to new channels one at a time.
-          </Typography>
-          <SignalOptions />
-        </CardContent>
-        <Divider />
-        <Box sx={{padding: '16px 32px 0'}} >
-          <Typography
-            color="textPrimary"
-            variant="h6"
-          >
-            The selected service fee is ${price} USD.
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
+      <CardContent>
+        <Typography
+          color="textPrimary"
+          gutterBottom
+          variant="h6"
         >
-          <Button
-            sx={{margin: '0 8px'}}
-            color="primary"
-            variant="contained"
-            disabled={checked == ''}
-            onClick={onClickSubmit}
-          >
-            Submit Subscription and Confirm Payment
-          </Button>
-        </Box>
-      </Card>
+          Plans
+        </Typography>
+        <Typography
+          color="textSecondary"
+          gutterBottom
+          variant="h7"
+        >
+          Subscribe to new channels one at a time.
+        </Typography>
+        <SignalOptions />
+      </CardContent>
+      <Divider />
+      <Box sx={{padding: '16px 32px 0'}} >
+        <Typography
+          color="textPrimary"
+          variant="h6"
+        >
+          The selected service fee is ${price} USD.
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
+      >
+        <Button
+          sx={{margin: '0 8px'}}
+          color="primary"
+          variant="contained"
+          disabled={checked == ''}
+          onClick={onClickSubmit}
+        >
+          Submit Subscription and Confirm Payment
+        </Button>
+      </Box>
     </>
   );
 };

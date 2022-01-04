@@ -14,15 +14,17 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import KeyIcon from '@mui/icons-material/Key';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserProfile } from '@/common/selectors';
 
 const items = [
   {
     href: '/',
-    icon: (<NoteAddIcon fontSize="small" />),
+    icon: (<LightbulbIcon fontSize="small" />),
     title: 'Tutorial'
   },
   {
@@ -37,12 +39,12 @@ const items = [
   },
   {
     href: '/apiSetting',
-    icon: (<NoteAddIcon fontSize="small" />),
+    icon: (<KeyIcon fontSize="small" />),
     title: 'API Key Setting'
   },
   // {
   //   href: '/subscription',
-  //   icon: (<AttachMoneyIcon fontSize="small" />),
+  //   icon: (<PlaylistAddCheckIcon fontSize="small" />),
   //   title: 'Subscription & Plans'
   // },
   // {
