@@ -39,10 +39,10 @@ export default function DefaultConfigSettings(props) {
     const exchange = configOptions['api'] ? userApi[configOptions['api']].exchange : "binance";
     const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.stopLoss.max;
     const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.stopLoss.min;
-    const slLabel = (configOptions['stopLossType'] === 'TRAILING') ? "Callback" : "Stop Loss";
+    const slLabel = (configOptions['stopLossType'] === 'TRAILING') ? "Callback Rate %" : "Stop Loss %";
     const tpLimitMax = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max;
     const tpLimitMin = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min;
-    const tpLabel = (configOptions['takeProfitType'] === 'TRAILING') ? "Callback" : "Take Profit";
+    const tpLabel = (configOptions['takeProfitType'] === 'TRAILING') ? "Callback Rate %" : "Take Profit %";
     const checkOptionsValid = (option) => {
         if (configOptions[option] === '') return false;
         switch (option) {
@@ -278,7 +278,7 @@ export default function DefaultConfigSettings(props) {
                             fullWidth
                             type="number"
                             name="margin" 
-                            label="Minimum Margin Ratio/level"
+                            label="Minimum Margin Ratio/level %"
                             variant="outlined" 
                             inputProps={{ min: limits.margin.min, max: limits.margin.max }}
                             value={configOptions.margin}

@@ -23,7 +23,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       target: createBotInfo.configOptions.target,
       quantity: createBotInfo.configOptions.quantity,
       leverage: createBotInfo.configOptions.leverage,
-      margin: createBotInfo.configOptions.margin,
+      margin: createBotInfo.configOptions.margin / 100,
       minimum_volume: createBotInfo.configOptions.volume,
       stop_loss: createBotInfo.configOptions.stopLoss / 100,
       take_profit: createBotInfo.configOptions.takeProfit / 100,
