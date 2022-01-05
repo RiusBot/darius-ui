@@ -8,29 +8,39 @@ import { RoseInfoDialog } from '@/features/product/rose-info-dialog';
 import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
+import { VegasInfoDialog } from '@/features/product/vegas-info-dialog';
 
 const Products = () => {
-  const [infoDialog, setShowInfoDialog] = useState({ROSE: false,
-                                                    WHALE: false,
-                                                    DAILY: false});
+  const product_map = {ROSE: false,
+                       WHALE: false,
+                       DAILY: false,
+                       PERPETUAL: false,
+                       VEGAS: false,
+                      }
+  const [infoDialog, setShowInfoDialog] = useState(product_map);
   const handleBotInfoDialogOpen = (channel) => {
+    var tmp = JSON.parse(JSON.stringify(product_map));;
+    tmp[channel] = true;
     switch (channel) {
       case "ROSE":
-        setShowInfoDialog({ROSE: true, WHALE: false, DAILY: false, PERPETUAL: false});
+        setShowInfoDialog(tmp);
         break;
       case "WHALE":
-        setShowInfoDialog({ROSE: false, WHALE: true, DAILY: false, PERPETUAL: false});
+        setShowInfoDialog(tmp);
         break;
       case "DAILYSCALP":
-        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: true, PERPETUAL: false});
+        setShowInfoDialog(tmp);
         break;
       case "PERPETUAL":
-        setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false, PERPETUAL: true});
+        setShowInfoDialog(tmp);
+        break;
+      case "VEGAS":
+        setShowInfoDialog(tmp);
         break;
     }
   }
   const handleBotInfoDialogClose = () => {
-    setShowInfoDialog({ROSE: false, WHALE: false, DAILY: false, PERPETUAL: false});
+    setShowInfoDialog(product_map);
   }
   return (
     <>
@@ -97,6 +107,10 @@ const Products = () => {
         />
       <PerpetualInfoDialog
         open={infoDialog.PERPETUAL}
+        onClose={handleBotInfoDialogClose}
+        />
+      <VegasInfoDialog
+        open={infoDialog.VEGAS}
         onClose={handleBotInfoDialogClose}
         />
     </>

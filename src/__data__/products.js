@@ -23,9 +23,15 @@ export const products = [
   },
   {
     channel: 'PERPETUAL',
-    channelDisplayName: 'Binance\nPerpetual',
+    channelDisplayName: 'Binance Perpetual',
     description: ['Trading strategy created by Benson and Tcat using LSUR, OI and Funding rate data from Binance.', 'Update every 15 minutes.'],
     media: '/static/images/products/binance_perpetual.jpg',
+  },
+  {
+    channel: 'VEGAS',
+    channelDisplayName: 'Vegas Tunnel',
+    description: ['Apply 4hr Vegas Tunnel, Use EMA144 169 as medium-term trend support Also use EMA 576 676 and 4 multiples of 144 and 169 as long-term support and trend direction.'],
+    media: '/static/images/products/vegas_tunnel.jpeg',
   },
 ];
 
@@ -45,5 +51,9 @@ export const productMedia = {
   'PERPETUAL': {
     channelDisplayName: 'Binance Perpetual',
     media: '/static/images/products/binance_perpetual.jpg',
+  },
+  'VEGAS': {
+    channelDisplayName: 'Vegas Tunnel',
+    media: '/static/images/products/vegas_tunnel.jpeg',
   }
 }

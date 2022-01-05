@@ -54,11 +54,11 @@ export default function DefaultConfigSettings(props) {
                 return (configOptions[option] != '');
             case 'stopLoss':
                 if (configOptions['stopLossType'] == 'TRAILING')
-                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] < limits['callback'][exchange].max);
+                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] <= limits['callback'][exchange].max);
                 return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'takeProfit':
                 if (configOptions['takeProfitType'] == 'TRAILING')
-                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] < limits['callback'][exchange].max);
+                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] <= limits['callback'][exchange].max);
                 return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'leverage':
                 return (parseFloat(configOptions[option]) > 0);
