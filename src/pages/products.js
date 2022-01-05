@@ -9,38 +9,10 @@ import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
 import { VegasInfoDialog } from '@/features/product/vegas-info-dialog';
-
 const Products = () => {
-  const product_map = {ROSE: false,
-                       WHALE: false,
-                       DAILY: false,
-                       PERPETUAL: false,
-                       VEGAS: false,
-                      }
-  const [infoDialog, setShowInfoDialog] = useState(product_map);
-  const handleBotInfoDialogOpen = (channel) => {
-    var tmp = JSON.parse(JSON.stringify(product_map));;
-    tmp[channel] = true;
-    switch (channel) {
-      case "ROSE":
-        setShowInfoDialog(tmp);
-        break;
-      case "WHALE":
-        setShowInfoDialog(tmp);
-        break;
-      case "DAILYSCALP":
-        setShowInfoDialog(tmp);
-        break;
-      case "PERPETUAL":
-        setShowInfoDialog(tmp);
-        break;
-      case "VEGAS":
-        setShowInfoDialog(tmp);
-        break;
-    }
-  }
+  const [infoDialog, setInfoDialog] = useState('');
   const handleBotInfoDialogClose = () => {
-    setShowInfoDialog(product_map);
+    setInfoDialog('');
   }
   return (
     <>
@@ -72,7 +44,7 @@ const Products = () => {
                 >
                   <ProductCard
                     product={product}
-                    openInfoDialog={handleBotInfoDialogOpen} />
+                    openInfoDialog={() => setInfoDialog(product.channel)} />
                 </Grid>
               ))}
             </Grid>
@@ -94,23 +66,23 @@ const Products = () => {
       </Box>
 
       <RoseInfoDialog
-        open={infoDialog.ROSE}
+        open={infoDialog == 'ROSE'}
         onClose={handleBotInfoDialogClose}
         />
       <WhaleHuntInfoDialog
-        open={infoDialog.WHALE}
+        open={infoDialog == 'WHALE'}
         onClose={handleBotInfoDialogClose}
         />
       <DailyScalpingInfoDialog
-        open={infoDialog.DAILY}
+        open={infoDialog == 'DAILYSCALP'}
         onClose={handleBotInfoDialogClose}
         />
       <PerpetualInfoDialog
-        open={infoDialog.PERPETUAL}
+        open={infoDialog == 'PERPETUAL'}
         onClose={handleBotInfoDialogClose}
         />
       <VegasInfoDialog
-        open={infoDialog.VEGAS}
+        open={infoDialog == 'VEGAS'}
         onClose={handleBotInfoDialogClose}
         />
     </>
