@@ -38,7 +38,7 @@ function* createUserTransactionSaga({ payload: transactionInfo }) {
     wallet: transactionInfo.wallet,
     txid: transactionInfo.txid,
     date: transactionInfo.date,
-    amount: transactionInfo.amount,
+    amount: parseInt(transactionInfo.amount),
   }
   try {
     const res = yield axios(url, {

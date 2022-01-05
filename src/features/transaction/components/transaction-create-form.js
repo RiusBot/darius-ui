@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 import {
   Box,
   Button,
@@ -19,6 +20,7 @@ const TransactionCreateForm = (props) => {
   const [values, setValues] = useState({
     date: '',
     amount: '',
+    txid: '',
     wallet: ''
   });
   const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
@@ -41,7 +43,6 @@ const TransactionCreateForm = (props) => {
   };
  
   const onClickSubmit = () => {
-    // TODO: fix date format
     dispatch(createUserTransaction(values));
   }
 
@@ -86,7 +87,8 @@ const TransactionCreateForm = (props) => {
                 label="Transaction Date"
                 value={values.date}
                 onChange={(newValue) => {
-                  setValues({...values, date: newValue});
+                  const dateStr = format(newValue, 'yyyy-MM-dd');
+                  setValues({...values, date: dateStr});
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -103,6 +105,15 @@ const TransactionCreateForm = (props) => {
               variant="outlined"
             />
           </Box>
+          <TextField
+            fullWidth
+            label="TXID"
+            margin="normal"
+            name="txid"
+            onChange={handleChange}
+            value={values.txid}
+            variant="outlined"
+          />
           <TextField
             fullWidth
             label="Wallet Address"

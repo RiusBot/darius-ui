@@ -17,7 +17,7 @@ const TransactionTable = (props) => {
         title="Transaction History"
       />
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 520, width: 800, padding: '0 32px 32px' }}>
+        <Box sx={{ minWidth: 520, width: '100%', padding: '0 32px 32px' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -35,14 +35,17 @@ const TransactionTable = (props) => {
                   </Tooltip>
                 </TableCell>
                 <TableCell>
+                  TXID
+                </TableCell>
+                <TableCell>
                   Wallet
                 </TableCell>
                 <TableCell>
                   Amount
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   Confirm Status
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -52,7 +55,10 @@ const TransactionTable = (props) => {
                   key={index}
                 >
                   <TableCell>
-                    {format(fromUnixTime(trans.date), 'dd/MM/yyyy kk:mm')}
+                    {trans.date}
+                  </TableCell>
+                  <TableCell>
+                    {trans.txid}
                   </TableCell>
                   <TableCell>
                     {trans.wallet}
@@ -60,9 +66,9 @@ const TransactionTable = (props) => {
                   <TableCell>
                     {trans.amount}
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     {trans.status}
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

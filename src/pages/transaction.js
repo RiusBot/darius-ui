@@ -6,7 +6,6 @@ import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
 import { getUserTransaction } from '@/features/transaction/transaction-slice';
-import { getTransactionsFromState } from '@/features/transaction/transaction-selector';
 import TransactionCreateForm from '@/features/transaction/components/transaction-create-form';
 import TransactionTable from '@/features/transaction/components/transaction-table';
 
