@@ -133,7 +133,7 @@ const SubscriptionPlans = (props) => {
           disabled={checked == ''}
           onClick={onClickSubmit}
         >
-          Submit Subscription and Confirm Payment
+          Subscribe
         </Button>
       </Box>
     </>

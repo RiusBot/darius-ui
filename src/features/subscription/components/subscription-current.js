@@ -43,7 +43,7 @@ export const SubscriptionCurrent = (props) => {
                     gutterBottom
                     variant="button"
                 >
-                Expire Date: {sub.expire_date}
+                Expire Date: {sub.expire_date.slice(0, 10)}
                 </Typography>
             </Box>
           </Box>
