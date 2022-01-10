@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import {
   Box,
@@ -14,9 +14,11 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import { createUserTransaction } from '@/features/transaction/transaction-slice';
+import { getUserProfileFromState } from '@/common/selectors';
 
 const TransactionCreateForm = (props) => {
   const dispatch = useDispatch();
+  const profile = useSelector(getUserProfileFromState);
   const [values, setValues] = useState({
     date: '',
     amount: '',
@@ -59,7 +61,7 @@ const TransactionCreateForm = (props) => {
           gutterBottom
           variant="h6"
           >
-          $ 50
+          $ {profile.balance}
         </Typography>
         <Divider />
         <CardContent>

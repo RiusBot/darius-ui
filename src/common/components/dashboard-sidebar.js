@@ -42,16 +42,16 @@ const items = [
     icon: (<KeyIcon fontSize="small" />),
     title: 'API Key Setting'
   },
-  // {
-  //   href: '/subscription',
-  //   icon: (<PlaylistAddCheckIcon fontSize="small" />),
-  //   title: 'Subscription & Plans'
-  // },
-  // {
-  //   href: '/transaction',
-  //   icon: (<AttachMoneyIcon fontSize="small" />),
-  //   title: 'Transaction & Payment'
-  // },
+  {
+    href: '/subscription',
+    icon: (<PlaylistAddCheckIcon fontSize="small" />),
+    title: 'Subscription & Plans'
+  },
+  {
+    href: '/transaction',
+    icon: (<AttachMoneyIcon fontSize="small" />),
+    title: 'Transaction & Payment'
+  },
 ];
 
 export const DashboardSidebar = (props) => {

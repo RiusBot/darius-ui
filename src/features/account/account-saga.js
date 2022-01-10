@@ -1,9 +1,11 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
   createUser,
-  createUserSussess,
+  createUserSuccess,
   createRecaptchaAccessment,
   createRecaptchaAccessmentSuccess,
+  getUserProfile,
+  getUserProfileSuccess,
 } from '@/app/app-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -23,7 +25,7 @@ function* createUserSaga() {
       data,
     });
     if (res.status === 200) {
-      yield put(createUserSussess())
+      yield put(createUserSuccess())
     }
   } catch({response}) {
     const errorMsg = 'Failed to create user';
@@ -52,10 +54,34 @@ function* createRecaptchaAccessmentSaga({ payload: { token, action } }) {
   }
 };
 
+function* getUserProfileSaga() {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const params = {
+    uid: auth.uid
+  }
+  const url = `/api/v1/get_user_profile`;
+  const requestMethod = 'GET';
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params,
+    });
+    if (res.status === 200) {
+      yield put(getUserProfileSuccess(res.data))
+    } 
+  } catch({ response }) {
+    const errorMsg = 'Failed to get user profile';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+
+}
+
 function* accountSaga() {
   yield all([
     takeLatest(createUser.toString(), createUserSaga),
     takeLatest(createRecaptchaAccessment.toString(), createRecaptchaAccessmentSaga),
+    takeLatest(getUserProfile.toString(), getUserProfileSaga),
   ]);
 }
 

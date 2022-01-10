@@ -6,12 +6,17 @@ const appSlice = createSlice({
     snackbarInfo: {
       open: false, message: '', severity: 'info'
     },
+    userProfile: {}
   },
   reducers: {
     createUser: () => {},
-    createUserSussess: () => {},
+    createUserSuccess: () => {},
     createRecaptchaAccessment: () => {},
     createRecaptchaAccessmentSuccess: () => {},
+    getUserProfile: () => {},
+    getUserProfileSuccess: (state, action) => {
+      state.userProfile = action.payload;
+    },
     updateSnackbar: (state, action) => {
       state.snackbarInfo = {
         open: true,
@@ -34,9 +39,11 @@ const { actions, reducer } = appSlice;
 
 export const {
   createUser,
-  createUserSussess,
+  createUserSuccess,
   createRecaptchaAccessment,
   createRecaptchaAccessmentSuccess,
+  getUserProfile,
+  getUserProfileSuccess,
   updateSnackbar,
   closeSnackbar,
 } = actions
