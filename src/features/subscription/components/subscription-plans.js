@@ -3,9 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   Box,
   Button,
-  Card,
   CardContent,
-  CardHeader,
   Checkbox,
   Divider,
   FormControlLabel,
@@ -14,10 +12,12 @@ import {
 } from '@mui/material';
 import { productMedia } from '__data__/products';
 import { createUserSubscription } from '@/features/subscription/subscription-slice';
+import { updateSnackbar } from '@/app/app-slice';
 
 const SubscriptionPlans = (props) => {
   const dispatch = useDispatch();
-  const { subscriptions, plans } = props;
+  const { subscriptions, plans, profile } = props;
+  const [planChannel, setChannel] = useState('');
   const [checked, setChecked] = useState('');
   const [price, setPrice] = useState(0);
   const selectablePlans = {};
@@ -42,8 +42,11 @@ const SubscriptionPlans = (props) => {
   }
 
   const onClickSubmit = () => {
-    // TODO: check fee <= balance
-    dispatch(createUserSubscription(parseInt(checked)));
+    if (profile.balance >= price) {
+      dispatch(createUserSubscription(parseInt(checked)));
+    } else {
+      dispatch(updateSnackbar({ type: 'info', msg: 'Balance not enough. Head to the Transaction & Payment page to increase your balance.' }));
+    }
   }
 
   const SignalOptions = () => {
@@ -52,25 +55,30 @@ const SubscriptionPlans = (props) => {
     return (
       <Box sx={{display: 'flex', flexDirection: 'column', paddingTop: '32px'}}>
         {Object.keys(selectablePlans).map((channel, idx) => (
-          <Box key={idx} sx={{display: 'flex', flexDirection: 'row', height: '64px'}}>
-            <Avatar
-              alt={channel}
-              src={productMedia[channel].media}
-              sx={{
-                display: 'flex',
-                height: 48,
-                width: 48,
-                margin: '8px'
-              }}
-            />
-            <Typography
-              sx={{margin: 'auto 64px auto 8px', width: '160px'}}
-              color="textPrimary"
-              gutterBottom
-              variant="h6"
-            >
-              {productMedia[channel].channelDisplayName}
-            </Typography>
+          <Box key={idx} sx={{display: 'flex', flexDirection: 'row', height: '64px', margin: '8px'}}>
+            <Button 
+              variant={(planChannel === channel)? 'outlined' : 'text'}
+              onClick={() => setChannel(channel)}
+              >
+              <Avatar
+                alt={channel}
+                src={productMedia[channel].media}
+                sx={{
+                  display: 'flex',
+                  height: 48,
+                  width: 48,
+                  margin: '8px'
+                }}
+              />
+              <Typography
+                sx={{margin: 'auto 64px auto 8px', width: '160px'}}
+                color="textPrimary"
+                gutterBottom
+                variant="h6"
+              >
+                {productMedia[channel].channelDisplayName}
+              </Typography>
+            </Button>
 
             {Object.values(selectablePlans[channel]).map((plan, index) => (
               <FormControlLabel
@@ -78,6 +86,7 @@ const SubscriptionPlans = (props) => {
                 sx={{padding: '0 32px'}}
                 control={<Checkbox 
                           id={(plan.plan_id).toString()}
+                          disabled={planChannel !== channel}
                           checked={(checked === plan.plan_id.toString())? true : false}
                           />}
                 name={plan.channel}

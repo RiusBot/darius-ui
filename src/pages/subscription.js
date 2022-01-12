@@ -53,6 +53,7 @@ const Subscription = () => {
             <SubscriptionPlans 
               subscriptions={subscriptions}
               plans={plans}
+              profile={profile}
             />
           </Card>
           <Box sx={{ mt: 3 }}>
