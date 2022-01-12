@@ -58,9 +58,9 @@ const Subscription = () => {
           <Box sx={{ mt: 3 }}>
             <Card>
               <CardHeader
-                subheader="The amount of deposit remain in your account.  
-                           Head to the Transaction & Payment page to increase your deposit."
-                title="Remain"
+                subheader="The amount of balance in your account.  
+                           Head to the Transaction & Payment page to deposit increase your balance."
+                title="Balance"
               />  
               <Typography
                   sx={{padding: '0 32px 16px'}}

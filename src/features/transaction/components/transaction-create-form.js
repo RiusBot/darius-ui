@@ -52,8 +52,8 @@ const TransactionCreateForm = (props) => {
     <>
       <Card>
         <CardHeader
-          subheader="The total amount of deposit remain in your account."
-          title="Remain"
+          subheader="The total amount of balance in your account."
+          title="Balance"
         />
         <Typography
           sx={{padding: '0 32px 16px'}}
