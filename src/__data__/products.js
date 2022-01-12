@@ -39,21 +39,26 @@ export const productMedia = {
   'ROSE': {
     channelDisplayName: 'Rose Premium',
     media: '/static/images/products/rose.png',
+    channel: 'ROSE',
   },
   'WHALE': {
     channelDisplayName: 'Whale Hunting',
     media: '/static/images/products/whale-hunt.png',
+    channel: 'WHALE',
   },
   'DAILYSCALP': {
     channelDisplayName: 'Daily Scalping',
     media: '/static/images/products/daily-scalp.png',
+    channel: 'DAILYSCALP',
   },
   'PERPETUAL': {
     channelDisplayName: 'Binance Perpetual',
     media: '/static/images/products/binance_perpetual.jpg',
+    channel: 'PERPETUAL',
   },
   'VEGAS': {
     channelDisplayName: 'Vegas Tunnel',
     media: '/static/images/products/vegas_tunnel.jpeg',
+    channel: 'VEGAS',
   }
 }
