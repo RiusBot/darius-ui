@@ -9,16 +9,20 @@ import Snackbar from '@/common/components/snackbar';
 import { SubscriptionCurrent } from '@/features/subscription/components/subscription-current';
 import { getAllPlan, getUserSubscription } from '@/features/subscription/subscription-slice';
 import { getPlansFromState, getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
+import { getUserProfile } from '@/app/app-slice';
+import { getUserProfileFromState } from '@/common/selectors';
 
 const Subscription = () => {
   const dispatch = useDispatch();
   useEffect (() => {  
     dispatch(getAllPlan());
     dispatch(getUserSubscription());
+    dispatch(getUserProfile());
     },[]
   );
   const plans = useSelector(getPlansFromState);
   const subscriptions = useSelector(getSubscriptionsFromState);
+  const profile = useSelector(getUserProfileFromState);
 
   return (
     <>
@@ -64,7 +68,7 @@ const Subscription = () => {
                   gutterBottom
                   variant="h6"
                   >
-                  $ 50
+                  $ {profile.balance}
               </Typography>
             </Card>
           </Box>

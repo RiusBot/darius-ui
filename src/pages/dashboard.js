@@ -7,12 +7,14 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
-import { products } from '__data__/products';
+import { productMedia } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import Snackbar from '@/common/components/snackbar';
 import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
 import { getUserApi } from '@/features/api/api-slice';
 import { getUserApiFromState } from '@/features/api/api-selector';
+import { getUserSubscription } from '@/features/subscription/subscription-slice';
+import { getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -21,8 +23,10 @@ const Dashboard = () => {
 
   useEffect (() => {  
     dispatch(getUserApi());
+    dispatch(getUserSubscription());
     },[]
   );
+  const subscriptions = useSelector(getSubscriptionsFromState);
   const userApi = useSelector(getUserApiFromState);
   const confirmDeleteBot = () => {
     dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
@@ -71,14 +75,14 @@ const Dashboard = () => {
                     paddingLeft: '30px',
                     paddingBottom: '16px'}}
             >
-            {products.map((bot, index) => {
+            {subscriptions.map((sub, index) => {
               return <Box 
                         key={index}
                         style={{'minWidth': '360px',
                                 'paddingRight': '30px'}}>
                         <BotCard
                           key={index}
-                          bot={bot}
+                          bot={productMedia[sub.plan.channel]}
                           openCreateBotDialog={handleDialogOpen}
                         />
                       </Box>

@@ -8,11 +8,13 @@ import Snackbar from '@/common/components/snackbar';
 import { getUserTransaction } from '@/features/transaction/transaction-slice';
 import TransactionCreateForm from '@/features/transaction/components/transaction-create-form';
 import TransactionTable from '@/features/transaction/components/transaction-table';
+import { getUserProfile } from '@/app/app-slice';
 
 const Transaction = () => {
   const dispatch = useDispatch();
   useEffect (() => {
     dispatch(getUserTransaction());
+    dispatch(getUserProfile());
     },[]
   );
 

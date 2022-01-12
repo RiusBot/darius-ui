@@ -7,4 +7,6 @@ export const getAuthUser = createSelector(getFirebaseState, (firebase) => fireba
 
 export const getUserProfile = createSelector(getFirebaseState, (firebase) => firebase.profile);
 
+export const getUserProfileFromState = createSelector(getAppState, (app) => app.userProfile);
+
 export const getSnackbarInfo = createSelector(getAppState, (app) => app.snackbarInfo);
