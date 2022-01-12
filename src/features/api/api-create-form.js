@@ -5,7 +5,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { CardContent, TextField } from '@mui/material';
 import { createUserApi } from '@/features/api/api-slice';
 
-const exchanges = ['Binance', 'FTX'];
+const exchanges = ['Binance', 'FTX', 'FTXUS'];
 
 export const ApiCreateForm = (props) => {
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const ApiCreateForm = (props) => {
             case 'secret':
             return (apiValues[field].length != 0);
             case 'exchange':
-            return (apiValues[field] == 'binance' || apiValues[field] == 'ftx');
+            return (apiValues[field] == 'binance' || apiValues[field] == 'ftx' || apiValues[field] == 'ftxus');
             case 'subaccount':
             return true;
         }
@@ -79,7 +79,7 @@ export const ApiCreateForm = (props) => {
                 </Select>
             </FormControl>
             <TextField
-                sx={{display: (apiValues.exchange == 'ftx') ? 'flex' : 'none'}}
+                sx={{display: (['ftx', 'ftxus'].includes(apiValues.exchange)) ? 'flex' : 'none'}}
                 fullWidth
                 label="Subaccount"
                 margin="normal"
