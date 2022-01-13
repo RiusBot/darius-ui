@@ -38,7 +38,7 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/apiSetting',
+    href: '/api-setting',
     icon: (<KeyIcon fontSize="small" />),
     title: 'API Key Setting'
   },
