@@ -25,6 +25,8 @@ const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const firebase = useFirebase();
+
+  const { referrerCode } = router.query;
     
   const emailNormalize = (email) => {
     var token = email.split('@');
@@ -47,7 +49,7 @@ const Register = () => {
       const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
       dispatch(createRecaptchaAccessment({ token, action }));
     });
-    const { email, password, username } = values;
+    const { email, password, username, referrer } = values;
     email = emailValidate(email);
     if (email === "") {
       dispatch(updateSnackbar({ type: 'error', msg: "Invalid email" }));
@@ -57,7 +59,7 @@ const Register = () => {
         { displayName: username, email}
       )
         .then(() => {
-          dispatch(createUser());   
+          dispatch(createUser({ referrer }));   
         })
         .then(() => {
           firebase.auth().currentUser.sendEmailVerification();
@@ -79,6 +81,7 @@ const Register = () => {
       email: '',
       username: '',
       password: '',
+      referrer: referrerCode || '',
       policy: false
     },
     validationSchema: Yup.object({
@@ -99,6 +102,9 @@ const Register = () => {
         .max(255)
         .required(
           'Password is required'),
+      referrer: Yup
+        .string()
+        .length(8),
       policy: Yup
         .boolean()
         .oneOf(
@@ -192,6 +198,19 @@ const Register = () => {
               onChange={formik.handleChange}
               type="password"
               value={formik.values.password}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.referrer && formik.errors.referrer)}
+              fullWidth
+              helperText={formik.touched.referrer && formik.errors.referrer}
+              label="Referrer"
+              margin="normal"
+              name="referrer"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="referrer"
+              value={formik.values.referrer}
               variant="outlined"
             />
             <Box

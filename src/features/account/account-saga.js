@@ -11,11 +11,12 @@ import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
 
-function* createUserSaga() {
+function* createUserSaga({ payload: { referrer } }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const data = {
     uid: auth.uid,
+    referrer,
   }
   const url = `/api/v1/create_user`;
   const requestMethod = 'POST';
