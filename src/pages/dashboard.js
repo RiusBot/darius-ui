@@ -75,7 +75,19 @@ const Dashboard = () => {
                     paddingLeft: '30px',
                     paddingBottom: '16px'}}
             >
-            {subscriptions.map((sub, index) => {
+            {Object.values(productMedia).map((sub, index) => {
+               return <Box 
+               key={index}
+               style={{'minWidth': '360px',
+                       'paddingRight': '30px'}}>
+               <BotCard
+                 key={index}
+                 bot={sub}
+                 openCreateBotDialog={handleDialogOpen}
+               />
+             </Box>
+            })}
+            {/* {subscriptions.map((sub, index) => { 
               return <Box 
                         key={index}
                         style={{'minWidth': '360px',
@@ -86,7 +98,7 @@ const Dashboard = () => {
                           openCreateBotDialog={handleDialogOpen}
                         />
                       </Box>
-            })}
+            })} */}
           </Box>
 
           <Box
