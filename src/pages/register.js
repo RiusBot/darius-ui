@@ -26,7 +26,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const firebase = useFirebase();
 
-  const { referrerCode } = router.query;
+  const { referralCode } = router.query;
     
   const emailNormalize = (email) => {
     var token = email.split('@');
@@ -81,7 +81,7 @@ const Register = () => {
       email: '',
       username: '',
       password: '',
-      referrer: referrerCode || '',
+      referrer: referralCode || '',
       policy: false
     },
     validationSchema: Yup.object({

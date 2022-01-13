@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Box,
-  Button,
+  IconButton,
   Card,
   CardContent,
   CardHeader,
@@ -10,9 +9,11 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export const AccountReferral = (props) => {
-  const { profile } = props;
+  const { profile: { referral_code: referralCode }} = props;
+  const invitationUrl = `https://riusbot.com/register?referralCode=${referralCode}`
 
   return (
     <form
@@ -32,16 +33,29 @@ export const AccountReferral = (props) => {
           >
             <Grid
               item
-              md={6}
-              xs={12}
+              xs={6}
             >
               <TextField
                 fullWidth
                 label="Referral Code"
                 name="referralCode"
-                value={profile.referral_code}
+                value={referralCode}
                 variant='standard'
               />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <IconButton
+                aria-label="copy invitation link to clipboard"
+                size="small"
+                sx={{ ml: 2 }}
+                onClick={() => navigator.clipboard.writeText(invitationUrl)}  
+              >
+                <ContentCopyIcon/>
+                Copy invitation link to friends
+              </IconButton>
             </Grid>
           </Grid>
         </CardContent>
