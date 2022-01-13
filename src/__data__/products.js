@@ -33,12 +33,12 @@ export const products = [
     description: ['Apply 4hr Vegas Tunnel, Use EMA144 169 as medium-term trend support Also use EMA 576 676 and 4 multiples of 144 and 169 as long-term support and trend direction.'],
     media: '/static/images/products/vegas_tunnel.jpeg',
   },
-  {
-    channel: 'DARIUS',
-    channelDisplayName: 'Darius',
-    description: ['All in one.'],
-    media: '/static/images/products/darius.jpeg',
-  },
+  // {
+  //   channel: 'DARIUS',
+  //   channelDisplayName: 'Darius',
+  //   description: ['All in one.'],
+  //   media: '/static/images/products/darius.jpeg',
+  // },
 ];
 
 export const productMedia = {
@@ -67,9 +67,9 @@ export const productMedia = {
     media: '/static/images/products/vegas_tunnel.jpeg',
     channel: 'VEGAS',
   },
-  'DARIUS': {
-    channelDisplayName: 'Darius',
-    media: '/static/images/products/darius.jpeg',
-    channel: 'DARIUS',
-  }
+  // 'DARIUS': {
+  //   channelDisplayName: 'Darius',
+  //   media: '/static/images/products/darius.jpeg',
+  //   channel: 'DARIUS',
+  // }
 }
