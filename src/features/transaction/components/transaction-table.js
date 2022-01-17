@@ -35,13 +35,13 @@ const TransactionTable = (props) => {
                   </Tooltip>
                 </TableCell>
                 <TableCell>
+                  Amount
+                </TableCell>
+                <TableCell>
                   TXID
                 </TableCell>
                 <TableCell>
                   Wallet
-                </TableCell>
-                <TableCell>
-                  Amount
                 </TableCell>
                 {/* <TableCell>
                   Confirm Status
@@ -58,13 +58,13 @@ const TransactionTable = (props) => {
                     {trans.date}
                   </TableCell>
                   <TableCell>
+                    {trans.amount}
+                  </TableCell>
+                  <TableCell>
                     {trans.txid}
                   </TableCell>
                   <TableCell>
                     {trans.wallet}
-                  </TableCell>
-                  <TableCell>
-                    {trans.amount}
                   </TableCell>
                   {/* <TableCell>
                     {trans.status}

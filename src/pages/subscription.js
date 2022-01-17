@@ -41,6 +41,11 @@ const Subscription = () => {
         <Container maxWidth={false}>
           <Card>
             <CardHeader
+              subheader="30% refunding for first subscription. 15% refunding for renew subscription."
+              title="Opening Offer"
+            />
+            <Divider />
+            <CardHeader
               subheader="Currently subscribed channels and according expire date."
               title="Subscriptions"
             />
@@ -56,23 +61,6 @@ const Subscription = () => {
               profile={profile}
             />
           </Card>
-          <Box sx={{ mt: 3 }}>
-            <Card>
-              <CardHeader
-                subheader="The amount of balance in your account.  
-                           Head to the Transaction & Payment page to deposit and increase your balance."
-                title="Balance"
-              />  
-              <Typography
-                  sx={{padding: '0 32px 16px'}}
-                  color="textPrimary"
-                  gutterBottom
-                  variant="h6"
-                  >
-                  $ {profile.balance}
-              </Typography>
-            </Card>
-          </Box>
         </Container>
         <Snackbar />
       </Box>

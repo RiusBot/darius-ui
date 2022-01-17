@@ -125,7 +125,21 @@ const SubscriptionPlans = (props) => {
           color="textPrimary"
           variant="h6"
         >
-          The selected service fee is ${price} USD.
+          Subscribe and Pay from Current Balance
+        </Typography>
+        <Typography
+          color="textSecondary"
+          variant="h7"
+        >
+          Current Balance: $ {profile.balance} USD
+        </Typography>
+      </Box>
+      <Box sx={{padding: '16px 32px 0'}} >
+        <Typography
+          color="textPrimary"
+          variant="h6"
+        >
+          Selected Service Fee: $ {price} USD.
         </Typography>
       </Box>
       <Box
