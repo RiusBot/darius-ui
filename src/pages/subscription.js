@@ -60,7 +60,7 @@ const Subscription = () => {
             <Card>
               <CardHeader
                 subheader="The amount of balance in your account.  
-                           Head to the Transaction & Payment page to deposit increase your balance."
+                           Head to the Transaction & Payment page to deposit and increase your balance."
                 title="Balance"
               />  
               <Typography

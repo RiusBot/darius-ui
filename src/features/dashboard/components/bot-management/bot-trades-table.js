@@ -73,9 +73,7 @@ export const BotTradesTable = (props) => {
                   </TableCell>
                   <TableCell>
                     <SeverityPill
-                      color={(trade.status !== 'success' && 'success')
-                      || (trade.status === 'error' && 'error')
-                      || 'warning'}
+                      color={trade.status === "success" ? "warning" : (trade.status === "SL" ? "info" : (trade.status === "TP" ? "error" : "success"))}
                     >
                       {trade.status}
                     </SeverityPill>
