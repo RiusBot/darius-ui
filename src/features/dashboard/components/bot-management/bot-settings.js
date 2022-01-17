@@ -73,6 +73,9 @@ export const BotSettings = (props) => {
                     <strong>Quantity :</strong> &emsp; {config.quantity}
                 </Typography>
                 <Typography variant="body1" sx={{pt: 1}}>
+                    <strong>Leverage :</strong> &emsp; {config.leverage}
+                </Typography>
+                <Typography variant="body1" sx={{pt: 1}}>
                     <strong>Minimum Margin Ratio :</strong> &emsp; {config.margin}
                 </Typography>
                 <Typography variant="body1" sx={{pt: 1}}>
