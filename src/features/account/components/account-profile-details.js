@@ -81,7 +81,7 @@ export const AccountProfileDetails = (props) => {
                 label="Telegram"
                 name="telegram"
                 onChange={handleChange}
-                required
+                disabled
                 value={telegram}
                 variant="outlined"
               />
@@ -91,7 +91,7 @@ export const AccountProfileDetails = (props) => {
                 label="Referrer"
                 name="referrer"
                 onChange={handleChange}
-                required
+                disabled
                 value={profile.referrer}
                 variant="outlined"
               />
