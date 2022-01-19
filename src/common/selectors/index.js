@@ -10,3 +10,5 @@ export const getUserProfile = createSelector(getFirebaseState, (firebase) => fir
 export const getUserProfileFromState = createSelector(getAppState, (app) => app.userProfile);
 
 export const getSnackbarInfo = createSelector(getAppState, (app) => app.snackbarInfo);
+
+export const getUserTelegramFromState = createSelector(getAppState, (app) => app.telegramId);

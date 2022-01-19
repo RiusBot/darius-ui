@@ -11,22 +11,26 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { getUserProfile } from '@/common/selectors';
+import { getUserProfile, getUserTelegramFromState } from '@/common/selectors';
 
 export const AccountProfileDetails = (props) => {
+  const { profile } = props;
   const firebase = useFirebase()
   const originalProfile = useSelector(getUserProfile);
-  const [profile, setProfile] = useState(originalProfile);
+  const telegram = useSelector(getUserTelegramFromState);
+  const [newProfile, setProfile] = useState(originalProfile);
 
   const handleChange = (event) => {
+    if (event.target.name === 'telegram') return;
+    if (profile.referrer !== null && event.target.name === 'referrer') return;
     setProfile({
-      ...profile,
+      ...newProfile,
       [event.target.name]: event.target.value
     });
   };
 
   const updateUserProfile = () => {
-    const { displayName, email } = profile
+    const { displayName, email } = newProfile
     return firebase.updateProfile({ displayName, email })
   };
 
@@ -58,7 +62,37 @@ export const AccountProfileDetails = (props) => {
                 name="displayName"
                 onChange={handleChange}
                 required
-                value={profile.displayName}
+                value={newProfile.displayName}
+                variant="outlined"
+              />
+              <TextField
+                sx={{margin: '32px 0 0 0'}}
+                fullWidth
+                label="Email"
+                name="email"
+                onChange={handleChange}
+                required
+                value={newProfile.email}
+                variant="outlined"
+              />
+              <TextField
+                sx={{margin: '32px 0 0 0'}}
+                fullWidth
+                label="Telegram"
+                name="telegram"
+                onChange={handleChange}
+                required
+                value={telegram}
+                variant="outlined"
+              />
+              <TextField
+                sx={{margin: '32px 0 0 0'}}
+                fullWidth
+                label="Referrer"
+                name="referrer"
+                onChange={handleChange}
+                required
+                value={profile.referrer}
                 variant="outlined"
               />
             </Grid>

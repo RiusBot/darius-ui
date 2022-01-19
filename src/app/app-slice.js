@@ -6,7 +6,8 @@ const appSlice = createSlice({
     snackbarInfo: {
       open: false, message: '', severity: 'info'
     },
-    userProfile: {}
+    userProfile: {},
+    telegramId: null,
   },
   reducers: {
     createUser: () => {},
@@ -16,6 +17,10 @@ const appSlice = createSlice({
     getUserProfile: () => {},
     getUserProfileSuccess: (state, action) => {
       state.userProfile = action.payload;
+    },
+    getUserTelegram: () => {},
+    getUserTelegramSuccess: (state, action) => {
+      state.telegramId = action.payload.telegram_id;
     },
     updateSnackbar: (state, action) => {
       state.snackbarInfo = {
@@ -44,6 +49,8 @@ export const {
   createRecaptchaAccessmentSuccess,
   getUserProfile,
   getUserProfileSuccess,
+  getUserTelegram,
+  getUserTelegramSuccess,
   updateSnackbar,
   closeSnackbar,
 } = actions
