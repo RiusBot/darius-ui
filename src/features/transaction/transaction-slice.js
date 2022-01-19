@@ -6,8 +6,8 @@ const transactionSlice = createSlice({
     transactions: [],
   },
   reducers: {
-    getUserTransaction: () => {},
-    getUserTransactionSuccess: (state, action) => {
+    loadUserTransaction: () => {},
+    loadUserTransactionSuccess: (state, action) => {
       state.transactions = action.payload
     },
     createUserTransaction: () => {},
@@ -17,8 +17,8 @@ const transactionSlice = createSlice({
 const { actions, reducer } = transactionSlice;
 
 export const {
-  getUserTransaction,
-  getUserTransactionSuccess,
+  loadUserTransaction,
+  loadUserTransactionSuccess,
   createUserTransaction,
 } = actions
 

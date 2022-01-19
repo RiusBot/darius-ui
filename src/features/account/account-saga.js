@@ -4,10 +4,10 @@ import {
   createUserSuccess,
   createRecaptchaAccessment,
   createRecaptchaAccessmentSuccess,
-  getUserProfile,
-  getUserProfileSuccess,
-  getUserTelegram,
-  getUserTelegramSuccess,
+  loadUserProfile,
+  loadUserProfileSuccess,
+  loadUserTelegram,
+  loadUserTelegramSuccess,
 } from '@/app/app-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -57,7 +57,7 @@ function* createRecaptchaAccessmentSaga({ payload: { token, action } }) {
   }
 };
 
-function* getUserProfileSaga() {
+function* loadUserProfileSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const params = {
@@ -71,7 +71,7 @@ function* getUserProfileSaga() {
       params,
     });
     if (res.status === 200) {
-      yield put(getUserProfileSuccess(res.data));
+      yield put(loadUserProfileSuccess(res.data));
     } 
   } catch({ response }) {
     const errorMsg = 'Failed to get user profile';
@@ -79,7 +79,7 @@ function* getUserProfileSaga() {
   }
 }
 
-function* getUserTelegramSaga() {
+function* loadUserTelegramSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const params = {
@@ -93,7 +93,7 @@ function* getUserTelegramSaga() {
       params,
     });
     if (res.status === 200) {
-      yield put(getUserTelegramSuccess(res.data));
+      yield put(loadUserTelegramSuccess(res.data));
     }
   } catch({ response }) {
     const errorMsg = 'Failed to get user telegram';
@@ -105,8 +105,8 @@ function* accountSaga() {
   yield all([
     takeLatest(createUser.toString(), createUserSaga),
     takeLatest(createRecaptchaAccessment.toString(), createRecaptchaAccessmentSaga),
-    takeLatest(getUserProfile.toString(), getUserProfileSaga),
-    takeLatest(getUserTelegram.toString(), getUserTelegramSaga),
+    takeLatest(loadUserProfile.toString(), loadUserProfileSaga),
+    takeLatest(loadUserTelegram.toString(), loadUserTelegramSaga),
   ]);
 }
 

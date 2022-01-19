@@ -19,7 +19,7 @@ import SmartToyIcon from '@mui/icons-material/SmartToy';
 import KeyIcon from '@mui/icons-material/Key';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { NavItem } from '@/common/components/nav-item';
-import { getUserProfile } from '@/common/selectors';
+import { getUserProfileFromFirebase } from '@/common/selectors';
 
 const items = [
   {
@@ -57,7 +57,7 @@ const items = [
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
-  const profile = useSelector(getUserProfile);
+  const profile = useSelector(getUserProfileFromFirebase);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false

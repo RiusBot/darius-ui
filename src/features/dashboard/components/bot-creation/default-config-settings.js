@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
-import { getUserApiFromState } from '@/features/api/api-selector';
+import { getUserApi } from '@/features/api/api-selector';
 
 
 const limits = { stopLoss: { min: 0, max: 100},
@@ -17,7 +17,7 @@ const limits = { stopLoss: { min: 0, max: 100},
 
 export default function DefaultConfigSettings(props) {
     const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
-    const userApi = useSelector(getUserApiFromState);
+    const userApi = useSelector(getUserApi);
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }

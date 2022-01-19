@@ -5,10 +5,10 @@ const getFirebaseState = (state) => state.firebase;
 
 export const getAuthUser = createSelector(getFirebaseState, (firebase) => firebase.auth);
 
-export const getUserProfile = createSelector(getFirebaseState, (firebase) => firebase.profile);
+export const getUserProfileFromFirebase = createSelector(getFirebaseState, (firebase) => firebase.profile);
 
-export const getUserProfileFromState = createSelector(getAppState, (app) => app.userProfile);
+export const getUserProfile = createSelector(getAppState, (app) => app.userProfile);
 
 export const getSnackbarInfo = createSelector(getAppState, (app) => app.snackbarInfo);
 
-export const getUserTelegramFromState = createSelector(getAppState, (app) => app.telegramId);
+export const getUserTelegram = createSelector(getAppState, (app) => app.telegramId);

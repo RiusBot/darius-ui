@@ -14,12 +14,12 @@ const appSlice = createSlice({
     createUserSuccess: () => {},
     createRecaptchaAccessment: () => {},
     createRecaptchaAccessmentSuccess: () => {},
-    getUserProfile: () => {},
-    getUserProfileSuccess: (state, action) => {
+    loadUserProfile: () => {},
+    loadUserProfileSuccess: (state, action) => {
       state.userProfile = action.payload;
     },
-    getUserTelegram: () => {},
-    getUserTelegramSuccess: (state, action) => {
+    loadUserTelegram: () => {},
+    loadUserTelegramSuccess: (state, action) => {
       state.telegramId = action.payload.telegram_id;
     },
     updateSnackbar: (state, action) => {
@@ -47,10 +47,10 @@ export const {
   createUserSuccess,
   createRecaptchaAccessment,
   createRecaptchaAccessmentSuccess,
-  getUserProfile,
-  getUserProfileSuccess,
-  getUserTelegram,
-  getUserTelegramSuccess,
+  loadUserProfile,
+  loadUserProfileSuccess,
+  loadUserTelegram,
+  loadUserTelegramSuccess,
   updateSnackbar,
   closeSnackbar,
 } = actions

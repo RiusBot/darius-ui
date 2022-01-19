@@ -14,11 +14,11 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import { createUserTransaction } from '@/features/transaction/transaction-slice';
-import { getUserProfileFromState } from '@/common/selectors';
+import { getUserProfile } from '@/common/selectors';
 
 const TransactionCreateForm = (props) => {
   const dispatch = useDispatch();
-  const profile = useSelector(getUserProfileFromState);
+  const profile = useSelector(getUserProfile);
   const [values, setValues] = useState({
     date: '',
     amount: '',

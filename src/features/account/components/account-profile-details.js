@@ -11,13 +11,13 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { getUserProfile, getUserTelegramFromState } from '@/common/selectors';
+import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';
 
 export const AccountProfileDetails = (props) => {
   const { profile } = props;
   const firebase = useFirebase()
-  const originalProfile = useSelector(getUserProfile);
-  const telegram = useSelector(getUserTelegramFromState);
+  const originalProfile = useSelector(getUserProfileFromFirebase);
+  const telegram = useSelector(getUserTelegram);
   const [newProfile, setProfile] = useState(originalProfile);
 
   const handleChange = (event) => {

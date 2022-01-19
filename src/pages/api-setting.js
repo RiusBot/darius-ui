@@ -9,8 +9,8 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import Snackbar from '@/common/components/snackbar';
 import { ApiCreateForm } from '@/features/api/api-create-form';
-import { getUserApi } from '@/features/api/api-slice';
-import { getUserApiFromState } from '@/features/api/api-selector';
+import { loadUserApi } from '@/features/api/api-slice';
+import { getUserApi } from '@/features/api/api-selector';
 import { deleteUserApi } from '@/features/api/api-slice';
 
 const apiSetting = () => {
@@ -18,10 +18,10 @@ const apiSetting = () => {
   const [apiDeleteDialog, setApiDeleteDialog] = useState({open: false, apiId: null});
 
   useEffect (() => {
-    dispatch(getUserApi());
+    dispatch(loadUserApi());
     },[]
   );
-  const userApi = useSelector(getUserApiFromState);
+  const userApi = useSelector(getUserApi);
 
   const confirmDeleteApi = () => {
     // console.log(apiDeleteDialog.apiId);

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  IconButton,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -46,15 +46,15 @@ export const AccountReferral = (props) => {
               item
               xs={6}
             >
-              <IconButton
+              <Button
                 aria-label="copy invitation link to clipboard"
                 size="small"
                 sx={{ ml: 2 }}
-                onClick={() => navigator.clipboard.writeText(invitationUrl)}  
+                onClick={() => navigator.clipboard.writeText(invitationUrl)}
+                startIcon={<ContentCopyIcon/>}
               >
-                <ContentCopyIcon/>
-                Copy invitation link to friends
-              </IconButton>
+                Copy Invitation Link to Clipboard
+              </Button>
             </Grid>
           </Grid>
         </CardContent>

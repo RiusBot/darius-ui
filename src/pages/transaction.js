@@ -5,16 +5,16 @@ import { Box, Container, Typography } from '@mui/material';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
-import { getUserTransaction } from '@/features/transaction/transaction-slice';
+import { loadUserTransaction } from '@/features/transaction/transaction-slice';
 import TransactionCreateForm from '@/features/transaction/components/transaction-create-form';
 import TransactionTable from '@/features/transaction/components/transaction-table';
-import { getUserProfile } from '@/app/app-slice';
+import { loadUserProfile } from '@/app/app-slice';
 
 const Transaction = () => {
   const dispatch = useDispatch();
   useEffect (() => {
-    dispatch(getUserTransaction());
-    dispatch(getUserProfile());
+    dispatch(loadUserTransaction());
+    dispatch(loadUserProfile());
     },[]
   );
 

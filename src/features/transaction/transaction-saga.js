@@ -1,14 +1,14 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
-  getUserTransaction,
-  getUserTransactionSuccess,
+  loadUserTransaction,
+  loadUserTransactionSuccess,
   createUserTransaction,
 } from '@/features/transaction/transaction-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
 
-function* getUserTransactionSaga() {
+function* loadUserTransactionSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_transaction`;
@@ -21,7 +21,7 @@ function* getUserTransactionSaga() {
       method: requestMethod,
       params
     });
-    yield put(getUserTransactionSuccess(res.data));
+    yield put(loadUserTransactionSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get transactions'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -45,7 +45,7 @@ function* createUserTransactionSaga({ payload: transactionInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(getUserTransaction());
+    yield put(loadUserTransaction());
   } catch({response}) {
     const errorMsg = 'Failed to create user transaction.';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -54,7 +54,7 @@ function* createUserTransactionSaga({ payload: transactionInfo }) {
 
 function* transactionSaga() {
   yield all([
-    takeLatest(getUserTransaction.toString(), getUserTransactionSaga),
+    takeLatest(loadUserTransaction.toString(), loadUserTransactionSaga),
     takeLatest(createUserTransaction.toString(), createUserTransactionSaga),
   ]);
 }

@@ -11,10 +11,10 @@ import { productMedia } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import Snackbar from '@/common/components/snackbar';
 import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
-import { getUserApi } from '@/features/api/api-slice';
-import { getUserApiFromState } from '@/features/api/api-selector';
-import { getUserSubscription } from '@/features/subscription/subscription-slice';
-import { getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
+import { loadUserApi } from '@/features/api/api-slice';
+import { getUserApi } from '@/features/api/api-selector';
+import { loadUserSubscription } from '@/features/subscription/subscription-slice';
+import { getSubscriptions } from '@/features/subscription/subscription-selector';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -22,12 +22,12 @@ const Dashboard = () => {
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
   useEffect (() => {  
-    dispatch(getUserApi());
-    dispatch(getUserSubscription());
+    dispatch(loadUserApi());
+    dispatch(loadUserSubscription());
     },[]
   );
-  const subscriptions = useSelector(getSubscriptionsFromState);
-  const userApi = useSelector(getUserApiFromState);
+  const subscriptions = useSelector(getSubscriptions);
+  const userApi = useSelector(getUserApi);
   const confirmDeleteBot = () => {
     dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
     handleDeleteDialogClose();

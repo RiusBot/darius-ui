@@ -7,22 +7,22 @@ import SubscriptionPlans from '@/features/subscription/components/subscription-p
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import Snackbar from '@/common/components/snackbar';
 import { SubscriptionCurrent } from '@/features/subscription/components/subscription-current';
-import { getAllPlan, getUserSubscription } from '@/features/subscription/subscription-slice';
-import { getPlansFromState, getSubscriptionsFromState } from '@/features/subscription/subscription-selector';
-import { getUserProfile } from '@/app/app-slice';
-import { getUserProfileFromState } from '@/common/selectors';
+import { loadAllPlan, loadUserSubscription } from '@/features/subscription/subscription-slice';
+import { getPlans, getSubscriptions } from '@/features/subscription/subscription-selector';
+import { loadUserProfile } from '@/app/app-slice';
+import { getUserProfile } from '@/common/selectors';
 
 const Subscription = () => {
   const dispatch = useDispatch();
   useEffect (() => {  
-    dispatch(getAllPlan());
-    dispatch(getUserSubscription());
-    dispatch(getUserProfile());
+    dispatch(loadAllPlan());
+    dispatch(loadUserSubscription());
+    dispatch(loadUserProfile());
     },[]
   );
-  const plans = useSelector(getPlansFromState);
-  const subscriptions = useSelector(getSubscriptionsFromState);
-  const profile = useSelector(getUserProfileFromState);
+  const plans = useSelector(getPlans);
+  const subscriptions = useSelector(getSubscriptions);
+  const profile = useSelector(getUserProfile);
 
   return (
     <>

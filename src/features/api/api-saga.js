@@ -1,7 +1,7 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
-  getUserApi,
-  getUserApiSuccess,
+  loadUserApi,
+  loadUserApiSuccess,
   createUserApi,
   deleteUserApi,
 } from '@/features/api/api-slice';
@@ -9,7 +9,7 @@ import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
 
-function* getUserApiSaga() {
+function* loadUserApiSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_api`;
@@ -22,7 +22,7 @@ function* getUserApiSaga() {
       method: requestMethod,
       params
     });
-    yield put(getUserApiSuccess(res.data));
+    yield put(loadUserApiSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get user API';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -46,7 +46,7 @@ function* createUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
-    yield put(getUserApi());
+    yield put(loadUserApi());
   } catch({response}) { 
     const errorMsg = 'Failed to create user API';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -67,7 +67,7 @@ function* deleteUserApiSaga({ payload: apiInfo }) {
       method: requestMethod,
       data
     });
-    yield put(getUserApi());
+    yield put(loadUserApi());
   } catch({response}) {
     const errorMsg = 'Failed to delete user API';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -76,7 +76,7 @@ function* deleteUserApiSaga({ payload: apiInfo }) {
 
 function* apiSaga() {
   yield all([
-    takeLatest(getUserApi.toString(), getUserApiSaga),
+    takeLatest(loadUserApi.toString(), loadUserApiSaga),
     takeLatest(createUserApi.toString(), createUserApiSaga),
     takeLatest(deleteUserApi.toString(), deleteUserApiSaga)
   ]);

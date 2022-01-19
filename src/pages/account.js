@@ -7,17 +7,17 @@ import { AccountProfile } from '@/features/account/components/account-profile';
 import { AccountProfileDetails } from '@/features/account/components/account-profile-details';
 import { AccountReferral } from '../features/account/components/account-referral';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
-import { getUserProfile, getUserTelegram } from '@/app/app-slice';
-import { getUserProfileFromState } from '@/common/selectors';
+import { loadUserProfile, loadUserTelegram } from '@/app/app-slice';
+import { getUserProfile } from '@/common/selectors';
 
 const Account = () => {
   const dispatch = useDispatch();
   useEffect (() => {
-    dispatch(getUserProfile());
-    dispatch(getUserTelegram());
+    dispatch(loadUserProfile());
+    dispatch(loadUserTelegram());
     },[]
   );
-  const profile = useSelector(getUserProfileFromState);
+  const profile = useSelector(getUserProfile);
 
   return (
     <>

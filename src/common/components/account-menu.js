@@ -12,10 +12,10 @@ import Tooltip from '@mui/material/Tooltip';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PersonIcon from '@mui/icons-material/Person';
 import Logout from '@mui/icons-material/Logout';
-import { getUserProfile } from '@/common/selectors';
+import { getUserProfileFromFirebase } from '@/common/selectors';
 
 export default function AccountMenu() {
-  const profile = useSelector(getUserProfile);
+  const profile = useSelector(getUserProfileFromFirebase);
   const router = useRouter();
   const firebase = useFirebase();
   const [anchorEl, setAnchorEl] = useState(null);

@@ -2,10 +2,10 @@ import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
   createUserBot,
   deleteUserBot,
-  getUserBots,
-  getUserBotsSuccess,
-  getBotTrades,
-  getBotTradesSuccess,
+  loadUserBots,
+  loadUserBotsSuccess,
+  loadBotTrades,
+  loadBotTradesSuccess,
 } from '@/features/dashboard/dashboard-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -40,7 +40,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(getUserBots());
+    yield put(loadUserBots());
   } catch({response}) {
     const errorMsg = 'Failed to create new bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -61,14 +61,14 @@ function* deleteUserBotSaga({ payload: deleteBotInfo }) {
       method: requestMethod,
       data,
     });
-    yield put(getUserBots());
+    yield put(loadUserBots());
   } catch({response}) {
     const errorMsg = 'Failed to delete bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
-function* getUserBotsSaga({ payload: userInfo }) {
+function* loadUserBotsSaga({ payload: userInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/get_user_bots`;
@@ -81,14 +81,14 @@ function* getUserBotsSaga({ payload: userInfo }) {
       method: requestMethod,
       params
     });
-    yield put(getUserBotsSuccess(res.data));
+    yield put(loadUserBotsSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get user bots';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
 
-function* getBotTradesSaga({ payload: botInfo }) {
+function* loadBotTradesSaga({ payload: botInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/get_bot_trades`;
@@ -102,7 +102,7 @@ function* getBotTradesSaga({ payload: botInfo }) {
       method: requestMethod,
       params
     });
-    yield put(getBotTradesSuccess(res.data));
+    yield put(loadBotTradesSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -113,8 +113,8 @@ function* dashboardSaga() {
   yield all([
     takeLatest(createUserBot.toString(), createUserBotSaga),
     takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
-    takeLatest(getUserBots.toString(), getUserBotsSaga),
-    takeLatest(getBotTrades.toString(), getBotTradesSaga),
+    takeLatest(loadUserBots.toString(), loadUserBotsSaga),
+    takeLatest(loadBotTrades.toString(), loadBotTradesSaga),
   ]);
 }
 

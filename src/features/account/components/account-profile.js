@@ -6,10 +6,10 @@ import {
   CardContent,
   Typography
 } from '@mui/material';
-import { getUserProfile } from '@/common/selectors';
+import { getUserProfileFromFirebase } from '@/common/selectors';
 
 export const AccountProfile = (props) => {
-  const userProfile = useSelector(getUserProfile);
+  const userProfile = useSelector(getUserProfileFromFirebase);
   return (
     <Card {...props}>
       <CardContent>

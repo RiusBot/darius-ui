@@ -4,11 +4,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { format, fromUnixTime } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { Box, Tooltip, Card, CardHeader } from '@mui/material';
-import { getTransactionsFromState } from '@/features/transaction/transaction-selector';
+import { getTransactions } from '@/features/transaction/transaction-selector';
 
 // TODO: update transaction history info format
 const TransactionTable = (props) => {
-  const transactions = useSelector(getTransactionsFromState);
+  const transactions = useSelector(getTransactions);
 
   return (
     <Card>

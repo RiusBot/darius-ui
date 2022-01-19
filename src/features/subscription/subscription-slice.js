@@ -7,8 +7,8 @@ const subscriptionSlice = createSlice({
     subscriptions: [],
   },
   reducers: {
-    getAllPlan: () => {},
-    getAllPlanSuccess: (state, action) => {
+    loadAllPlan: () => {},
+    loadAllPlanSuccess: (state, action) => {
       if (action.payload.length == 0) return;
       state.plans = {};
       action.payload.forEach(plan => {
@@ -18,12 +18,12 @@ const subscriptionSlice = createSlice({
         state.plans[plan.channel][plan.plan_id] = plan;
       });
     },
-    getPlanByID: () => {},
-    getPlanByIDSuccess: () => {
+    loadPlanByID: () => {},
+    loadPlanByIDSuccess: () => {
 
     },
-    getUserSubscription: () => {},
-    getUserSubscriptionSuccess: (state, action) => {
+    loadUserSubscription: () => {},
+    loadUserSubscriptionSuccess: (state, action) => {
       state.subscriptions = action.payload;
     },
     createUserSubscription: () => {},
@@ -33,12 +33,12 @@ const subscriptionSlice = createSlice({
 const { actions, reducer } = subscriptionSlice;
 
 export const {
-  getAllPlan,
-  getAllPlanSuccess,
-  getPlanByID,
-  getPlanByIDSuccess,
-  getUserSubscription,
-  getUserSubscriptionSuccess,
+  loadAllPlan,
+  loadAllPlanSuccess,
+  loadPlanByID,
+  loadPlanByIDSuccess,
+  loadUserSubscription,
+  loadUserSubscriptionSuccess,
   createUserSubscription,
 } = actions
 

@@ -6,8 +6,8 @@ const apiSlice = createSlice({
     userApi: {},
   },
   reducers: {
-    getUserApi: () => {},
-    getUserApiSuccess: (state, action) => {
+    loadUserApi: () => {},
+    loadUserApiSuccess: (state, action) => {
       action.payload.forEach((api) => {
         state.userApi[api.api_id] = api;
       });
@@ -20,8 +20,8 @@ const apiSlice = createSlice({
 const { actions, reducer } = apiSlice;
 
 export const {
-  getUserApi,
-  getUserApiSuccess,
+  loadUserApi,
+  loadUserApiSuccess,
   createUserApi,
   deleteUserApi,
 } = actions

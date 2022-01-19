@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from
 import { Box, Tooltip, Typography, Popover } from '@mui/material';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
 import { BotTradesDetailPopup } from '@/features/dashboard/components/bot-management/bot-trades-detail-popup';
-import { getBotTradesFromState } from '@/features/dashboard/dashboard-selector';
+import { getBotTrades } from '@/features/dashboard/dashboard-selector';
 
 export const BotTradesTable = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const BotTradesTable = (props) => {
   const [botTrades, setBotTrades] = useState([]);
   const [tradeDetail, setTradeDetail] = useState({info: null, anchorEl: null, open: false});
 
-  const allBotTrades = useSelector(getBotTradesFromState);
+  const allBotTrades = useSelector(getBotTrades);
   useEffect (() => {
     if (allBotTrades[botId]) {
       setBotTrades(allBotTrades[botId]);
