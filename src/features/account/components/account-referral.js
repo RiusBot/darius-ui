@@ -22,7 +22,7 @@ export const AccountReferral = (props) => {
     >
       <Card sx={{marginTop: '32px'}}>
         <CardHeader
-          subheader="Invite friends with your referral code to earn balance points. You will gain extra balance when your referrer complete their first subscription."
+          subheader="Invite friends with your referral code to earn balance points. You will gain 30% extra refund from your referrer's first subscription."
           title="Referral"
         />
         <Divider />
