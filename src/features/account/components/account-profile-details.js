@@ -9,8 +9,10 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Avatar
 } from '@mui/material';
+import { TelegramBindingDialog } from '@/features/account/components/telegram-binding-dialog';
 import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';
 
 export const AccountProfileDetails = (props) => {
@@ -19,6 +21,7 @@ export const AccountProfileDetails = (props) => {
   const originalProfile = useSelector(getUserProfileFromFirebase);
   const telegram = useSelector(getUserTelegram);
   const [newProfile, setProfile] = useState(originalProfile);
+  const [showTelegramDialog, setDialog] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.name === 'telegram') return;
@@ -34,87 +37,121 @@ export const AccountProfileDetails = (props) => {
     return firebase.updateProfile({ displayName, email })
   };
 
-  return (
-    <form
-      autoComplete="off"
-      noValidate
-      {...props}
-    >
-      <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Username"
-                name="displayName"
-                onChange={handleChange}
-                required
-                value={newProfile.displayName}
-                variant="outlined"
-              />
-              <TextField
-                sx={{margin: '32px 0 0 0'}}
-                fullWidth
-                label="Email"
-                name="email"
-                onChange={handleChange}
-                required
-                value={newProfile.email}
-                variant="outlined"
-              />
-              <TextField
-                sx={{margin: '32px 0 0 0'}}
-                fullWidth
-                label="Telegram"
-                name="telegram"
-                onChange={handleChange}
-                disabled
-                value={telegram}
-                variant="outlined"
-              />
-              <TextField
-                sx={{margin: '32px 0 0 0'}}
-                fullWidth
-                label="Referrer"
-                name="referrer"
-                onChange={handleChange}
-                disabled
-                value={profile.referrer}
-                variant="outlined"
-              />
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
+  const TelegramInfo = () => {
+    if (telegram == "" || telegram == null) {
+      return (
+        <Button
+          color="primary"
+          variant="contained"
+          sx={{ mt: 3, width: '100%' }}
+          onClick={() => setDialog(true)}
+          startIcon={
+            <Avatar
+              alt={'Telegram'}
+              src={'/static/images/tutorial/telegram.png'}
+              sx={{
+                height: 32,
+                width: 32
+              }}
+            />}
         >
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={updateUserProfile}
+          Bind Your Telegram Account
+        </Button>
+      )
+    } else {
+      return (
+        <TextField
+          sx={{margin: '32px 0 0 0'}}
+          fullWidth
+          label="Telegram"
+          name="telegram"
+          onChange={handleChange}
+          disabled
+          value={telegram}
+          variant="outlined"
+        />
+      )
+    }
+  }
+
+  return (
+    <>
+      <form
+        autoComplete="off"
+        noValidate
+        {...props}
+      >
+        <Card>
+          <CardHeader
+            subheader="The information can be edited"
+            title="Profile"
+          />
+          <Divider />
+          <CardContent>
+            <Grid
+              container
+              spacing={3}
+            >
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label="Username"
+                  name="displayName"
+                  onChange={handleChange}
+                  required
+                  value={newProfile.displayName}
+                  variant="outlined"
+                />
+                <TextField
+                  sx={{margin: '32px 0 0 0'}}
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  onChange={handleChange}
+                  required
+                  value={newProfile.email}
+                  variant="outlined"
+                />
+                <TelegramInfo />
+                <TextField
+                  sx={{margin: '32px 0 0 0'}}
+                  fullWidth
+                  label="Referrer"
+                  name="referrer"
+                  onChange={handleChange}
+                  disabled
+                  value={profile.referrer}
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+          <Divider />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2
+            }}
           >
-            Save
-          </Button>
-        </Box>
-      </Card>
-    </form>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={updateUserProfile}
+            >
+              Save
+            </Button>
+          </Box>
+        </Card>
+      </form>
+      <TelegramBindingDialog
+      open={showTelegramDialog}
+      onClose={() => setDialog(false)}
+      />
+    </>
   );
 };

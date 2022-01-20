@@ -112,6 +112,7 @@ const TransactionCreateForm = (props) => {
             label="TXID"
             margin="normal"
             name="txid"
+            inputProps={{ maxLength: 96 }}
             onChange={handleChange}
             value={values.txid}
             variant="outlined"
@@ -121,6 +122,7 @@ const TransactionCreateForm = (props) => {
             label="Wallet Address"
             margin="normal"
             name="wallet"
+            inputProps={{ maxLength: 96 }}
             onChange={handleChange}
             type="password"
             value={values.wallet}
