@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase'
 import {
   Box,
@@ -14,27 +14,34 @@ import {
 } from '@mui/material';
 import { TelegramBindingDialog } from '@/features/account/components/telegram-binding-dialog';
 import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';
+import { updateUserProfile } from '@/app/app-slice';
 
 export const AccountProfileDetails = (props) => {
+  const dispatch = useDispatch();
   const { profile } = props;
-  const firebase = useFirebase()
+  const firebase = useFirebase();
   const originalProfile = useSelector(getUserProfileFromFirebase);
   const telegram = useSelector(getUserTelegram);
-  const [newProfile, setProfile] = useState(originalProfile);
+  const [newProfile, setProfile] = useState({...originalProfile, referrer: profile.referrer});
   const [showTelegramDialog, setDialog] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.name === 'telegram') return;
-    if (profile.referrer !== null && event.target.name === 'referrer') return;
     setProfile({
       ...newProfile,
       [event.target.name]: event.target.value
     });
   };
 
-  const updateUserProfile = () => {
-    const { displayName, email } = newProfile
-    return firebase.updateProfile({ displayName, email })
+  const saveUpdate = () => {
+    const { displayName, referrer } = newProfile;
+    if (displayName !== originalProfile.displayName) {
+      firebase.updateProfile({ displayName });
+    }
+    if (referrer !== profile.referrer || displayName !== profile.user_name) {
+      // TODO: api call failing
+      dispatch(updateUserProfile({username: displayName, referrer: referrer}));
+    }
   };
 
   const TelegramInfo = () => {
@@ -106,16 +113,6 @@ export const AccountProfileDetails = (props) => {
                   value={newProfile.displayName}
                   variant="outlined"
                 />
-                <TextField
-                  sx={{margin: '32px 0 0 0'}}
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  onChange={handleChange}
-                  required
-                  value={newProfile.email}
-                  variant="outlined"
-                />
                 <TelegramInfo />
                 <TextField
                   sx={{margin: '32px 0 0 0'}}
@@ -123,8 +120,8 @@ export const AccountProfileDetails = (props) => {
                   label="Referrer"
                   name="referrer"
                   onChange={handleChange}
-                  disabled
-                  value={profile.referrer}
+                  disabled={profile.referrer !== null}
+                  value={newProfile.referrer}
                   variant="outlined"
                 />
               </Grid>
@@ -141,7 +138,9 @@ export const AccountProfileDetails = (props) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={updateUserProfile}
+              disabled={newProfile.displayName == originalProfile.displayName 
+                        && newProfile.referrer == profile.referrer}
+              onClick={() => saveUpdate()}
             >
               Save
             </Button>

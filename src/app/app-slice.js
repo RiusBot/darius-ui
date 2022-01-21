@@ -18,6 +18,7 @@ const appSlice = createSlice({
     loadUserProfileSuccess: (state, action) => {
       state.userProfile = action.payload;
     },
+    updateUserProfile: () => {},
     loadUserTelegram: () => {},
     loadUserTelegramSuccess: (state, action) => {
       state.telegramId = action.payload.telegram_id;
@@ -49,6 +50,7 @@ export const {
   createRecaptchaAccessmentSuccess,
   loadUserProfile,
   loadUserProfileSuccess,
+  updateUserProfile,
   loadUserTelegram,
   loadUserTelegramSuccess,
   updateSnackbar,

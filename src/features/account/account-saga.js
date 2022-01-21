@@ -6,6 +6,7 @@ import {
   createRecaptchaAccessmentSuccess,
   loadUserProfile,
   loadUserProfileSuccess,
+  updateUserProfile,
   loadUserTelegram,
   loadUserTelegramSuccess,
 } from '@/app/app-slice';
@@ -79,6 +80,30 @@ function* loadUserProfileSaga() {
   }
 }
 
+function* updateUserProfileSaga({ payload }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const data = {
+    uid: auth.uid,
+    user_name: payload.username,
+    referrer: payload.referrer
+  }
+  const url = `/api/v1/update_user_profile`;
+  const requestMethod = 'POST';
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data,
+    });
+    if (res.status === 200) {
+      yield put(loadUserProfile());
+    }
+  } catch ({ response }) {
+    const errorMsg = 'Failed to update user profile';
+    yield put(updateSnackbar({ type: 'error', msg:`${errorMsg} with error: ${response.data.message}`}));
+  }
+}
+
 function* loadUserTelegramSaga() {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
@@ -106,6 +131,7 @@ function* accountSaga() {
     takeLatest(createUser.toString(), createUserSaga),
     takeLatest(createRecaptchaAccessment.toString(), createRecaptchaAccessmentSaga),
     takeLatest(loadUserProfile.toString(), loadUserProfileSaga),
+    takeLatest(updateUserProfile.toString(), updateUserProfileSaga),
     takeLatest(loadUserTelegram.toString(), loadUserTelegramSaga),
   ]);
 }
