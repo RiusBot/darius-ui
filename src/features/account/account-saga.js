@@ -89,7 +89,7 @@ function* updateUserProfileSaga({ payload }) {
     referrer: payload.referrer
   }
   const url = `/api/v1/update_user_profile`;
-  const requestMethod = 'POST';
+  const requestMethod = 'PATCH';
   try {
     const res = yield axios(url, {
       method: requestMethod,
