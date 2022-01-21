@@ -6,7 +6,9 @@ import firebase from '@/utils/firebase';
 
 export const TelegramBindingDialog = (props) => {
     const { open, onClose } = props;
-    const idToken = firebase.auth().currentUser?.getIdToken();
+    const idToken = null;
+    firebase.auth().currentUser?.getIdToken().then((result) => {idToken = result;});
+
     return (
         <Dialog
             open={open}
