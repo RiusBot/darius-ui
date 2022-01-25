@@ -9,6 +9,8 @@ import { WhaleHuntInfoDialog } from '@/features/product/whale-info-dialog';
 import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
 import { VegasInfoDialog } from '@/features/product/vegas-info-dialog';
+import { JustinInfoDialog } from '@/features/product/justin-info-dialog';
+import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
 const Products = () => {
   const [infoDialog, setInfoDialog] = useState('');
   const handleBotInfoDialogClose = () => {
@@ -83,6 +85,14 @@ const Products = () => {
         />
       <VegasInfoDialog
         open={infoDialog == 'VEGAS'}
+        onClose={handleBotInfoDialogClose}
+        />
+      <JustinInfoDialog
+        open={infoDialog == 'JUSTIN'}
+        onClose={handleBotInfoDialogClose}
+        />
+      <WebhookInfoDialog
+        open={infoDialog == 'WEBHOOK'}
         onClose={handleBotInfoDialogClose}
         />
     </>

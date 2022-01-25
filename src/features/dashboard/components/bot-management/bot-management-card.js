@@ -37,6 +37,7 @@ export default function BotManagementCard(props) {
                                 <BotSettings
                                     userApi={userApi}
                                     botId={userBots[parseInt(value)].bot_id}
+                                    channel={userBots[parseInt(value)].channel}
                                     openConfirmDialog={openConfirmDialog}
                                     config={userBots[parseInt(value)].config}
                                     />

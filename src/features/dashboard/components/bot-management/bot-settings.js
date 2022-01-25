@@ -1,4 +1,6 @@
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useSelector } from 'react-redux';
+import { getAuthUser } from '@/common/selectors';
 import {
     Box,
     Button,
@@ -10,8 +12,12 @@ import {
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
+
 export const BotSettings = (props) => {
-    const { openConfirmDialog, config, botId, userApi } = props;
+    const reverse = (s) => {return s.split("").reverse().join("");}
+    const { openConfirmDialog, config, channel, botId, userApi } = props;
+    const auth = useSelector(getAuthUser);
+    const webhook = process.env.NEXT_PUBLIC_DARIUS_BACKEND_API + '/api/v1/execute_webhook_signal/';
     const ApiKey = () => {
         if (userApi[config.api_id]) {
             return (
@@ -28,61 +34,137 @@ export const BotSettings = (props) => {
             return (<></>);
         }
     }
-    return (
-        <Box 
-            sx={{ margin: '-24px 0 32px 32px', 
-                  padding: '32px',
-                  border: '1px solid #C3B292',
-                  borderRadius: '16px',
-                  width: '100%' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row'}} >
-                <Typography variant="h6">
-                    Bot Settings
-                </Typography>
-                <Button
-                    color="error"
-                    endIcon={<DeleteForeverIcon fontSize="small" />}
-                    size="small"
-                    variant="contained"
-                    onClick={() => openConfirmDialog({action: "botDelete", botId: botId})}
-                    sx={{marginLeft: 'auto'}}
-                >
-                    Delete
-                </Button>
+    
+    
+    if (channel === "WEBHOOK")
+        return (
+            <Box 
+                sx={{ margin: '-24px 0 32px 32px', 
+                      padding: '32px',
+                      border: '1px solid #C3B292',
+                      borderRadius: '16px',
+                      width: '100%' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                    <Typography variant="h6">
+                        Bot Settings
+                    </Typography>
+                    <Button
+                        color="error"
+                        endIcon={<DeleteForeverIcon fontSize="small" />}
+                        size="small"
+                        variant="contained"
+                        onClick={() => openConfirmDialog({action: "botDelete", botId: botId})}
+                        sx={{marginLeft: 'auto'}}
+                    >
+                        Delete
+                    </Button>
+                </Box>
+                <Box sx={{pt: 2,}} >
+                    <FormGroup >
+                        <FormControlLabel disabled checked={config.test} control={<Checkbox color="primary"/>} label="Test only" />
+                        <FormControlLabel disabled checked={config.duplicate} control={<Checkbox color="primary"/>} label="No duplicate Order" />
+                    </FormGroup>
+                    <Divider />
+                    <ApiKey/>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Target :</strong> &emsp; {config.target}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Order Type :</strong> &emsp; {config.order_type}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Stop Loss :</strong> &emsp; {config.stop_loss_type}, {config.stop_loss}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Take Profit :</strong> &emsp; {config.take_profit_type}, {config.take_profit}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Quantity :</strong> &emsp; {config.quantity}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Leverage :</strong> &emsp; {config.leverage}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Minimum Margin Ratio :</strong> &emsp; {config.margin}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Minimum Volume :</strong> &emsp; {config.minimum_volume}
+                    </Typography>
+                    <br/>
+                    <Button
+                      aria-label="copy webhook to clipboard"
+                      size="small"
+                      sx={{ ml: 2 }}
+                      onClick={() => navigator.clipboard.writeText(webhook)}
+                      startIcon={<ContentCopyIcon/>}
+                    >  Copy Webhook to Clipboard
+                    </Button>
+                    <Button
+                      aria-label="copy token to clipboard"
+                      size="small"
+                      sx={{ ml: 2 }}
+                      onClick={() => navigator.clipboard.writeText(reverse(auth.uid))}
+                      startIcon={<ContentCopyIcon/>}
+                    >  Copy Token to Clipboard
+                    </Button>
+                </Box>
             </Box>
-            <Box sx={{pt: 2,}} >
-                <FormGroup >
-                    <FormControlLabel disabled checked={config.test} control={<Checkbox color="primary"/>} label="Test only" />
-                    <FormControlLabel disabled checked={config.duplicate} control={<Checkbox color="primary"/>} label="No duplicate Order" />
-                </FormGroup>
-                <Divider />
-                <ApiKey/>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Target :</strong> &emsp; {config.target}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Order Type :</strong> &emsp; {config.order_type}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Stop Loss :</strong> &emsp; {config.stop_loss_type}, {config.stop_loss}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Take Profit :</strong> &emsp; {config.take_profit_type}, {config.take_profit}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Quantity :</strong> &emsp; {config.quantity}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Leverage :</strong> &emsp; {config.leverage}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Minimum Margin Ratio :</strong> &emsp; {config.margin}
-                </Typography>
-                <Typography variant="body1" sx={{pt: 1}}>
-                    <strong>Minimum Volume :</strong> &emsp; {config.minimum_volume}
-                </Typography>
-                
+        );
+    else
+        return (
+            <Box 
+                sx={{ margin: '-24px 0 32px 32px', 
+                      padding: '32px',
+                      border: '1px solid #C3B292',
+                      borderRadius: '16px',
+                      width: '100%' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row'}} >
+                    <Typography variant="h6">
+                        Bot Settings
+                    </Typography>
+                    <Button
+                        color="error"
+                        endIcon={<DeleteForeverIcon fontSize="small" />}
+                        size="small"
+                        variant="contained"
+                        onClick={() => openConfirmDialog({action: "botDelete", botId: botId})}
+                        sx={{marginLeft: 'auto'}}
+                    >
+                        Delete
+                    </Button>
+                </Box>
+                <Box sx={{pt: 2,}} >
+                    <FormGroup >
+                        <FormControlLabel disabled checked={config.test} control={<Checkbox color="primary"/>} label="Test only" />
+                        <FormControlLabel disabled checked={config.duplicate} control={<Checkbox color="primary"/>} label="No duplicate Order" />
+                    </FormGroup>
+                    <Divider />
+                    <ApiKey/>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Target :</strong> &emsp; {config.target}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Order Type :</strong> &emsp; {config.order_type}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Stop Loss :</strong> &emsp; {config.stop_loss_type}, {config.stop_loss}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Take Profit :</strong> &emsp; {config.take_profit_type}, {config.take_profit}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Quantity :</strong> &emsp; {config.quantity}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Leverage :</strong> &emsp; {config.leverage}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Minimum Margin Ratio :</strong> &emsp; {config.margin}
+                    </Typography>
+                    <Typography variant="body1" sx={{pt: 1}}>
+                        <strong>Minimum Volume :</strong> &emsp; {config.minimum_volume}
+                    </Typography>
+                </Box>
             </Box>
-        </Box>
-    );
+        );
 }

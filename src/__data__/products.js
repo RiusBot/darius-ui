@@ -33,6 +33,18 @@ export const products = [
     description: ['Apply 4hr Vegas Tunnel, Use EMA144 169 as medium-term trend support Also use EMA 576 676 and 4 multiples of 144 and 169 as long-term support and trend direction.'],
     media: '/static/images/products/vegas_tunnel.jpeg',
   },
+  {
+    channel: 'JUSTIN',
+    channelDisplayName: "Justin's Trading Room",
+    description: ['歡迎各位追蹤我的頻道。我是 Justin ，在台股用程式交易操盤 18 年，目前專注在加密貨幣市場的交易，我習慣用多個指標去做中長期的布局操作，並且使用 Pionex 平台提供的交易工具管控交易風險。'],
+    media: '/static/images/products/Pionex.png',
+  },
+  {
+    channel: 'WEBHOOK',
+    channelDisplayName: "Webhook Bot",
+    description: ['Start your automatic trading with webhook alerts and singals !!', 'One per account for now'],
+    media: '/static/images/products/webhook.png',
+  },
   // {
   //   channel: 'DARIUS',
   //   channelDisplayName: 'Darius',
@@ -66,6 +78,16 @@ export const productMedia = {
     channelDisplayName: 'Vegas Tunnel',
     media: '/static/images/products/vegas_tunnel.jpeg',
     channel: 'VEGAS',
+  },
+  'JUSTIN': {
+    channelDisplayName: "Justin's Trading Room",
+    media: '/static/images/products/Pionex.png',
+    channel: 'JUSTIN',
+  },
+  'WEBHOOK': {
+    channelDisplayName: "Webhook Bot",
+    media: '/static/images/products/webhook.png',
+    channel: 'WEBHOOK',
   },
   // 'DARIUS': {
   //   channelDisplayName: 'Darius',
