@@ -17,7 +17,7 @@ export const BotSettings = (props) => {
     const reverse = (s) => {return s.split("").reverse().join("");}
     const { openConfirmDialog, config, channel, botId, userApi } = props;
     const auth = useSelector(getAuthUser);
-    const webhook = process.env.NEXT_PUBLIC_DARIUS_BACKEND_API + '/api/v1/execute_webhook_signal/';
+    const webhook = process.env.NEXT_PUBLIC_DARIUS_BACKEND_API + '/api/v1/execute_webhook_signal/' + botId.toString();
     const ApiKey = () => {
         if (userApi[config.api_id]) {
             return (
