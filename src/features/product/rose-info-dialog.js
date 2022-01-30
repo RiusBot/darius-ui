@@ -98,7 +98,6 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
                     <Typography varient="body1" componenet="div">
                         這邊測量按照rose的設置，持倉5-7天的績效表現。使用最佳化演算法找出最佳的參數做設置，止損10%，止盈15-20%。<br/>
-                        具體方式是市價馬上買進後，10分鐘內出掉，沒有槓桿。<br/>
                         單純現貨交易，3個月全倉滾績效達2000%。<br/>
                     </Typography>
 

@@ -49,7 +49,7 @@ export const WebhookInfoDialog = (props) => {
                         For more information, you can check out<br/>
                         <a href="https://www.tradingview.com/support/solutions/43000529348-about-webhooks/">https://www.tradingview.com/support/solutions/43000529348-about-webhooks/</a><br/><br/>
 
-                        You will recieve an unique webhook after you create a webhook bot.
+                        You can find an unique webhook and token in the webhook bot setting. (Never share them with others)
                         
                     </Typography><br/>
                             
