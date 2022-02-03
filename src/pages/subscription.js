@@ -14,15 +14,22 @@ import { getUserProfile } from '@/common/selectors';
 
 const Subscription = () => {
   const dispatch = useDispatch();
-  useEffect (() => {  
-    dispatch(loadAllPlan());
-    dispatch(loadUserSubscription());
-    dispatch(loadUserProfile());
-    },[]
-  );
+
+  const profile = useSelector(getUserProfile);
   const plans = useSelector(getPlans);
   const subscriptions = useSelector(getSubscriptions);
-  const profile = useSelector(getUserProfile);
+  useEffect (() => {  
+    if (Object.keys(plans).length == 0) {
+      dispatch(loadAllPlan());
+    }
+    if (Object.keys(subscriptions).length == 0) {
+      dispatch(loadUserSubscription());
+    }
+    if (Object.keys(profile).length == 0) {
+      dispatch(loadUserProfile());
+    }
+    },[]
+  );
 
   return (
     <>
@@ -56,7 +63,6 @@ const Subscription = () => {
             </Box>
             <Divider />
             <SubscriptionPlans 
-              subscriptions={subscriptions}
               plans={plans}
               profile={profile}
             />

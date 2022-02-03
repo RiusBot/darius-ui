@@ -21,13 +21,17 @@ const Dashboard = () => {
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: "", channelDisplayName: ""});
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
-  useEffect (() => {  
-    dispatch(loadUserApi());
-    dispatch(loadUserSubscription());
+  const userApi = useSelector(getUserApi);
+  const subscriptions = useSelector(getSubscriptions);
+  useEffect (() => {
+    if (Object.keys(userApi).length == 0) {
+      dispatch(loadUserApi());
+    }
+    if (Object.keys(subscriptions).length == 0) {
+      dispatch(loadUserSubscription());
+    }
     },[]
   );
-  const subscriptions = useSelector(getSubscriptions);
-  const userApi = useSelector(getUserApi);
   const confirmDeleteBot = () => {
     dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
     handleDeleteDialogClose();

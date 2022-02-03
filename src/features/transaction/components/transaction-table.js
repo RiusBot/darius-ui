@@ -1,14 +1,22 @@
 import { React, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { format, fromUnixTime } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
 import { Box, Tooltip, Card, CardHeader } from '@mui/material';
+import { loadUserTransaction } from '@/features/transaction/transaction-slice';
 import { getTransactions } from '@/features/transaction/transaction-selector';
 
 // TODO: update transaction history info format
 const TransactionTable = (props) => {
+  const dispatch = useDispatch();
   const transactions = useSelector(getTransactions);
+  useEffect (() => {
+    if (transactions.length == 0) {
+      dispatch(loadUserTransaction());
+    }
+    },[]
+  );
 
   return (
     <Card>
