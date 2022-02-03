@@ -47,8 +47,9 @@ function* createUserApiSaga({ payload: apiInfo }) {
       data
     });
     yield put(loadUserApi());
+    yield put(updateSnackbar({ type: 'success', msg: `Create API Key Success` }));
   } catch({response}) { 
-    const errorMsg = 'Failed to create user API';
+    const errorMsg = 'Failed to create user API Key';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
@@ -68,8 +69,9 @@ function* deleteUserApiSaga({ payload: apiInfo }) {
       data
     });
     yield put(loadUserApi());
+    yield put(updateSnackbar({ type: 'success', msg: `Delete API Key Success` }));
   } catch({response}) {
-    const errorMsg = 'Failed to delete user API';
+    const errorMsg = 'Failed to delete user API Key';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }

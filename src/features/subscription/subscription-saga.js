@@ -88,6 +88,7 @@ function* createUserSubscriptionSaga({ payload: planId }) {
       data,
     });
     yield put(loadUserSubscription());
+    yield put(updateSnackbar({ type: 'success', msg: `Create Subscription Success` }));
   } catch({response}) {
     const errorMsg = 'Failed to create user subscription.';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
