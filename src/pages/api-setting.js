@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';;
 import Head from 'next/head';
 import { Box, Container, Typography, IconButton } from '@mui/material';
-import { Card, CardHeader, Divider, } from '@mui/material';
+import { Card, CardHeader, Divider, Button} from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
@@ -12,6 +12,8 @@ import { ApiCreateForm } from '@/features/api/api-create-form';
 import { loadUserApi } from '@/features/api/api-slice';
 import { getUserApi } from '@/features/api/api-selector';
 import { deleteUserApi } from '@/features/api/api-slice';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 const apiSetting = () => {
   const dispatch = useDispatch();
@@ -40,11 +42,12 @@ const apiSetting = () => {
         <Box key={id} >
           <Box sx={{display: 'flex', flexDirection: 'row'}} >
             <IconButton
-              onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
               color="error"
+              disabled="true"
             >
-                <RemoveIcon fontSize="small" />
+                <RemoveIcon fontSize="medium" />
             </IconButton>
+
             <Typography
               sx={{marginLeft: '32px', marginTop: 'auto'}}
               color="textPrimary"
@@ -53,6 +56,13 @@ const apiSetting = () => {
               >
               {api.api_key}
             </Typography>
+
+            <Button
+              onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
+              color="error"
+              endIcon={<DeleteForeverIcon fontSize="small" />}
+            >
+            </Button>
           </Box>
 
           <Typography
@@ -73,6 +83,7 @@ const apiSetting = () => {
             >
             Subaccount: {api.subaccount}
           </Typography>
+
         </Box>
       ))}
       </>
