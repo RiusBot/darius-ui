@@ -97,7 +97,7 @@ export default function DefaultConfigSettings(props) {
                         onChange={handleOptionChange}
                     >
                         {Object.values(userApi).map((api) => (
-                            <MenuItem key={api.api_id} value={api.api_id}>{api.api_key}</MenuItem>
+                            <MenuItem key={api.api_id} value={api.api_id}>({api.exchange}) {api.api_key}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>)
