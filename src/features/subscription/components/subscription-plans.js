@@ -16,7 +16,7 @@ import { updateSnackbar } from '@/app/app-slice';
 
 const SubscriptionPlans = (props) => {
   const dispatch = useDispatch();
-  const { subscriptions, plans, profile } = props;
+  const { plans, profile } = props;
   const [planChannel, setChannel] = useState('');
   const [checked, setChecked] = useState('');
   const [price, setPrice] = useState(0);

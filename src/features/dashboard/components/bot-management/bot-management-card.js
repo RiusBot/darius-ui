@@ -5,20 +5,26 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 import { loadUserBots, loadBotTrades } from '@/features/dashboard/dashboard-slice';
-import { getUserBots } from '@/features/dashboard/dashboard-selector';
+import { getUserBots, getBotTrades } from '@/features/dashboard/dashboard-selector';
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
     const { openConfirmDialog, userApi } = props;
     const [value, setValue] = useState('0');
 
+    const userBots = useSelector(getUserBots);
     useEffect (() => {  
-        dispatch(loadUserBots());
+        if (userBots.length == 0) {
+            dispatch(loadUserBots());
+        }
       },[]
     );
-    const userBots = useSelector(getUserBots);
+
+    const allBotTrades = useSelector(getBotTrades);
     const getCurrentBotTrades = (botId) => {
-        dispatch(loadBotTrades({botId: botId}));
+        if (! allBotTrades[botId]) {
+            dispatch(loadBotTrades({botId: botId}));
+        }
     }
      
     const handleTabChange = (event, newValue) => {
@@ -29,20 +35,20 @@ export default function BotManagementCard(props) {
       const { value }= props;
       if (userBots[parseInt(value)]) {
         return (<Box sx={{ display: 'flex', flexDirection: 'row'}} >
-                            <BotTradesTable
-                                botId={userBots[parseInt(value)].bot_id}
-                                getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
+                    <BotTradesTable
+                        botId={userBots[parseInt(value)].bot_id}
+                        getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
+                    />
+                    <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
+                        <BotSettings
+                            userApi={userApi}
+                            botId={userBots[parseInt(value)].bot_id}
+                            channel={userBots[parseInt(value)].channel}
+                            openConfirmDialog={openConfirmDialog}
+                            config={userBots[parseInt(value)].config}
                             />
-                            <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
-                                <BotSettings
-                                    userApi={userApi}
-                                    botId={userBots[parseInt(value)].bot_id}
-                                    channel={userBots[parseInt(value)].channel}
-                                    openConfirmDialog={openConfirmDialog}
-                                    config={userBots[parseInt(value)].config}
-                                    />
-                            </Box>
-                        </Box>);
+                    </Box>
+                </Box>);
       }
       return (<></>);
     }

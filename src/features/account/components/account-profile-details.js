@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase'
 import {
@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { TelegramBindingDialog } from '@/features/account/components/telegram-binding-dialog';
 import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';
+import { loadUserTelegram } from '@/app/app-slice';
 import { updateUserProfile } from '@/app/app-slice';
 
 export const AccountProfileDetails = (props) => {
@@ -22,6 +23,12 @@ export const AccountProfileDetails = (props) => {
   const firebase = useFirebase();
   const originalProfile = useSelector(getUserProfileFromFirebase);
   const telegram = useSelector(getUserTelegram);
+  useEffect (() => {
+    if (telegram === null) {
+      dispatch(loadUserTelegram());
+    }
+    },[]
+  );
   const [newProfile, setProfile] = useState({...originalProfile, referrer: profile.referrer});
   const [showTelegramDialog, setDialog] = useState(false);
 

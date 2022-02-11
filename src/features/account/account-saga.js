@@ -29,7 +29,8 @@ function* createUserSaga({ payload: { referrer } }) {
       data,
     });
     if (res.status === 200) {
-      yield put(createUserSuccess())
+      yield put(createUserSuccess());
+      yield put(updateSnackbar({ type: 'success', msg: `Create User Success` }));
     }
   } catch({response}) {
     const errorMsg = 'Failed to create user';
@@ -51,7 +52,7 @@ function* createRecaptchaAccessmentSaga({ payload: { token, action } }) {
       data,
     });
     if (res.status === 200) {
-      yield put(createRecaptchaAccessmentSuccess())
+      yield put(createRecaptchaAccessmentSuccess());
     }
   } catch({response}) {
     const errorMsg = 'Failed to create recaptcha assessment';
@@ -97,6 +98,7 @@ function* updateUserProfileSaga({ payload }) {
     });
     if (res.status === 200) {
       yield put(loadUserProfile());
+      yield put(updateSnackbar({ type: 'success', msg: `Update User Profile Success` }));
     }
   } catch ({ response }) {
     const errorMsg = 'Failed to update user profile';

@@ -17,14 +17,15 @@ const apiSetting = () => {
   const dispatch = useDispatch();
   const [apiDeleteDialog, setApiDeleteDialog] = useState({open: false, apiId: null});
 
+  const userApi = useSelector(getUserApi);
   useEffect (() => {
-    dispatch(loadUserApi());
+    if (Object.keys(userApi).length == 0) {
+      dispatch(loadUserApi());
+    }
     },[]
   );
-  const userApi = useSelector(getUserApi);
 
   const confirmDeleteApi = () => {
-    // console.log(apiDeleteDialog.apiId);
     dispatch(deleteUserApi({apiId: apiDeleteDialog.apiId}));
     setApiDeleteDialog({open: false, apiId: null});
   }
