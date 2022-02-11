@@ -1,6 +1,13 @@
 # darius-ui
 
-
+### install dependencies (npm, node)
+```
+sudo apt install npm
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+bash
+```
 
 ### Set up local dev environment
   - Install required dependencies
