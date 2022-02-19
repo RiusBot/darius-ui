@@ -5,6 +5,7 @@ import { Box, Grid, } from '@mui/material';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
+import BotEditDialog from '@/features/dashboard/components/bot-management/bot-edit-dialog';
 import BotCard from '@/features/dashboard/components/bot-card';
 import BotManagementCard from '@/features/dashboard/components/bot-management/bot-management-card';
 import { productMedia } from '__data__/products';
@@ -19,6 +20,14 @@ import { getSubscriptions } from '@/features/subscription/subscription-selector'
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: "", channelDisplayName: ""});
+  const defaultEditDialog = { open: false, 
+                              channel: "", 
+                              channelDisplayName: "",
+                              botId: "",
+                              config: {},
+                              status: "",
+                            };
+  const [botEditDialog, setBotEditDialog] = useState(defaultEditDialog);
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
 
   const userApi = useSelector(getUserApi);
@@ -34,25 +43,31 @@ const Dashboard = () => {
   );
   const confirmDeleteBot = () => {
     dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
-    handleDeleteDialogClose();
+    setBotDeleteDialog({open: false, botId: null});
   }
 
   const handleDialogOpen = (dialog) => {
     switch (dialog.action) {
       case 'botCreate':
-        setBotCreateDialog({open: true, channel: dialog.channel, channelDisplayName: dialog.channelDisplayName});
+        setBotCreateDialog({open: true, 
+                            channel: dialog.channel, 
+                            channelDisplayName: productMedia[dialog.channel].channelDisplayName});
+        break;
+      case 'botEdit':
+        setBotEditDialog({open: true, 
+                          channel: dialog.channel, 
+                          channelDisplayName: productMedia[dialog.channel].channelDisplayName, 
+                          botId: dialog.botId,
+                          config: dialog.config,
+                          status: dialog.botStatus,
+                        });
         break;
       case 'botDelete':
         setBotDeleteDialog({open: true, botId: dialog.botId});
         break;
     }
   }
-  const handleDeleteDialogClose = () => {
-    setBotDeleteDialog({open: false, botId: null});
-  }
-  const handleCreateDialogClose = () => {
-    setBotCreateDialog({open: false, channel: ""});
-  }
+
   return (
     <>
       <Head>
@@ -114,6 +129,7 @@ const Dashboard = () => {
             <BotManagementCard 
               userApi={userApi}
               openConfirmDialog={handleDialogOpen}
+              openBotEditDialog={handleDialogOpen}
               />
           </Box>
 
@@ -125,13 +141,22 @@ const Dashboard = () => {
         open={botCreateDialog.open}
         channel={botCreateDialog.channel}
         channelDisplayName={botCreateDialog.channelDisplayName}
-        onClose={handleCreateDialogClose}
+        onClose={() => setBotCreateDialog({open: false, channel: ""})}
+        />
+      <BotEditDialog
+        open={botEditDialog.open}
+        channel={botEditDialog.channel}
+        channelDisplayName={botEditDialog.channelDisplayName}
+        botId={botEditDialog.botId}
+        config={botEditDialog.config}
+        status={botEditDialog.status}
+        onClose={() => setBotEditDialog(defaultEditDialog)}
         />
 
       <ConfirmDialog
         open={botDeleteDialog.open}
         onConfirm={confirmDeleteBot}
-        onClose={handleDeleteDialogClose}
+        onClose={() => setBotDeleteDialog({open: false, botId: null})}
         object="BOT"
       />
     </>

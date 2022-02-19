@@ -16,14 +16,14 @@ const limits = { stopLoss: { min: 0, max: 100},
                 };
 
 export default function DefaultConfigSettings(props) {
-    const { createDisabled, configOptions, setConfigs, orderOptions, setOrders } = props;
+    const { saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders } = props;
     const userApi = useSelector(getUserApi);
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
     const handleOptionChange = (event) => {
         var name = event.target.name;
-        var value
+        var value = '';
         if (Object.keys(limits).includes(name)) {
             if (event.target.value == '') {
                 value = '';
@@ -36,7 +36,7 @@ export default function DefaultConfigSettings(props) {
         }
         setConfigs({...configOptions, [name]: value});
     };
-    const exchange = configOptions['api'] ? userApi[configOptions['api']].exchange : "binance";
+    const exchange = userApi[configOptions['api']] ? userApi[configOptions['api']].exchange : "binance";
     const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.stopLoss.max;
     const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.stopLoss.min;
     const slLabel = (configOptions['stopLossType'] === 'TRAILING') ? "Callback Rate %" : "Stop Loss %";
@@ -68,6 +68,11 @@ export default function DefaultConfigSettings(props) {
                 return (parseFloat(configOptions[option]) >= limits[option].min);
         }
     }
+    const checkOptionsChange = (option) => {
+        if (configOptions[option] === '') return false;
+        
+        return (configOptions[option] !== oldConfig[option]);
+    }
     React.useEffect(() => {
         function checkOptionsReady() {
           for (let i = 0; i < Object.keys(configOptions).length; i ++) {
@@ -75,10 +80,16 @@ export default function DefaultConfigSettings(props) {
                 return false;
             }
           }
-          return true;
+          for (let i = 0; i < Object.keys(configOptions).length; i ++) {
+            if (checkOptionsChange(Object.keys(configOptions)[i])) {
+                // console.log(Object.keys(configOptions)[i]);
+                return true;
+            }
+          }
+          return false;
         }
         const optionsReady = checkOptionsReady();
-        createDisabled(!optionsReady)
+        saveDisabled(!optionsReady)
       }, [orderOptions, configOptions])
 
     const ApiOption = () => {

@@ -24,7 +24,7 @@ export const BotTradesTable = (props) => {
   return (
     <>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 520, width: 800 }}>
+        <Box sx={{ minWidth: 520, width: '100%' }}>
           <Typography variant="h6">
             Trading History
           </Typography>

@@ -8,6 +8,7 @@ const dashboardSlice = createSlice({
   },
   reducers: {
     createUserBot: () => {},
+    updateUserBot: () => {},
     deleteUserBot: () => {},
     loadUserBots: () => {},
     loadUserBotsSuccess: (state, action) => {
@@ -26,6 +27,7 @@ const { actions, reducer } = dashboardSlice;
 
 export const {
   createUserBot,
+  updateUserBot,
   deleteUserBot,
   loadUserBots,
   loadUserBotsSuccess,
