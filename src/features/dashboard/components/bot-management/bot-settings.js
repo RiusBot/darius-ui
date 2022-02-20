@@ -1,4 +1,3 @@
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useSelector } from 'react-redux';
 import { getAuthUser } from '@/common/selectors';
 import {
@@ -6,6 +5,7 @@ import {
     Button,
     Typography
 } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 
