@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import { createUserTransaction } from '@/features/transaction/transaction-slice';
 import { loadUserProfile } from '@/app/app-slice';
@@ -73,20 +74,26 @@ const TransactionCreateForm = (props) => {
         </Typography>
         <Divider />
         <CardContent>
-          <Typography
-              color="textPrimary"
-              gutterBottom
-              variant="h6"
-              >
-              Create a new Transaction.
-          </Typography>
-          <Typography
-              color="textSecondary"
-              gutterBottom
-              variant="h6"
-              >
-              Please enter the date, amount, and wallet address of your transaction.
-          </Typography>
+          
+
+          <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Typography
+                color="textPrimary"
+                gutterBottom
+                variant="h6"
+                >
+                Deposit Address: &nbsp; TWNyKqCpGga6cDwq732YtzDMt65KnJ1V3Q
+            </Typography>
+            <Button
+                aria-label="copy address to clipboard"
+                size="small"
+                sx={{ ml: 2 }}
+                onClick={() => navigator.clipboard.writeText('TWNyKqCpGga6cDwq732YtzDMt65KnJ1V3Q')}
+                startIcon={<ContentCopyIcon/>}
+                >  Copy Address to Clipboard
+            </Button>
+          </Box>
+          
           <Box
             sx={{paddingTop: '32px', display: 'flex', flexDirection: 'row'}}
           >

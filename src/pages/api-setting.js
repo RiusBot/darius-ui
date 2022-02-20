@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';;
 import Head from 'next/head';
-import { Box, Container, Typography, IconButton } from '@mui/material';
-import { Card, CardHeader, Divider, } from '@mui/material';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { Box, Container, Typography, Avatar } from '@mui/material';
+import { Card, CardHeader, Divider, Button} from '@mui/material';
+import KeyIcon from '@mui/icons-material/Key';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
@@ -12,6 +13,7 @@ import { ApiCreateForm } from '@/features/api/api-create-form';
 import { loadUserApi } from '@/features/api/api-slice';
 import { getUserApi } from '@/features/api/api-selector';
 import { deleteUserApi } from '@/features/api/api-slice';
+
 
 const apiSetting = () => {
   const dispatch = useDispatch();
@@ -37,27 +39,33 @@ const apiSetting = () => {
     return (
       <>
       {Object.values(userApi).map((api, id) => (
-        <Box key={id} >
+        <Box key={id} sx={{backgroundColor:'#EEE', padding: '16px', marginBottom: '8px'}}>
           <Box sx={{display: 'flex', flexDirection: 'row'}} >
-            <IconButton
-              onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
-              color="error"
-            >
-                <RemoveIcon fontSize="small" />
-            </IconButton>
+            <KeyIcon color='primary'/>
             <Typography
-              sx={{marginLeft: '32px', marginTop: 'auto'}}
+              sx={{marginLeft: '16px' }}
               color="textPrimary"
               gutterBottom
               variant="h6"
               >
               {api.api_key}
             </Typography>
+
+            <Button
+              color="error"
+              endIcon={<DeleteForeverIcon fontSize="small" />}
+              size="small"
+              variant="contained"
+              onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
+              sx={{marginLeft: 'auto'}}
+            >
+                Delete API Key
+            </Button>
           </Box>
 
           <Typography
-            sx={{marginLeft: '72px'}}
-            color="textPrimary"
+            sx={{marginLeft: '48px'}}
+            color="textSecondary"
             gutterBottom
             variant="button"
             >
@@ -66,13 +74,14 @@ const apiSetting = () => {
 
           <Typography
             sx={{display: (api.exchange == 'ftx') ? 'flex' : 'none',
-                 marginLeft: '72px'}}
-            color="textPrimary"
+                 marginLeft: '48px'}}
+            color="textSecondary"
             gutterBottom
             variant="button"
             >
             Subaccount: {api.subaccount}
           </Typography>
+
         </Box>
       ))}
       </>

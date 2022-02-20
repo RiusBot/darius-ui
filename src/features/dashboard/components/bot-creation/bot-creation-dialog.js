@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
-import DefaultConfigSettings from "./default-config-settings";
+import DefaultConfigSettings from '@/features/dashboard/components/bot-creation/default-config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { createUserBot } from '@/features/dashboard/dashboard-slice';
 
@@ -18,7 +18,6 @@ function BotCreationDialog(props) {
     }
     
     const createButtonClicked = () => {
-        // console.log("Create Button Clicked");
         const createBotInfo = {orderOptions: orderOptions,
                                configOptions: configOptions,
                                channel: channel,
@@ -55,7 +54,7 @@ function BotCreationDialog(props) {
                     padding: '16px',
                     overflowY: 'scroll',}}>
                 <DefaultConfigSettings
-                    createDisabled={handleCreateButton}
+                    saveDisabled={handleCreateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}
                     orderOptions={orderOptions}

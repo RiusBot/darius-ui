@@ -1,6 +1,7 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
   createUserBot,
+  updateUserBot,
   deleteUserBot,
   loadUserBots,
   loadUserBotsSuccess,
@@ -44,6 +45,44 @@ function* createUserBotSaga({ payload: createBotInfo }) {
     yield put(updateSnackbar({ type: 'success', msg: `Create New Bot Success` }));
   } catch({response}) {
     const errorMsg = 'Failed to create new bot';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+};
+
+function* updateUserBotSaga({ payload: updateBotInfo }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const data = { 
+    uid: auth.uid,
+    bot_id: updateBotInfo.botId,
+    status: updateBotInfo.status,
+    config: {
+      api_id: updateBotInfo.configOptions.api,
+      test: updateBotInfo.orderOptions.test,
+      duplicate: updateBotInfo.orderOptions.duplicate,
+      target: updateBotInfo.configOptions.target,
+      quantity: updateBotInfo.configOptions.quantity,
+      leverage: updateBotInfo.configOptions.leverage,
+      margin: updateBotInfo.configOptions.margin / 100,
+      minimum_volume: updateBotInfo.configOptions.volume,
+      stop_loss: updateBotInfo.configOptions.stopLoss / 100,
+      take_profit: updateBotInfo.configOptions.takeProfit / 100,
+      order_type: updateBotInfo.configOptions.orderType,
+      stop_loss_type: updateBotInfo.configOptions.stopLossType,
+      take_profit_type: updateBotInfo.configOptions.takeProfitType
+    },
+  };
+  const url = `/api/v1/update_user_bot`;
+  const requestMethod = 'PATCH';
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data,
+    });
+    yield put(loadUserBots());
+    yield put(updateSnackbar({ type: 'success', msg: `Update Bot Success` }));
+  } catch({response}) {
+    const errorMsg = 'Failed to update bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 };
@@ -114,6 +153,7 @@ function* loadBotTradesSaga({ payload: botInfo }) {
 function* dashboardSaga() {
   yield all([
     takeLatest(createUserBot.toString(), createUserBotSaga),
+    takeLatest(updateUserBot.toString(), updateUserBotSaga),
     takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
     takeLatest(loadUserBots.toString(), loadUserBotsSaga),
     takeLatest(loadBotTrades.toString(), loadBotTradesSaga),

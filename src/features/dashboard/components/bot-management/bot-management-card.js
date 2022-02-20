@@ -1,7 +1,9 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardHeader, Box, Tab, Typography } from '@mui/material';
+import { Card, CardHeader, Box, Tab, Typography, Button } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 import { loadUserBots, loadBotTrades } from '@/features/dashboard/dashboard-slice';
@@ -9,7 +11,7 @@ import { getUserBots, getBotTrades } from '@/features/dashboard/dashboard-select
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
-    const { openConfirmDialog, userApi } = props;
+    const { openConfirmDialog, openBotEditDialog, userApi } = props;
     const [value, setValue] = useState('0');
 
     const userBots = useSelector(getUserBots);
@@ -34,20 +36,21 @@ export default function BotManagementCard(props) {
     const BotInfo = (props) => {
       const { value }= props;
       if (userBots[parseInt(value)]) {
-        return (<Box sx={{ display: 'flex', flexDirection: 'row'}} >
+        return (<Box >
+                    <Box sx={{ minWidth: '320px' }} >
+                        <BotSettings
+                            botId={userBots[parseInt(value)].bot_id}
+                            botStatus={userBots[parseInt(value)].status}
+                            channel={userBots[parseInt(value)].channel}
+                            openConfirmDialog={openConfirmDialog}
+                            openEditDialog={openBotEditDialog}
+                            config={userBots[parseInt(value)].config}
+                            />
+                    </Box>
                     <BotTradesTable
                         botId={userBots[parseInt(value)].bot_id}
                         getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
                     />
-                    <Box sx={{ minWidth: '320px', marginRight: '32px' }} >
-                        <BotSettings
-                            userApi={userApi}
-                            botId={userBots[parseInt(value)].bot_id}
-                            channel={userBots[parseInt(value)].channel}
-                            openConfirmDialog={openConfirmDialog}
-                            config={userBots[parseInt(value)].config}
-                            />
-                    </Box>
                 </Box>);
       }
       return (<></>);
@@ -85,7 +88,8 @@ export default function BotManagementCard(props) {
                       bgcolor: 'background.paper', 
                       minHeight: '460px', 
                       minWidth: '840px',
-                      paddingRight: '32px' }}
+                      paddingRight: '32px',
+                      overflow: 'scroll' }}
             >
                 <TabContext value={value}>
                     <TabList
@@ -102,7 +106,7 @@ export default function BotManagementCard(props) {
                                         value={`${index}`}/>
                         })}
                     </TabList>
-                    <TabPanel value={value} sx={{ overflowX: 'scroll', overflowY: 'hidden'}}>
+                    <TabPanel value={value} sx={{ overflowX: 'scroll', overflowY: 'scroll', minWidth: '400px', width: '100%'}}>
                         <BotInfo value={value}/>
                     </TabPanel>
                 </TabContext>
