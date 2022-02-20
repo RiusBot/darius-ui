@@ -2,7 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { TextField, Divider} from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import { getUserApi } from '@/features/api/api-selector';
 
 
@@ -95,7 +97,7 @@ export default function DefaultConfigSettings(props) {
     const ApiOption = () => {
         if (userApi == undefined || Object.keys(userApi).length == 0 ) {
             return (<Typography color="textSecondary" variant="button" component="div">
-                        Please add your api keys first in the API Key Settins page
+                        Please add your api keys first in the API Key Settings page
                     </Typography>)
         }
         return (<FormControl fullWidth>
@@ -115,9 +117,26 @@ export default function DefaultConfigSettings(props) {
       }
     return (
         <Box sx={{m:2}} >
-            <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
-                Order Settings
-            </Typography>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
+                    Order Settings
+                </Typography>
+                <Tooltip 
+                    placement="bottom-start"
+                    title={
+                    <React.Fragment>
+                        <Typography color="inherit">Order Settings Info</Typography>
+                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+                        {"It's very engaging. Right?"}
+                    </React.Fragment>
+                    }>
+                    <IconButton
+                        style={{marginLeft: '8px'}}
+                    >
+                        <InfoIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <FormGroup >
                 <FormControlLabel 
                     control={<Checkbox 
@@ -133,16 +152,50 @@ export default function DefaultConfigSettings(props) {
                     label="No duplicate Order" />
             </FormGroup>
             <Divider />
-            <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
-                API Settings
-            </Typography>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
+                    API Settings
+                </Typography>
+                <Tooltip 
+                    placement="bottom-start"
+                    title={
+                    <React.Fragment>
+                        <Typography color="inherit">API Settings Info</Typography>
+                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+                        {"It's very engaging. Right?"}
+                    </React.Fragment>
+                    }>
+                    <IconButton
+                        style={{marginLeft: '8px'}}
+                    >
+                        <InfoIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Box sx={{p:2}}>
                 <ApiOption/>
             </Box>
             <Divider />
-            <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
-                Config Settings
-            </Typography>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
+                    Config Settings
+                </Typography>
+                <Tooltip 
+                    placement="bottom-start"
+                    title={
+                    <React.Fragment>
+                        <Typography color="inherit">Config Settings Info</Typography>
+                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+                        {"It's very engaging. Right?"}
+                    </React.Fragment>
+                    }>
+                    <IconButton
+                        style={{marginLeft: '8px'}}
+                    >
+                        <InfoIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Box sx={{p:2}}>
                 <FormControl fullWidth>
                     <InputLabel >Target</InputLabel>

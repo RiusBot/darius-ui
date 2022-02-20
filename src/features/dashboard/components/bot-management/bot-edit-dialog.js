@@ -102,10 +102,8 @@ function BotEditDialog(props) {
                             label="Status"
                             onChange={(event) => setStatus(event.target.value)}
                         >
-                            <MenuItem value={"PENDING"}>PENDING</MenuItem>
                             <MenuItem value={"RUNNING"}>RUNNING</MenuItem>
                             <MenuItem value={"SUSPEND"}>SUSPEND</MenuItem>
-                            <MenuItem value={"STOPPED"}>STOPPED</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>

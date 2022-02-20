@@ -39,7 +39,6 @@ export default function BotManagementCard(props) {
         return (<Box >
                     <Box sx={{ minWidth: '320px' }} >
                         <BotSettings
-                            userApi={userApi}
                             botId={userBots[parseInt(value)].bot_id}
                             botStatus={userBots[parseInt(value)].status}
                             channel={userBots[parseInt(value)].channel}
