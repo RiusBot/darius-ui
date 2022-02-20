@@ -126,8 +126,7 @@ export default function DefaultConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">Order Settings Info</Typography>
-                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
-                        {"It's very engaging. Right?"}
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton
@@ -161,8 +160,7 @@ export default function DefaultConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">API Settings Info</Typography>
-                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
-                        {"It's very engaging. Right?"}
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton
@@ -185,8 +183,7 @@ export default function DefaultConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">Config Settings Info</Typography>
-                        <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
-                        {"It's very engaging. Right?"}
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton
