@@ -72,7 +72,7 @@ export default function DefaultConfigSettings(props) {
     }
     const checkOptionsChange = (option) => {
         if (configOptions[option] === '') return false;
-        
+        if (oldConfig == undefined) return true;
         return (configOptions[option] !== oldConfig[option]);
     }
     React.useEffect(() => {
