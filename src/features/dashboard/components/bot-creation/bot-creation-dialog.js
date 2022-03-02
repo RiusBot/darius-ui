@@ -11,6 +11,7 @@ function BotCreationDialog(props) {
     const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
     const [orderOptions, setOrders] = React.useState({test: false, duplicate: true});
     const [configOptions, setConfigs] = React.useState({api: '', 
+                                                        hyperopt: false,
                                                         target: '', 
                                                         orderType: '', 
                                                         stopLossType: '', 

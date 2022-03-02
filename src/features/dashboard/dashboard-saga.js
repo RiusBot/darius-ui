@@ -59,6 +59,7 @@ function* updateUserBotSaga({ payload: updateBotInfo }) {
     config: {
       api_id: updateBotInfo.configOptions.api,
       test: updateBotInfo.orderOptions.test,
+      hyperopt: updateBotInfo.configOptions.hyperopt,
       duplicate: updateBotInfo.orderOptions.duplicate,
       target: updateBotInfo.configOptions.target,
       quantity: updateBotInfo.configOptions.quantity,
