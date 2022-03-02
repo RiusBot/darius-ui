@@ -34,12 +34,12 @@ function BotEditDialog(props) {
                     target: config.target, 
                     orderType: config.order_type, 
                     stopLossType: config.stop_loss_type, 
-                    stopLoss: config.stop_loss,
+                    stopLoss: config.stop_loss * 100,
                     takeProfitType: config.take_profit_type, 
-                    takeProfit: config.take_profit, 
+                    takeProfit: config.take_profit * 100, 
                     quantity: config.quantity, 
                     leverage: config.leverage,
-                    margin: config.margin, 
+                    margin: config.margin * 100, 
                     volume: config.minimum_volume,
                 });
         },[config]

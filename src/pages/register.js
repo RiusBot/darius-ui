@@ -19,12 +19,15 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Snackbar from '@/common/components/snackbar';
+import TermsAndConditionsDialog from '@/features/register/terms-and-conditions-dialog';
 import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 
 const Register = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const firebase = useFirebase();
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
 
   const { referralCode } = router.query;
     
@@ -229,20 +232,16 @@ const Register = () => {
                 color="textSecondary"
                 variant="body2"
               >
-                I have read the
+                I agree to the
                 {' '}
-                <NextLink
-                  href="#"
-                  passHref
+                <Link
+                  color="primary"
+                  underline="always"
+                  variant="subtitle2"
+                  onClick={() => setDialogOpen(true)}
                 >
-                  <Link
-                    color="primary"
-                    underline="always"
-                    variant="subtitle2"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </NextLink>
+                  Terms and Conditions
+                </Link>
               </Typography>
             </Box>
             {Boolean(formik.touched.policy && formik.errors.policy) && (
@@ -284,6 +283,12 @@ const Register = () => {
           <Snackbar />
         </Container>
       </Box>
+
+      <TermsAndConditionsDialog
+        open={dialogOpen}
+        accept={formik.handleChange}
+        onClose={() => setDialogOpen(false)}
+      />
     </>
   );
 };
