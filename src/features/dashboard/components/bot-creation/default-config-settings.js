@@ -240,8 +240,8 @@ export default function DefaultConfigSettings(props) {
                             setConfigs({...configOptions, hyperopt: newValue});
                         }}
                     >
-                        <FormControlLabel value="true" control={<Radio />} label="AI Optimization" />
-                        <FormControlLabel value="false" control={<Radio />} label="Custom Input" />
+                        <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
+                        <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
                     </RadioGroup>
                 </FormControl>
             </Box>
@@ -273,7 +273,7 @@ export default function DefaultConfigSettings(props) {
                             min: slLimitMin,
                             max: slLimitMax
                         }}
-                        value={configOptions.stopLoss}
+                        value={configOptions.hyperopt ? null : configOptions.stopLoss}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
                         <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
@@ -308,7 +308,7 @@ export default function DefaultConfigSettings(props) {
                             min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min,
                             max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max
                         }}
-                        value={configOptions.takeProfit}
+                        value={configOptions.hyperopt ? null : configOptions.takeProfit}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
                         <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>

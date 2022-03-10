@@ -1,4 +1,5 @@
-import { React, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination, Typography } from '@mui/material';
 import { products } from '__data__/products';
@@ -11,11 +12,23 @@ import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
 import { VegasInfoDialog } from '@/features/product/vegas-info-dialog';
 import { JustinInfoDialog } from '@/features/product/justin-info-dialog';
 import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
+import { loadPerformance  } from '@/features/product/product-slice';
+import { getAllPerformance } from '@/features/product/product-selector';
+
 const Products = () => {
+  const dispatch = useDispatch();
   const [infoDialog, setInfoDialog] = useState('');
   const handleBotInfoDialogClose = () => {
     setInfoDialog('');
   }
+
+  const performance = useSelector(getAllPerformance);
+  useEffect (() => {
+    if (performance.ROSE.length == 0) {
+      dispatch(loadPerformance());
+    }
+  },[]);
+
   return (
     <>
       <Head>
@@ -46,6 +59,7 @@ const Products = () => {
                 >
                   <ProductCard
                     product={product}
+                    chartData={performance[product.channel]}
                     openInfoDialog={() => setInfoDialog(product.channel)} />
                 </Grid>
               ))}
