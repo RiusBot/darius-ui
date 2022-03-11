@@ -30,7 +30,8 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       take_profit: createBotInfo.configOptions.takeProfit / 100,
       order_type: createBotInfo.configOptions.orderType,
       stop_loss_type: createBotInfo.configOptions.stopLossType,
-      take_profit_type: createBotInfo.configOptions.takeProfitType
+      take_profit_type: createBotInfo.configOptions.takeProfitType,
+      hyperopt: createBotInfo.configOptions.hyperopt
     },
     channel: createBotInfo.channel
   };
