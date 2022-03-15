@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
 import { Clock as ClockIcon } from '@/icons/clock';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { MixedChart } from '@/features/product/components/mixed-chart';
 
 export const ProductCard = (props) => {
-  const { product, openInfoDialog } = props;
+  const { product, chartData, openInfoDialog } = props;
+  const reversedData = [...chartData].reverse();
+
   return (
     <Card
       sx={{
@@ -50,6 +53,11 @@ export const ProductCard = (props) => {
         ))}
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{p:2}} >
+        <MixedChart
+            data={reversedData}
+        />
+      </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
         <Grid

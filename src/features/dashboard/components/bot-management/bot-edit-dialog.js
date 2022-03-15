@@ -15,6 +15,7 @@ function BotEditDialog(props) {
                                                  duplicate: config.duplicate,
                                                });
     const [configOptions, setConfigs] = useState({  api: config.api_id,
+                                                    hyperopt: config.hyperopt,
                                                     target: config.target, 
                                                     orderType: config.order_type, 
                                                     stopLossType: config.stop_loss_type, 
@@ -31,6 +32,7 @@ function BotEditDialog(props) {
                     duplicate: config.duplicate,
                 });
         setConfigs({api: config.api_id,
+                    hyperopt: config.hyperopt,
                     target: config.target, 
                     orderType: config.order_type, 
                     stopLossType: config.stop_loss_type, 

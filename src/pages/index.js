@@ -167,6 +167,49 @@ const Tutorial = () => (
                 width: 760
             }}
           /><br/><br/>
+              
+              
+          <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+              4. Telegram 訊號頻道<br/>
+          </Typography>
+          <Typography varient="body1" componenet="div">
+              點擊右上角用戶頭像，進入用戶資料，綁定Telegram帳號，綁定後到telegram與機器人說話，訂閱者才會有權限加入<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/user_profile.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 360
+            }}
+          /><br/><br/>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/telegram_bind.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
+              
+
+          <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+              5. 收費<br/>
+          </Typography>
+          <Typography varient="body1" componenet="div">
+              進入收費頁面後，填入轉帳txid還有錢包地址(方便用戶自己紀錄)還有轉帳日期，就可以成功充值<br/>
+          </Typography>
+          <img
+            alt="Under development"
+            src="/static/images/tutorial/transaction.png"
+            style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                width: 760
+            }}
+          /><br/><br/>
 
 
         </Box>

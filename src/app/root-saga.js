@@ -4,6 +4,7 @@ import dashboardSaga from '@/features/dashboard/dashboard-saga';
 import apiSaga from '@/features/api/api-saga';
 import subscriptionSaga from '@/features/subscription/subscription-saga';
 import transactionSaga from '@/features/transaction/transaction-saga';
+import productSaga from '@/features/product/product-saga';
 
 function* rootSaga() {
   yield all([
@@ -12,6 +13,7 @@ function* rootSaga() {
     apiSaga(),
     subscriptionSaga(),
     transactionSaga(),
+    productSaga(),
   ]);
 };
 

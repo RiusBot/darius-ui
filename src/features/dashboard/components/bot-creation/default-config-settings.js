@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { FormGroup, FormControlLabel, Checkbox, Typography } from "@mui/material";
-import { IconButton, Tooltip } from "@mui/material";
-import { TextField, Divider} from "@mui/material";
+import { FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
+import { FormLabel, RadioGroup, Radio } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
+import { TextField, Divider} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { getUserApi } from '@/features/api/api-selector';
 
@@ -55,19 +56,21 @@ export default function DefaultConfigSettings(props) {
             case 'takeProfitType':
                 return (configOptions[option] != '');
             case 'stopLoss':
-                if (configOptions['stopLossType'] == 'TRAILING')
-                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] <= limits['callback'][exchange].max);
-                return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'takeProfit':
-                if (configOptions['takeProfitType'] == 'TRAILING')
+                if (configOptions['hyperopt'] === true) 
+                    return true;
+                else if (configOptions['takeProfitType'] == 'TRAILING')
                     return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] <= limits['callback'][exchange].max);
-                return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
+                else 
+                    return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'leverage':
                 return (parseFloat(configOptions[option]) > 0);
             case 'quantity':
             case 'margin':
             case 'volume':
                 return (parseFloat(configOptions[option]) >= limits[option].min);
+            default:
+                return true;
         }
     }
     const checkOptionsChange = (option) => {
@@ -79,6 +82,7 @@ export default function DefaultConfigSettings(props) {
         function checkOptionsReady() {
           for (let i = 0; i < Object.keys(configOptions).length; i ++) {
             if (!checkOptionsValid(Object.keys(configOptions)[i])) {
+                // console.log(Object.keys(configOptions)[i]);
                 return false;
             }
           }
@@ -224,7 +228,24 @@ export default function DefaultConfigSettings(props) {
                     </Select>
                 </FormControl>
             </Box>
-            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{p:2}}>
+                <FormControl>
+                    <FormLabel ><b>Stop Loss / Take Profit percentage</b></FormLabel>
+                    <RadioGroup
+                        sx={{p:1, display: 'flex', flexDirection: 'row'}}
+                        value={configOptions.hyperopt? "true" : "false"}
+                        name="hyperopt"
+                        onChange={(event) => {
+                            var newValue = event.target.value == "true" ? true : false;
+                            setConfigs({...configOptions, hyperopt: newValue});
+                        }}
+                    >
+                        <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
+                        <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
+                    </RadioGroup>
+                </FormControl>
+            </Box>
+            <Box sx={{p: 2, display: 'flex', flexDirection: 'row'}}>
                 <Box sx={{width: '50%'}}>
                     <FormControl fullWidth>
                         <InputLabel>Stop Loss Type</InputLabel>
@@ -243,6 +264,7 @@ export default function DefaultConfigSettings(props) {
                 <Box sx={{paddingLeft: '48px', width: '50%'}}>
                     <TextField 
                         required fullWidth
+                        disabled={configOptions.hyperopt}
                         type="number"
                         name="stopLoss" 
                         label={slLabel}
@@ -251,7 +273,7 @@ export default function DefaultConfigSettings(props) {
                             min: slLimitMin,
                             max: slLimitMax
                         }}
-                        value={configOptions.stopLoss}
+                        value={configOptions.hyperopt ? null : configOptions.stopLoss}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
                         <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
@@ -259,7 +281,7 @@ export default function DefaultConfigSettings(props) {
                 </Box>
             </Box>
             <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{width: '50%'}}>
+                <Box sx={{ width: '50%'}}>
                     <FormControl fullWidth>
                         <InputLabel>Take Profit Type</InputLabel>
                         <Select
@@ -277,6 +299,7 @@ export default function DefaultConfigSettings(props) {
                 <Box sx={{paddingLeft: '48px', width: '50%'}}>
                     <TextField 
                         required fullWidth
+                        disabled={configOptions.hyperopt}
                         type="number"
                         name="takeProfit" 
                         label={tpLabel}
@@ -285,7 +308,7 @@ export default function DefaultConfigSettings(props) {
                             min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min,
                             max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max
                         }}
-                        value={configOptions.takeProfit}
+                        value={configOptions.hyperopt ? null : configOptions.takeProfit}
                         onChange={handleOptionChange}/>
                     <Box sx={{padding: "24px 0 0 24px"}}>
                         <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
@@ -294,7 +317,7 @@ export default function DefaultConfigSettings(props) {
             </Box>
             <Box
                 sx={{
-                    '& > :not(style)': { m: 1, },
+                    '& > :not(style)': { p: 2 },
                     display: "flex",
                     flexDirection: "column"
                 }}

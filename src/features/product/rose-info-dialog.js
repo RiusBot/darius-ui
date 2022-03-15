@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -6,11 +6,10 @@ import { TimeseriesChart } from '@/features/product/components/timeseries-chart'
 
 export const RoseInfoDialog = (props) => {
     const { open, onClose } = props;
-    const [completeRecords, setCompleteRecords] = React.useState([]);
+    const [completeRecords, setCompleteRecords] = useState([]);
+    const [shortRecords, setShortRecords] = useState([])
 
-    const [shortRecords, setShortRecords] = React.useState([])
-
-    React.useEffect(() => {
+    useEffect(() => {
         async function getData(file) {
           const path = '/data/backtest_record/rose_backtest_' + file + '.csv';
           const response = await fetch(path);
