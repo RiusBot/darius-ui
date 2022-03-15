@@ -1,15 +1,14 @@
 IMAGE_NAME = darius-ui
 APP = app.yaml
+DISPATCH = dispatch.yaml
 
 ENV ?= $(firstword $(MAKECMDGOALS))
 ifeq ($(ENV), prod)
 	PROJECT_ID = darius-prod
 	CREDENTIAL = darius-prod-5bed36160a65.json
-	DISPATCH = dispatch-prod.yaml
 else
 	CREDENTIAL = darius-332003-6391a8358dec.json
 	PROJECT_ID = darius-332003
-	DISPATCH = dispatch.yaml
 endif
 
 ifeq ($(words $(MAKECMDGOALS)), 1)
@@ -68,5 +67,5 @@ log:
 clean:
 	@find . -name ".ipynb*" -exec rm -rv {} +
 
-dispatch:
+dispatch: set-project
 	gcloud app deploy $(DISPATCH)
