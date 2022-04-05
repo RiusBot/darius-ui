@@ -11,7 +11,7 @@ import { getUserApi } from '@/features/api/api-selector';
 
 const limits = { stopLoss: { min: 0, max: 100},
                  takeProfit: { min: 0, max: 500 },
-                 callback: { binance: {min: 0.1, max: 5}, ftx: {min: -30, max: 30}},
+                 callback: { min: 0.1, max: 5 },
                  quantity: { min: 30, max: 10000000000 },
                  leverage: { min: 0, max: 10000000000 },
                  margin: { min: 0, max: 1000 },
@@ -40,11 +40,11 @@ export default function DefaultConfigSettings(props) {
         setConfigs({...configOptions, [name]: value});
     };
     const exchange = userApi[configOptions['api']] ? userApi[configOptions['api']].exchange : "binance";
-    const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.stopLoss.max;
-    const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.stopLoss.min;
+    const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'].max : limits.stopLoss.max;
+    const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'].min : limits.stopLoss.min;
     const slLabel = (configOptions['stopLossType'] === 'TRAILING') ? "Callback Rate %" : "Stop Loss %";
-    const tpLimitMax = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max;
-    const tpLimitMin = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min;
+    const tpLimitMax = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max;
+    const tpLimitMin = (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min;
     const tpLabel = (configOptions['takeProfitType'] === 'TRAILING') ? "Callback Rate %" : "Take Profit %";
     const checkOptionsValid = (option) => {
         if (configOptions[option] === '') return false;
@@ -60,7 +60,7 @@ export default function DefaultConfigSettings(props) {
                 if (configOptions['hyperopt'] === true) 
                     return true;
                 else if (configOptions['takeProfitType'] == 'TRAILING')
-                    return (limits['callback'][exchange].min <= configOptions[option] && configOptions[option] <= limits['callback'][exchange].max);
+                    return (limits['callback'].min <= configOptions[option] && configOptions[option] <= limits['callback'].max);
                 else 
                     return (limits[option].min <= configOptions[option] && configOptions[option] < limits[option].max);
             case 'leverage':
@@ -305,8 +305,8 @@ export default function DefaultConfigSettings(props) {
                         label={tpLabel}
                         variant="outlined" 
                         inputProps={{
-                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].min : limits.takeProfit.min,
-                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'][exchange].max : limits.takeProfit.max
+                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min,
+                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max
                         }}
                         value={configOptions.hyperopt ? null : configOptions.takeProfit}
                         onChange={handleOptionChange}/>
