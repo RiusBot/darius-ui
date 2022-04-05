@@ -82,7 +82,7 @@ const TransactionCreateForm = (props) => {
                 gutterBottom
                 variant="h6"
                 >
-                Deposit Address: &nbsp; TWNyKqCpGga6cDwq732YtzDMt65KnJ1V3Q
+                Deposit Address (TRC20): &nbsp; TWNyKqCpGga6cDwq732YtzDMt65KnJ1V3Q
             </Typography>
             <Button
                 aria-label="copy address to clipboard"
