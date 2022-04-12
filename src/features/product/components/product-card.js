@@ -6,7 +6,7 @@ import { MixedChart } from '@/features/product/components/mixed-chart';
 
 export const ProductCard = (props) => {
   const { product, chartData, openInfoDialog } = props;
-  const reversedData = [...chartData].reverse();
+  const reversedData = (chartData === undefined) ? chartData : [...chartData].reverse();
 
   return (
     <Card

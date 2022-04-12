@@ -11,6 +11,7 @@ import { DailyScalpingInfoDialog } from '@/features/product/daily-info-dialog';
 import { PerpetualInfoDialog } from '@/features/product/perpetual-info-dialog';
 import { VegasInfoDialog } from '@/features/product/vegas-info-dialog';
 import { JustinInfoDialog } from '@/features/product/justin-info-dialog';
+import { MoonInfoDialog } from '@/features/product/moon-info-dialog';
 import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
 import { loadPerformance  } from '@/features/product/product-slice';
 import { getAllPerformance } from '@/features/product/product-selector';
@@ -103,6 +104,10 @@ const Products = () => {
         />
       <JustinInfoDialog
         open={infoDialog == 'JUSTIN'}
+        onClose={handleBotInfoDialogClose}
+        />
+      <MoonInfoDialog
+        open={infoDialog == 'MOON'}
         onClose={handleBotInfoDialogClose}
         />
       <WebhookInfoDialog

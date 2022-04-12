@@ -6,7 +6,8 @@ export const products = [
     channelDisplayName: 'Rose Premium',
     description: ['ROSE 100btc CHALLENGE', 'Starting: 0.1 BTC', 'Target: 100BTC', 'Duration: 1 year', 'Plan: ~2-4% per day'],
     media: '/static/images/products/rose.png',
-  },{
+  },
+  {
     channel: 'WHALE',
     channelDisplayName: 'Whale Hunting',
     description: ['Analyzes real time whale activities on DeFi protocols and Ethereum wallets.',
@@ -38,6 +39,12 @@ export const products = [
     channelDisplayName: "Justin's Trading Room",
     description: ['歡迎各位追蹤我的頻道。我是 Justin ，在台股用程式交易操盤 18 年，目前專注在加密貨幣市場的交易，我習慣用多個指標去做中長期的布局操作，並且使用 Pionex 平台提供的交易工具管控交易風險。'],
     media: '/static/images/products/Pionex.png',
+  },
+  {
+    channel: 'MOON',
+    channelDisplayName: "Moon Phases",
+    description: ['月相玄學指標策略，新月做空，滿月做多。', '此策略只會操作 BTC ETH 兩種。'],
+    media: '/static/images/products/moon.jpg',
   },
   {
     channel: 'WEBHOOK',
@@ -83,6 +90,11 @@ export const productMedia = {
     channelDisplayName: "Justin's Trading Room",
     media: '/static/images/products/Pionex.png',
     channel: 'JUSTIN',
+  },
+  'MOON': {
+    channelDisplayName: "Moon Phases",
+    media: '/static/images/products/moon.jpg',
+    channel: 'MOON',
   },
   'WEBHOOK': {
     channelDisplayName: "Webhook Bot",
