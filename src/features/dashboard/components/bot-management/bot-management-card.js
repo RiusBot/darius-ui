@@ -2,8 +2,6 @@ import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardHeader, Box, Tab, Typography, Button } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
 import { loadUserBots, loadBotTrades } from '@/features/dashboard/dashboard-slice';
@@ -34,7 +32,7 @@ export default function BotManagementCard(props) {
     };
 
     const BotInfo = (props) => {
-      const { value }= props;
+      const { value } = props;
       if (userBots[parseInt(value)]) {
         return (<Box >
                     <Box sx={{ minWidth: '320px' }} >

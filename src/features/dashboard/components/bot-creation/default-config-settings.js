@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
+import { FormGroup, FormControlLabel, Checkbox, Typography, Tab } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { FormLabel, RadioGroup, Radio } from '@mui/material';
 import { IconButton, Tooltip } from '@mui/material';
 import { TextField, Divider} from '@mui/material';
@@ -21,6 +23,10 @@ const limits = { stopLoss: { min: 0, max: 100},
 export default function DefaultConfigSettings(props) {
     const { saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders } = props;
     const userApi = useSelector(getUserApi);
+    const [tab, setTab] = useState('0');
+    const handleTabChange = (event, newValue) => {
+        setTab(newValue);
+    }
     const handleCheckBoxChange = (event) => {
         setOrders({...orderOptions, [event.target.id]: event.target.checked});
     }
@@ -78,7 +84,7 @@ export default function DefaultConfigSettings(props) {
         if (oldConfig == undefined) return true;
         return (configOptions[option] !== oldConfig[option]);
     }
-    React.useEffect(() => {
+    useEffect(() => {
         function checkOptionsReady() {
           for (let i = 0; i < Object.keys(configOptions).length; i ++) {
             if (!checkOptionsValid(Object.keys(configOptions)[i])) {
@@ -198,197 +204,248 @@ export default function DefaultConfigSettings(props) {
                 </Tooltip>
             </Box>
             <Box sx={{p:2}}>
-                <FormControl fullWidth>
-                    <InputLabel >Target</InputLabel>
-                    <Select
-                        name="target"
-                        id="target"
-                        value={configOptions.target}
-                        label="Target"
-                        onChange={handleOptionChange}
-                    >
-                        <MenuItem value={"SPOT"}>SPOT</MenuItem>
-                        <MenuItem value={"MARGIN"}>MARGIN</MenuItem>
-                        <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-            <Box sx={{p:2}}>
-                <FormControl fullWidth>
-                    <InputLabel >Order Type</InputLabel>
-                    <Select
-                    name="orderType"
-                    id="orderType"
-                    value={configOptions.orderType}
-                    label="orderType"
-                    onChange={handleOptionChange}
-                    >
-                        <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
-                        <MenuItem value={"MARKET"}>MARKET</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-            <Box sx={{p:2}}>
-                <FormControl>
-                    <FormLabel ><b>Stop Loss / Take Profit percentage</b></FormLabel>
-                    <RadioGroup
-                        sx={{p:1, display: 'flex', flexDirection: 'row'}}
-                        value={configOptions.hyperopt? "true" : "false"}
-                        name="hyperopt"
-                        onChange={(event) => {
-                            var newValue = event.target.value == "true" ? true : false;
-                            setConfigs({...configOptions, hyperopt: newValue});
-                        }}
-                    >
-                        <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
-                        <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
-                    </RadioGroup>
-                </FormControl>
-            </Box>
-            <Box sx={{p: 2, display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{width: '50%'}}>
-                    <FormControl fullWidth>
-                        <InputLabel>Stop Loss Type</InputLabel>
-                        <Select
-                        name="stopLossType"
-                        value={configOptions.stopLossType}
-                        label="stopLossType"
-                        onChange={handleOptionChange}
+                <TabContext value={tab}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <TabList
+                            onChange={handleTabChange}
+                            aria-label="Config Mode Tabs"
+                            sx={{ borderRight: 1, borderColor: 'divider', minWidth: '120px' }}
                         >
-                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
-                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
-                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box sx={{paddingLeft: '48px', width: '50%'}}>
-                    <TextField 
-                        required fullWidth
-                        disabled={configOptions.hyperopt}
-                        type="number"
-                        name="stopLoss" 
-                        label={slLabel}
-                        variant="outlined" 
-                        inputProps={{
-                            min: slLimitMin,
-                            max: slLimitMax
-                        }}
-                        value={configOptions.hyperopt ? null : configOptions.stopLoss}
-                        onChange={handleOptionChange}/>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
+                            <Tab label={"Lazy Mode"} value="0" />
+                            <Tab label={"Pro Mode"} value="1" />
+                        </TabList>
                     </Box>
-                </Box>
+                    <TabPanel value="0" sx={{ width: '100%'}}>
+                        <Box sx={{p: 2, display: "flex", flexDirection: "row"}}>
+                            <Box sx={{width: '30%'}}>
+                                <TextField 
+                                    required fullWidth
+                                    type="number"
+                                    name="quantity" 
+                                    label="Quantity" 
+                                    variant="outlined" 
+                                    inputProps={{ min: 0, max: limits.quantity.max }}
+                                    value={configOptions.quantity}
+                                    onChange={handleOptionChange}/>
+                            </Box>
+                            <Box sx={{padding: "24px 0 0 24px"}}>
+                                <Typography variant="button" display="block" gutterBottom >Quantity &gt;= 30</Typography>
+                            </Box>
+                        </Box>
+                        <Box sx={{p: 2, display: "flex", flexDirection: "row"}}>
+                            <Box sx={{width: '30%'}}>
+                                <TextField 
+                                    required fullWidth
+                                    type="number"
+                                    name="leverage" 
+                                    label="Leverage" 
+                                    variant="outlined" 
+                                    inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
+                                    value={configOptions.leverage}
+                                    onChange={handleOptionChange}/>
+                            </Box>
+                            <Box sx={{padding: "24px 0 0 24px"}}>
+                                <Typography variant="button" display="block" gutterBottom >Leverage &gt; 0</Typography>
+                            </Box>
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value="1" sx={{ width: '100%'}}>
+                        <Box sx={{p:2}}>
+                            <FormControl fullWidth>
+                                <InputLabel >Target</InputLabel>
+                                <Select
+                                    name="target"
+                                    id="target"
+                                    value={configOptions.target}
+                                    label="Target"
+                                    onChange={handleOptionChange}
+                                >
+                                    <MenuItem value={"SPOT"}>SPOT</MenuItem>
+                                    <MenuItem value={"MARGIN"}>MARGIN</MenuItem>
+                                    <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </Box>
+                            <Box sx={{p:2}}>
+                                <FormControl fullWidth>
+                                    <InputLabel >Order Type</InputLabel>
+                                    <Select
+                                    name="orderType"
+                                    id="orderType"
+                                    value={configOptions.orderType}
+                                    label="orderType"
+                                    onChange={handleOptionChange}
+                                    >
+                                        <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                                        <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <Box sx={{p:2}}>
+                                <FormControl>
+                                    <FormLabel ><b>Stop Loss / Take Profit percentage</b></FormLabel>
+                                    <RadioGroup
+                                        sx={{p:1, display: 'flex', flexDirection: 'row'}}
+                                        value={configOptions.hyperopt? "true" : "false"}
+                                        name="hyperopt"
+                                        onChange={(event) => {
+                                            var newValue = event.target.value == "true" ? true : false;
+                                            setConfigs({...configOptions, hyperopt: newValue});
+                                        }}
+                                    >
+                                        <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
+                                        <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Box>
+                            <Box sx={{p: 2, display: 'flex', flexDirection: 'row'}}>
+                                <Box sx={{width: '50%'}}>
+                                    <FormControl fullWidth>
+                                        <InputLabel>Stop Loss Type</InputLabel>
+                                        <Select
+                                        name="stopLossType"
+                                        value={configOptions.stopLossType}
+                                        label="stopLossType"
+                                        onChange={handleOptionChange}
+                                        >
+                                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                                <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                                    <TextField 
+                                        required fullWidth
+                                        disabled={configOptions.hyperopt}
+                                        type="number"
+                                        name="stopLoss" 
+                                        label={slLabel}
+                                        variant="outlined" 
+                                        inputProps={{
+                                            min: slLimitMin,
+                                            max: slLimitMax
+                                        }}
+                                        value={configOptions.hyperopt ? null : configOptions.stopLoss}
+                                        onChange={handleOptionChange}/>
+                                    <Box sx={{padding: "24px 0 0 24px"}}>
+                                        <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
+                                <Box sx={{ width: '50%'}}>
+                                    <FormControl fullWidth>
+                                        <InputLabel>Take Profit Type</InputLabel>
+                                        <Select
+                                        name="takeProfitType"
+                                        value={configOptions.takeProfitType}
+                                        label="takeProfitType"
+                                        onChange={handleOptionChange}
+                                        >
+                                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                                <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                                    <TextField 
+                                        required fullWidth
+                                        disabled={configOptions.hyperopt}
+                                        type="number"
+                                        name="takeProfit" 
+                                        label={tpLabel}
+                                        variant="outlined" 
+                                        inputProps={{
+                                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min,
+                                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max
+                                        }}
+                                        value={configOptions.hyperopt ? null : configOptions.takeProfit}
+                                        onChange={handleOptionChange}/>
+                                    <Box sx={{padding: "24px 0 0 24px"}}>
+                                        <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                            <Box
+                                sx={{
+                                    '& > :not(style)': { p: 2 },
+                                    display: "flex",
+                                    flexDirection: "column"
+                                }}
+                                noValidate
+                                autoComplete="off"
+                                >
+                            <Box sx={{display: "flex", flexDirection: "row"}}>
+                                <Box sx={{width: '30%'}}>
+                                    <TextField 
+                                        required fullWidth
+                                        type="number"
+                                        name="quantity" 
+                                        label="Quantity" 
+                                        variant="outlined" 
+                                        inputProps={{ min: 0, max: limits.quantity.max }}
+                                        value={configOptions.quantity}
+                                        onChange={handleOptionChange}/>
+                                </Box>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >Quantity &gt;= 30</Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{display: "flex", flexDirection: "row"}}>
+                                <Box sx={{width: '30%'}}>
+                                    <TextField 
+                                        required fullWidth
+                                        type="number"
+                                        name="leverage" 
+                                        label="Leverage" 
+                                        variant="outlined" 
+                                        inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
+                                        value={configOptions.leverage}
+                                        onChange={handleOptionChange}/>
+                                </Box>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >Leverage &gt; 0</Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{display: "flex", flexDirection: "row"}}>
+                                <Box sx={{width: '30%'}}>
+                                    <TextField 
+                                        fullWidth
+                                        type="number"
+                                        name="margin" 
+                                        label="Minimum Margin Ratio/level %"
+                                        variant="outlined" 
+                                        inputProps={{ min: limits.margin.min, max: limits.margin.max }}
+                                        value={configOptions.margin}
+                                        onChange={handleOptionChange}/>
+                                </Box>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >Margin &gt; 0 ( 0 if no use )</Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{display: "flex", flexDirection: "row"}}>
+                                <Box sx={{width: '30%'}}>
+                                    <TextField 
+                                        fullWidth
+                                        type="number"
+                                        name="volume" 
+                                        label="Minimum Volume" 
+                                        variant="outlined"
+                                        inputProps={{ min: limits.volume.min, max: limits.volume.max }}
+                                        value={configOptions.volume}
+                                        onChange={handleOptionChange}/>
+                                </Box>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( 0 if no use )</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </TabPanel>
+                </TabContext>
             </Box>
-            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{ width: '50%'}}>
-                    <FormControl fullWidth>
-                        <InputLabel>Take Profit Type</InputLabel>
-                        <Select
-                        name="takeProfitType"
-                        value={configOptions.takeProfitType}
-                        label="takeProfitType"
-                        onChange={handleOptionChange}
-                        >
-                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
-                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
-                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box sx={{paddingLeft: '48px', width: '50%'}}>
-                    <TextField 
-                        required fullWidth
-                        disabled={configOptions.hyperopt}
-                        type="number"
-                        name="takeProfit" 
-                        label={tpLabel}
-                        variant="outlined" 
-                        inputProps={{
-                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min,
-                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max
-                        }}
-                        value={configOptions.hyperopt ? null : configOptions.takeProfit}
-                        onChange={handleOptionChange}/>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
-                    </Box>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    '& > :not(style)': { p: 2 },
-                    display: "flex",
-                    flexDirection: "column"
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <Box sx={{width: '30%'}}>
-                        <TextField 
-                            required fullWidth
-                            type="number"
-                            name="quantity" 
-                            label="Quantity" 
-                            variant="outlined" 
-                            inputProps={{ min: 0, max: limits.quantity.max }}
-                            value={configOptions.quantity}
-                            onChange={handleOptionChange}/>
-                    </Box>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Quantity &gt; 30</Typography>
-                    </Box>
-                </Box>
-                <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <Box sx={{width: '30%'}}>
-                        <TextField 
-                            required fullWidth
-                            type="number"
-                            name="leverage" 
-                            label="Leverage" 
-                            variant="outlined" 
-                            inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
-                            value={configOptions.leverage}
-                            onChange={handleOptionChange}/>
-                    </Box>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Leverage &gt; 0</Typography>
-                    </Box>
-                </Box>
-                <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <Box sx={{width: '30%'}}>
-                        <TextField 
-                            fullWidth
-                            type="number"
-                            name="margin" 
-                            label="Minimum Margin Ratio/level %"
-                            variant="outlined" 
-                            inputProps={{ min: limits.margin.min, max: limits.margin.max }}
-                            value={configOptions.margin}
-                            onChange={handleOptionChange}/>
-                    </Box>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Margin &gt; 0 ( 0 if no use )</Typography>
-                    </Box>
-                </Box>
-                <Box sx={{display: "flex", flexDirection: "row"}}>
-                    <Box sx={{width: '30%'}}>
-                        <TextField 
-                            fullWidth
-                            type="number"
-                            name="volume" 
-                            label="Minimum Volume" 
-                            variant="outlined"
-                            inputProps={{ min: limits.volume.min, max: limits.volume.max }}
-                            value={configOptions.volume}
-                            onChange={handleOptionChange}/>
-                    </Box>
-                    <Box sx={{padding: "24px 0 0 24px"}}>
-                        <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( 0 if no use )</Typography>
-                    </Box>
-                </Box>
-            </Box>
+            
         </Box>
     );
 }

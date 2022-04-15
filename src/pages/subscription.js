@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Card, CardHeader, CardContent, Divider } from '@mui/material';
+import { Box, Container, Typography, Card, CardHeader, CardMedia, Divider } from '@mui/material';
 import withAuth from '@/common/utils/auth';
 import SubscriptionPlans from '@/features/subscription/components/subscription-plans';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
@@ -47,16 +47,44 @@ const Subscription = () => {
       >
         <Container maxWidth={false}>
           <Card>
+            <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+            <CardMedia
+              component="img"
+              height="140"
+              image={'/static/images/celebration.png'}
+              alt="Celebration"
+            />
+            <CardMedia
+              component="img"
+              height="140"
+              image={'/static/images/celebration.png'}
+              alt="Celebration"
+            />
+            <CardMedia
+              component="img"
+              height="140"
+              image={'/static/images/celebration.png'}
+              alt="Celebration"
+            />
+            </Box>
             <CardHeader
-              subheader="30% refunding for first subscription. 15% refunding for renew subscription."
               title="Opening Offer"
             />
-            <Divider />
+            <Box sx={{ padding: '0 32px 32px' }} >
+              <Typography 
+                color="textSecondary"
+                variant="button"
+                sx={{ textAlign: 'center', width: '100%'}}>
+                30% refunding for first subscription. 15% refunding for renew subscription.
+              </Typography>
+            </Box>
+          </Card>
+          <Card sx={{ marginTop: '32px' }}>
             <CardHeader
               subheader="Currently subscribed channels and according expire date."
               title="Subscriptions"
             />
-            <Box sx={{padding: '0 32px 32px'}} >
+            <Box sx={{ padding: '0 32px 32px' }} >
               <SubscriptionCurrent
                 subscriptions={subscriptions}
               />

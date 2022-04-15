@@ -72,14 +72,14 @@ export const ProductCard = (props) => {
               display: 'flex'
             }}
           >
-            <ClockIcon color="action" />
+            <ClockIcon color={(product.status == 'suspended') ? 'disabled' : 'active'} />
             <Typography
               color="textSecondary"
               display="inline"
               sx={{ pl: 1 }}
               variant="body2"
             >
-              Updated 2hr ago
+              Status: {product.status.toUpperCase()}
             </Typography>
           </Grid>
           <Grid
