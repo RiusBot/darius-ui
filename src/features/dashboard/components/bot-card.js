@@ -50,12 +50,11 @@ const BotCard = (props) => {
             endIcon={<AddCircle fontSize="small" />}
             size="small"
             variant="contained"
-            disabled={(bot.status == 'suspended')}
             onClick={() => openCreateBotDialog({action: "botCreate", 
                                                 channel: bot.channel, 
                                                 channelDisplayName: bot.channelDisplayName})}
           >
-            {(bot.status == 'suspended')? 'Bot Suspended' : 'Create'}
+            Create
           </Button>
         </Box>
       </CardContent>

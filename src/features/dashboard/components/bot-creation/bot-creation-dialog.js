@@ -1,37 +1,57 @@
-import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
-import DefaultConfigSettings from '@/features/dashboard/components/bot-creation/default-config-settings';
+import ConfigSettings from '@/features/dashboard/components/bot-creation/config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { createUserBot } from '@/features/dashboard/dashboard-slice';
+import { defaultConfigSettings } from '__data__/defaultConfigSettings';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
     const { open, channel, channelDisplayName, onClose } = props;
-    const [createButtonDisabled, setCreateButtonDisabled] = React.useState(true);
-    const [orderOptions, setOrders] = React.useState({test: false, duplicate: true});
-    const [configOptions, setConfigs] = React.useState({api: '', 
-                                                        hyperopt: false,
-                                                        target: '', 
-                                                        orderType: '', 
-                                                        stopLossType: '', 
-                                                        stopLoss: 0,
-                                                        takeProfitType: '', 
-                                                        takeProfit: 0, 
-                                                        quantity: 30, 
-                                                        leverage: 1,
-                                                        margin: 0, 
-                                                        volume: 0
+    const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
+    const [orderOptions, setOrders] = useState({test: false, duplicate: true});
+    const [configTab, setTab] = useState('0'); // 0 for Lazy Mode
+    const [configOptions, setConfigs] = useState({api: '', 
+                                                        hyperopt: defaultConfigSettings.hyperopt,
+                                                        target: defaultConfigSettings.target, 
+                                                        orderType: defaultConfigSettings.orderType, 
+                                                        stopLossType: defaultConfigSettings.stopLossType, 
+                                                        stopLoss: defaultConfigSettings.stopLoss,
+                                                        takeProfitType: defaultConfigSettings.takeProfitType, 
+                                                        takeProfit: defaultConfigSettings.takeProfit, 
+                                                        quantity: defaultConfigSettings.quantity, 
+                                                        leverage: defaultConfigSettings.leverage,
+                                                        margin: defaultConfigSettings.margin, 
+                                                        volume: defaultConfigSettings.volume
                                                     });
     const handleCreateButton = (disabled) => {
         setCreateButtonDisabled(disabled);
     }
     
     const createButtonClicked = () => {
-        const createBotInfo = {orderOptions: orderOptions,
-                               configOptions: configOptions,
-                               channel: channel,
-                               };
+        const validatedConfigOptions = configOptions;
+        if (configTab == '0') {
+            validatedConfigOptions = {
+                api: configOptions.api, 
+                quantity: configOptions.quantity, 
+                hyperopt: defaultConfigSettings.hyperopt,
+                target: defaultConfigSettings.target, 
+                orderType: defaultConfigSettings.orderType, 
+                stopLossType: defaultConfigSettings.stopLossType, 
+                stopLoss: defaultConfigSettings.stopLoss,
+                takeProfitType: defaultConfigSettings.takeProfitType, 
+                takeProfit: defaultConfigSettings.takeProfit,
+                leverage: defaultConfigSettings.leverage,
+                margin: defaultConfigSettings.margin, 
+                volume: defaultConfigSettings.volume
+            }
+        }
+        const createBotInfo = {
+                                orderOptions: orderOptions,
+                                configOptions: validatedConfigOptions,
+                                channel: channel,
+                              };
         dispatch(createUserBot(createBotInfo));
         onClose();
     }
@@ -63,12 +83,14 @@ function BotCreationDialog(props) {
                 sx={{
                     padding: '16px',
                     overflowY: 'scroll',}}>
-                <DefaultConfigSettings
+                <ConfigSettings
                     saveDisabled={handleCreateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}
                     orderOptions={orderOptions}
                     setOrders={setOrders}
+                    configTab={configTab}
+                    setTab={setTab}
                 />
                 <Box
                     sx={{

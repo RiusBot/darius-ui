@@ -8,7 +8,10 @@ import { FormLabel, RadioGroup, Radio } from '@mui/material';
 import { IconButton, Tooltip } from '@mui/material';
 import { TextField, Divider} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
+import KeyIcon from '@mui/icons-material/Key';
+import { NavItem } from '@/common/components/nav-item';
 import { getUserApi } from '@/features/api/api-selector';
+import { lazyModeRequiredInput } from '__data__/defaultConfigSettings';
 
 
 const limits = { stopLoss: { min: 0, max: 100},
@@ -20,10 +23,15 @@ const limits = { stopLoss: { min: 0, max: 100},
                  volume: { min: 0, max: 10000000000 }
                 };
 
-export default function DefaultConfigSettings(props) {
-    const { saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders } = props;
+const apiKeySetting = {
+                        href: '/api-setting',
+                        icon: (<KeyIcon fontSize="small" />),
+                        title: 'Go To API Key Setting'
+                      }
+
+export default function ConfigSettings(props) {
+    const { saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders, configTab, setTab } = props;
     const userApi = useSelector(getUserApi);
-    const [tab, setTab] = useState('0');
     const handleTabChange = (event, newValue) => {
         setTab(newValue);
     }
@@ -86,15 +94,17 @@ export default function DefaultConfigSettings(props) {
     }
     useEffect(() => {
         function checkOptionsReady() {
-          for (let i = 0; i < Object.keys(configOptions).length; i ++) {
-            if (!checkOptionsValid(Object.keys(configOptions)[i])) {
-                // console.log(Object.keys(configOptions)[i]);
+          const checkOptions = (configTab == '0') ? lazyModeRequiredInput : Object.keys(configOptions);
+
+          for (let i = 0; i < checkOptions.length; i ++) {
+            if (!checkOptionsValid(checkOptions[i])) {
+                // console.log(checkOptions[i]);
                 return false;
             }
           }
-          for (let i = 0; i < Object.keys(configOptions).length; i ++) {
-            if (checkOptionsChange(Object.keys(configOptions)[i])) {
-                // console.log(Object.keys(configOptions)[i]);
+          for (let i = 0; i < checkOptions.length; i ++) {
+            if (checkOptionsChange(checkOptions[i])) {
+                // console.log(checkOptions[i]);
                 return true;
             }
           }
@@ -108,6 +118,12 @@ export default function DefaultConfigSettings(props) {
         if (userApi == undefined || Object.keys(userApi).length == 0 ) {
             return (<Typography color="textSecondary" variant="button" component="div">
                         Please add your api keys first in the API Key Settings page
+                        <NavItem
+                            key={apiKeySetting.title}
+                            icon={apiKeySetting.icon}
+                            href={apiKeySetting.href}
+                            title={apiKeySetting.title}
+                            />
                     </Typography>)
         }
         return (<FormControl fullWidth>
@@ -204,7 +220,7 @@ export default function DefaultConfigSettings(props) {
                 </Tooltip>
             </Box>
             <Box sx={{p:2}}>
-                <TabContext value={tab}>
+                <TabContext value={configTab}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList
                             onChange={handleTabChange}
@@ -216,6 +232,22 @@ export default function DefaultConfigSettings(props) {
                         </TabList>
                     </Box>
                     <TabPanel value="0" sx={{ width: '100%'}}>
+                        <Box sx={{p:2}}>
+                            <FormControl fullWidth>
+                                <InputLabel >Target</InputLabel>
+                                <Select
+                                    name="target"
+                                    id="target"
+                                    value={configOptions.target}
+                                    label="Target"
+                                    onChange={handleOptionChange}
+                                >
+                                    <MenuItem value={"SPOT"}>SPOT</MenuItem>
+                                    <MenuItem value={"MARGIN"}>MARGIN</MenuItem>
+                                    <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
                         <Box sx={{p: 2, display: "flex", flexDirection: "row"}}>
                             <Box sx={{width: '30%'}}>
                                 <TextField 
@@ -230,22 +262,6 @@ export default function DefaultConfigSettings(props) {
                             </Box>
                             <Box sx={{padding: "24px 0 0 24px"}}>
                                 <Typography variant="button" display="block" gutterBottom >Quantity &gt;= 30</Typography>
-                            </Box>
-                        </Box>
-                        <Box sx={{p: 2, display: "flex", flexDirection: "row"}}>
-                            <Box sx={{width: '30%'}}>
-                                <TextField 
-                                    required fullWidth
-                                    type="number"
-                                    name="leverage" 
-                                    label="Leverage" 
-                                    variant="outlined" 
-                                    inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
-                                    value={configOptions.leverage}
-                                    onChange={handleOptionChange}/>
-                            </Box>
-                            <Box sx={{padding: "24px 0 0 24px"}}>
-                                <Typography variant="button" display="block" gutterBottom >Leverage &gt; 0</Typography>
                             </Box>
                         </Box>
                     </TabPanel>
@@ -265,110 +281,110 @@ export default function DefaultConfigSettings(props) {
                                     <MenuItem value={"FUTURE"}>FUTURE</MenuItem>
                                 </Select>
                             </FormControl>
-                            </Box>
-                            <Box sx={{p:2}}>
+                        </Box>
+                        <Box sx={{p:2}}>
+                            <FormControl fullWidth>
+                                <InputLabel >Order Type</InputLabel>
+                                <Select
+                                name="orderType"
+                                id="orderType"
+                                value={configOptions.orderType}
+                                label="orderType"
+                                onChange={handleOptionChange}
+                                >
+                                    <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                                    <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box sx={{p:2}}>
+                            <FormControl>
+                                <FormLabel ><b>Stop Loss / Take Profit percentage</b></FormLabel>
+                                <RadioGroup
+                                    sx={{p:1, display: 'flex', flexDirection: 'row'}}
+                                    value={configOptions.hyperopt? "true" : "false"}
+                                    name="hyperopt"
+                                    onChange={(event) => {
+                                        var newValue = event.target.value == "true" ? true : false;
+                                        setConfigs({...configOptions, hyperopt: newValue});
+                                    }}
+                                >
+                                    <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
+                                    <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
+                                </RadioGroup>
+                            </FormControl>
+                        </Box>
+                        <Box sx={{p: 2, display: 'flex', flexDirection: 'row'}}>
+                            <Box sx={{width: '50%'}}>
                                 <FormControl fullWidth>
-                                    <InputLabel >Order Type</InputLabel>
+                                    <InputLabel>Stop Loss Type</InputLabel>
                                     <Select
-                                    name="orderType"
-                                    id="orderType"
-                                    value={configOptions.orderType}
-                                    label="orderType"
+                                    name="stopLossType"
+                                    value={configOptions.stopLossType}
+                                    label="stopLossType"
                                     onChange={handleOptionChange}
                                     >
                                         <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
                                         <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                        <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>
-                            <Box sx={{p:2}}>
-                                <FormControl>
-                                    <FormLabel ><b>Stop Loss / Take Profit percentage</b></FormLabel>
-                                    <RadioGroup
-                                        sx={{p:1, display: 'flex', flexDirection: 'row'}}
-                                        value={configOptions.hyperopt? "true" : "false"}
-                                        name="hyperopt"
-                                        onChange={(event) => {
-                                            var newValue = event.target.value == "true" ? true : false;
-                                            setConfigs({...configOptions, hyperopt: newValue});
-                                        }}
+                            <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                                <TextField 
+                                    required fullWidth
+                                    disabled={configOptions.hyperopt}
+                                    type="number"
+                                    name="stopLoss" 
+                                    label={slLabel}
+                                    variant="outlined" 
+                                    inputProps={{
+                                        min: slLimitMin,
+                                        max: slLimitMax
+                                    }}
+                                    value={configOptions.hyperopt ? null : configOptions.stopLoss}
+                                    onChange={handleOptionChange}/>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
+                            <Box sx={{ width: '50%'}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Take Profit Type</InputLabel>
+                                    <Select
+                                    name="takeProfitType"
+                                    value={configOptions.takeProfitType}
+                                    label="takeProfitType"
+                                    onChange={handleOptionChange}
                                     >
-                                        <FormControlLabel value={"true"} control={<Radio />} label="AI Optimization" />
-                                        <FormControlLabel value={"false"} control={<Radio />} label="Custom Input" />
-                                    </RadioGroup>
+                                        <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
+                                        <MenuItem value={"MARKET"}>MARKET</MenuItem>
+                                        <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
+                                    </Select>
                                 </FormControl>
                             </Box>
-                            <Box sx={{p: 2, display: 'flex', flexDirection: 'row'}}>
-                                <Box sx={{width: '50%'}}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Stop Loss Type</InputLabel>
-                                        <Select
-                                        name="stopLossType"
-                                        value={configOptions.stopLossType}
-                                        label="stopLossType"
-                                        onChange={handleOptionChange}
-                                        >
-                                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
-                                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
-                                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box sx={{paddingLeft: '48px', width: '50%'}}>
-                                    <TextField 
-                                        required fullWidth
-                                        disabled={configOptions.hyperopt}
-                                        type="number"
-                                        name="stopLoss" 
-                                        label={slLabel}
-                                        variant="outlined" 
-                                        inputProps={{
-                                            min: slLimitMin,
-                                            max: slLimitMax
-                                        }}
-                                        value={configOptions.hyperopt ? null : configOptions.stopLoss}
-                                        onChange={handleOptionChange}/>
-                                    <Box sx={{padding: "24px 0 0 24px"}}>
-                                        <Typography variant="button" display="block" gutterBottom >{slLimitMax}% &gt; {slLabel} &gt; {slLimitMin}%</Typography>
-                                    </Box>
+                            <Box sx={{paddingLeft: '48px', width: '50%'}}>
+                                <TextField 
+                                    required fullWidth
+                                    disabled={configOptions.hyperopt}
+                                    type="number"
+                                    name="takeProfit" 
+                                    label={tpLabel}
+                                    variant="outlined" 
+                                    inputProps={{
+                                        min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min,
+                                        max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max
+                                    }}
+                                    value={configOptions.hyperopt ? null : configOptions.takeProfit}
+                                    onChange={handleOptionChange}/>
+                                <Box sx={{padding: "24px 0 0 24px"}}>
+                                    <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{p:2, display: 'flex', flexDirection: 'row'}}>
-                                <Box sx={{ width: '50%'}}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Take Profit Type</InputLabel>
-                                        <Select
-                                        name="takeProfitType"
-                                        value={configOptions.takeProfitType}
-                                        label="takeProfitType"
-                                        onChange={handleOptionChange}
-                                        >
-                                            <MenuItem value={"LIMIT"}>LIMIT</MenuItem>
-                                            <MenuItem value={"MARKET"}>MARKET</MenuItem>
-                                            <MenuItem value={"TRAILING"}>TRAILING</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box sx={{paddingLeft: '48px', width: '50%'}}>
-                                    <TextField 
-                                        required fullWidth
-                                        disabled={configOptions.hyperopt}
-                                        type="number"
-                                        name="takeProfit" 
-                                        label={tpLabel}
-                                        variant="outlined" 
-                                        inputProps={{
-                                            min: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].min : limits.takeProfit.min,
-                                            max: (configOptions['takeProfitType'] === 'TRAILING') ? limits['callback'].max : limits.takeProfit.max
-                                        }}
-                                        value={configOptions.hyperopt ? null : configOptions.takeProfit}
-                                        onChange={handleOptionChange}/>
-                                    <Box sx={{padding: "24px 0 0 24px"}}>
-                                        <Typography variant="button" display="block" gutterBottom >{tpLimitMax}% &gt; {tpLabel} &gt; {tpLimitMin}% </Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                            <Box
+                        </Box>
+                        <Box
                                 sx={{
                                     '& > :not(style)': { p: 2 },
                                     display: "flex",

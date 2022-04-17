@@ -116,9 +116,4 @@ export const productMedia = {
     channel: 'WEBHOOK',
     status: 'active',
   },
-  // 'DARIUS': {
-  //   channelDisplayName: 'Darius',
-  //   media: '/static/images/products/darius.jpeg',
-  //   channel: 'DARIUS',
-  // }
 }

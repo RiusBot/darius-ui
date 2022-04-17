@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import DefaultConfigSettings from '@/features/dashboard/components/bot-creation/default-config-settings';
+import ConfigSettings from '@/features/dashboard/components/bot-creation/config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateUserBot } from '@/features/dashboard/dashboard-slice';
 
@@ -14,6 +14,7 @@ function BotEditDialog(props) {
     const [orderOptions, setOrders] = useState({ test: config.test,
                                                  duplicate: config.duplicate,
                                                });
+    const [configTab, setTab] = useState('1'); // 1 for Pro Mode
     const [configOptions, setConfigs] = useState({  api: config.api_id,
                                                     hyperopt: config.hyperopt,
                                                     target: config.target, 
@@ -54,8 +55,25 @@ function BotEditDialog(props) {
     }
     
     const updateButtonClicked = () => {
+        const validatedConfigOptions = configOptions;
+        if (configTab == '0') {
+            validatedConfigOptions = {
+                api: configOptions.api, 
+                quantity: configOptions.quantity, 
+                hyperopt: defaultConfigSettings.hyperopt,
+                target: defaultConfigSettings.target, 
+                orderType: defaultConfigSettings.orderType, 
+                stopLossType: defaultConfigSettings.stopLossType, 
+                stopLoss: defaultConfigSettings.stopLoss,
+                takeProfitType: defaultConfigSettings.takeProfitType, 
+                takeProfit: defaultConfigSettings.takeProfit,
+                leverage: defaultConfigSettings.leverage,
+                margin: defaultConfigSettings.margin, 
+                volume: defaultConfigSettings.volume
+            }
+        }
         const updateBotInfo = {orderOptions: orderOptions,
-                               configOptions: configOptions,
+                               configOptions: validatedConfigOptions,
                                channel: channel,
                                botId: botId,
                                status: botStatus,
@@ -112,13 +130,15 @@ function BotEditDialog(props) {
 
                 <Divider variant="middle" />
 
-                <DefaultConfigSettings
+                <ConfigSettings
                     saveDisabled={handleUpdateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}
                     oldConfig={config}
                     orderOptions={orderOptions}
                     setOrders={setOrders}
+                    configTab={configTab}
+                    setTab={setTab}
                 />
                 <Box
                     sx={{
