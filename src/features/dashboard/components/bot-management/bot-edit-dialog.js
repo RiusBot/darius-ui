@@ -8,7 +8,7 @@ import { updateUserBot } from '@/features/dashboard/dashboard-slice';
 
 function BotEditDialog(props) {
     const dispatch = useDispatch();
-    const { open, channel, channelDisplayName, botId, config, status, onClose } = props;
+    const { open, channel, channelDisplayName, botId, config, status, isTrial, onClose } = props;
     const [updateButtonDisabled, setupdateButtonDisabled] = useState(true);
     const [botStatus, setStatus] = useState(status);
     const [orderOptions, setOrders] = useState({ test: config.test,
@@ -131,6 +131,7 @@ function BotEditDialog(props) {
                 <Divider variant="middle" />
 
                 <ConfigSettings
+                    isTrial={isTrial}
                     saveDisabled={handleUpdateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}

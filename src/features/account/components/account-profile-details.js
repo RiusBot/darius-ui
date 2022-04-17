@@ -10,7 +10,8 @@ import {
   Divider,
   Grid,
   TextField,
-  Avatar
+  Avatar,
+  Typography
 } from '@mui/material';
 import { TelegramBindingDialog } from '@/features/account/components/telegram-binding-dialog';
 import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';

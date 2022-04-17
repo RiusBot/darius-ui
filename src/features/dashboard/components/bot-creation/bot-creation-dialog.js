@@ -8,7 +8,7 @@ import { defaultConfigSettings } from '__data__/defaultConfigSettings';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
-    const { open, channel, channelDisplayName, onClose } = props;
+    const { open, channel, channelDisplayName, isTrial, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
     const [orderOptions, setOrders] = useState({test: false, duplicate: true});
     const [configTab, setTab] = useState('0'); // 0 for Lazy Mode
@@ -84,6 +84,7 @@ function BotCreationDialog(props) {
                     padding: '16px',
                     overflowY: 'scroll',}}>
                 <ConfigSettings
+                    isTrial={isTrial}
                     saveDisabled={handleCreateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}

@@ -1,7 +1,9 @@
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import { Box, Grid, } from '@mui/material';
+import { Box, Grid, Card, Typography } from '@mui/material';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import { NavItem } from '@/common/components/nav-item';
 import withAuth from '@/common/utils/auth';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import BotCreationDialog from '@/features/dashboard/components/bot-creation/bot-creation-dialog';
@@ -16,6 +18,14 @@ import { loadUserApi } from '@/features/api/api-slice';
 import { getUserApi } from '@/features/api/api-selector';
 import { loadUserSubscription } from '@/features/subscription/subscription-slice';
 import { getSubscriptions } from '@/features/subscription/subscription-selector';
+import { loadUserProfile } from '@/app/app-slice';
+import { getUserProfile } from '@/common/selectors';
+
+const subscriptionLink = {
+  href: '/subscription',
+  icon: (<PlaylistAddCheckIcon fontSize="small" />),
+  title: 'Go to Subscription & Plans'
+}
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -32,13 +42,20 @@ const Dashboard = () => {
 
   const userApi = useSelector(getUserApi);
   const subscriptions = useSelector(getSubscriptions);
+  const subscribedChannels = subscriptions.map((sub) => { return sub.plan.channel });
+  console.log(subscribedChannels);
+  const profile = useSelector(getUserProfile);
   useEffect (() => {
+    if (Object.keys(profile).length == 0) {
+      dispatch(loadUserProfile());
+    }
     if (Object.keys(userApi).length == 0) {
       dispatch(loadUserApi());
     }
     if (Object.keys(subscriptions).length == 0) {
       dispatch(loadUserSubscription());
     }
+
     },[]
   );
   const confirmDeleteBot = () => {
@@ -68,6 +85,64 @@ const Dashboard = () => {
     }
   }
 
+  const AvailableBots = () => {
+    if (profile.is_trial) {
+      return (
+        <>
+          {Object.values(productMedia).map((sub, index) => {
+          if (sub.status == 'active') {
+            return <Box 
+                      key={index}
+                      style={{'minWidth': '360px',
+                              'paddingRight': '30px'}}>
+                      <BotCard
+                        key={index}
+                        bot={sub}
+                        openCreateBotDialog={handleDialogOpen}
+                      />
+                    </Box>
+          }
+        })}
+        </>
+      )
+    } else {
+      if (subscriptions.length == 0) {
+        return (
+            <Box sx={{
+              padding: '48px 80px', 
+              width: '100%' }} >
+              <Typography 
+                color="#FFFFFF"
+                variant="button"
+                sx={{ textAlign: 'center', width: '100%', paddingTop: '32px' }}>
+                You have no subscriptions currently, start one now!
+                <NavItem
+                          key={subscriptionLink.title}
+                          icon={subscriptionLink.icon}
+                          href={subscriptionLink.href}
+                          title={subscriptionLink.title}
+                          />
+              </Typography>
+            </Box>)
+      }
+      else return (<>
+        {subscriptions.map((sub, index) => { 
+          return <Box 
+                    key={index}
+                    style={{'minWidth': '360px',
+                            'paddingRight': '30px'}}>
+                    <BotCard
+                      key={index}
+                      bot={productMedia[sub.plan.channel]}
+                      openCreateBotDialog={handleDialogOpen}
+                    />
+                  </Box>
+        })}
+      </>
+      )
+    }
+  }
+
   return (
     <>
       <Head>
@@ -94,32 +169,7 @@ const Dashboard = () => {
                     paddingLeft: '30px',
                     paddingBottom: '16px'}}
             >
-            {Object.values(productMedia).map((sub, index) => {
-              if (sub.status == 'active') {
-                return <Box 
-                          key={index}
-                          style={{'minWidth': '360px',
-                                  'paddingRight': '30px'}}>
-                          <BotCard
-                            key={index}
-                            bot={sub}
-                            openCreateBotDialog={handleDialogOpen}
-                          />
-                        </Box>
-              }
-            })}
-            {/* {subscriptions.map((sub, index) => { 
-              return <Box 
-                        key={index}
-                        style={{'minWidth': '360px',
-                                'paddingRight': '30px'}}>
-                        <BotCard
-                          key={index}
-                          bot={productMedia[sub.plan.channel]}
-                          openCreateBotDialog={handleDialogOpen}
-                        />
-                      </Box>
-            })} */}
+            <AvailableBots />
           </Box>
 
           <Box
@@ -143,6 +193,7 @@ const Dashboard = () => {
         open={botCreateDialog.open}
         channel={botCreateDialog.channel}
         channelDisplayName={botCreateDialog.channelDisplayName}
+        isTrial={! (subscribedChannels.includes(botCreateDialog.channel))}
         onClose={() => setBotCreateDialog({open: false, channel: ""})}
         />
       <BotEditDialog
@@ -152,6 +203,7 @@ const Dashboard = () => {
         botId={botEditDialog.botId}
         config={botEditDialog.config}
         status={botEditDialog.status}
+        isTrial={! (subscribedChannels.includes(botEditDialog.channel))}
         onClose={() => setBotEditDialog(defaultEditDialog)}
         />
 

@@ -6,7 +6,9 @@ const appSlice = createSlice({
     snackbarInfo: {
       open: false, message: '', severity: 'info'
     },
-    userProfile: {},
+    userProfile: {
+      is_trail: false,
+    },
     telegramId: null,
   },
   reducers: {

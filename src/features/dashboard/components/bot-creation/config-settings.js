@@ -12,6 +12,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserApi } from '@/features/api/api-selector';
 import { lazyModeRequiredInput } from '__data__/defaultConfigSettings';
+import { TrialLimitationInfo } from '@/features/dashboard/components/bot-creation/trial-limitation-info';
 
 
 const limits = { stopLoss: { min: 0, max: 100},
@@ -30,7 +31,7 @@ const apiKeySetting = {
                       }
 
 export default function ConfigSettings(props) {
-    const { saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders, configTab, setTab } = props;
+    const { isTrial, saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders, configTab, setTab } = props;
     const userApi = useSelector(getUserApi);
     const handleTabChange = (event, newValue) => {
         setTab(newValue);
@@ -143,6 +144,7 @@ export default function ConfigSettings(props) {
       }
     return (
         <Box sx={{m:2}} >
+            <TrialLimitationInfo isTrial={isTrial}/>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
                 <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
                     Order Settings
@@ -258,6 +260,7 @@ export default function ConfigSettings(props) {
                                     variant="outlined" 
                                     inputProps={{ min: 0, max: limits.quantity.max }}
                                     value={configOptions.quantity}
+                                    disabled={isTrial}
                                     onChange={handleOptionChange}/>
                             </Box>
                             <Box sx={{padding: "24px 0 0 24px"}}>
@@ -403,6 +406,7 @@ export default function ConfigSettings(props) {
                                         variant="outlined" 
                                         inputProps={{ min: 0, max: limits.quantity.max }}
                                         value={configOptions.quantity}
+                                        disabled={isTrial}
                                         onChange={handleOptionChange}/>
                                 </Box>
                                 <Box sx={{padding: "24px 0 0 24px"}}>
@@ -419,6 +423,7 @@ export default function ConfigSettings(props) {
                                         variant="outlined" 
                                         inputProps={{ min: limits.leverage.min, max: limits.leverage.max }}
                                         value={configOptions.leverage}
+                                        disabled={isTrial}
                                         onChange={handleOptionChange}/>
                                 </Box>
                                 <Box sx={{padding: "24px 0 0 24px"}}>
