@@ -226,6 +226,27 @@ const Login = () => {
                 </Link>
               </NextLink>
             </Typography>
+            <Typography
+              color="textSecondary"
+              variant="body2"
+            >
+              Forget password ?
+              {' '}
+              <NextLink
+                href="/forget"
+              >
+                <Link
+                  to="/forget"
+                  variant="subtitle2"
+                  underline="hover"
+                  sx={{
+                    cursor: 'pointer'
+                  }}
+                >
+                  Reset password
+                </Link>
+              </NextLink>
+            </Typography>
           </form>
           <Snackbar />
         </Container>
