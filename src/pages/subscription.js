@@ -75,7 +75,7 @@ const Subscription = () => {
                 color="textSecondary"
                 variant="button"
                 sx={{ textAlign: 'center', width: '100%'}}>
-                30% refunding for first subscription. 15% refunding for renew subscription.
+                30% refunding for first subscription. 15% refunding for expand subscription.
               </Typography>
             </Box>
           </Card>

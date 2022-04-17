@@ -115,7 +115,7 @@ const SubscriptionPlans = (props) => {
           gutterBottom
           variant="h7"
         >
-          Subscribe to new channels one at a time.
+          Subscribe to new channels one at a time. Subscribe same channel will expand expiration date.
         </Typography>
         <SignalOptions />
       </CardContent>
