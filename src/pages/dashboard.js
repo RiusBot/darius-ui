@@ -43,7 +43,6 @@ const Dashboard = () => {
   const userApi = useSelector(getUserApi);
   const subscriptions = useSelector(getSubscriptions);
   const subscribedChannels = subscriptions.map((sub) => { return sub.plan.channel });
-  console.log(subscribedChannels);
   const profile = useSelector(getUserProfile);
   useEffect (() => {
     if (Object.keys(profile).length == 0) {
