@@ -14,15 +14,15 @@ function BotCreationDialog(props) {
     const [configTab, setTab] = useState('0'); // 0 for Lazy Mode
     const [configOptions, setConfigs] = useState({api: '', 
                                                         hyperopt: defaultConfigSettings.hyperopt,
-                                                        target: defaultConfigSettings.target, 
-                                                        orderType: defaultConfigSettings.orderType, 
-                                                        stopLossType: defaultConfigSettings.stopLossType, 
+                                                        target: defaultConfigSettings.target,
+                                                        orderType: defaultConfigSettings.orderType,
+                                                        stopLossType: defaultConfigSettings.stopLossType,
                                                         stopLoss: defaultConfigSettings.stopLoss,
-                                                        takeProfitType: defaultConfigSettings.takeProfitType, 
-                                                        takeProfit: defaultConfigSettings.takeProfit, 
-                                                        quantity: defaultConfigSettings.quantity, 
+                                                        takeProfitType: defaultConfigSettings.takeProfitType,
+                                                        takeProfit: defaultConfigSettings.takeProfit,
+                                                        quantity: defaultConfigSettings.quantity,
                                                         leverage: defaultConfigSettings.leverage,
-                                                        margin: defaultConfigSettings.margin, 
+                                                        margin: defaultConfigSettings.margin,
                                                         volume: defaultConfigSettings.volume
                                                     });
     const handleCreateButton = (disabled) => {
@@ -33,17 +33,17 @@ function BotCreationDialog(props) {
         const validatedConfigOptions = configOptions;
         if (configTab == '0') {
             validatedConfigOptions = {
-                api: configOptions.api, 
-                quantity: configOptions.quantity, 
+                api: configOptions.api,
+                quantity: configOptions.quantity,
                 hyperopt: defaultConfigSettings.hyperopt,
-                target: defaultConfigSettings.target, 
-                orderType: defaultConfigSettings.orderType, 
-                stopLossType: defaultConfigSettings.stopLossType, 
+                target: configOptions.target,
+                orderType: defaultConfigSettings.orderType,
+                stopLossType: defaultConfigSettings.stopLossType,
                 stopLoss: defaultConfigSettings.stopLoss,
-                takeProfitType: defaultConfigSettings.takeProfitType, 
+                takeProfitType: defaultConfigSettings.takeProfitType,
                 takeProfit: defaultConfigSettings.takeProfit,
                 leverage: defaultConfigSettings.leverage,
-                margin: defaultConfigSettings.margin, 
+                margin: defaultConfigSettings.margin,
                 volume: defaultConfigSettings.volume
             }
         }

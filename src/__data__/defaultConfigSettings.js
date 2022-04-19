@@ -1,13 +1,15 @@
 export const defaultConfigSettings = {
     hyperopt: true,
-    target: 'MARKET', 
+    target: 'FUTURE',
     orderType: 'MARKET', 
     stopLossType: 'MARKET',
     takeProfitType: 'MARKET',
     quantity: 30, 
     leverage: 1,
     margin: 0, 
-    volume: 0
+    volume: 0,
+    stopLoss: 0,
+    takeProfit: 0
 }
 
 export const lazyModeRequiredInput = [
