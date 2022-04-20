@@ -5,6 +5,7 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ConfigSettings from '@/features/dashboard/components/bot-creation/config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateUserBot } from '@/features/dashboard/dashboard-slice';
+import { defaultConfigSettings } from '__data__/defaultConfigSettings';
 
 function BotEditDialog(props) {
     const dispatch = useDispatch();
