@@ -40,13 +40,13 @@ export const FreeCredit = () => {
                 <ListItemIcon>
                   <CheckIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Register exchange to trade and get RiusBot 100U FREE CREDIT" />
+                <Typography variant="h7">Register exchange to trade and get RiusBot <b>100U FREE CREDIT</b></Typography>
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <CheckIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Experience our quantitaive trading bots up to 3 MONTH FOR FREE" />
+                  <Typography variant="h7">Experience our quantitaive trading bots up to <b>3 MONTH FOR FREE</b></Typography>
               </ListItem>
             </List>
 
@@ -60,25 +60,27 @@ export const FreeCredit = () => {
                 </ListItemIcon>
                 <ListItemText primary="Use the invitation code of RiusBot to register" />
               </ListItem>
-              <Link href="https://ftx.com/profile#a=riusbot" underline="none">
+              <Link href="https://ftx.com/profile#a=riusbot" underline="none" target="_blank">
                 <Button
                   aria-label="ftx"
+                  variant="text"
                   size="small"
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  Check it out on FTX
+                  https://ftx.com/profile#a=riusbot
                 </Button>
               </Link>
               <br />
-              <Link href="https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG" underline="none">
+              <Link href="https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG" underline="none" target="_blank">
                 <Button
                   aria-label="binance"
+                  variant="text"
                   size="small"
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  Check it out on Binance
+                  https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG
                 </Button>
               </Link>
               <br/>
@@ -94,14 +96,14 @@ export const FreeCredit = () => {
                 </ListItemIcon>
                 <ListItemText primary="Fill out the application form below and the free credit will be send after verification" />
               </ListItem> 
-              <Link href="https://forms.gle/cYgGdR5xb7KBS3zA8" underline="none">
+              <Link href="https://forms.gle/cYgGdR5xb7KBS3zA8" underline="none" target="_blank" >
                 <Button
                   aria-label="credit"
                   size="small"
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  Get Free Credit
+                  Apply Now
                 </Button>
               </Link>
             </List>
@@ -115,6 +117,12 @@ export const FreeCredit = () => {
                   <WarningIcon color="primary"/>
                 </ListItemIcon>
                 <ListItemText primary="100U trial credit can only be used in Rius Bot and CANNOT be withdrawn" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="100U trial credit for each exchange" />
               </ListItem>
               <ListItem>
                 <ListItemIcon>

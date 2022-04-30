@@ -51,5 +51,4 @@ Campaign.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
-
-export default withAuth(Campaign);
+export default Campaign;

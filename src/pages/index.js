@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, Typography, Link, Button, Divider } from '@mui/material';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 const Tutorial = () => (
   <>
@@ -18,6 +19,19 @@ const Tutorial = () => (
     >
       <Card sx={{heigh: '100%', width: '100%', padding: '32px'}}>
         <Box sx={{p:2}} >
+
+          <Link href="https://www.notion.so/RiusBot-Help-Center-c1d5c5cf76e144738dbf8cc3b7237e04" underline="none" target="_blank">
+            <Button
+              aria-label="help center"
+              variant="text"
+              startIcon={<MenuBookIcon/>}
+            >
+              RiusBot 詳細使用手冊
+            </Button>
+          </Link>
+          <br />
+          <Divider/>
+          <br />
 
           <Typography variant="h4" component="div" sx={{padding: '8px 0 16px'}}>
               簡單3步驟，開始執行策略機器人<br/>
