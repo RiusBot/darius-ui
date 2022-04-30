@@ -17,7 +17,9 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import KeyIcon from '@mui/icons-material/Key';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import PeopleIcon from '@mui/icons-material/People';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserProfileFromFirebase } from '@/common/selectors';
 
@@ -38,9 +40,19 @@ const items = [
     title: 'Dashboard'
   },
   {
+    href: '/campaign',
+    icon: (<NotificationsIcon fontSize="small" />),
+    title: 'Campaign'
+  },
+  {
     href: '/api-setting',
     icon: (<KeyIcon fontSize="small" />),
     title: 'API Key Setting'
+  },
+  {
+    href: '/referral-program',
+    icon: (<PeopleIcon fontSize="small" />),
+    title: 'Referral Program'
   },
   {
     href: '/subscription',

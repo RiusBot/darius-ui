@@ -6,8 +6,8 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { NavItem } from '@/common/components/nav-item';
 import withAuth from '@/common/utils/auth';
 import { AccountProfile } from '@/features/account/components/account-profile';
-import { AccountProfileDetails } from '@/features/account/components/account-profile-details';
 import { AccountReferral } from '@/features/account/components/account-referral';
+import { AccountReferrer } from '@/features/account/components/account-referrer';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
@@ -18,7 +18,7 @@ const subscriptions = {
   title: 'Go to Subscription & Plans'
 }
 
-const Account = () => {
+const ReferralProgram = () => {
   const dispatch = useDispatch();
 
   const profile = useSelector(getUserProfile);
@@ -29,34 +29,11 @@ const Account = () => {
     },[]
   );
 
-  const TrialInfo = () => {
-    if (profile.is_trial && profile.trial_period !== undefined) {
-      return (
-            <Card sx={{ marginBottom: '32px' }}>
-              <Box sx={{ padding: '16px', backgroundColor: "#B8A289" }} >
-                <Typography 
-                  color="#FFFFFF"
-                  variant="button"
-                  sx={{ textAlign: 'center', width: '100%', paddingLeft: '32px' }}>
-                  Your free trial will expire on {profile.trial_period}
-                  <NavItem
-                            key={subscriptions.title}
-                            icon={subscriptions.icon}
-                            href={subscriptions.href}
-                            title={subscriptions.title}
-                            />
-                </Typography>
-              </Box>
-            </Card>)
-    }
-    return null;
-  }
-
   return (
     <>
       <Head>
         <title>
-          Account | RiusBot
+          Referral Program | RiusBot
         </title>
       </Head>
       <Box
@@ -85,8 +62,11 @@ const Account = () => {
               md={6}
               xs={12}
             >
-              <TrialInfo />
-              <AccountProfileDetails 
+              <AccountReferral 
+              profile={profile}
+              />
+              <br/>
+              <AccountReferrer 
               profile={profile}
               />
             </Grid>
@@ -97,12 +77,12 @@ const Account = () => {
   );
 }
 
-Account.getLayout = (page) => (
+ReferralProgram.getLayout = (page) => (
   <DashboardLayout
-    pageName="Account"
+    pageName="Referral Program"
   >
     {page}
   </DashboardLayout>
 );
 
-export default withAuth(Account);
+export default withAuth(ReferralProgram);

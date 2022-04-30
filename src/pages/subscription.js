@@ -11,6 +11,7 @@ import { loadAllPlan, loadUserSubscription } from '@/features/subscription/subsc
 import { getPlans, getSubscriptions } from '@/features/subscription/subscription-selector';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
+import { OpenOffer } from '@/features/campaign/components/opening-offer';
 
 const Subscription = () => {
   const dispatch = useDispatch();
@@ -46,39 +47,7 @@ const Subscription = () => {
         }}
       >
         <Container maxWidth={false}>
-          <Card>
-            <Box sx={{ display: 'flex', flexDirection: 'row'}}>
-            <CardMedia
-              component="img"
-              height="140"
-              image={'/static/images/celebration.png'}
-              alt="Celebration"
-            />
-            <CardMedia
-              component="img"
-              height="140"
-              image={'/static/images/celebration.png'}
-              alt="Celebration"
-            />
-            <CardMedia
-              component="img"
-              height="140"
-              image={'/static/images/celebration.png'}
-              alt="Celebration"
-            />
-            </Box>
-            <CardHeader
-              title="Opening Offer"
-            />
-            <Box sx={{ padding: '0 32px 32px' }} >
-              <Typography 
-                color="textSecondary"
-                variant="button"
-                sx={{ textAlign: 'center', width: '100%'}}>
-                30% refunding for first subscription. 15% refunding for expand subscription.
-              </Typography>
-            </Box>
-          </Card>
+          <OpenOffer showButton={false} />
           <Card sx={{ marginTop: '32px' }}>
             <CardHeader
               subheader="Currently subscribed channels and according expire date."

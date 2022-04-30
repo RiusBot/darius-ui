@@ -20,10 +20,10 @@ export const AccountReferral = (props) => {
       autoComplete="off"
       noValidate
     >
-      <Card sx={{marginTop: '32px'}}>
+      <Card sx={{marginTop: '0px'}}>
         <CardHeader
           subheader="Invite friends with your referral code to earn balance points. You will gain 30% extra refund from your referrer's first subscription."
-          title="Referral"
+          title="Referral Code"
         />
         <Divider />
         <CardContent>
@@ -37,7 +37,6 @@ export const AccountReferral = (props) => {
             >
               <TextField
                 fullWidth
-                label="Referral Code"
                 name="referralCode"
                 value={referralCode}
               />

@@ -18,18 +18,12 @@ import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors'
 import { loadUserTelegram } from '@/app/app-slice';
 import { updateUserProfile } from '@/app/app-slice';
 
-export const AccountProfileDetails = (props) => {
+export const AccountReferrer = (props) => {
   const dispatch = useDispatch();
   const { profile } = props;
   const firebase = useFirebase();
   const originalProfile = useSelector(getUserProfileFromFirebase);
   const telegram = useSelector(getUserTelegram);
-  useEffect (() => {
-    if (telegram === null) {
-      dispatch(loadUserTelegram());
-    }
-    },[]
-  );
   const [newProfile, setProfile] = useState({...originalProfile, referrer: profile.referrer});
   const [showTelegramDialog, setDialog] = useState(false);
 
@@ -43,51 +37,10 @@ export const AccountProfileDetails = (props) => {
 
   const saveUpdate = () => {
     const { displayName, referrer } = newProfile;
-    if (displayName !== originalProfile.displayName) {
-      firebase.updateProfile({ displayName });
-    }
-    if (displayName !== profile.user_name) {
-      // TODO: api call failing
+    if (referrer !== profile.referrer) {
       dispatch(updateUserProfile({username: displayName, referrer: referrer}));
     }
   };
-
-  const TelegramInfo = () => {
-    if (telegram == "" || telegram == null) {
-      return (
-        <Button
-          color="primary"
-          variant="contained"
-          sx={{ mt: 3, width: '100%' }}
-          onClick={() => setDialog(true)}
-          startIcon={
-            <Avatar
-              alt={'Telegram'}
-              src={'/static/images/tutorial/telegram.png'}
-              sx={{
-                height: 32,
-                width: 32
-              }}
-            />}
-        >
-          Bind Your Telegram Account
-        </Button>
-      )
-    } else {
-      return (
-        <TextField
-          sx={{margin: '32px 0 0 0'}}
-          fullWidth
-          label="Telegram"
-          name="telegram"
-          onChange={handleChange}
-          disabled
-          value={telegram}
-          variant="outlined"
-        />
-      )
-    }
-  }
 
   return (
     <>
@@ -98,8 +51,8 @@ export const AccountProfileDetails = (props) => {
       >
         <Card>
           <CardHeader
-            subheader="The information can be edited"
-            title="Profile"
+            subheader="You can bind other user's referral code if you dont have one."
+            title="Referrer"
           />
           <Divider />
           <CardContent>
@@ -113,15 +66,15 @@ export const AccountProfileDetails = (props) => {
                 xs={12}
               >
                 <TextField
+                  sx={{margin: '0px 0 0 0'}}
                   fullWidth
-                  label="Username"
-                  name="displayName"
+                  label="Referrer"
+                  name="referrer"
                   onChange={handleChange}
-                  required
-                  value={newProfile.displayName}
+                  disabled={profile.referrer !== null}
+                  value={newProfile.referrer}
                   variant="outlined"
                 />
-                <TelegramInfo />
               </Grid>
             </Grid>
           </CardContent>
@@ -136,8 +89,7 @@ export const AccountProfileDetails = (props) => {
             <Button
               color="primary"
               variant="contained"
-              disabled={newProfile.displayName == originalProfile.displayName 
-                        && newProfile.referrer == profile.referrer}
+              disabled={newProfile.referrer == profile.referrer}
               onClick={() => saveUpdate()}
             >
               Save
@@ -145,10 +97,6 @@ export const AccountProfileDetails = (props) => {
           </Box>
         </Card>
       </form>
-      <TelegramBindingDialog
-      open={showTelegramDialog}
-      onClose={() => setDialog(false)}
-      />
     </>
   );
 };
