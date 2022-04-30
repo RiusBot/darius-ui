@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase'
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -9,20 +8,16 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Grid,
-  TextField,
-  Avatar,
   Typography,
   ListItem,
   ListItemText,
   ListItemIcon,
-  List,
-  ListSubheader
+  List
 } from '@mui/material';
-import { AccountProfile } from '@/features/account/components/account-profile';
-import { AccountProfileDetails } from '@/features/account/components/account-profile-details';
-import { AccountReferral } from '@/features/account/components/account-referral';
-import { DashboardLayout } from '@/common/components/dashboard-layout';
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/Warning';
+import ForwardIcon from '@mui/icons-material/Forward';
+import LooksOneIcon from '@mui/icons-material/LooksOne';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
 
@@ -64,66 +59,80 @@ export const FreeTrial = () => {
 
   return (
     <>
-      <Card>
+      <Card sx={{ height: '100%' }}>
         <CardHeader
-          subheader=""
           title="Free Trial Plan"
+          subheader="Check it out !!!"
         />
         <Divider />
         <CardContent>
-          <Box sx={{ padding: '0 32px 32px' }} >
+          <Box sx={{ padding: '0px 32px' }} >
             <List sx={{ listStyleType: 'disc' }}>
-              <ListSubheader sx={{
-                fontWeight: 700, lineHeight: '24px', fontSize: '16px', color: 'black'
-              }}
-              >
-                Offers
-              </ListSubheader>
-                <ListItem sx={{ display: 'list-item' }}>
-                  <ListItemText primary="Trial Period: 30 days" />
-                </ListItem>
-                <ListItem sx={{ display: 'list-item' }}>
-                  <ListItemText primary="Strategies: All products available" />
-                </ListItem>
-                <ListItem sx={{ display: 'list-item' }}>
-                  <ListItemText primary="Advance Bot features: Available" />
-                </ListItem>
-                <ListItem sx={{ display: 'list-item' }}>
-                  <ListItemText primary="Limitations: 30U quantity ， 1x leverage" />
-                </ListItem>
-
-              <br/>
-              <ListSubheader sx={{
-                fontWeight: 700, lineHeight: '24px', fontSize: '16px', color: 'black'
-              }}
-              >
-                Application
-              </ListSubheader>
-              <ListItem sx={{ display: 'list-item' }}>
-                <ListItemText primary="Free Trial Period starts after the telegram account is connected" />
+              <Typography variant="h6" >
+                What's the deal?
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="30 Days Free Trial" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="All Products Available" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Advance Bot Features Available" />
+              </ListItem>
+            </List>
+            
+            <List sx={{ listStyleType: 'disc' }}>
+              <Typography variant="h6" sx={{ paddingTop: '16px' }}>
+                How to start My Trial?
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <LooksOneIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Free Trial Period starts once you finish telegram account binding" />
+              </ListItem>
                 <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => router.push("/account")}
-                  position= 'relative'
-                  alignItems= 'center'
-                >
-                  Connect Telegram Now →
-                </Button>
-              </ListItem>
-
-              <br/>
-              <ListSubheader sx={{
-                fontWeight: 700, lineHeight: '24px', fontSize: '16px', color: 'black'
-              }}
+                aria-label="Connect Telegram Now"
+                size="small"
+                sx={{ ml: 10 }}
+                onClick={() => router.push("/account")}
+                startIcon={<ForwardIcon/>}
               >
-                Remarks
-              </ListSubheader>
-              <ListItem sx={{ display: 'list-item' }}>
-                <ListItemText primary="The telegram account cannot be changed once binded." />
+                Bind Your Telegram Now
+              </Button>
+            </List>
+
+            <List sx={{ listStyleType: 'disc' }}>
+              <Typography variant="h6" sx={{ paddingTop: '16px' }}>
+                NOTE
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="The telegram account CANNOT be changed once binded" />
               </ListItem>
-              <ListItem sx={{ display: 'list-item' }}>
-                <ListItemText primary="Only one API key can be used during the free trial period." />
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Only ONE API key can be used during the free trial period" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Limitations: 30U quantity ， 1x leverage" />
               </ListItem>
 
             </List>

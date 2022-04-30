@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase'
 import { useRouter } from 'next/router';
 import {
   Box,
@@ -9,59 +6,125 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Grid,
-  TextField,
-  Avatar,
   Typography,
-  Link
+  Link,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  List
 } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import ForwardIcon from '@mui/icons-material/Forward';
+import WarningIcon from '@mui/icons-material/Warning';
+import LooksOneIcon from '@mui/icons-material/LooksOne';
+import LooksTwoIcon from '@mui/icons-material/LooksTwo';
+import Looks3Icon from '@mui/icons-material/Looks3';
 
 export const FreeCredit = () => {
   const router = useRouter();
   return (
     <>
-      <Card>
+      <Card sx={{ height: '100%' }}>
         <CardHeader
-          subheader="Earn Free Credits !!!"
           title="Rius Bot ⓧ FTX ⓧ Binance"
+          subheader="Earn Free Credits !!!"
         />
         <Divider />
-        <Box sx={{ padding: '32px 32px 32px' }} >
-          <Typography 
-            color="textSecondary"
-            variant="button"
-            sx={{ textAlign: 'center', width: '100%'}}>
-            Register exchange to trade and get RiusBot 100U free credit now ! <br/>
-            Experience our quantitaive trading bots for free for up to 3 month ! <br/>
-          </Typography>
-          <br/>
-          Use the invitation code of RiusBot to register, bind the API and start the bot.<br/>
-          You can get 100U free credit at Rius Bot, which is equal to 3 months of free use of a bot!<br/>
-          <br/>
-          
-          FTX &nbsp;
-          <Link href="https://ftx.com/profile#a=riusbot" underline="none">
-            {'https://ftx.com/profile#a=riusbot'}
-          </Link>
-          <br/><br/>
-          
-          Binance &nbsp;
-          <Link href="https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG" underline="none">
-            {'https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG'}
-          </Link>
-          <br/><br/>
+        <CardContent>
+          <Box sx={{ padding: '0px 32px' }} >
+            <List sx={{ listStyleType: 'disc' }}>
+              <Typography variant="h6" >
+                What's the deal?
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Register exchange to trade and get RiusBot 100U FREE CREDIT" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Experience our quantitaive trading bots up to 3 MONTH FOR FREE" />
+              </ListItem>
+            </List>
+
+            <List sx={{ listStyleType: 'disc' }}>
+              <Typography variant="h6" sx={{ paddingTop: '16px' }}>
+                How to get Free Credit?
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <LooksOneIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Use the invitation code of RiusBot to register" />
+              </ListItem>
+              <Link href="https://ftx.com/profile#a=riusbot" underline="none">
+                <Button
+                  aria-label="ftx"
+                  size="small"
+                  sx={{ ml: 10 }}
+                  startIcon={<ForwardIcon/>}
+                >
+                  Check it out on FTX
+                </Button>
+              </Link>
+              <br />
+              <Link href="https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG" underline="none">
+                <Button
+                  aria-label="binance"
+                  size="small"
+                  sx={{ ml: 10 }}
+                  startIcon={<ForwardIcon/>}
+                >
+                  Check it out on Binance
+                </Button>
+              </Link>
+              <br/>
+              <ListItem>
+                <ListItemIcon>
+                  <LooksTwoIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Bind the API & Start the Bot" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Looks3Icon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Fill out the application form below and the free credit will be send after verification" />
+              </ListItem> 
+              <Link href="https://forms.gle/cYgGdR5xb7KBS3zA8" underline="none">
+                <Button
+                  aria-label="credit"
+                  size="small"
+                  sx={{ ml: 10 }}
+                  startIcon={<ForwardIcon/>}
+                >
+                  Get Free Credit
+                </Button>
+              </Link>
+            </List>
             
-          Fill out the application form below and the free credit will be send after verification.<br/>
-          ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩ ⇩<br/>
-          <Link href="https://forms.gle/cYgGdR5xb7KBS3zA8" underline="none">
-            {'https://forms.gle/cYgGdR5xb7KBS3zA8'}
-          </Link>
-          <br/><br/>
-          
-          <Divider/><br/>
-          ﹡100U trial credit can only be used in Rius Bot and cannot be withdrawn!<br/>
-          ﹡Please check out the detailed instructions and F&Q at the bottom of the application form<br/>
-        </Box>
+            <List sx={{ listStyleType: 'disc' }}>
+              <Typography variant="h6" sx={{ paddingTop: '16px' }}>
+                NOTE
+              </Typography>
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="100U trial credit can only be used in Rius Bot and CANNOT be withdrawn" />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <WarningIcon color="primary"/>
+                </ListItemIcon>
+                <ListItemText primary="Please check out the detailed instructions and F&Q at the bottom of the application form" />
+              </ListItem>
+            </List>
+          </Box>
+        </CardContent>
       </Card>
     </>
   );

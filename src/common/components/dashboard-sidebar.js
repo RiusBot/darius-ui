@@ -25,6 +25,11 @@ import { getUserProfileFromFirebase } from '@/common/selectors';
 
 const items = [
   {
+    href: '/campaign',
+    icon: (<NotificationsIcon fontSize="small" />),
+    title: 'Campaign'
+  },
+  {
     href: '/',
     icon: (<LightbulbIcon fontSize="small" />),
     title: 'Tutorial'
@@ -38,11 +43,6 @@ const items = [
     href: '/dashboard',
     icon: (<BarChartIcon fontSize="small" />),
     title: 'Dashboard'
-  },
-  {
-    href: '/campaign',
-    icon: (<NotificationsIcon fontSize="small" />),
-    title: 'Campaign'
   },
   {
     href: '/api-setting',
