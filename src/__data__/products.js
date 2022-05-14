@@ -54,6 +54,20 @@ export const products = [
     status: 'active',
   },
   {
+    channel: 'COURAGE',
+    channelDisplayName: "Courage",
+    description: ['主流幣 4H 1D 進出策略'],
+    media: '/static/images/products/courage.jpg',
+    status: 'active',
+  },
+  {
+    channel: 'SPACEFORCE',
+    channelDisplayName: "Space Force",
+    description: ['太空部隊'],
+    media: '/static/images/products/shortcode.jpg',
+    status: 'active',
+  },
+  {
     channel: 'WEBHOOK',
     channelDisplayName: "Webhook Bot",
     description: ['Start your automatic trading with webhook alerts and singals !!', 'One per account for now'],
@@ -109,6 +123,16 @@ export const productMedia = {
     channelDisplayName: "Moon Phases",
     media: '/static/images/products/moon.jpg',
     channel: 'MOON',
+  },
+  'COURAGE': {
+    channelDisplayName: "Courage",
+    media: '/static/images/products/courage.jpg',
+    channel: 'COURAGE',
+  },
+  'SPACEFORCE': {
+    channelDisplayName: "Space force",
+    media: '/static/images/products/shortcode.jpg',
+    channel: 'SPACEFORCE',
   },
   'WEBHOOK': {
     channelDisplayName: "Webhook Bot",

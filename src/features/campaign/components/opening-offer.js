@@ -45,7 +45,7 @@ export const OpenOffer = (props) => {
           />
         </Box>
         <CardHeader
-          title="Opening Offer"
+          title="Opening Discount Offer"
         />
         <Box sx={{ padding: '0 32px 32px' }} >
           <Typography 
