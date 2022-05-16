@@ -1,5 +1,6 @@
 import React from 'react';
 import Papa from 'papaparse';
+import YouTube from 'react-youtube';
 import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -22,7 +23,7 @@ export const SpaceforceInfoDialog = (props) => {
                     'padding': '32px 24px 32px'
                 }}>
                 <Typography variant="h5" component="div">
-                    Space Force
+                    Space Force 太空部隊
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -42,25 +43,24 @@ export const SpaceforceInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                      15M 30M 1H 短線進出策略，空軍總司令，走熊也給力。<br/>
-                      <Link href="https://www.youtube.com/watch?v=k0e-gDWrpdI" color="inherit" rel="noreferrer" target="_blank">
-                        https://www.youtube.com/watch?v=k0e-gDWrpdI
-                      </Link><br/>
+                      15M 30M 1H 短線進出策略，空軍總司令 AIR FORCE 升級版，走熊也給力。<br/>
+                      此策略自帶止盈止損，機器人設定的部分會做為fallback使用。<br/>
                     </Typography><br/>
 
-
-                    <Typography varient="body1" componenet="div">
-                      偷渡最近看的有趣美劇，推薦一下 :P<br/>
-                      <Link href="https://www.netflix.com/title/81021929" color="inherit" rel="noreferrer" target="_blank">
-                        https://www.netflix.com/title/81021929
-                      </Link><br/>
-                      <Link href="https://en.wikipedia.org/wiki/Space_Force_(TV_series)" color="inherit" rel="noreferrer" target="_blank">
-                        https://en.wikipedia.org/wiki/Space_Force_(TV_series)
-                      </Link>
-                    </Typography><br/>
-                    <br/>
+                    
                 </Box>
+                <iframe width="100%" height="100%" src="https://www.acdc.com/" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+                <Box sx={{p:2}} >
+                  <Typography varient="body1" componenet="div">
+                    偷渡最近看的有趣美劇，推薦一下 :P<br/>
+                    
+                    <a href="https://www.netflix.com/title/81021929" target="_blank">
+                      <img width="220" height="250" border="0" align="center"  src="https://upload.wikimedia.org/wikipedia/en/a/a6/Poster_for_Netflix_series_Space_Force.png"/>
+                    </a>
+                  </Typography><br/>
+                  <br/>
+                </Box>
             </Box>
         </Dialog>
     )

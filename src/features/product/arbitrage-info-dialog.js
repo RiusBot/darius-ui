@@ -1,10 +1,10 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-export const CourageInfoDialog = (props) => {
+export const ArbitrageInfoDialog = (props) => {
     const { open, onClose } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
@@ -22,7 +22,7 @@ export const CourageInfoDialog = (props) => {
                     'padding': '32px 24px 32px'
                 }}>
                 <Typography variant="h5" component="div">
-                    Courage
+                    Brick Arbitrage 搬磚套利
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -42,11 +42,14 @@ export const CourageInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                        勇氣一號，大周期主流幣穩健策略。<br/>
-                        更多說明待補。<br/>
+                      搬專套利，穩定獲利的方式。
+                      此訊號會針對FTX/BINANCE，現貨/期貨，偵測2%以上溢價。<br/>
+                      此策略目前只提供溢價訊號Telegram通知，機器人還在開發當中。<br/>
+                      使用者需要自行調度資金。<br/>
                     </Typography><br/>
-    
+                    <br/>
                 </Box>
+
             </Box>
         </Dialog>
     )

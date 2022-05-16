@@ -14,6 +14,7 @@ import { JustinInfoDialog } from '@/features/product/justin-info-dialog';
 import { MoonInfoDialog } from '@/features/product/moon-info-dialog';
 import { CourageInfoDialog } from '@/features/product/courage-info-dialog';
 import { SpaceforceInfoDialog } from '@/features/product/spaceforce-info-dialog';
+import { ArbitrageInfoDialog } from '@/features/product/arbitrage-info-dialog';
 import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
 import { loadPerformance  } from '@/features/product/product-slice';
 import { getAllPerformance } from '@/features/product/product-selector';
@@ -118,6 +119,10 @@ const Products = () => {
         />
       <SpaceforceInfoDialog
         open={infoDialog == 'SPACEFORCE'}
+        onClose={handleBotInfoDialogClose}
+        />
+      <ArbitrageInfoDialog
+        open={infoDialog == 'ARBITRAGE'}
         onClose={handleBotInfoDialogClose}
         />
       <WebhookInfoDialog
