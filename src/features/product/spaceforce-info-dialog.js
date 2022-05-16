@@ -42,7 +42,7 @@ export const SpaceforceInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                      15M 1H 進出策略<br/>
+                      15M 30M 1H 短線進出策略，空軍總司令，走熊也給力。<br/>
                       <Link href="https://www.youtube.com/watch?v=k0e-gDWrpdI" color="inherit" rel="noreferrer" target="_blank">
                         https://www.youtube.com/watch?v=k0e-gDWrpdI
                       </Link><br/>

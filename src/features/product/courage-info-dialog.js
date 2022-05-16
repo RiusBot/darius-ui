@@ -42,7 +42,7 @@ export const CourageInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                        現在這盤，需要一點勇氣。
+                        勇氣一號，大周期主流幣穩健策略。
                     </Typography><br/>
     
                 </Box>
