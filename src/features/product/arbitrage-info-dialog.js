@@ -42,14 +42,19 @@ export const ArbitrageInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                      搬專套利，穩定獲利的方式。
-                      此訊號會針對FTX/BINANCE，現貨/期貨，偵測2%以上溢價。<br/>
-                      此策略目前只提供溢價訊號Telegram通知，機器人還在開發當中。<br/>
-                      使用者需要自行調度資金。<br/>
+                      搬專套利，穩定獲利的方式。<br/>
+                      此訊號會針對 FTX/BINANCE，現貨/期貨，偵測2%以上溢價。<br/>
+                      本機器人並非高頻套利，無法以微秒等級去做操作，而是瞄準市場較大且較長時間的溢價，每幾分鐘進行定投對沖。<br/>
+                      使用者需要自行調度資金，以平衡對沖雙方的資金水位。<br/>
+
+                      <br/>
+                      <Typography color="Tomato">
+                        <strong>此策略目前只提供溢價訊號Telegram通知，機器人還在開發當中，研發完成價格會調漲，時程未知。</strong>
+                      </Typography>
                     </Typography><br/>
                     <br/>
-                </Box>
 
+                </Box>
             </Box>
         </Dialog>
     )

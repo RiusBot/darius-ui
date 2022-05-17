@@ -72,7 +72,7 @@ export const products = [
     channelDisplayName: "Brick Arbitrage",
     description: ['搬磚套利', 'FTX / Binance', 'SPOT / FUTURE', '2%以上溢價訊號'],
     media: '/static/images/products/money.jpg',
-    status: 'active',
+    status: 'signal only',
   },
   {
     channel: 'WEBHOOK',
@@ -144,7 +144,7 @@ export const productMedia = {
   'ARBITRAGE': {
     channelDisplayName: "Brick Arbitrage",
     media: '/static/images/products/money.jpg',
-    channel: 'SPACEFORCE',
+    channel: 'ARBITRAGE',
   },
   'WEBHOOK': {
     channelDisplayName: "Webhook Bot",
