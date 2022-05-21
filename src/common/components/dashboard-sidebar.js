@@ -52,7 +52,7 @@ const items = [
   },
   {
     href: '/trade-pair',
-    icon: (<ListAltIcon fontSize="small" />),
+    icon: (<KeyIcon fontSize="small" />),
     title: 'Trading Lists'
   },
   {
