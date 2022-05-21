@@ -50,6 +50,11 @@ const items = [
     title: 'API Key Setting'
   },
   {
+    href: '/trade-pair',
+    icon: (<KeyIcon fontSize="small" />),
+    title: 'Trading Lists'
+  },
+  {
     href: '/referral-program',
     icon: (<PeopleIcon fontSize="small" />),
     title: 'Referral Program'
