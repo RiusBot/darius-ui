@@ -122,7 +122,7 @@ export const FreeCredit = () => {
                 <ListItemIcon>
                   <WarningIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="100U trial credit for each exchange" />
+                <ListItemText primary="100U trial credit for each exchange registered" />
               </ListItem>
               <ListItem>
                 <ListItemIcon>

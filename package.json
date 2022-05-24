@@ -52,6 +52,7 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-redux": "^7.2.6",
     "react-redux-firebase": "^3.11.0",
+    "react-youtube": "^9.0.1",
     "redux": "^4.1.2",
     "redux-firestore": "^0.5.8",
     "redux-logger": "^3.0.6",

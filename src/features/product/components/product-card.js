@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
 import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
 import { Clock as ClockIcon } from '@/icons/clock';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { MixedChart } from '@/features/product/components/mixed-chart';
+
+
+function StatusIcon(status){
+  if (status.status == 'active')
+    return <ClockIcon/>
+  else
+    return <NewReleasesIcon/>
+}
 
 export const ProductCard = (props) => {
   const { product, chartData, openInfoDialog } = props;
@@ -72,9 +81,9 @@ export const ProductCard = (props) => {
               display: 'flex'
             }}
           >
-            <ClockIcon color={(product.status == 'suspended') ? 'disabled' : 'active'} />
+            {StatusIcon(product)}
             <Typography
-              color="textSecondary"
+              color={(product.status == 'active') ? 'active' : 'red'}
               display="inline"
               sx={{ pl: 1 }}
               variant="body2"
