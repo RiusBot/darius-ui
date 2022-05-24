@@ -6,6 +6,7 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { FreeCredit } from '@/features/campaign/components/free-credit';
 import { FreeTrial } from '@/features/campaign/components/free-trial';
 import { OpenOffer } from '@/features/campaign/components/opening-offer';
+import { AlphaShark } from '@/features/campaign/components/alphashark';
 
 const subscriptions = {
   href: '/subscription',
@@ -30,6 +31,7 @@ const Campaign = () => {
       >
         <Container maxWidth={false}>
           <OpenOffer showButton={true} /><br/>
+          <AlphaShark showButton={true} /><br/>
           <Grid container spacing={3} sx={{ height: '100%' }}>
             <Grid item xs={12} md ={6} >
               <FreeTrial />

@@ -28,6 +28,7 @@ export const FreeCredit = () => {
         <CardHeader
           title="Rius Bot ⓧ FTX ⓧ Binance"
           subheader="Earn Free Credits !!!"
+          id="freecredit"
         />
         <Divider />
         <CardContent>
