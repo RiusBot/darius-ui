@@ -59,7 +59,7 @@ export const FreeTrial = () => {
 
   return (
     <>
-      <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%' }} id="freetrial">
         <CardHeader
           title="Free Trial Plan"
           subheader="Try riusbot for free !!!"

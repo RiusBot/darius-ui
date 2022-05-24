@@ -24,7 +24,7 @@ export const FreeCredit = () => {
   const router = useRouter();
   return (
     <>
-      <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%' }} id="freecredit">
         <CardHeader
           title="Rius Bot ⓧ FTX ⓧ Binance"
           subheader="Earn Free Credits !!!"
