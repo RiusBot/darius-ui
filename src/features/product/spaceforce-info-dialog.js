@@ -1,6 +1,5 @@
 import React from 'react';
 import Papa from 'papaparse';
-import YouTube from 'react-youtube';
 import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -8,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 export const SpaceforceInfoDialog = (props) => {
     const { open, onClose } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
+    const acdc = '<iframe width="0%" height="0%" src="https://www.acdc.com/" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen ></iframe>'
 
     return (
         <Dialog
@@ -43,13 +43,12 @@ export const SpaceforceInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     <Typography varient="body1" componenet="div">
-                      15M 30M 1H 短線進出策略，空軍總司令 AIR FORCE 升級版，走熊也給力。<br/>
+                      15M 30M 1H 短線進出策略，AIR FORCE 升級版，走熊做空也給力。<br/>
                       此策略自帶止盈止損，機器人設定的部分會做為fallback使用。<br/>
                     </Typography><br/>
 
                     
                 </Box>
-                <iframe width="100%" height="100%" src="https://www.acdc.com/" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
                 <Box sx={{p:2}} >
                   <Typography varient="body1" componenet="div">
