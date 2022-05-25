@@ -89,6 +89,7 @@ const Dashboard = () => {
       return (
         <>
           {Object.values(productMedia).map((sub, index) => {
+          console.log(sub);
           if (sub.status == 'active') {
             return <Box 
                       key={index}

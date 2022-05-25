@@ -130,21 +130,25 @@ export const productMedia = {
     channelDisplayName: "Moon Phases",
     media: '/static/images/products/moon.jpg',
     channel: 'MOON',
+    status: 'active',
   },
   'COURAGE': {
     channelDisplayName: "Courage",
     media: '/static/images/products/courage.jpg',
     channel: 'COURAGE',
+    status: 'active',
   },
   'SPACEFORCE': {
     channelDisplayName: "Space force",
     media: '/static/images/products/shortcode.jpg',
     channel: 'SPACEFORCE',
+    status: 'active',
   },
   'ARBITRAGE': {
     channelDisplayName: "Brick Arbitrage",
     media: '/static/images/products/money.jpg',
     channel: 'ARBITRAGE',
+    status: 'active',
   },
   'WEBHOOK': {
     channelDisplayName: "Webhook Bot",

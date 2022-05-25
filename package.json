@@ -38,6 +38,7 @@
     "fs": "0.0.1-security",
     "history": "^5.0.0",
     "immer": "^9.0.6",
+    "is-plain-object": "^5.0.0",
     "js-cookie": "^3.0.1",
     "Math": "^0.0.1-security",
     "next": "^12.0.3-canary.7",

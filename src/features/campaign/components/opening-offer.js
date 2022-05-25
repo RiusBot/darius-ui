@@ -23,7 +23,7 @@ export const OpenOffer = (props) => {
   
   return (
     <>
-      <Card>
+      <Card id="openoffer">
         <Box sx={{ display: 'flex', flexDirection: 'row'}}>
           <CardMedia
             component="img"
