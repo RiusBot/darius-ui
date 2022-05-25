@@ -148,7 +148,7 @@ export const productMedia = {
     channelDisplayName: "Brick Arbitrage",
     media: '/static/images/products/money.jpg',
     channel: 'ARBITRAGE',
-    status: 'active',
+    status: 'signal only',
   },
   'WEBHOOK': {
     channelDisplayName: "Webhook Bot",
