@@ -11,7 +11,9 @@ import { ConfirmDialog } from '@/features/dashboard/components/bot-management/co
 import Snackbar from '@/common/components/snackbar';
 import { PairCreateForm } from '@/features/pair/pair-create-form';
 import { loadUserPair } from '@/features/pair/pair-slice';
+import { loadMarket } from '@/features/pair/pair-slice';
 import { getUserPair } from '@/features/pair/pair-selector';
+import { getAllToken } from '@/features/pair/pair-selector';
 import { deleteUserPair } from '@/features/pair/pair-slice';
 
 
@@ -20,19 +22,16 @@ const tradePair = () => {
   const [pairDeleteDialog, setPairDeleteDialog] = useState({open: false, pairId: null});
 
   const userPair = useSelector(getUserPair);
+  const allToken = useSelector(getAllToken);
   useEffect (() => {
     if (Object.keys(userPair).length == 0) {
       dispatch(loadUserPair());
     }
+    if (allToken.length == 0) {
+      dispatch(loadMarket());
+    }
     },[]
   );
-    
-  const loadMarket = async () => {
-    var ccxt = require ('ccxt');
-    let binance = new ccxt.binacne()
-    let markets = await binance.load_markets ()
-    console.log (binance.id, markets)
-  }
 
   const confirmDeletePair = () => {
     dispatch(deleteUserPair({pairId: pairDeleteDialog.pairId}));

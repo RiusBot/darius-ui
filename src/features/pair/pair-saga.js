@@ -2,6 +2,8 @@ import { all, put, select, takeLatest } from 'redux-saga/effects';
 import {
   loadUserPair,
   loadUserPairSuccess,
+  loadMarket,
+  loadMarketSuccess,
   createUserPair,
   deleteUserPair,
 } from '@/features/pair/pair-slice';
@@ -27,6 +29,52 @@ function* loadUserPairSaga() {
     const errorMsg = 'Failed to get user trading pair list';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
+}
+
+function* loadMarketSaga() {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/get_all_pair`;
+  const requestMethod = 'GET';
+  const params = {
+    uid: auth.uid,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params
+    });
+    yield put(loadMarketSuccess(res.data));
+  } catch({response}) {
+    const errorMsg = 'Failed to get user trading pair list';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+  
+// load in frontend will encounter cors and async problem
+//   const loadMarket = async (callBack) => {
+//     const ccxt = require ('ccxt');
+//     const ccxtSpotConfig = {'options': {'defaultType': 'spot'}};
+//     const ccxtFutureConfig = {'options': {'defaultType': 'future'}};
+//     const binanceSpot = new ccxt.binance(ccxtSpotConfig);
+//     const binanceSpotMarkets = await binanceSpot.load_markets();
+//     const binanceFuture = new ccxt.binance(ccxtFutureConfig);
+//     const binanceFutureMarkets = await binanceFuture.load_markets();
+
+//     const isUsdtPair = (pair) => pair.includes("/USDT") ? true : false;
+//     const removeBase = (pair) => pair.replace("/USDT", "");
+//     const binanceSpotTokens = Object.keys(binanceSpotMarkets).filter(isUsdtPair).map(removeBase);
+//     const binanceFutureTokens = Object.keys(binanceFutureMarkets).filter(isUsdtPair).map(removeBase);
+//     allTokens = binanceSpotTokens.concat(binanceFutureTokens);
+//     return [...new Set(allTokens)]
+//   }
+  
+//   try {
+//     const allTokens = loadMarket();
+//     yield put(loadMarketSuccess(allTokens));
+//   } catch({response}) {
+//     const errorMsg = 'Failed to load market data';
+//     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg}` }));
+//   }
 }
 
 function* createUserPairSaga({ payload: pairInfo }) {
@@ -78,6 +126,7 @@ function* deleteUserPairSaga({ payload: pairInfo }) {
 function* pairSaga() {
   yield all([
     takeLatest(loadUserPair.toString(), loadUserPairSaga),
+    takeLatest(loadMarket.toString(), loadMarketSaga),
     takeLatest(createUserPair.toString(), createUserPairSaga),
     takeLatest(deleteUserPair.toString(), deleteUserPairSaga)
   ]);
