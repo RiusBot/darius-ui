@@ -117,10 +117,6 @@ const Products = () => {
         open={infoDialog == 'COURAGE'}
         onClose={handleBotInfoDialogClose}
         />
-      <SpaceforceInfoDialog
-        open={infoDialog == 'SPACEFORCE'}
-        onClose={handleBotInfoDialogClose}
-        />
       <ArbitrageInfoDialog
         open={infoDialog == 'ARBITRAGE'}
         onClose={handleBotInfoDialogClose}

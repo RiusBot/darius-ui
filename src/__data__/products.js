@@ -60,13 +60,13 @@ export const products = [
     media: '/static/images/products/courage.jpg',
     status: 'active',
   },
-  {
-    channel: 'SPACEFORCE',
-    channelDisplayName: "Space Force",
-    description: ['太空部隊'],
-    media: '/static/images/products/shortcode.jpg',
-    status: 'active',
-  },
+  // {
+  //   channel: 'SPACEFORCE',
+  //   channelDisplayName: "Space Force",
+  //   description: ['太空部隊'],
+  //   media: '/static/images/products/shortcode.jpg',
+  //   status: 'active',
+  // },
   {
     channel: 'ARBITRAGE',
     channelDisplayName: "Brick Arbitrage",
