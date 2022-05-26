@@ -22,21 +22,50 @@ const tradePair = () => {
   const [pairDeleteDialog, setPairDeleteDialog] = useState({open: false, pairId: null});
 
   const userPair = useSelector(getUserPair);
-  const allToken = useSelector(getAllToken);
   useEffect (() => {
     if (Object.keys(userPair).length == 0) {
       dispatch(loadUserPair());
     }
-    if (allToken.length == 0) {
-      dispatch(loadMarket());
-    }
     },[]
   );
+
+  // // use asyncLoadMarket below instead of call backend api in saga
+  // const allToken = useSelector(getAllToken);
+  // useEffect (() => {
+  //   if (allToken.length == 0) {
+  //     dispatch(loadMarket());
+  //   }
+  //   },[]
+  // );
 
   const confirmDeletePair = () => {
     dispatch(deleteUserPair({pairId: pairDeleteDialog.pairId}));
     setPairDeleteDialog({open: false, pairId: null});
   }
+
+  const asyncLoadMarket = async (callBack) => {
+    const ccxt = require ('ccxt');
+    const ccxtSpotConfig = {'options': {'defaultType': 'spot'}};
+    const ccxtFutureConfig = {'options': {'defaultType': 'future'}};
+    const binanceSpot = new ccxt.binance(ccxtSpotConfig);
+    const binanceSpotMarkets = await binanceSpot.load_markets();
+    const binanceFuture = new ccxt.binance(ccxtFutureConfig);
+    const binanceFutureMarkets = await binanceFuture.load_markets();
+
+    const isUsdtPair = (pair) => pair.includes("/USDT") ? true : false;
+    const removeBase = (pair) => pair.replace("/USDT", "");
+    const binanceSpotTokens = Object.keys(binanceSpotMarkets).filter(isUsdtPair).map(removeBase);
+    const binanceFutureTokens = Object.keys(binanceFutureMarkets).filter(isUsdtPair).map(removeBase);
+    const allTokens = binanceSpotTokens.concat(binanceFutureTokens);
+    return [...new Set(allTokens)]
+  }
+
+  // TODO: put allMarketToken in state
+  const [allMarketToken, setMarketToken] = useState(null);
+  useEffect (() => {
+    asyncLoadMarket().then(data => {console.log(123); console.log(data); setMarketToken(data);});
+    },[]
+  );
 
   const CurrentPairList = () => {
     if (Object.keys(userPair).length == 0) {
