@@ -11,8 +11,10 @@ import { ConfirmDialog } from '@/features/dashboard/components/bot-management/co
 import Snackbar from '@/common/components/snackbar';
 import { PairCreateForm } from '@/features/pair/pair-create-form';
 import { loadUserPair } from '@/features/pair/pair-slice';
+import { loadBuiltinPair } from '@/features/pair/pair-slice';
 import { loadMarket } from '@/features/pair/pair-slice';
 import { getUserPair } from '@/features/pair/pair-selector';
+import { getBuiltinPair } from '@/features/pair/pair-selector';
 import { getAllToken } from '@/features/pair/pair-selector';
 import { deleteUserPair } from '@/features/pair/pair-slice';
 
@@ -25,6 +27,14 @@ const tradePair = () => {
   useEffect (() => {
     if (Object.keys(userPair).length == 0) {
       dispatch(loadUserPair());
+    }
+    },[]
+  );
+    
+  const builtinPair = useSelector(getBuiltinPair);
+  useEffect (() => {
+    if (Object.keys(builtinPair).length == 0) {
+      dispatch(loadBuiltinPair());
     }
     },[]
   );

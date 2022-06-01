@@ -7,6 +7,8 @@ import {
   loadMarketSuccess,
   createUserPair,
   deleteUserPair,
+  loadBuiltinPair,
+  loadBuiltinPairSuccess
 } from '@/features/pair/pair-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -26,6 +28,26 @@ function* loadUserPairSaga() {
       params
     });
     yield put(loadUserPairSuccess(res.data));
+  } catch({response}) {
+    const errorMsg = 'Failed to get user trading pair list';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
+function* loadBuiltinPairSaga() {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/get_builtin_pair`;
+  const requestMethod = 'GET';
+  const params = {
+    uid: auth.uid,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params
+    });
+    yield put(loadBuiltinPairSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get user trading pair list';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -101,6 +123,7 @@ function* deleteUserPairSaga({ payload: pairInfo }) {
 function* pairSaga() {
   yield all([
     takeLatest(loadUserPair.toString(), loadUserPairSaga),
+    takeLatest(loadBuiltinPair.toString(), loadBuiltinPairSaga),
     takeLatest(loadMarket.toString(), loadMarketSaga),
     takeLatest(createUserPair.toString(), createUserPairSaga),
     takeLatest(deleteUserPair.toString(), deleteUserPairSaga)

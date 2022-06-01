@@ -5,6 +5,7 @@ const pairSlice = createSlice({
   initialState: {
     userPair: {},
     allTokens: [],
+    builtinPair: {},
   },
   reducers: {
     loadUserPair: () => {},
@@ -19,6 +20,12 @@ const pairSlice = createSlice({
     },
     createUserPair: () => {},
     deleteUserPair: () => {},
+    loadBuiltinPair: () => {},
+    loadBuiltinPairSuccess: (state, action) => {
+      action.payload.forEach((pair) => {
+        state.builtinPair[pair.pair_id] = pair;
+      });
+    },
   },
 });
 
@@ -31,6 +38,8 @@ export const {
   loadMarketSuccess,
   createUserPair,
   deleteUserPair,
+  loadBuiltinPair,
+  loadBuiltinPairSuccess
 } = actions
 
 export default reducer;
