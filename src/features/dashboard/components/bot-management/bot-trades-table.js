@@ -21,6 +21,22 @@ export const BotTradesTable = (props) => {
     }
   }, [allBotTrades]);
 
+  const statusColorMap = new Map([
+    ['success', 'warning'],
+    ['SL', 'info'],
+    ['TP', 'error'],
+    ['error', 'success']
+  ])
+  const statusPostprocess = (status, err_msg) => {
+      if (typeof err_msg === 'string' || err_msg instanceof String) {
+        if (err_msg.includes("Position Duplicate"))
+          return "Position duplicate";
+        else if (err_msg.includes("Test only"))
+          return "Test Only";
+      }
+      return status;
+  }
+
   return (
     <>
       <PerfectScrollbar>
@@ -73,9 +89,9 @@ export const BotTradesTable = (props) => {
                   </TableCell>
                   <TableCell>
                     <SeverityPill
-                      color={trade.status === "success" ? "warning" : (trade.status === "SL" ? "info" : (trade.status === "TP" ? "error" : "success"))}
+                      color={statusColorMap.has(trade.status) ? statusColorMap.get(trade.status) : "success"}
                     >
-                      {trade.status}
+                      {statusPostprocess(trade.status, trade.error)}
                     </SeverityPill>
                   </TableCell>
                 </TableRow>
