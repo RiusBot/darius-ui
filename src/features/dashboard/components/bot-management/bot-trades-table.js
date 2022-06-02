@@ -29,8 +29,8 @@ export const BotTradesTable = (props) => {
   ])
   const statusPostprocess = (status, err_msg) => {
       if (typeof err_msg === 'string' || err_msg instanceof String) {
-        if (err_msg.includes("Position Duplicate"))
-          return "Position duplicate";
+        if (err_msg.includes("Position duplicate"))
+          return "Position Duplicate";
         else if (err_msg.includes("Test only"))
           return "Test Only";
       }
