@@ -15,6 +15,7 @@ import { MoonInfoDialog } from '@/features/product/moon-info-dialog';
 import { CourageInfoDialog } from '@/features/product/courage-info-dialog';
 import { SpaceforceInfoDialog } from '@/features/product/spaceforce-info-dialog';
 import { ArbitrageInfoDialog } from '@/features/product/arbitrage-info-dialog';
+import { CtaInfoDialog } from '@/features/product/cta-info-dialog';
 import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
 import { loadPerformance  } from '@/features/product/product-slice';
 import { getAllPerformance } from '@/features/product/product-selector';
@@ -115,6 +116,10 @@ const Products = () => {
         />
       <CourageInfoDialog
         open={infoDialog == 'COURAGE'}
+        onClose={handleBotInfoDialogClose}
+        />
+      <CtaInfoDialog
+        open={infoDialog == 'CTA'}
         onClose={handleBotInfoDialogClose}
         />
       <ArbitrageInfoDialog
