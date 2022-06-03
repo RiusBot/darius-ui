@@ -37,13 +37,12 @@ export const AlphaShark = (props) => {
             component="img"
             height="350"
             image={'/static/images/campaign/alphashark/2.png'}
-            alt="AlphaShark"
+            alt="alphaShark"
           />
         </Box>
         <CardHeader
           title="Rius Bot ⓧ AlphaShark"
           subheader="Check it out !!!"
-          id="AlphaShark"
         />
         <Divider />
             

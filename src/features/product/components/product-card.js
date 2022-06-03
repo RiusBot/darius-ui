@@ -24,6 +24,7 @@ export const ProductCard = (props) => {
         flexDirection: 'column',
         height: '100%'
       }}
+      id={product.channel}
     >
       <CardContent>
         <Box
