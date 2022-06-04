@@ -67,13 +67,13 @@ export const products = [
   //   media: '/static/images/products/shortcode.jpg',
   //   status: 'active',
   // },
-  // {
-  //   channel: 'ACDC',
-  //   channelDisplayName: "ACDC",
-  //   description: ['ACDC學院'],
-  //   media: '/static/images/products/shortcode.jpg',
-  //   status: 'active',
-  // },
+  {
+    channel: 'ACDC',
+    channelDisplayName: "ACDC",
+    description: ['ACDC學院'],
+    media: '/static/images/products/shortcode.jpg',
+    status: 'active',
+  },
   {
     channel: 'ARBITRAGE',
     channelDisplayName: "Brick Arbitrage",
@@ -156,6 +156,12 @@ export const productMedia = {
     channelDisplayName: "Space force",
     media: '/static/images/products/shortcode.jpg',
     channel: 'SPACEFORCE',
+    status: 'active',
+  },
+  'ACDC': {
+    channelDisplayName: "ACDC",
+    media: '/static/images/products/shortcode.jpg',
+    channel: 'ACDC',
     status: 'active',
   },
   'CTA': {
