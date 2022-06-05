@@ -63,16 +63,17 @@ const Dashboard = () => {
   }
 
   const handleDialogOpen = (dialog) => {
+    const channelDisplayName = Object.keys(productMedia).includes(dialog.channel) ? productMedia[dialog.channel].channelDisplayName : dialog.channel
     switch (dialog.action) {
       case 'botCreate':
         setBotCreateDialog({open: true, 
                             channel: dialog.channel, 
-                            channelDisplayName: productMedia[dialog.channel].channelDisplayName});
+                            channelDisplayName: channelDisplayName});
         break;
       case 'botEdit':
         setBotEditDialog({open: true, 
-                          channel: dialog.channel, 
-                          channelDisplayName: productMedia[dialog.channel].channelDisplayName, 
+                          channel: dialog.channel,
+                          channelDisplayName: channelDisplayName,
                           botId: dialog.botId,
                           config: dialog.config,
                           status: dialog.botStatus,
@@ -126,7 +127,8 @@ const Dashboard = () => {
             </Box>)
       }
       else return (<>
-        {subscriptions.map((sub, index) => { 
+        {subscriptions.map((sub, index) => {
+          // dont show create bot card if subscription not in productMedia
           if (Object.keys(productMedia).includes(sub.plan.channel)) {
             return <Box 
                       key={index}
