@@ -13,15 +13,19 @@ import { Dialog,
          MenuItem } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TransferList from '@/features/pair/components/transfer-list';
-import { createUserPair } from '@/features/pair/pair-slice';
+import { updateUserPair } from '@/features/pair/pair-slice';
 
 const types = ['BLACK', 'WHITE'];
 
-export const PairCreationDialog = (props) => {
+export const PairEditDialog = (props) => {
     const dispatch = useDispatch();
-    const { open, tokenData, onClose } = props;
-    const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
-    const [pairValues, setPairValues] = useState({name: '', lists: [], types: ''});
+    const { open, oldPairValue, tokenData, onClose } = props;
+    const [updateButtonDisabled, setUpdateButtonDisabled] = useState(true);
+    const [pairValues, setPairValues] = useState({name: oldPairValue.name, lists: oldPairValue.lists, types: oldPairValue.types});
+
+    useEffect(() => {
+        setPairValues({name: oldPairValue.name, lists: oldPairValue.lists, types: oldPairValue.types});
+    }, [oldPairValue])
 
     const handleChange = (event) => {
         setPairValues({
@@ -38,7 +42,6 @@ export const PairCreationDialog = (props) => {
             return (types.includes(pairValues[field]));
             case 'lists':
             return (pairValues[field].length != 0);
-            return true;
         }
     }
     
@@ -52,13 +55,13 @@ export const PairCreationDialog = (props) => {
             return true;
         }
         const isPairReady = checkValuesReady();
-        setCreateButtonDisabled(!isPairReady)
+        setUpdateButtonDisabled(!isPairReady)
     }, [pairValues])
 
 
-    const createButtonClicked = () => {
-        const createPairInfo = {pair: pairValues};
-        dispatch(createUserPair(createPairInfo));
+    const updateButtonClicked = () => {
+        const updatePairInfo = {pair: {...pairValues, id: oldPairValue.pair_id}};
+        dispatch(updateUserPair(updatePairInfo));
         setPairValues({name: '', lists: [], types: ''});
         onClose();
     }
@@ -81,7 +84,7 @@ export const PairCreationDialog = (props) => {
                     padding: '32px 16px 8px'
                 }}>
                 <Typography variant="h5" component="div">
-                    Trading List Creation
+                    Trading List Edit
                 </Typography>
                 <IconButton
                     style={{marginLeft: 'auto'}}
@@ -100,7 +103,7 @@ export const PairCreationDialog = (props) => {
                     gutterBottom
                     variant="h6"
                     >
-                    Please fill out the following form to add a new trading list.
+                    Update your trading list by editing the following fields.
                 </Typography>
                 <TextField
                     fullWidth
@@ -129,7 +132,7 @@ export const PairCreationDialog = (props) => {
                 <Box sx={{pt: 4}}>
                     <TransferList
                         tokenData={tokenData}
-                        list={[]}
+                        list={pairValues.lists}
                         setList={handleListChange}
                     />
                 </Box>
@@ -145,10 +148,10 @@ export const PairCreationDialog = (props) => {
                         style={{marginLeft: 'auto'}}
                         size="small"
                         variant="contained"
-                        onClick={createButtonClicked}
-                        disabled={createButtonDisabled}
+                        onClick={updateButtonClicked}
+                        disabled={updateButtonDisabled}
                     >
-                        Save and Create
+                        Save and Update
                     </Button>
                 </Box>
             </Box>

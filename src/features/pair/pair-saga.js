@@ -5,6 +5,7 @@ import {
   loadMarket,
   loadMarketSuccess,
   createUserPair,
+  updateUserPair,
   deleteUserPair,
   loadBuiltinPair,
   loadBuiltinPairSuccess
@@ -92,9 +93,34 @@ function* createUserPairSaga({ payload: pairInfo }) {
       data
     });
     yield put(loadUserPair());
-    yield put(updateSnackbar({ type: 'success', msg: `Create Pair Key Success` }));
+    yield put(updateSnackbar({ type: 'success', msg: `Create Pair Success` }));
   } catch({response}) { 
     const errorMsg = 'Failed to create user trading pair list';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
+function* updateUserPairSaga({ payload: pairInfo }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/update_user_pair`;
+  const requestMethod = 'POST';
+  const data = {
+    uid: auth.uid,
+    pair_id: pairInfo.pair.id,
+    name: pairInfo.pair.name,
+    lists: pairInfo.pair.lists,
+    types: pairInfo.pair.types,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data
+    });
+    yield put(loadUserPair());
+    yield put(updateSnackbar({ type: 'success', msg: `Update Pair Success` }));
+  } catch({response}) { 
+    const errorMsg = 'Failed to update user trading pair list';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
 }
@@ -127,6 +153,7 @@ function* pairSaga() {
     takeLatest(loadBuiltinPair.toString(), loadBuiltinPairSaga),
     takeLatest(loadMarket.toString(), loadMarketSaga),
     takeLatest(createUserPair.toString(), createUserPairSaga),
+    takeLatest(updateUserPair.toString(), updateUserPairSaga),
     takeLatest(deleteUserPair.toString(), deleteUserPairSaga)
   ]);
 }

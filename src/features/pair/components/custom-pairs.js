@@ -7,6 +7,7 @@ import { Card,
          Button,
          Typography } from '@mui/material';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
@@ -15,7 +16,7 @@ import { getUserPair } from '@/features/pair/pair-selector';
 
 export const CustomPairs = (props) => {
     const dispatch = useDispatch();
-    const { setPairCreateDialog, setPairDeleteDialog } = props;
+    const { setPairCreateDialog, setPairEditDialog, setPairDeleteDialog } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
     const userPair = useSelector(getUserPair);
     const profile = useSelector(getUserProfile);
@@ -69,14 +70,23 @@ export const CustomPairs = (props) => {
                   >
                   {pair.name}
                 </Typography>
-    
+                <Button
+                    color="primary"
+                    endIcon={<EditIcon fontSize="small" />}
+                    size="small"
+                    variant="contained"
+                    onClick={() => setPairEditDialog({value: pair, open: true})}
+                    sx={{marginLeft: 'auto'}}
+                >
+                    Edit
+                </Button>
                 <Button
                   color="error"
                   endIcon={<DeleteForeverIcon fontSize="small" />}
                   size="small"
                   variant="contained"
                   onClick={() => setPairDeleteDialog({open: true, pairId: pair.pair_id})}
-                  sx={{marginLeft: 'auto'}}
+                  sx={{marginLeft: '8px'}}
                 >
                     Delete
                 </Button>

@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import withAuth from '@/common/utils/auth';
+import Snackbar from '@/common/components/snackbar';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import { PairCreationDialog } from '@/features/pair/components/pair-creation-dialog';
+import { PairEditDialog } from '@/features/pair/components/pair-edit-dialog';
 import { CustomPairs } from '@/features/pair/components/custom-pairs';
 import { BuiltinPairs } from '@/features/pair/components/builtin-pairs';
 import { loadMarket } from '@/features/pair/pair-slice';
@@ -16,6 +18,7 @@ import { deleteUserPair } from '@/features/pair/pair-slice';
 const tradePair = () => {
   const dispatch = useDispatch();
   const [pairCreateDialog, setPairCreateDialog] = useState({open: false});
+  const [pairEditDialog, setPairEditDialog] = useState({value: {name: '', lists: [], type: ''}, open: false});
   const [pairDeleteDialog, setPairDeleteDialog] = useState({open: false, pairId: null});
 
   const allMarketToken = useSelector(getAllToken);
@@ -51,16 +54,24 @@ const tradePair = () => {
         <Container maxWidth={false}>
           <CustomPairs
             setPairCreateDialog={setPairCreateDialog}
+            setPairEditDialog={setPairEditDialog}
             setPairDeleteDialog={setPairDeleteDialog}
             />
 
           <BuiltinPairs />
         </Container>
+        <Snackbar />
       </Box>
       <PairCreationDialog
         open={pairCreateDialog.open}
         tokenData={allMarketToken}
         onClose={() => setPairCreateDialog({open: false})}
+        />
+      <PairEditDialog
+        open={pairEditDialog.open}
+        tokenData={allMarketToken}
+        oldPairValue={pairEditDialog.value}
+        onClose={() => setPairEditDialog({...pairEditDialog, open: false})}
         />
       <ConfirmDialog
         open={pairDeleteDialog.open}

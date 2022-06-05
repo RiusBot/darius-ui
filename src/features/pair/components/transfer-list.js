@@ -23,10 +23,10 @@ function union(a, b) {
 }
 
 export default function TransferList(props) {
-  const { tokenData, setList } = props;
+  const { tokenData, list, setList } = props;
   const [checked, setChecked] = React.useState([]);
-  const [left, setLeft] = React.useState(tokenData);
-  const [right, setRight] = React.useState([]);
+  const [left, setLeft] = React.useState(not(tokenData, list));
+  const [right, setRight] = React.useState(list);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);

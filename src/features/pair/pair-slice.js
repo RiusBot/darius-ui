@@ -19,6 +19,7 @@ const pairSlice = createSlice({
       state.allTokens = action.payload;
     },
     createUserPair: () => {},
+    updateUserPair: () => {},
     deleteUserPair: () => {},
     loadBuiltinPair: () => {},
     loadBuiltinPairSuccess: (state, action) => {
@@ -37,6 +38,7 @@ export const {
   loadMarket,
   loadMarketSuccess,
   createUserPair,
+  updateUserPair,
   deleteUserPair,
   loadBuiltinPair,
   loadBuiltinPairSuccess
