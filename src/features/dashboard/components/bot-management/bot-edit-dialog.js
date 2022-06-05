@@ -17,6 +17,7 @@ function BotEditDialog(props) {
                                                });
     const [configTab, setTab] = useState('1'); // 1 for Pro Mode
     const [configOptions, setConfigs] = useState({  api: config.api_id,
+                                                    pair: config.pair_id,
                                                     hyperopt: config.hyperopt,
                                                     target: config.target,
                                                     orderType: config.order_type,
@@ -34,6 +35,7 @@ function BotEditDialog(props) {
                     duplicate: config.duplicate,
                 });
         setConfigs({api: config.api_id,
+                    pair: config.pair_id,
                     hyperopt: config.hyperopt,
                     target: config.target,
                     orderType: config.order_type,
@@ -60,6 +62,7 @@ function BotEditDialog(props) {
         if (configTab == '0') {
             validatedConfigOptions = {
                 api: configOptions.api, 
+                pair: configOptions.pair,
                 quantity: configOptions.quantity, 
                 hyperopt: defaultConfigSettings.hyperopt,
                 target: configOptions.target, 

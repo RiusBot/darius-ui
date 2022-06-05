@@ -19,6 +19,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
     uid: auth.uid,
     config: {
       api_id: createBotInfo.configOptions.api,
+      pair_id: createBotInfo.configOptions.pair,
       test: createBotInfo.orderOptions.test,
       duplicate: createBotInfo.orderOptions.duplicate,
       target: createBotInfo.configOptions.target,
@@ -59,6 +60,7 @@ function* updateUserBotSaga({ payload: updateBotInfo }) {
     status: updateBotInfo.status,
     config: {
       api_id: updateBotInfo.configOptions.api,
+      pair_id: updateBotInfo.configOptions.pair,
       test: updateBotInfo.orderOptions.test,
       hyperopt: updateBotInfo.configOptions.hyperopt,
       duplicate: updateBotInfo.orderOptions.duplicate,
