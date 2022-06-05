@@ -103,7 +103,7 @@ export const PairCreateForm = (props) => {
             disabled={!isPairCreateReady}
             onClick={createButtonClicked}
         >
-            Add API Key
+            Create
         </Button>
         </Box>
     </>

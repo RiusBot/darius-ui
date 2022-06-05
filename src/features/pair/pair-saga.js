@@ -1,5 +1,4 @@
 import { all, put, select, takeLatest } from 'redux-saga/effects';
-import { React, useState, useEffect } from 'react';
 import {
   loadUserPair,
   loadUserPairSuccess,
@@ -55,22 +54,24 @@ function* loadBuiltinPairSaga() {
 }
 
 function* loadMarketSaga() {
-  const axios = yield getAxios();
-  const auth = yield select(getAuthUser);
-  const url = `/api/v1/get_all_pair`;
-  const requestMethod = 'GET';
-  const params = {
-    uid: auth.uid,
-  }
+  const ccxt = require ('ccxt');
+  const ccxtSpotConfig = {'options': {'defaultType': 'spot'}};
+  const ccxtFutureConfig = {'options': {'defaultType': 'future'}};
   try {
-    const res = yield axios(url, {
-      method: requestMethod,
-      params
-    });
-    yield put(loadMarketSuccess(res.data));
-  } catch({response}) {
-    const errorMsg = 'Failed to get user trading pair list';
-    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+    const binanceSpot = new ccxt.binance(ccxtSpotConfig);
+    const binanceSpotMarkets = yield binanceSpot.load_markets();
+    const binanceFuture = new ccxt.binance(ccxtFutureConfig);
+    const binanceFutureMarkets = yield binanceFuture.load_markets();
+
+    const isUsdtPair = (pair) => pair.includes("/USDT") ? true : false;
+    const removeBase = (pair) => pair.replace("/USDT", "");
+    const binanceSpotTokens = Object.keys(binanceSpotMarkets).filter(isUsdtPair).map(removeBase);
+    const binanceFutureTokens = Object.keys(binanceFutureMarkets).filter(isUsdtPair).map(removeBase);
+    const allTokens = binanceSpotTokens.concat(binanceFutureTokens);
+    yield put (loadMarketSuccess([...new Set(allTokens)]));
+  } catch {
+    const errorMsg = 'Failed to get market tokens';
+    yield put(updateSnackbar({ type: 'error', msg: '{errorMsg'}));
   }
 }
 
