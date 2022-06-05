@@ -65,6 +65,23 @@ export const CtaInfoDialog = (props) => {
                     <Typography varient="body1" componenet="div">
                         當市場在區間來回震盪，容易使得CTA策略績效回落。<br/>
                     </Typography><br/>
+                      
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        注意事項
+                    </Typography>
+                    <Typography varient="body1" componenet="div" color="blue">
+                      <b>此策略將不會按照機器人下單金額，而是按照策略提供資金比例下單，建議總資金10000以上。</b><br/>
+                      <b>此策略尚未開放訂閱，敬請期待。</b><br/>
+                    </Typography><br/>
+                      
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        團隊介紹
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        說明待補
+                    </Typography><br/>
+
+                    <br/><Divider /><br/>
                         
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
                         關於CTA投資組合

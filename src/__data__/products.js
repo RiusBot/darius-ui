@@ -72,7 +72,14 @@ export const products = [
     channelDisplayName: "ACDC",
     description: ['ACDC學院'],
     media: '/static/images/products/shortcode.jpg',
-    status: 'active',
+    status: 'Comming soon',
+  },
+  {
+    channel: 'CTA',
+    channelDisplayName: "CTA",
+    description: ['Commodity Trading Advisor', '利用在加密貨幣市場中投資者時常反應過度和反應不足的現象，建立一籃子加密貨幣的多空投資組合。一小時週期進出場，多空雙向操作。'],
+    media: '/static/images/products/cta.jpeg',
+    status: 'Comming soon',
   },
   {
     channel: 'ARBITRAGE',
@@ -80,13 +87,6 @@ export const products = [
     description: ['搬磚套利', 'FTX / Binance', 'SPOT / FUTURE', '2%以上溢價訊號'],
     media: '/static/images/products/money.jpg',
     status: 'signal only',
-  },
-  {
-    channel: 'CTA',
-    channelDisplayName: "CTA",
-    description: ['Commodity Trading Advisor', '利用在加密貨幣市場中投資者時常反應過度和反應不足的現象，建立一籃子加密貨幣的多空投資組合。一小時週期進出場，多空雙向操作。'],
-    media: '/static/images/products/cta.jpeg',
-    status: 'active',
   },
   {
     channel: 'WEBHOOK',
@@ -162,13 +162,13 @@ export const productMedia = {
     channelDisplayName: "ACDC",
     media: '/static/images/products/shortcode.jpg',
     channel: 'ACDC',
-    status: 'active',
+    status: 'Comming soon',
   },
   'CTA': {
     channelDisplayName: "CTA",
     media: '/static/images/products/cta.jpeg',
     channel: 'CTA',
-    status: 'active',
+    status: 'Comming soon',
   },
   'ARBITRAGE': {
     channelDisplayName: "Brick Arbitrage",
