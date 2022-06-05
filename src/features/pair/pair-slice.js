@@ -11,12 +11,14 @@ const pairSlice = createSlice({
     loadUserPair: () => {},
     loadUserPairSuccess: (state, action) => {
       action.payload.forEach((pair) => {
+        pair.lists.sort();
         state.userPair[pair.pair_id] = pair;
       });
     },
     loadMarket: () => {},
     loadMarketSuccess: (state, action) => {
       state.allTokens = action.payload;
+      state.allTokens.sort();
     },
     createUserPair: () => {},
     updateUserPair: () => {},
