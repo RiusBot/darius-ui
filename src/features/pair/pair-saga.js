@@ -104,7 +104,7 @@ function* updateUserPairSaga({ payload: pairInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/update_user_pair`;
-  const requestMethod = 'POST';
+  const requestMethod = 'PATCH';
   const data = {
     uid: auth.uid,
     pair_id: pairInfo.pair.id,

@@ -26,9 +26,6 @@ const tradePair = () => {
     if (allMarketToken.length == 0) {
       dispatch(loadMarket());
     }
-    if (allToken.length == 0) {
-      dispatch(loadMarket());
-    }
     },[]
   );
 
