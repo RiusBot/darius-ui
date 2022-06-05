@@ -122,6 +122,16 @@ export const AccountProfileDetails = (props) => {
                   variant="outlined"
                 />
                 <TelegramInfo />
+                <TextField
+                  sx={{margin: '32px 0 0 0'}}
+                  fullWidth
+                  label="Role"
+                  name="role"
+                  onChange={handleChange}
+                  disabled
+                  value={profile.role}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
           </CardContent>

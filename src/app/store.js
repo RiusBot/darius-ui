@@ -16,11 +16,11 @@ const getMiddlewares = (middlewares) => {
 };
 
 const makeStore = () => {
-	const sagaMiddleware = createSagaMiddleware();
-	const store = configureStore({
-		reducer: rootReducer,
-		devTools: !isProduction,
-		middleware: (getDefaultMiddleware) => (
+    const sagaMiddleware = createSagaMiddleware();
+    const store = configureStore({
+        reducer: rootReducer,
+        devTools: !isProduction,
+        middleware: (getDefaultMiddleware) => (
       getDefaultMiddleware({ 
         thunk: false,
         serializableCheck: {
@@ -28,9 +28,9 @@ const makeStore = () => {
         }
       }).concat(getMiddlewares([sagaMiddleware]))
     ),
-	});
+    });
 
-	store.sagaTask = sagaMiddleware.run(rootSaga, store.dispatch);
+    store.sagaTask = sagaMiddleware.run(rootSaga, store.dispatch);
 
   return store;
 };
