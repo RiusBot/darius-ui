@@ -6,7 +6,7 @@ import { Card,
          Divider,
          Button,
          Typography } from '@mui/material';
-import KeyIcon from '@mui/icons-material/Key';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
@@ -60,7 +60,7 @@ export const CustomPairs = (props) => {
           {Object.values(userPair).map((pair, id) => (
             <Box key={id} sx={{backgroundColor:'#EEE', padding: '16px', marginBottom: '8px'}}>
               <Box sx={{display: 'flex', flexDirection: 'row'}} >
-                <KeyIcon color='primary'/>
+                <ListAltIcon color='primary'/>
                 <Typography
                   sx={{marginLeft: '16px' }}
                   color="textPrimary"

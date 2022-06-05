@@ -5,7 +5,7 @@ import { Card,
          Box,
          Divider,
          Typography } from '@mui/material';
-import KeyIcon from '@mui/icons-material/Key';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { loadBuiltinPair } from '@/features/pair/pair-slice';
 import { getBuiltinPair } from '@/features/pair/pair-selector';
 
@@ -28,7 +28,7 @@ export const BuiltinPairs = (props) => {
           {Object.values(builtinPair).map((pair, id) => (
             <Box key={id} sx={{backgroundColor:'#EEE', padding: '16px', marginBottom: '8px', marginTop: '8px'}}>
               <Box sx={{display: 'flex', flexDirection: 'row'}} >
-                <KeyIcon color='primary'/>
+                <ListAltIcon color='primary'/>
                 <Typography
                   sx={{marginLeft: '16px' }}
                   color="textPrimary"
