@@ -35,11 +35,7 @@ export const PairDetailDialog = (props) => {
                     </Typography>
                 </Box>
                 <IconButton
-<<<<<<< HEAD
-                    style={{marginLeft: 'auto'}}
-=======
                     style={{marginLeft: '64px'}}
->>>>>>> 199cbb5 (Add builtin pair detail dialog)
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
