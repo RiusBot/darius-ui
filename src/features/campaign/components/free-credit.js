@@ -24,11 +24,11 @@ export const FreeCredit = () => {
   const router = useRouter();
   return (
     <>
-      <Card sx={{ height: '100%' }} id="freecredit">
+      <Card sx={{ height: '100%' }} id="vip">
         <CardHeader
-          title="Rius Bot ⓧ FTX ⓧ Binance"
-          subheader="Earn Free Credits !!!"
-          id="freecredit"
+          title="Rius Bot ⓧ FTX ⓧ Binance ⓧ OKX"
+          subheader="VIP Plan !!!"
+          id="vip"
         />
         <Divider />
         <CardContent>
@@ -41,25 +41,25 @@ export const FreeCredit = () => {
                 <ListItemIcon>
                   <CheckIcon color="primary"/>
                 </ListItemIcon>
-                <Typography variant="h7">Register exchange to trade and get RiusBot <b>100U FREE CREDIT</b></Typography>
+                <Typography variant="h7">Register exchange with RiusBot invitation code to become <b>VIP</b> !</Typography>
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <CheckIcon color="primary"/>
                 </ListItemIcon>
-                  <Typography variant="h7">Experience our quantitaive trading bots up to <b>3 MONTH FOR FREE</b></Typography>
+                  <Typography variant="h7">VIP can run any bot and enjoy all advance feature on RiusBot</Typography>
               </ListItem>
             </List>
 
             <List sx={{ listStyleType: 'disc' }}>
               <Typography variant="h6" sx={{ paddingTop: '16px' }}>
-                How to get Free Credit?
+                How to Apply?
               </Typography>
               <ListItem>
                 <ListItemIcon>
                   <LooksOneIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Use the invitation code of RiusBot to register" />
+                <ListItemText primary="Register with RiusBot invitation code" />
               </ListItem>
               <Link href="https://ftx.com/profile#a=riusbot" underline="none" target="_blank">
                 <Button
@@ -70,6 +70,17 @@ export const FreeCredit = () => {
                   startIcon={<ForwardIcon/>}
                 >
                   https://ftx.com/profile#a=riusbot
+                </Button>
+              </Link>
+              <Link href="https://www.okx.com/join/19723605" underline="none" target="_blank">
+                <Button
+                  aria-label="okx"
+                  variant="text"
+                  size="small"
+                  sx={{ ml: 10 }}
+                  startIcon={<ForwardIcon/>}
+                >
+                  https://www.okx.com/join/19723605
                 </Button>
               </Link>
               <br />
@@ -89,7 +100,7 @@ export const FreeCredit = () => {
                 <ListItemIcon>
                   <LooksTwoIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Bind the API & Start the Bot" />
+                <ListItemText primary="Bind the API KEY & Start the Bot on RiusBot" />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -113,18 +124,6 @@ export const FreeCredit = () => {
               <Typography variant="h6" sx={{ paddingTop: '16px' }}>
                 NOTE
               </Typography>
-              <ListItem>
-                <ListItemIcon>
-                  <WarningIcon color="primary"/>
-                </ListItemIcon>
-                <ListItemText primary="100U trial credit can only be used in Rius Bot and CANNOT be withdrawn" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <WarningIcon color="primary"/>
-                </ListItemIcon>
-                <ListItemText primary="100U trial credit for each exchange registered" />
-              </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <WarningIcon color="primary"/>

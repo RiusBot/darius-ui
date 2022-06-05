@@ -101,7 +101,7 @@ export const FreeTrial = () => {
                 </ListItemIcon>
                 <ListItemText primary="Free Trial Period starts once you finish telegram account binding" />
               </ListItem>
-                <Button
+              <Button
                 aria-label="Connect Telegram Now"
                 size="small"
                 sx={{ ml: 10 }}

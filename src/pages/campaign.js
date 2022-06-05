@@ -31,7 +31,6 @@ const Campaign = () => {
       >
         <Container maxWidth={false}>
           <OpenOffer showButton={true} /><br/>
-          <AlphaShark showButton={true}  /><br/>
           <Grid container spacing={3} sx={{ height: '100%' }}>
             <Grid item xs={12} md ={6} >
               <FreeTrial />
@@ -39,7 +38,8 @@ const Campaign = () => {
             <Grid item xs={12} md ={6} >
               <FreeCredit />
             </Grid>
-          </Grid>
+          </Grid><br/>
+          <AlphaShark showButton={true}  />
         </Container>
       </Box>
     </>
