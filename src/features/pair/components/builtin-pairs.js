@@ -4,13 +4,15 @@ import { Card,
          CardHeader,
          Box,
          Divider,
-         Typography } from '@mui/material';
+         Typography,
+         Button } from '@mui/material';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { loadBuiltinPair } from '@/features/pair/pair-slice';
 import { getBuiltinPair } from '@/features/pair/pair-selector';
 
 export const BuiltinPairs = (props) => {
     const dispatch = useDispatch();
+    const { setPairDetailDialog } = props;
     const builtinPair = useSelector(getBuiltinPair);
     useEffect (() => {
         if (Object.keys(builtinPair).length == 0) {
@@ -37,6 +39,15 @@ export const BuiltinPairs = (props) => {
                   >
                   {pair.name}
                 </Typography>
+                <Button
+                    color="primary"
+                    size="small"
+                    variant="contained"
+                    onClick={() => setPairDetailDialog({value: pair, open: true})}
+                    sx={{marginLeft: 'auto'}}
+                >
+                    Show Detail
+                </Button>
               </Box>
     
               <Typography

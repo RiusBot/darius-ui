@@ -8,6 +8,7 @@ import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import { PairCreationDialog } from '@/features/pair/components/pair-creation-dialog';
 import { PairEditDialog } from '@/features/pair/components/pair-edit-dialog';
+import { PairDetailDialog } from '@/features/pair/components/pair-detail-dialog';
 import { CustomPairs } from '@/features/pair/components/custom-pairs';
 import { BuiltinPairs } from '@/features/pair/components/builtin-pairs';
 import { loadMarket } from '@/features/pair/pair-slice';
@@ -18,6 +19,7 @@ import { deleteUserPair } from '@/features/pair/pair-slice';
 const tradePair = () => {
   const dispatch = useDispatch();
   const [pairCreateDialog, setPairCreateDialog] = useState({open: false});
+  const [pairDetailDialog, setPairDetailDialog] = useState({value: {name: '', lists: [], type: ''}, open: false});
   const [pairEditDialog, setPairEditDialog] = useState({value: {name: '', lists: [], type: ''}, open: false});
   const [pairDeleteDialog, setPairDeleteDialog] = useState({open: false, pairId: null});
 
@@ -55,7 +57,9 @@ const tradePair = () => {
             setPairDeleteDialog={setPairDeleteDialog}
             />
 
-          <BuiltinPairs />
+          <BuiltinPairs 
+            setPairDetailDialog={setPairDetailDialog}
+            />
         </Container>
         <Snackbar />
       </Box>
@@ -63,6 +67,12 @@ const tradePair = () => {
         open={pairCreateDialog.open}
         tokenData={allMarketToken}
         onClose={() => setPairCreateDialog({open: false})}
+        />
+      <PairDetailDialog
+        open={pairDetailDialog.open}
+        tokenData={allMarketToken}
+        pairValue={pairDetailDialog.value}
+        onClose={() => setPairDetailDialog({...pairDetailDialog, open: false})}
         />
       <PairEditDialog
         open={pairEditDialog.open}
