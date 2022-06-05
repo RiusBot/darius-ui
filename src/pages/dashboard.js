@@ -127,16 +127,18 @@ const Dashboard = () => {
       }
       else return (<>
         {subscriptions.map((sub, index) => { 
-          return <Box 
-                    key={index}
-                    style={{'minWidth': '360px',
-                            'paddingRight': '30px'}}>
-                    <BotCard
+          if (Object.keys(productMedia).includes(sub.plan.channel)) {
+            return <Box 
                       key={index}
-                      bot={productMedia[sub.plan.channel]}
-                      openCreateBotDialog={handleDialogOpen}
-                    />
-                  </Box>
+                      style={{'minWidth': '360px',
+                              'paddingRight': '30px'}}>
+                      <BotCard
+                        key={index}
+                        bot={productMedia[sub.plan.channel]}
+                        openCreateBotDialog={handleDialogOpen}
+                      />
+                    </Box>
+          }
         })}
       </>
       )
