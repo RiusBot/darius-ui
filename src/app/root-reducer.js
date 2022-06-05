@@ -6,6 +6,7 @@ import { firestoreReducer } from 'redux-firestore';
 import appReducer from '@/app/app-slice';
 import dashboardReducer from '@/features/dashboard/dashboard-slice';
 import apiReducer from '@/features/api/api-slice';
+import pairReducer from '@/features/pair/pair-slice';
 import subscriptionReducer from '@/features/subscription/subscription-slice';
 import transactionReducer from '@/features/transaction/transaction-slice';
 import productReducer from '@/features/product/product-slice';
@@ -16,6 +17,7 @@ const combined = combineReducers({
   app: appReducer,
   dashboard: dashboardReducer,
   api: apiReducer,
+  pair: pairReducer,
   subscription: subscriptionReducer,
   transaction: transactionReducer,
   product: productReducer,

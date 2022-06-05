@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { FormGroup, FormControlLabel, Checkbox, Typography, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -13,6 +13,8 @@ import { NavItem } from '@/common/components/nav-item';
 import { getUserApi } from '@/features/api/api-selector';
 import { lazyModeRequiredInput } from '__data__/defaultConfigSettings';
 import { TrialLimitationInfo } from '@/features/dashboard/components/bot-creation/trial-limitation-info';
+import { loadUserPair, loadBuiltinPair } from '@/features/pair/pair-slice';
+import { getAllPair } from '@/features/pair/pair-selector';
 
 
 const limits = { stopLoss: { min: 0, max: 100},
@@ -31,8 +33,16 @@ const apiKeySetting = {
                       }
 
 export default function ConfigSettings(props) {
+    const dispatch = useDispatch();
     const { isTrial, saveDisabled, configOptions, setConfigs, oldConfig, orderOptions, setOrders, configTab, setTab } = props;
     const userApi = useSelector(getUserApi);
+    const allPair = useSelector(getAllPair);
+    useEffect (() => {
+      if (Object.keys(allPair).length == 0) {
+        dispatch(loadUserPair());
+        dispatch(loadBuiltinPair());
+      }
+    },[]);
     const handleTabChange = (event, newValue) => {
         setTab(newValue);
     }
@@ -65,6 +75,7 @@ export default function ConfigSettings(props) {
         if (configOptions[option] === '') return false;
         switch (option) {
             case 'api':
+            case 'pair':
             case 'target':
             case 'orderType':
             case 'stopLossType':
@@ -142,6 +153,27 @@ export default function ConfigSettings(props) {
                     </Select>
                 </FormControl>)
       }
+
+    const PairOption = () => {
+        if (allPair == undefined || Object.keys(allPair).length == 0 ) {
+            return <></>
+        }
+        return (<FormControl fullWidth>
+                    <InputLabel >Trading List</InputLabel>
+                    <Select
+                        name="pair"
+                        id="pair"
+                        value={configOptions.pair}
+                        label="pair"
+                        onChange={handleOptionChange}
+                    >
+                        {Object.values(allPair).map((pair) => (
+                            <MenuItem key={pair.pair_id} value={pair.pair_id}>{pair.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>)
+    }
+
     return (
         <Box sx={{m:2}} >
             <TrialLimitationInfo isTrial={isTrial}/>
@@ -154,7 +186,7 @@ export default function ConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">Order Settings Info</Typography>
-                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501' target="_blank" >{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton
@@ -171,7 +203,7 @@ export default function ConfigSettings(props) {
                                 checked={orderOptions.test}
                                 onChange={handleCheckBoxChange}/>} 
                     label="Test only" />
-                <FormControlLabel 
+                <FormControlLabel
                     control={<Checkbox 
                                 id="duplicate"
                                 checked={orderOptions.duplicate}
@@ -188,7 +220,7 @@ export default function ConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">API Settings Info</Typography>
-                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501' target="_blank" >{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton
@@ -203,6 +235,29 @@ export default function ConfigSettings(props) {
             </Box>
             <Divider />
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Typography variant="h6" component="div" sx={{padding: '8px 0'}}>
+                    Trading List Settings (optional)
+                </Typography>
+                <Tooltip
+                    placement="bottom-start"
+                    title={
+                    <React.Fragment>
+                        <Typography color="inherit">API Settings Info</Typography>
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501' target="_blank" >{'Instruction Manual'}</a>
+                    </React.Fragment>
+                    }>
+                    <IconButton
+                        style={{marginLeft: '8px'}}
+                    >
+                        <InfoIcon fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+            </Box>
+            <Box sx={{p:2}}>
+                <PairOption/>
+            </Box>
+            <Divider />
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
                 <Typography variant="h6" component="div" sx={{padding: '24px 0 16px'}}>
                     Config Settings
                 </Typography>
@@ -211,7 +266,7 @@ export default function ConfigSettings(props) {
                     title={
                     <React.Fragment>
                         <Typography color="inherit">Config Settings Info</Typography>
-                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501'>{'Instruction Manual'}</a>
+                        <a href='https://www.notion.so/d53e1daa5c0446c5aed46ee4c806f94c#4b5010c68b6f4dd4a8b06b163f007501' target="_blank" >{'Instruction Manual'}</a>
                     </React.Fragment>
                     }>
                     <IconButton

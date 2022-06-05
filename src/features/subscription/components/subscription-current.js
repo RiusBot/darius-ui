@@ -18,39 +18,41 @@ export const SubscriptionCurrent = (props) => {
     } 
     return (
       <>
-      {subscriptions.map((sub, id) => (
-        <Box key={id} >
-          <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '32px'}} >
-            <Avatar
-              alt={sub.plan.channel}
-              src={productMedia[sub.plan.channel].media}
-              sx={{
-                display: 'flex',
-                height: 64,
-                width: 64
-              }}
-            />
-            <Box sx={{margin: 'auto 32px'}}>
-                <Typography
-                    color="textPrimary"
-                    gutterBottom
-                    variant="h6"
-                >
-                {productMedia[sub.plan.channel].channelDisplayName}
-                </Typography>
-                <Typography
-                    color="rgba(0, 0, 0, 0.5)"
-                    gutterBottom
-                    variant="button"
-                >
-                Expire Date: {sub.expire_date.slice(0, 10)}
-                </Typography>
+      {subscriptions.map((sub, id) => {
+        if (Object.keys(productMedia).includes(sub.plan.channel)) {
+          return (
+            <Box key={id} >
+              <Box sx={{display: 'flex', flexDirection: 'row', marginBottom: '32px'}} >
+                <Avatar
+                  alt={sub.plan.channel}
+                  src={productMedia[sub.plan.channel].media}
+                  sx={{
+                    display: 'flex',
+                    height: 64,
+                    width: 64
+                  }}
+                />
+                <Box sx={{margin: 'auto 32px'}}>
+                    <Typography
+                        color="textPrimary"
+                        gutterBottom
+                        variant="h6"
+                    >
+                    {productMedia[sub.plan.channel].channelDisplayName}
+                    </Typography>
+                    <Typography
+                        color="rgba(0, 0, 0, 0.5)"
+                        gutterBottom
+                        variant="button"
+                    >
+                    Expire Date: {sub.expire_date.slice(0, 10)}
+                    </Typography>
+                </Box>
+              </Box>
             </Box>
-          </Box>
-
-            
-        </Box>
-      ))}
+          )
+        }
+      })}
       </>
     );
   }
