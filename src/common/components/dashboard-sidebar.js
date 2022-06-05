@@ -17,6 +17,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import KeyIcon from '@mui/icons-material/Key';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import PeopleIcon from '@mui/icons-material/People';
@@ -51,7 +52,7 @@ const items = [
   },
   {
     href: '/trade-pair',
-    icon: (<KeyIcon fontSize="small" />),
+    icon: (<ListAltIcon fontSize="small" />),
     title: 'Trading Lists'
   },
   {
