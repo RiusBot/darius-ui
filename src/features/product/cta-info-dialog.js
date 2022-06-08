@@ -50,7 +50,36 @@ export const CtaInfoDialog = (props) => {
                         一小時週期進出場，多空雙向操作。<br/>
                     </Typography><br/>
                         
-                        
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        績效
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        <img
+                          alt="Under development"
+                          src="/static/images/products/cta_performance.jpg"
+                          style={{
+                              display: 'inline-block',
+                              maxWidth: '100%',
+                          }}
+                        /><br/>
+                        <img
+                          alt="Under development"
+                          src="/static/images/products/cta_month_performance.jpg"
+                          style={{
+                              display: 'inline-block',
+                              maxWidth: '100%',
+                          }}
+                        /><br/>
+                        <img
+                          alt="Under development"
+                          src="/static/images/products/cta_year_performance.jpg"
+                          style={{
+                              display: 'inline-block',
+                              maxWidth: '100%',
+                          }}
+                        /><br/>
+                    </Typography><br/>
+
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
                         特性
                     </Typography>

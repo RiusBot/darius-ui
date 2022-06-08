@@ -47,6 +47,12 @@ export const AcdcInfoDialog = (props) => {
                     </Typography>
                     <Typography varient="body1" componenet="div">
                         ACDC學院王牌策略，15m 1h 週期進出場，做空為主。<br/>
+                    </Typography><br/>
+
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        績效
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
                         <img
                           alt="Under development"
                           src="/static/images/products/acdc_perf1.jpg"
@@ -95,7 +101,12 @@ export const AcdcInfoDialog = (props) => {
                         團隊介紹
                     </Typography>
                     <Typography varient="body1" componenet="div">
-                        ACDC學院說明待補
+                        <Link
+                            to="https://www.facebook.com/ACDC2020pi/<br/>"
+
+                        >
+                            https://www.facebook.com/ACDC2020pi/<br/>
+                        </Link>
                     </Typography><br/>
 
                 </Box>
