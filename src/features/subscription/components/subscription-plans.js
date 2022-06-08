@@ -42,7 +42,7 @@ const SubscriptionPlans = (props) => {
   }
 
   const onClickSubmit = () => {
-    if (profile.balance >= price) {
+    if (profile.balance >= price || ["vip", "admin"].includes(profile.role)) {
       dispatch(createUserSubscription(parseInt(checked)));
     } else {
       dispatch(updateSnackbar({ type: 'info', msg: 'Balance not enough. Head to the Transaction & Payment page to increase your balance.' }));

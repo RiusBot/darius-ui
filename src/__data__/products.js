@@ -152,12 +152,12 @@ export const productMedia = {
     channel: 'COURAGE',
     status: 'active',
   },
-  'SPACEFORCE': {
-    channelDisplayName: "Space force",
-    media: '/static/images/products/shortcode.jpg',
-    channel: 'SPACEFORCE',
-    status: 'active',
-  },
+  // 'SPACEFORCE': {
+  //   channelDisplayName: "Space force",
+  //   media: '/static/images/products/shortcode.jpg',
+  //   channel: 'SPACEFORCE',
+  //   status: 'active',
+  // },
   'ACDC': {
     channelDisplayName: "ACDC",
     media: '/static/images/products/shortcode.jpg',

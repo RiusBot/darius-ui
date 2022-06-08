@@ -10,9 +10,6 @@ export const BotTradesDetailPopup = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sortDirection="desc">
-                  Content
-                </TableCell>
                 <TableCell>
                   Entry
                 </TableCell>
@@ -29,9 +26,6 @@ export const BotTradesDetailPopup = (props) => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell sx={{width: '300px'}}>
-                  {tradeDetail.message.content}
-                </TableCell>
                 <TableCell>
                   {tradeDetail.message.entry}
                 </TableCell>

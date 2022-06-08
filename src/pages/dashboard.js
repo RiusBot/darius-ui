@@ -86,7 +86,7 @@ const Dashboard = () => {
   }
 
   const AvailableBots = () => {
-    if (profile.is_trial) {
+    if (profile.is_trial || profile.role == 'vip') {
       return (
         <>
           {Object.values(productMedia).map((sub, index) => {
@@ -128,7 +128,7 @@ const Dashboard = () => {
       else return (<>
         {subscriptions.map((sub, index) => {
           // dont show create bot card if subscription not in productMedia
-          if (Object.keys(productMedia).includes(sub.plan.channel)) {
+          if (Object.keys(productMedia).includes(sub.plan.channel) && productMedia[sub.plan.channel].status == "active") {
             return <Box 
                       key={index}
                       style={{'minWidth': '360px',

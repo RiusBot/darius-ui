@@ -168,7 +168,7 @@ export default function ConfigSettings(props) {
                         onChange={handleOptionChange}
                     >
                         {Object.values(allPair).map((pair) => (
-                            <MenuItem key={pair.pair_id} value={pair.pair_id}>{pair.name}</MenuItem>
+                            <MenuItem key={pair.pair_id} value={pair.pair_id}>{pair.name} ({pair.types})</MenuItem>
                         ))}
                     </Select>
                 </FormControl>)
