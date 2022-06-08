@@ -11,6 +11,9 @@ export const BotTradesDetailPopup = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>
+                  Quantity
+                </TableCell>
+                <TableCell>
                   Entry
                 </TableCell>
                 <TableCell>
@@ -26,6 +29,9 @@ export const BotTradesDetailPopup = (props) => {
             </TableHead>
             <TableBody>
               <TableRow>
+                <TableCell>
+                  {tradeDetail.message.quantity}
+                </TableCell>
                 <TableCell>
                   {tradeDetail.message.entry}
                 </TableCell>
