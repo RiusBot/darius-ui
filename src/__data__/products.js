@@ -79,7 +79,7 @@ export const products = [
     channelDisplayName: "CTA",
     description: ['Commodity Trading Advisor', '利用在加密貨幣市場中投資者時常反應過度和反應不足的現象，建立一籃子加密貨幣的多空投資組合。一小時週期進出場，多空雙向操作。'],
     media: '/static/images/products/cta.jpeg',
-    status: 'Comming soon',
+    status: 'active',
   },
   {
     channel: 'ARBITRAGE',
@@ -168,7 +168,7 @@ export const productMedia = {
     channelDisplayName: "CTA",
     media: '/static/images/products/cta.jpeg',
     channel: 'CTA',
-    status: 'Comming soon',
+    status: 'active',
   },
   'ARBITRAGE': {
     channelDisplayName: "Brick Arbitrage",

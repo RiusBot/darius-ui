@@ -99,7 +99,8 @@ export const CtaInfoDialog = (props) => {
                         注意事項
                     </Typography>
                     <Typography varient="body1" componenet="div" color="blue">
-                      <b>此策略將不會按照機器人下單金額，而是按照策略提供資金比例下單，建議總資金10000以上。</b><br/>
+                      <b>此策略將不會按照機器人下單金額，而是按照策略提供資金比例下單，建議使用子帳號。</b><br/>
+                      <b>建議投放總資金10000以上，總資金過小容易造成開單失敗。</b><br/>
                       <b>此策略尚未開放訂閱，敬請期待。</b><br/>
                     </Typography><br/>
                       
@@ -107,7 +108,7 @@ export const CtaInfoDialog = (props) => {
                         團隊介紹
                     </Typography>
                     <Typography varient="body1" componenet="div">
-                        說明待補
+                        Sophia Capital 是來自台灣的 Quant Fund ，專為金融投資者提供進入加密貨幣領域的低風險、自動化交易策略，團隊成員包含估值千萬美金互聯網公司的產品長、台灣領先金融機構的量化研究員與策略開發工程師，知名區塊鏈公司的區塊鏈工程師等。
                     </Typography><br/>
 
                     <br/><Divider /><br/>
