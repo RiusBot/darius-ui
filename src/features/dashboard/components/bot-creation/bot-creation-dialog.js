@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, Box, Typography, Button, IconButton, Divider } from '@mui/material';
 import ConfigSettings from '@/features/dashboard/components/bot-creation/config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { createUserBot } from '@/features/dashboard/dashboard-slice';
-import { defaultConfigSettings } from '__data__/defaultConfigSettings';
+import { loadDefaultOrderOptions, loadDefaultConfigSettings } from '__data__/defaultConfigSettings';
 
 function BotCreationDialog(props) {
     const dispatch = useDispatch();
     const { open, channel, channelDisplayName, isTrial, onClose } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
-    const [orderOptions, setOrders] = useState({test: false, duplicate: true});
+    const defaultOrderOptions = loadDefaultOrderOptions(channel);
+    const defaultConfigSettings = loadDefaultConfigSettings(channel);
+    const [orderOptions, setOrders] = useState(defaultOrderOptions);
     const [configTab, setTab] = useState('0'); // 0 for Lazy Mode
     const [configOptions, setConfigs] = useState({  api: '', 
                                                     pair: '',
@@ -26,6 +28,11 @@ function BotCreationDialog(props) {
                                                     margin: defaultConfigSettings.margin,
                                                     volume: defaultConfigSettings.volume
                                                 });
+    useEffect(() => {
+        setOrders(loadDefaultOrderOptions(channel));
+        setConfigs(loadDefaultConfigSettings(channel));
+    }, [channel]);
+
     const handleCreateButton = (disabled) => {
         setCreateButtonDisabled(disabled);
     }
