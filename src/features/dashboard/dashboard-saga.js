@@ -19,7 +19,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
     uid: auth.uid,
     config: {
       api_id: createBotInfo.configOptions.api,
-      pair_id: createBotInfo.configOptions.pair,
+      pair_id: createBotInfo.configOptions.pair == "" ? null : createBotInfo.configOptions.pair,
       test: createBotInfo.orderOptions.test,
       duplicate: createBotInfo.orderOptions.duplicate,
       target: createBotInfo.configOptions.target,

@@ -13,7 +13,8 @@ export const CtaInfoDialog = (props) => {
             open={open}
             onClose={onClose}
             fullWidth
-            maxWidth="md">
+            maxWidth="md"
+        >
             <Box
                 sx={{
                     'display': 'flex',
@@ -48,6 +49,7 @@ export const CtaInfoDialog = (props) => {
                     <Typography varient="body1" componenet="div">
                         利用在加密貨幣市場中投資者時常反應過度和反應不足的現象，建立一籃子加密貨幣的多空投資組合。<br/>
                         一小時週期進出場，多空雙向操作。<br/>
+                        策略目前將下檔風險壓低，風險等值投資股市大盤，風險承受度高的人可以自調整機器人槓桿 leverage 設置。<br/>
                     </Typography><br/>
                         
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
@@ -95,13 +97,13 @@ export const CtaInfoDialog = (props) => {
                         當市場在區間來回震盪，容易使得CTA策略績效回落。<br/>
                     </Typography><br/>
                       
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                    <Typography variant="h6" component="div" color="blue" sx={{padding: '8px 0 16px'}}>
                         注意事項
                     </Typography>
                     <Typography varient="body1" componenet="div" color="blue">
-                      <b>此策略將不會按照機器人下單金額，而是按照策略提供資金比例下單，建議使用子帳號。</b><br/>
-                      <b>建議投放總資金10000以上，總資金過小容易造成開單失敗。</b><br/>
-                      <b>此策略尚未開放訂閱，敬請期待。</b><br/>
+                      <b> 此策略將忽略機器人下單金額 quantity，而是按照策略提供總資金比例下單，公式: 帳戶餘額 ✖ 策略下單比例 ✖ 槓桿。</b><br/>
+                      <b> 策略使用總資金比例下單，建議使用子帳號。</b><br/>
+                      <b> 建議投放總資金10000以上，每單進出比例小，總資金過小容易造成開單失敗。</b><br/>
                     </Typography><br/>
                       
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
