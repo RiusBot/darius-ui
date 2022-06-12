@@ -21,6 +21,44 @@ export const BuiltinPairs = (props) => {
         },[]
     );
 
+    const PairOption = (props) => {
+      const {pair} = props;
+      if (pair.pair_id == null) return (<></>);
+      return (
+        <Box sx={{backgroundColor:'#EEE', padding: '16px', marginBottom: '8px', marginTop: '8px'}}>
+          <Box sx={{display: 'flex', flexDirection: 'row'}} >
+            <ListAltIcon color='primary'/>
+            <Typography
+              sx={{marginLeft: '16px' }}
+              color="textPrimary"
+              gutterBottom
+              variant="h6"
+              >
+              {pair.name}
+            </Typography>
+            <Button
+                color="primary"
+                size="small"
+                variant="contained"
+                onClick={() => setPairDetailDialog({value: pair, open: true})}
+                sx={{marginLeft: 'auto'}}
+            >
+                Show Detail
+            </Button>
+          </Box>
+
+          <Typography
+            sx={{marginLeft: '48px'}}
+            color="textSecondary"
+            gutterBottom
+            variant="button"
+            >
+            Type: {pair.types}List
+          </Typography>
+        </Box>
+      )
+    }
+
     const BuiltinPairList = () => {
         if (Object.keys(builtinPair).length == 0) {
           return (<></>);
@@ -28,38 +66,10 @@ export const BuiltinPairs = (props) => {
         return (
           <>
           {Object.values(builtinPair).map((pair, id) => (
-            <Box key={id} sx={{backgroundColor:'#EEE', padding: '16px', marginBottom: '8px', marginTop: '8px'}}>
-              <Box sx={{display: 'flex', flexDirection: 'row'}} >
-                <ListAltIcon color='primary'/>
-                <Typography
-                  sx={{marginLeft: '16px' }}
-                  color="textPrimary"
-                  gutterBottom
-                  variant="h6"
-                  >
-                  {pair.name}
-                </Typography>
-                <Button
-                    color="primary"
-                    size="small"
-                    variant="contained"
-                    onClick={() => setPairDetailDialog({value: pair, open: true})}
-                    sx={{marginLeft: 'auto'}}
-                >
-                    Show Detail
-                </Button>
-              </Box>
-    
-              <Typography
-                sx={{marginLeft: '48px'}}
-                color="textSecondary"
-                gutterBottom
-                variant="button"
-                >
-                Type: {pair.types}List
-              </Typography>
-    
-            </Box>
+            <PairOption 
+              pair={pair}
+              key={id}
+            />
           ))}
           </>
         );
