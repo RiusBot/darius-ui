@@ -136,7 +136,7 @@ function* loadUserBotsSaga({ payload: userInfo }) {
 function* loadBotTradesSaga({ payload: botInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
-  const url = `/api/v1/get_bot_trades`;
+  const url = `/api/v1/get_bot_trades2`;
   const requestMethod = 'GET';
   const params = {
     uid: auth.uid,
@@ -149,7 +149,7 @@ function* loadBotTradesSaga({ payload: botInfo }) {
       method: requestMethod,
       params
     });
-    yield put(loadBotTradesSuccess({res: res.data, page: botInfo.page, pagesize: botInfo.pagesize}));
+    yield put(loadBotTradesSuccess(res.data));
   } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));

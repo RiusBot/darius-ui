@@ -19,7 +19,6 @@ export const BotTradesTable = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [tradeDetail, setTradeDetail] = useState({info: null, anchorEl: null, open: false});
   const allBotTrades = useSelector(getBotTrades);
-  console.log(allBotTrades);
   useEffect (() => {
     if (allBotTrades[botId] && allBotTrades[botId][rowsPerPage] && allBotTrades[botId][rowsPerPage][page]) {
       setBotTrades(allBotTrades[botId][rowsPerPage][page]);
@@ -48,6 +47,11 @@ export const BotTradesTable = (props) => {
           return "Test Only";
       }
       return status;
+  }
+
+  const getTotalCount = () => {
+    if (! allBotTrades[botId] ) return 0;
+    return allBotTrades[botId].total_count;
   }
 
   const handleChangePage = (event, newPage) => {
@@ -137,7 +141,7 @@ export const BotTradesTable = (props) => {
       </Popover>
       <TablePagination
         component="div"
-        count={100}
+        count={getTotalCount()}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

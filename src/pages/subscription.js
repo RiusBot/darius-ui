@@ -1,7 +1,10 @@
 import Head from 'next/head';
-import { React, useState, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Card, CardHeader, CardMedia, Divider } from '@mui/material';
+import { Box, Container, Card, CardHeader } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import withAuth from '@/common/utils/auth';
 import SubscriptionPlans from '@/features/subscription/components/subscription-plans';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
@@ -49,16 +52,25 @@ const Subscription = () => {
         <Container maxWidth={false}>
           <OpenOffer showButton={false} />
           <Card sx={{ marginTop: '32px' }}>
-            <CardHeader
-              subheader="Currently subscribed channels and according expire date."
-              title="Subscriptions"
-            />
-            <Box sx={{ padding: '0 32px 32px' }} >
-              <SubscriptionCurrent
-                subscriptions={subscriptions}
-              />
-            </Box>
-            <Divider />
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon sx={{m: 4}}/>}
+                >
+                <CardHeader
+                  subheader="Currently subscribed channels and according expire date."
+                  title="Subscriptions"
+                />
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ padding: '0 32px 32px' }} >
+                  <SubscriptionCurrent
+                    subscriptions={subscriptions}
+                  />
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          </Card>
+          <Card sx={{ marginTop: '32px' }}>
             <SubscriptionPlans 
               plans={plans}
               profile={profile}
