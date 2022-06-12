@@ -16,8 +16,13 @@ const dashboardSlice = createSlice({
     },
     loadBotTrades: () => {},
     loadBotTradesSuccess: (state, action) => {
+      const bot_id = action.payload.res[0].bot_id;
       if (action.payload.length != 0) {
-        state.userBotTrades[action.payload[0].bot_id] = action.payload;
+        if (! state.userBotTrades[bot_id])
+          state.userBotTrades[bot_id] = {};
+        if (! state.userBotTrades[bot_id][action.payload.pagesize])
+          state.userBotTrades[bot_id][action.payload.pagesize] = {};
+        state.userBotTrades[bot_id][action.payload.pagesize][action.payload.page] = action.payload.res;
       }
     },
   },

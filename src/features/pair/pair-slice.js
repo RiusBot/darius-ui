@@ -25,6 +25,7 @@ const pairSlice = createSlice({
     deleteUserPair: () => {},
     loadBuiltinPair: () => {},
     loadBuiltinPairSuccess: (state, action) => {
+      state.builtinPair['null'] = {name: "", pair_id: null, list: [], types: ''};
       action.payload.forEach((pair) => {
         state.builtinPair[pair.pair_id] = pair;
       });

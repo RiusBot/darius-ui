@@ -4,7 +4,7 @@ import { Card, CardHeader, Box, Tab, Typography, Button } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
-import { loadUserBots, loadBotTrades } from '@/features/dashboard/dashboard-slice';
+import { loadUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBots, getBotTrades } from '@/features/dashboard/dashboard-selector';
 
 export default function BotManagementCard(props) {
@@ -21,11 +21,6 @@ export default function BotManagementCard(props) {
     );
 
     const allBotTrades = useSelector(getBotTrades);
-    const getCurrentBotTrades = (botId) => {
-        if (! allBotTrades[botId]) {
-            dispatch(loadBotTrades({botId: botId}));
-        }
-    }
      
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
@@ -47,7 +42,6 @@ export default function BotManagementCard(props) {
                     </Box>
                     <BotTradesTable
                         botId={userBots[parseInt(value)].bot_id}
-                        getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
                     />
                 </Box>);
       }

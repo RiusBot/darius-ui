@@ -141,13 +141,15 @@ function* loadBotTradesSaga({ payload: botInfo }) {
   const params = {
     uid: auth.uid,
     bot_id: botInfo.botId,
+    page: botInfo.page,
+    pagesize: botInfo.pagesize,
   }
   try {
     const res = yield axios(url, {
       method: requestMethod,
       params
     });
-    yield put(loadBotTradesSuccess(res.data));
+    yield put(loadBotTradesSuccess({res: res.data, page: botInfo.page, pagesize: botInfo.pagesize}));
   } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));

@@ -158,6 +158,9 @@ export default function ConfigSettings(props) {
         if (allPair == undefined || Object.keys(allPair).length == 0 ) {
             return <></>
         }
+        const pairInfo = (pair) => {
+            return (pair.pair_id == null) ? "" : `${pair.name} (${pair.types})`;
+        }
         return (<FormControl fullWidth>
                     <InputLabel >Trading List</InputLabel>
                     <Select
@@ -168,7 +171,7 @@ export default function ConfigSettings(props) {
                         onChange={handleOptionChange}
                     >
                         {Object.values(allPair).map((pair) => (
-                            <MenuItem key={pair.pair_id} value={pair.pair_id}>{pair.name} ({pair.types})</MenuItem>
+                            <MenuItem key={pair.pair_id} value={pair.pair_id}>{pairInfo(pair)}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>)
