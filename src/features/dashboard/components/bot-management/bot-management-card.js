@@ -9,7 +9,7 @@ import { getUserBots, getBotTrades } from '@/features/dashboard/dashboard-select
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
-    const { openConfirmDialog, openBotEditDialog, userApi } = props;
+    const { openConfirmDialog, openBotEditDialog } = props;
     const [value, setValue] = useState('0');
 
     const userBots = useSelector(getUserBots);
@@ -19,8 +19,6 @@ export default function BotManagementCard(props) {
         }
       },[]
     );
-
-    const allBotTrades = useSelector(getBotTrades);
      
     const handleTabChange = (event, newValue) => {
         setValue(newValue);

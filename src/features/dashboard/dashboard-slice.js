@@ -23,6 +23,7 @@ const dashboardSlice = createSlice({
         if (! state.userBotTrades[bot_id][action.payload.pagesize])
           state.userBotTrades[bot_id][action.payload.pagesize] = {};
         state.userBotTrades[bot_id][action.payload.pagesize][action.payload.page] = action.payload.trades;
+        state.userBotTrades[bot_id][action.payload.pagesize].total_page = action.payload.total_page;
         state.userBotTrades[bot_id].total_count = action.payload.total_count;
       }
     },
