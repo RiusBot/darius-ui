@@ -21,7 +21,6 @@ function* createUserSaga({ payload: { referrer } }) {
     uid: auth.uid,
     referrer,
   }
-  console.log(data);
   const url = `/api/v1/create_user`;
   const requestMethod = 'POST';
   try {

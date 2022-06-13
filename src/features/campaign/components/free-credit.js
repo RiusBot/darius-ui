@@ -72,7 +72,7 @@ export const FreeCredit = () => {
                   https://ftx.com/profile#a=riusbot
                 </Button>
               </Link>
-              <Link href="https://www.okx.com/join/19723605" underline="none" target="_blank">
+              <Link href="https://www.okx.com/join/19793639" underline="none" target="_blank">
                 <Button
                   aria-label="okx"
                   variant="text"
@@ -80,11 +80,11 @@ export const FreeCredit = () => {
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  https://www.okx.com/join/19723605
+                  https://www.okx.com/join/19793639
                 </Button>
               </Link>
               <br />
-              <Link href="https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG" underline="none" target="_blank">
+              <Link href="https://accounts.binance.com/zh-TW/register?ref=GG6RBDDS" underline="none" target="_blank">
                 <Button
                   aria-label="binance"
                   variant="text"
@@ -92,7 +92,7 @@ export const FreeCredit = () => {
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  https://accounts.binance.com/zh-TW/register?ref=RNVL4GEG
+                  https://accounts.binance.com/zh-TW/register?ref=GG6RBDDS
                 </Button>
               </Link>
               <br/>

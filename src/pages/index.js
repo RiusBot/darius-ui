@@ -80,6 +80,14 @@ const Tutorial = () => {
                 <ListItemText primary="收費方案" />
               </ListItemButton>
             </List>
+            <List>
+              <ListItemButton onClick={() => redirect("/#param")}>
+                <ListItemIcon>
+                  <SendIcon />
+                </ListItemIcon>
+                <ListItemText primary="推薦機器人設置參數" />
+              </ListItemButton>
+            </List>
             <Divider/><br/>
             <Link href="https://www.notion.so/RiusBot-Help-Center-c1d5c5cf76e144738dbf8cc3b7237e04" underline="none" target="_blank">
               <Button
@@ -416,7 +424,24 @@ const Tutorial = () => {
               }}
             /><br/><br/>
           </Box>
+        </Card><br/>
+
+
+        <Card  sx={{heigh: '100%', width: '100%', padding: '8px'}} id="param">
+          <Box sx={{p:2}} >
+
+            <Typography variant="h3" component="div" sx={{padding: '8px 0 16px'}}>
+                5. 推薦機器人設置參數<br/>
+            </Typography>
+
+            <Typography varient="body1" componenet="div">
+                1. 使用懶人模式<br/>
+                2. 金額設定帳戶資金 1/10<br/>
+                3. 其他會在產品介紹頁面各自補充<br/>
+            </Typography>
+          </Box>
         </Card>
+
       </Box>
     </>
 )};
