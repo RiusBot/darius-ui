@@ -149,7 +149,7 @@ function* loadBotTradesSaga({ payload: botInfo }) {
       method: requestMethod,
       params
     });
-    yield put(loadBotTradesSuccess(res.data));
+    yield put(loadBotTradesSuccess({res: res.data, bot_id: botInfo.botId}));
   } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
