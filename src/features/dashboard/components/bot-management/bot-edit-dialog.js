@@ -135,7 +135,7 @@ function BotEditDialog(props) {
                 <Divider variant="middle" />
 
                 <ConfigSettings
-                    isTrial={isTrial}
+                    isTrial={false}
                     saveDisabled={handleUpdateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}

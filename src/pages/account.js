@@ -30,25 +30,25 @@ const Account = () => {
   );
 
   const TrialInfo = () => {
-    if (profile.is_trial && profile.trial_period !== undefined) {
-      return (
-            <Card sx={{ marginBottom: '32px' }}>
-              <Box sx={{ padding: '16px', backgroundColor: "#B8A289" }} >
-                <Typography 
-                  color="#FFFFFF"
-                  variant="button"
-                  sx={{ textAlign: 'center', width: '100%', paddingLeft: '32px' }}>
-                  Your free trial will expire on {profile.trial_period}
-                  <NavItem
-                            key={subscriptions.title}
-                            icon={subscriptions.icon}
-                            href={subscriptions.href}
-                            title={subscriptions.title}
-                            />
-                </Typography>
-              </Box>
-            </Card>)
-    }
+    // if (profile.is_trial && profile.trial_period !== undefined) {
+    //   return (
+    //         <Card sx={{ marginBottom: '32px' }}>
+    //           <Box sx={{ padding: '16px', backgroundColor: "#B8A289" }} >
+    //             <Typography
+    //               color="#FFFFFF"
+    //               variant="button"
+    //               sx={{ textAlign: 'center', width: '100%', paddingLeft: '32px' }}>
+    //               Your free trial will expire on {profile.trial_period}
+    //               <NavItem
+    //                         key={subscriptions.title}
+    //                         icon={subscriptions.icon}
+    //                         href={subscriptions.href}
+    //                         title={subscriptions.title}
+    //                         />
+    //             </Typography>
+    //           </Box>
+    //         </Card>)
+    // }
     return null;
   }
 

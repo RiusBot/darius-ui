@@ -93,7 +93,7 @@ function BotCreationDialog(props) {
                     padding: '16px',
                     overflowY: 'scroll',}}>
                 <ConfigSettings
-                    isTrial={isTrial}
+                    isTrial={false}
                     saveDisabled={handleCreateButton}
                     configOptions={configOptions}
                     setConfigs={setConfigs}
