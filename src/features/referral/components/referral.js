@@ -17,7 +17,7 @@ import { getUserReferral } from '@/features/referral/referral-selector';
 export const UserReferral = (props) => {
     const { referralInfo } = props;
     const referralCode = referralInfo.referral_code;
-    const invitationUrl = `https://riusbot.com/register?referralCode=${referralCode}`;
+    const invitationUrl = `https://riusbot.com/login?referrer=${referralCode}`;
     const referrerCode = referralInfo.referrer_code;
     const [newReferralInfo, setReferralInfo] = useState({...referralInfo});
 

@@ -24,6 +24,7 @@ const Login = () => {
     name = name.replace(/[^a-zA-Z0-9.]+/g, "");
     return name + '@' + host;
   };
+  const { referrer } = router.query;
 
   const firebase = useFirebase()
   const auth = useSelector(getAuthUser)
@@ -35,7 +36,7 @@ const Login = () => {
       .then((result) => {
         const additionalUserInfo = result.additionalUserInfo;
         if (additionalUserInfo.isNewUser) {
-          dispatch(createUser());
+          dispatch(createUser({ referrer }));
         }
       })
       .catch((error) => {
@@ -212,7 +213,7 @@ const Login = () => {
               Don&apos;t have an account?
               {' '}
               <NextLink
-                href="/register"
+                href={referrer ? "/register?referrer=".concat(referrer): "/register"}
               >
                 <Link
                   to="/register"
