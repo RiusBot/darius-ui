@@ -44,7 +44,7 @@ const Login = () => {
       });
   };
   const handleGoogleSignInClick = () => {
-    SignInWithGoogle()
+    SignInWithGoogle();
     grecaptcha.enterprise.ready(async () => {
       const action = 'LOGIN'
       const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
@@ -93,6 +93,7 @@ const Login = () => {
       if (auth.emailVerified) {
         router.push('/dashboard');
       } else {
+        dispatch(createUser({ referrer }));
         dispatch(updateSnackbar({ type: 'warning', msg: 'Email verification is needed, please click the confirmation link and login again.' }));
         firebase.logout();
       }
