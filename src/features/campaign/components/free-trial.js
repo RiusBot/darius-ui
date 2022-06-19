@@ -75,19 +75,7 @@ export const FreeTrial = () => {
                 <ListItemIcon>
                   <CheckIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="30 Days Free Trial" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <CheckIcon color="primary"/>
-                </ListItemIcon>
-                <ListItemText primary="All Products Available" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <CheckIcon color="primary"/>
-                </ListItemIcon>
-                <ListItemText primary="Advance Bot Features Available" />
+                <ListItemText primary="All Bots Available" />
               </ListItem>
             </List>
             
@@ -99,16 +87,16 @@ export const FreeTrial = () => {
                 <ListItemIcon>
                   <LooksOneIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Free Trial Period starts once you finish telegram account binding" />
+                <ListItemText primary="Free Trial Period starts once you bind your exchange api key" />
               </ListItem>
               <Button
-                aria-label="Connect Telegram Now"
+                aria-label="Bind API Now"
                 size="small"
                 sx={{ ml: 10 }}
-                onClick={() => router.push("/account")}
+                onClick={() => router.push("/api-setting")}
                 startIcon={<ForwardIcon/>}
               >
-                Bind Your Telegram Now
+                Bind API Now
               </Button>
             </List>
 
@@ -120,21 +108,20 @@ export const FreeTrial = () => {
                 <ListItemIcon>
                   <WarningIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="The telegram account CANNOT be changed once binded" />
+                <Typography variant="h7">Only <b>ONE</b> API key can be set during the free trial period !</Typography>
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <WarningIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Only ONE API key can be used during the free trial period" />
+                <Typography variant="h7">Only <b>ONE</b> trading list can be set during the free trial period !</Typography>
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <WarningIcon color="primary"/>
                 </ListItemIcon>
-                <ListItemText primary="Limitations: 30U quantity ， 1x leverage" />
+                <Typography variant="h7">Only subscriber can join telegram channel !</Typography>
               </ListItem>
-
             </List>
           </Box>
         </CardContent>

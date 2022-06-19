@@ -1,16 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { Box, Container, Grid, Typography, Card } from '@mui/material';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { NavItem } from '@/common/components/nav-item';
 import withAuth from '@/common/utils/auth';
-import { AccountProfile } from '@/features/account/components/account-profile';
-import { AccountReferral } from '@/features/account/components/account-referral';
-import { AccountReferrer } from '@/features/account/components/account-referrer';
+import { UserReferral } from '@/features/referral/components/referral';
+import { UserReferralStats } from '@/features/referral/components/referral-stats';
+import { UserReferralHistory } from '@/features/referral/components/referral-history';
+import { UserReferralRule } from '@/features/referral/components/referral-rule';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
+import { loadUserReferral } from '@/features/referral/referral-slice';
+import { getUserReferral } from '@/features/referral/referral-selector';
 
 const subscriptions = {
   href: '/subscription',
@@ -20,11 +23,10 @@ const subscriptions = {
 
 const ReferralProgram = () => {
   const dispatch = useDispatch();
-
-  const profile = useSelector(getUserProfile);
+  const userReferral = useSelector(getUserReferral);
   useEffect (() => {
-    if (Object.keys(profile).length == 0) {
-      dispatch(loadUserProfile());
+    if (Object.keys(userReferral).length == 0) {
+      dispatch(loadUserReferral());
     }
     },[]
   );
@@ -46,31 +48,31 @@ const ReferralProgram = () => {
         <Container maxWidth="lg">
           <Grid
             container
-            spacing={3}
+            spacing={2}
           >
             <Grid
               item
-              lg={4}
-              md={6}
-              xs={12}
+              xs={4}
+              variant="text"
             >
-              <AccountProfile />
+              <UserReferralStats
+                referralInfo={userReferral}
+              />
             </Grid>
             <Grid
               item
-              lg={8}
-              md={6}
-              xs={12}
+              xs={8}
+              variant="text"
             >
-              <AccountReferral 
-              profile={profile}
-              />
-              <br/>
-              <AccountReferrer 
-              profile={profile}
+              <UserReferral
+                referralInfo={userReferral}
               />
             </Grid>
           </Grid>
+          <br/>
+          <UserReferralHistory referralInfo={userReferral} />
+          <br/>
+          <UserReferralRule referralInfo={userReferral} />
         </Container>
       </Box>
     </>

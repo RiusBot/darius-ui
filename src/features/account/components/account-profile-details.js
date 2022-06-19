@@ -127,9 +127,8 @@ export const AccountProfileDetails = (props) => {
                   fullWidth
                   label="Role"
                   name="role"
-                  onChange={handleChange}
                   disabled
-                  value={profile.role}
+                  value={profile.role == null ? "" : profile.role.toUpperCase()}
                   variant="outlined"
                 />
               </Grid>

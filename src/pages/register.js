@@ -29,7 +29,7 @@ const Register = () => {
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
-  const { referralCode } = router.query;
+  const { referrer } = router.query;
     
   const emailNormalize = (email) => {
     var token = email.split('@');
@@ -84,7 +84,7 @@ const Register = () => {
       email: '',
       username: '',
       password: '',
-      referrer: referralCode || '',
+      referrer: referrer || '',
       policy: false
     },
     validationSchema: Yup.object({

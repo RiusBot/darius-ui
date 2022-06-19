@@ -86,64 +86,24 @@ const Dashboard = () => {
   }
 
   const AvailableBots = () => {
-    if (profile.is_trial || profile.role == 'vip') {
-      return (
-        <>
-          {Object.values(productMedia).map((sub, index) => {
-          if (sub.status == 'active') {
-            return <Box 
+    return (
+      <>
+        {Object.values(productMedia).map((sub, index) => {
+        if (sub.status == 'active') {
+          return <Box
+                    key={index}
+                    style={{'minWidth': '360px',
+                            'paddingRight': '30px'}}>
+                    <BotCard
                       key={index}
-                      style={{'minWidth': '360px',
-                              'paddingRight': '30px'}}>
-                      <BotCard
-                        key={index}
-                        bot={sub}
-                        openCreateBotDialog={handleDialogOpen}
-                      />
-                    </Box>
-          }
-        })}
-        </>
-      )
-    } else {
-      if (subscriptions.length == 0) {
-        return (
-            <Box sx={{
-              padding: '48px 80px', 
-              width: '100%' }} >
-              <Typography 
-                color="#FFFFFF"
-                variant="button"
-                sx={{ textAlign: 'center', width: '100%', paddingTop: '32px' }}>
-                You have no subscriptions currently, start one now!
-                <NavItem
-                          key={subscriptionLink.title}
-                          icon={subscriptionLink.icon}
-                          href={subscriptionLink.href}
-                          title={subscriptionLink.title}
-                          />
-              </Typography>
-            </Box>)
-      }
-      else return (<>
-        {subscriptions.map((sub, index) => {
-          // dont show create bot card if subscription not in productMedia
-          if (Object.keys(productMedia).includes(sub.plan.channel) && productMedia[sub.plan.channel].status == "active") {
-            return <Box 
-                      key={index}
-                      style={{'minWidth': '360px',
-                              'paddingRight': '30px'}}>
-                      <BotCard
-                        key={index}
-                        bot={productMedia[sub.plan.channel]}
-                        openCreateBotDialog={handleDialogOpen}
-                      />
-                    </Box>
-          }
-        })}
+                      bot={sub}
+                      openCreateBotDialog={handleDialogOpen}
+                    />
+                  </Box>
+        }
+      })}
       </>
-      )
-    }
+    )
   }
 
   return (

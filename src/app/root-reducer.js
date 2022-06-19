@@ -7,6 +7,7 @@ import appReducer from '@/app/app-slice';
 import dashboardReducer from '@/features/dashboard/dashboard-slice';
 import apiReducer from '@/features/api/api-slice';
 import pairReducer from '@/features/pair/pair-slice';
+import referralReducer from '@/features/referral/referral-slice';
 import subscriptionReducer from '@/features/subscription/subscription-slice';
 import transactionReducer from '@/features/transaction/transaction-slice';
 import productReducer from '@/features/product/product-slice';
@@ -21,6 +22,7 @@ const combined = combineReducers({
   subscription: subscriptionReducer,
   transaction: transactionReducer,
   product: productReducer,
+  referral: referralReducer,
 });
 
 const rootReducer = (state, action) => {

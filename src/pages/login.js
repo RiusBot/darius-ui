@@ -24,6 +24,7 @@ const Login = () => {
     name = name.replace(/[^a-zA-Z0-9.]+/g, "");
     return name + '@' + host;
   };
+  const { referrer } = router.query;
 
   const firebase = useFirebase()
   const auth = useSelector(getAuthUser)
@@ -35,7 +36,7 @@ const Login = () => {
       .then((result) => {
         const additionalUserInfo = result.additionalUserInfo;
         if (additionalUserInfo.isNewUser) {
-          dispatch(createUser());
+          dispatch(createUser({ referrer }));
         }
       })
       .catch((error) => {
@@ -43,7 +44,7 @@ const Login = () => {
       });
   };
   const handleGoogleSignInClick = () => {
-    SignInWithGoogle()
+    SignInWithGoogle();
     grecaptcha.enterprise.ready(async () => {
       const action = 'LOGIN'
       const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
@@ -89,6 +90,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoaded(auth) && !isEmpty(auth)) {
+      dispatch(createUser({ referrer }));
       if (auth.emailVerified) {
         router.push('/dashboard');
       } else {
@@ -212,7 +214,7 @@ const Login = () => {
               Don&apos;t have an account?
               {' '}
               <NextLink
-                href="/register"
+                href={referrer ? "/register?referrer=".concat(referrer): "/register"}
               >
                 <Link
                   to="/register"
