@@ -32,7 +32,8 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       order_type: createBotInfo.configOptions.orderType,
       stop_loss_type: createBotInfo.configOptions.stopLossType,
       take_profit_type: createBotInfo.configOptions.takeProfitType,
-      hyperopt: createBotInfo.configOptions.hyperopt
+      hyperopt: createBotInfo.configOptions.hyperopt,
+      quote: createBotInfo.configOptions.quote
     },
     channel: createBotInfo.channel
   };
@@ -73,7 +74,8 @@ function* updateUserBotSaga({ payload: updateBotInfo }) {
       take_profit: updateBotInfo.configOptions.takeProfit / 100,
       order_type: updateBotInfo.configOptions.orderType,
       stop_loss_type: updateBotInfo.configOptions.stopLossType,
-      take_profit_type: updateBotInfo.configOptions.takeProfitType
+      take_profit_type: updateBotInfo.configOptions.takeProfitType,
+      quote: updateBotInfo.configOptions.quote
     },
   };
   const url = `/api/v1/update_user_bot`;

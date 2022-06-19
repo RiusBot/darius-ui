@@ -90,10 +90,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoaded(auth) && !isEmpty(auth)) {
+      dispatch(createUser({ referrer }));
       if (auth.emailVerified) {
         router.push('/dashboard');
       } else {
-        dispatch(createUser({ referrer }));
         dispatch(updateSnackbar({ type: 'warning', msg: 'Email verification is needed, please click the confirmation link and login again.' }));
         firebase.logout();
       }

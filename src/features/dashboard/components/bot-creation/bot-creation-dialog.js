@@ -26,7 +26,8 @@ function BotCreationDialog(props) {
                                                     quantity: defaultConfigSettings.quantity,
                                                     leverage: defaultConfigSettings.leverage,
                                                     margin: defaultConfigSettings.margin,
-                                                    volume: defaultConfigSettings.volume
+                                                    volume: defaultConfigSettings.volume,
+                                                    quote: defaultConfigSettings.quote
                                                 });
     useEffect(() => {
         setOrders(loadDefaultOrderOptions(channel));
@@ -53,7 +54,8 @@ function BotCreationDialog(props) {
                 takeProfit: defaultConfigSettings.takeProfit,
                 leverage: defaultConfigSettings.leverage,
                 margin: defaultConfigSettings.margin,
-                volume: defaultConfigSettings.volume
+                volume: defaultConfigSettings.volume,
+                quote: defaultConfigSettings.quote
             }
         }
         const createBotInfo = {

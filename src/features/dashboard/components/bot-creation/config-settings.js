@@ -11,7 +11,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import KeyIcon from '@mui/icons-material/Key';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserApi } from '@/features/api/api-selector';
-import { lazyModeRequiredInput } from '__data__/defaultConfigSettings';
+import { lazyModeRequiredInput, exchangeQuoteSupport } from '__data__/defaultConfigSettings';
 import { TrialLimitationInfo } from '@/features/dashboard/components/bot-creation/trial-limitation-info';
 import { loadUserPair, loadBuiltinPair } from '@/features/pair/pair-slice';
 import { getAllPair } from '@/features/pair/pair-selector';
@@ -43,6 +43,14 @@ export default function ConfigSettings(props) {
         dispatch(loadBuiltinPair());
       }
     },[]);
+    const listQuoteCurrency = (api_id) => {
+      if (api_id == null || userApi == undefined || Object.keys(userApi).length == 0 || !(api_id in userApi))
+        return;
+      return exchangeQuoteSupport[userApi[api_id].exchange].map(
+        (quote) =>
+        <MenuItem value={quote}>{quote}</MenuItem>
+      );
+    }
     const handleTabChange = (event, newValue) => {
         setTab(newValue);
     }
@@ -64,6 +72,14 @@ export default function ConfigSettings(props) {
         }
         setConfigs({...configOptions, [name]: value});
     };
+
+    useEffect (() => {
+      if (configOptions.api == null || userApi == undefined || Object.keys(userApi).length == 0 || !(configOptions.api in userApi))
+        return;
+      const exchange = userApi[configOptions.api].exchange;
+      setConfigs({...configOptions, "quote": exchangeQuoteSupport['default'][exchange]});
+    },[configOptions.api]);
+
     const exchange = userApi[configOptions['api']] ? userApi[configOptions['api']].exchange : "binance";
     const slLimitMax = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'].max : limits.stopLoss.max;
     const slLimitMin = (configOptions['stopLossType'] === 'TRAILING') ? limits['callback'].min : limits.stopLoss.min;
@@ -110,13 +126,11 @@ export default function ConfigSettings(props) {
 
           for (let i = 0; i < checkOptions.length; i ++) {
             if (!checkOptionsValid(checkOptions[i])) {
-                // console.log(checkOptions[i]);
                 return false;
             }
           }
           for (let i = 0; i < checkOptions.length; i ++) {
             if (checkOptionsChange(checkOptions[i])) {
-                // console.log(checkOptions[i]);
                 return true;
             }
           }
@@ -519,6 +533,19 @@ export default function ConfigSettings(props) {
                                 <Box sx={{padding: "24px 0 0 24px"}}>
                                     <Typography variant="button" display="block" gutterBottom >Volume &gt; 0 ( 0 if no use )</Typography>
                                 </Box>
+                            </Box>
+                            <Box sx={{ width: '50%'}}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Quote Currency</InputLabel>
+                                    <Select
+                                    name="quote"
+                                    value={configOptions.quote}
+                                    label="Quote Currency"
+                                    onChange={handleOptionChange}
+                                    >
+                                      {listQuoteCurrency(configOptions.api)}
+                                    </Select>
+                                </FormControl>
                             </Box>
                         </Box>
                     </TabPanel>

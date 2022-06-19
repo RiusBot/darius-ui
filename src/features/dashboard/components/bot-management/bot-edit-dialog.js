@@ -5,12 +5,13 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ConfigSettings from '@/features/dashboard/components/bot-creation/config-settings';
 import CloseIcon from '@mui/icons-material/Close';
 import { updateUserBot } from '@/features/dashboard/dashboard-slice';
-import { defaultConfigSettings } from '__data__/defaultConfigSettings';
+import { loadDefaultConfigSettings } from '__data__/defaultConfigSettings';
 
 function BotEditDialog(props) {
     const dispatch = useDispatch();
     const { open, channel, channelDisplayName, botId, config, status, isTrial, onClose } = props;
     const [updateButtonDisabled, setupdateButtonDisabled] = useState(true);
+    const [defaultConfigSettings, setDefaultConfigSettings] = useState(loadDefaultConfigSettings(channel));
     const [botStatus, setStatus] = useState(status);
     const [orderOptions, setOrders] = useState({ test: config.test,
                                                  duplicate: config.duplicate,
@@ -29,7 +30,13 @@ function BotEditDialog(props) {
                                                     leverage: config.leverage,
                                                     margin: config.margin,
                                                     volume: config.minimum_volume,
+                                                    quote: config.quote,
                                                 });
+
+    useEffect(() => {
+        setDefaultConfigSettings(loadDefaultConfigSettings(channel));
+    }, [channel]);
+
     useEffect (() => {
         setOrders({ test: config.test,
                     duplicate: config.duplicate,
@@ -47,6 +54,7 @@ function BotEditDialog(props) {
                     leverage: config.leverage,
                     margin: config.margin * 100,
                     volume: config.minimum_volume,
+                    quote: config.quote
                 });
         },[config]
     );
@@ -73,7 +81,8 @@ function BotEditDialog(props) {
                 takeProfit: defaultConfigSettings.takeProfit,
                 leverage: defaultConfigSettings.leverage,
                 margin: defaultConfigSettings.margin, 
-                volume: defaultConfigSettings.volume
+                volume: defaultConfigSettings.volume,
+                quote: efaultConfigSettings.quote,
             }
         }
         const updateBotInfo = {orderOptions: orderOptions,
