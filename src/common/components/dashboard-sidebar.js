@@ -31,7 +31,7 @@ const items = [
     title: 'Campaign'
   },
   {
-    href: '/',
+    href: '/tutorial',
     icon: (<LightbulbIcon fontSize="small" />),
     title: 'Tutorial'
   },
