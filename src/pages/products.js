@@ -24,6 +24,7 @@ import { getAllPerformance } from '@/features/product/product-selector';
 const Products = () => {
   const dispatch = useDispatch();
   const [infoDialog, setInfoDialog] = useState('');
+  const [tags, setTags] = useState([]);
   const handleBotInfoDialogClose = () => {
     setInfoDialog('');
   }
@@ -66,7 +67,9 @@ const Products = () => {
                   <ProductCard
                     product={product}
                     chartData={performance[product.channel]}
-                    openInfoDialog={() => setInfoDialog(product.channel)} />
+                    openInfoDialog={() => setInfoDialog(product.channel)}
+                    setTags={() => setTags(product.tags)}
+                  />
                 </Grid>
               ))}
             </Grid>
@@ -90,50 +93,62 @@ const Products = () => {
       <RoseInfoDialog
         open={infoDialog == 'ROSE'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <WhaleHuntInfoDialog
         open={infoDialog == 'WHALE'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <DailyScalpingInfoDialog
         open={infoDialog == 'DAILYSCALP'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <PerpetualInfoDialog
         open={infoDialog == 'PERPETUAL'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <VegasInfoDialog
         open={infoDialog == 'VEGAS'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <JustinInfoDialog
         open={infoDialog == 'JUSTIN'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <MoonInfoDialog
         open={infoDialog == 'MOON'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <CourageInfoDialog
         open={infoDialog == 'COURAGE'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <AcdcInfoDialog
         open={infoDialog == 'ACDC'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <CtaInfoDialog
         open={infoDialog == 'CTA'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <ArbitrageInfoDialog
         open={infoDialog == 'ARBITRAGE'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
       <WebhookInfoDialog
         open={infoDialog == 'WEBHOOK'}
         onClose={handleBotInfoDialogClose}
+        tags={tags}
         />
     </>
   );

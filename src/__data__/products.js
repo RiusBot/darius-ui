@@ -7,6 +7,7 @@ export const products = [
     description: ['ROSE 100btc CHALLENGE', 'Starting: 0.1 BTC', 'Target: 100BTC', 'Duration: 1 year', 'Plan: ~2-4% per day'],
     media: '/static/images/products/rose.png',
     status: 'active',
+    tags: [{text: "牛市 BULL", color: "secondary"}, {text: "高風險", color: "warning"}],
   },
   {
     channel: 'WHALE',
@@ -16,6 +17,7 @@ export const products = [
                   'Discover new opportunities and Follow the Smart Money.'],
     media: '/static/images/products/whale-hunt.png',
     status: 'active',
+    tags: [{text: "表現優異", color: "primary"}, {text: "穩定", color: "info"}],
   },
   {
     channel: 'DAILYSCALP',
@@ -24,6 +26,7 @@ export const products = [
                   'Scalping makes profits within a short period of time with automated bot trading & reliable safety machinism & high accuracy signals.'],
     media: '/static/images/products/daily-scalp.png',
     status: 'suspended',
+    tags: [{text: "高風險", color: "warning"}],
   },
   {
     channel: 'PERPETUAL',
@@ -31,13 +34,15 @@ export const products = [
     description: ['Trading strategy created by Benson and Tcat using LSUR, OI and Funding rate data from Binance.', 'Update every 15 minutes.'],
     media: '/static/images/products/binance_perpetual.jpg',
     status: 'active',
+    tags: [{text: "牛市 BULL", color: "secondary"}, {text: "高風險", color: "warning"}],
   },
   {
     channel: 'VEGAS',
     channelDisplayName: 'Vegas Tunnel',
     description: ['Apply 4hr Vegas Tunnel, Use EMA144 169 as medium-term trend support Also use EMA 576 676 and 4 multiples of 144 and 169 as long-term support and trend direction.'],
     media: '/static/images/products/vegas_tunnel.jpeg',
-    status: 'active'
+    status: 'active',
+    tags: [{text: "表現優異", color: "primary"}, {text: "穩定", color: "info"}],
   },
   {
     channel: 'JUSTIN',
@@ -45,6 +50,7 @@ export const products = [
     description: ['歡迎各位追蹤我的頻道。我是 Justin ，在台股用程式交易操盤 18 年，目前專注在加密貨幣市場的交易，我習慣用多個指標去做中長期的布局操作，並且使用 Pionex 平台提供的交易工具管控交易風險。'],
     media: '/static/images/products/Pionex.png',
     status: 'active',
+    tags: [{text: "穩定", color: "info"}],
   },
   {
     channel: 'MOON',
@@ -52,20 +58,23 @@ export const products = [
     description: ['月相玄學指標策略，新月做空，滿月做多。', '此策略只會操作 BTC ETH 兩種。'],
     media: '/static/images/products/moon.jpg',
     status: 'active',
+    tags: [{text: "玄學", color: "default"}],
   },
-  {
-    channel: 'COURAGE',
-    channelDisplayName: "Courage",
-    description: ['主流幣 4H 1D 進出策略'],
-    media: '/static/images/products/courage.jpg',
-    status: 'active',
-  },
+  // {
+  //   channel: 'COURAGE',
+  //   channelDisplayName: "Courage",
+  //   description: ['主流幣 4H 1D 進出策略'],
+  //   media: '/static/images/products/courage.jpg',
+  //   status: 'active',
+  //   tags: [{text: "穩定", color: "info"}],
+  // },
   // {
   //   channel: 'SPACEFORCE',
   //   channelDisplayName: "Space Force",
   //   description: ['太空部隊'],
   //   media: '/static/images/products/shortcode.jpg',
   //   status: 'active',
+  //   tags: [{text: "熊市 BEAR", color: "error"}, {text: "高風險", color: "warning"}],
   // },
   {
     channel: 'ACDC',
@@ -73,6 +82,7 @@ export const products = [
     description: ['ACDC學院'],
     media: '/static/images/products/shortcode.jpg',
     status: 'Comming soon',
+    tags: [{'text': "熊市 BEAR", 'color': "error"}, {'text': "高風險", 'color': "warning"}],
   },
   {
     channel: 'CTA',
@@ -80,6 +90,7 @@ export const products = [
     description: ['Commodity Trading Advisor', '利用在加密貨幣市場中投資者時常反應過度和反應不足的現象，建立一籃子加密貨幣的多空投資組合。一小時週期進出場，多空雙向操作。'],
     media: '/static/images/products/cta.jpeg',
     status: 'active',
+    tags: [{text: "表現優異", color: "primary"}, {text: "穩定", color: "info"}],
   },
   {
     channel: 'ARBITRAGE',
@@ -87,6 +98,7 @@ export const products = [
     description: ['搬磚套利', 'FTX / Binance', 'SPOT / FUTURE', '2%以上溢價訊號'],
     media: '/static/images/products/money.jpg',
     status: 'signal only',
+    tags: [{text: "穩定", color: "info"}],
   },
   {
     channel: 'WEBHOOK',
@@ -94,6 +106,7 @@ export const products = [
     description: ['Start your automatic trading with webhook alerts and singals !!', 'One per account for now'],
     media: '/static/images/products/webhook.png',
     status: 'active',
+    tags: []
   },
   // {
   //   channel: 'DARIUS',
@@ -133,6 +146,7 @@ export const productMedia = {
     media: '/static/images/products/vegas_tunnel.jpeg',
     channel: 'VEGAS',
     status: 'active',
+    tags: [{text: "表現優異", color: "primary"}, {text: "穩定", color: "info"}],
   },
   'JUSTIN': {
     channelDisplayName: "Justin's Trading Room",
@@ -146,12 +160,12 @@ export const productMedia = {
     channel: 'MOON',
     status: 'active',
   },
-  'COURAGE': {
-    channelDisplayName: "Courage",
-    media: '/static/images/products/courage.jpg',
-    channel: 'COURAGE',
-    status: 'active',
-  },
+  // 'COURAGE': {
+  //   channelDisplayName: "Courage",
+  //   media: '/static/images/products/courage.jpg',
+  //   channel: 'COURAGE',
+  //   status: 'active',
+  // },
   // 'SPACEFORCE': {
   //   channelDisplayName: "Space force",
   //   media: '/static/images/products/shortcode.jpg',

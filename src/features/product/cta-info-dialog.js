@@ -1,11 +1,12 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const CtaInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -24,6 +25,7 @@ export const CtaInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Commodity Trading Advisor
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -43,7 +45,7 @@ export const CtaInfoDialog = (props) => {
                   
                 <Box sx={{p:2}} >
                     
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
                         簡介
                     </Typography>
                     <Typography varient="body1" componenet="div">
@@ -51,8 +53,23 @@ export const CtaInfoDialog = (props) => {
                         一小時週期進出場，多空雙向操作。<br/>
                         策略目前將下檔風險壓低，風險等值投資股市大盤，風險承受度高的人可以自調整機器人槓桿 leverage 設置。<br/>
                     </Typography><br/>
+                            
+                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        • 特性
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        當市場趨勢越明確，CTA策略越能夠完整捕捉波段的獲利，顯著降低投資組合的風險和提高投資組合的收益，特別是在股票市場處於熊市的狀態下，投資者就可以通過在資產組合中加入CTA基金，不但可以使其資產防禦風險，還能提高收益（Schneeweis andSpurgin，1998）。<br/>
+                    </Typography><br/>
+                        
                         
                     <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                        • 風險
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                        當市場在區間來回震盪，容易使得CTA策略績效回落。<br/>
+                    </Typography><br/>
+                        
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
                         績效
                     </Typography>
                     <Typography varient="body1" componenet="div">
@@ -82,31 +99,18 @@ export const CtaInfoDialog = (props) => {
                         /><br/>
                     </Typography><br/>
 
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        特性
-                    </Typography>
-                    <Typography varient="body1" componenet="div">
-                        當市場趨勢越明確，CTA策略越能夠完整捕捉波段的獲利，顯著降低投資組合的風險和提高投資組合的收益，特別是在股票市場處於熊市的狀態下，投資者就可以通過在資產組合中加入CTA基金，不但可以使其資產防禦風險，還能提高收益（Schneeweis andSpurgin，1998）。<br/>
-                    </Typography><br/>
-                        
-                        
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        風險
-                    </Typography>
-                    <Typography varient="body1" componenet="div">
-                        當市場在區間來回震盪，容易使得CTA策略績效回落。<br/>
-                    </Typography><br/>
                       
-                    <Typography variant="h6" component="div" color="blue" sx={{padding: '8px 0 16px'}}>
-                        注意事項
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        建議機器人設定
                     </Typography>
                     <Typography varient="body1" componenet="div" color="blue">
                       <b> 此策略將忽略機器人下單金額 quantity，而是按照策略提供總資金比例下單，公式: 帳戶餘額 ✖ 策略下單比例 ✖ 槓桿。</b><br/>
                       <b> 策略使用總資金比例下單，建議使用子帳號。</b><br/>
                       <b> 建議投放總資金10000以上，每單進出比例小，總資金過小容易造成開單失敗。</b><br/>
+                      <b> 請設定全倉保證金，單向持倉。</b><br/>
                     </Typography><br/>
                       
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
                         團隊介紹
                     </Typography>
                     <Typography varient="body1" componenet="div">

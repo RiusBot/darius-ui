@@ -1,11 +1,13 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
+import { ProductTags } from '@/features/product/components/tags'
+
 
 export const DailyScalpingInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     React.useEffect(() => {
@@ -40,6 +42,7 @@ export const DailyScalpingInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Daily Scalping
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}

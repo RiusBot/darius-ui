@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button, Chip } from '@mui/material';
 import { Clock as ClockIcon } from '@/icons/clock';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { MixedChart } from '@/features/product/components/mixed-chart';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 function StatusIcon(status){
@@ -14,7 +15,7 @@ function StatusIcon(status){
 }
 
 export const ProductCard = (props) => {
-  const { product, chartData, openInfoDialog } = props;
+  const { product, chartData, openInfoDialog, setTags } = props;
   const reversedData = (chartData === undefined) ? chartData : [...chartData].reverse();
 
   return (
@@ -27,6 +28,7 @@ export const ProductCard = (props) => {
       id={product.channel}
     >
       <CardContent>
+        <ProductTags data={product.tags} /><br/><br/>
         <Box
           sx={{
             display: 'flex',
@@ -104,7 +106,7 @@ export const ProductCard = (props) => {
               endIcon={<ArrowRightIcon fontSize="small" />}
               size="small"
               variant="text"
-              onClick={() => openInfoDialog(product.channel)}
+              onClick={() => {openInfoDialog(product.channel); setTags(product.tags);}}
             >
               See more
             </Button>

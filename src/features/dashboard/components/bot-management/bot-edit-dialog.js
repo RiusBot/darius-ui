@@ -34,7 +34,7 @@ function BotEditDialog(props) {
                                                 });
 
     useEffect(() => {
-        setDefaultConfigSettings(loadDefaultConfigSettings(channel));
+      setDefaultConfigSettings(loadDefaultConfigSettings(channel));
     }, [channel]);
 
     useEffect (() => {
@@ -82,7 +82,7 @@ function BotEditDialog(props) {
                 leverage: defaultConfigSettings.leverage,
                 margin: defaultConfigSettings.margin, 
                 volume: defaultConfigSettings.volume,
-                quote: efaultConfigSettings.quote,
+                quote: defaultConfigSettings.quote,
             }
         }
         const updateBotInfo = {orderOptions: orderOptions,

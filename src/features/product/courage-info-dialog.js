@@ -1,12 +1,14 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const CourageInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
+    const tag_data = [{text: "穩定", color: "info"}];
 
     return (
         <Dialog
@@ -23,6 +25,7 @@ export const CourageInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Courage
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}

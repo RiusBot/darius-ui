@@ -1,11 +1,12 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const JustinInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -23,6 +24,7 @@ export const JustinInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Justin's Trading Room
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -41,10 +43,10 @@ export const JustinInfoDialog = (props) => {
                 }}>
                   
                 <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        派網分析師Justin
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        簡介
                     </Typography>
-
+                    此機器人自動跟單 派網分析師Justin<br/>
                     <img
                       alt="Under development"
                       src="/static/images/products/justin_curve.jpg"
@@ -66,6 +68,15 @@ export const JustinInfoDialog = (props) => {
                         Facebook: <a href="https://www.facebook.com/showumoney/">https://www.facebook.com/showumoney/</a><br/>
                         Line: <a href="https://medium.com/@joiesfu.tw">https://medium.com/@joiesfu.tw</a><br/>
                         
+                    </Typography><br/>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        建議機器人設定
+                    </Typography>
+                    <Typography varient="body1" componenet="div" color="blue">
+                      下單金額設定總資金 1/10 <br/>
                     </Typography><br/>
                 </Box>
 

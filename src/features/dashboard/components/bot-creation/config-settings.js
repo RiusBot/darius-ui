@@ -77,7 +77,8 @@ export default function ConfigSettings(props) {
       if (configOptions.api == null || userApi == undefined || Object.keys(userApi).length == 0 || !(configOptions.api in userApi))
         return;
       const exchange = userApi[configOptions.api].exchange;
-      setConfigs({...configOptions, "quote": exchangeQuoteSupport['default'][exchange]});
+      const quote = exchangeQuoteSupport[exchange].includes(configOptions.quote) ? configOptions.quote : exchangeQuoteSupport['default'][exchange];
+      setConfigs({...configOptions, "quote": quote});
     },[configOptions.api]);
 
     const exchange = userApi[configOptions['api']] ? userApi[configOptions['api']].exchange : "binance";

@@ -1,13 +1,15 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const SpaceforceInfoDialog = (props) => {
     const { open, onClose } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
     const acdc = '<iframe width="0%" height="0%" src="https://www.acdc.com/" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen ></iframe>'
+    const tag_data = [{text: "熊市 BEAR", color: "error"}, {text: "高風險", color: "warning"}];
 
     return (
         <Dialog
@@ -24,6 +26,7 @@ export const SpaceforceInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Space Force 太空部隊
+                    <ProductTags data={tag_data} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}

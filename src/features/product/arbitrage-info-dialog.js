@@ -1,11 +1,12 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Link } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const ArbitrageInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -23,6 +24,7 @@ export const ArbitrageInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Brick Arbitrage 搬磚套利
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -41,6 +43,9 @@ export const ArbitrageInfoDialog = (props) => {
                 }}>
                   
                 <Box sx={{p:2}} >
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        簡介
+                    </Typography>
                     <Typography varient="body1" componenet="div">
                       搬專套利，穩定獲利的方式。<br/>
                       此訊號會針對 FTX/BINANCE，現貨/期貨，偵測2%以上溢價。<br/>

@@ -1,11 +1,12 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags'
 
 
 export const MoonInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -23,6 +24,7 @@ export const MoonInfoDialog = (props) => {
                 }}>
                 <Typography variant="h5" component="div">
                     Moon Phases
+                    <ProductTags data={tags} />
                 </Typography>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
@@ -41,12 +43,13 @@ export const MoonInfoDialog = (props) => {
                 }}>
                   
                 <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        Moon Phases 月相玄學指標策略，新月做空，滿月做多。
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        簡介
                     </Typography><br/>
 
 
                     <Typography varient="body1" componenet="div">
+                        Moon Phases 月相玄學指標策略，新月做空，滿月做多。<br/>
                         月圓月缺操作，順應月相操作，玄學理財術帶你賺大錢。<br/>
                         月相指標也是Tradingview內建指標之一。<br/>
                         此策略只會操作 BTC ETH 兩種。<br/>
@@ -60,7 +63,11 @@ export const MoonInfoDialog = (props) => {
                           width: 360
                       }}
                     /><br/><br/>
-                        
+                      
+                    
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        績效
+                    </Typography>
                     <Typography varient="body1" componenet="div">
                         以下為回測結果，有興趣者可以自行到Tradingview上使用回測工具。
                     </Typography><br/>
