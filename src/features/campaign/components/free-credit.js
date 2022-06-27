@@ -61,7 +61,7 @@ export const FreeCredit = () => {
                 </ListItemIcon>
                 <ListItemText primary="Register with RiusBot invitation code" />
               </ListItem>
-              <Link href="https://ftx.com/profile#a=riusbot" underline="none" target="_blank">
+              <Link href="https://ftx.com/referrals#a=riusbot" underline="none" target="_blank">
                 <Button
                   aria-label="ftx"
                   variant="text"
@@ -69,7 +69,7 @@ export const FreeCredit = () => {
                   sx={{ ml: 10 }}
                   startIcon={<ForwardIcon/>}
                 >
-                  https://ftx.com/profile#a=riusbot
+                  https://ftx.com/referrals#a=riusbot
                 </Button>
               </Link>
               <Link href="https://www.okx.com/join/19793639" underline="none" target="_blank">

@@ -1,36 +1,13 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Chip, Grid, Button } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Grid } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
-import { ProductTags } from '@/features/product/components/tags';
-import TocIcon from '@mui/icons-material/Toc';
 
 
-export const RoseInfoDialog = (props) => {
-    const { open, onClose, tags, openPerfDialog } = props;
-    const [completeRecords, setCompleteRecords] = useState([]);
-    const [shortRecords, setShortRecords] = useState([])
-
-    useEffect(() => {
-        async function getData(file) {
-          const path = '/data/backtest_record/rose_backtest_' + file + '.csv';
-          const response = await fetch(path);
-          const reader = response.body.getReader();
-          const result = await reader.read(); // raw array
-          const decoder = new TextDecoder('utf-8');
-          const csv = decoder.decode(result.value); // the csv text
-          const results = Papa.parse(csv, { header: true }); // object with { data, errors, meta }
-          const data = results.data; // array of objects
-          return data;
-        }
-        getData('short').then(data => {
-            setShortRecords(data);
-        });
-        getData('complete').then(data => {
-            setCompleteRecords(data.slice(0, -15));
-        });
-      }, []);
+export const PerformanceInfoDialog = (props) => {
+    const { open, onClose, data } = props;
+    const [completeRecords, setCompleteRecords] = React.useState([]);
+    console.log(data);
 
     return (
         <Dialog
@@ -38,7 +15,7 @@ export const RoseInfoDialog = (props) => {
             onClose={onClose}
             fullWidth
             maxWidth="md">
-            <Grid container spacing={1} sx={{
+          <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
@@ -46,22 +23,10 @@ export const RoseInfoDialog = (props) => {
                 }}>
               <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
-                    Rose Premium
-                    <ProductTags data={tags} />
+                    Performance Detail
                 </Typography>
               </Grid>
-              <Grid item xs={4}>
-              </Grid>
-              <Grid item xs={2}>
-                <Button
-                  variant="outlined"
-                  color="success"
-                  style={{'margin': 'auto', 'height': '100%'}}
-                  startIcon={<TocIcon />}
-                  onClick={openPerfDialog}
-                >
-                  詳細績效數據
-                </Button>
+              <Grid item xs={6}>
               </Grid>
               <Grid item xs={0.5}>
                 <IconButton
@@ -72,7 +37,7 @@ export const RoseInfoDialog = (props) => {
                 </IconButton>
               </Grid>
             </Grid>
-            <Divider variant="middle" />
+          <Divider variant="middle" />
             <Box
                 sx={{
                     'width:': 800,
@@ -123,9 +88,6 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p>
-                    <TimeseriesChart
-                        data={shortRecords}
-                    />
                 </Box>
 
                 <Box sx={{p:2}} >
@@ -138,9 +100,6 @@ export const RoseInfoDialog = (props) => {
                     </Typography>
 
                     <p style={{marginTop: 32}}>淨資產曲線：</p> 
-                    <TimeseriesChart
-                        data={completeRecords}
-                    />
                 </Box>
 
                 <Box sx={{p:2}} >

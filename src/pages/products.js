@@ -18,15 +18,20 @@ import { ArbitrageInfoDialog } from '@/features/product/arbitrage-info-dialog';
 import { AcdcInfoDialog } from '@/features/product/acdc-info-dialog';
 import { CtaInfoDialog } from '@/features/product/cta-info-dialog';
 import { WebhookInfoDialog } from '@/features/product/webhook-info-dialog';
-import { loadPerformance  } from '@/features/product/product-slice';
+import { PerformanceInfoDialog } from '@/features/product/performance-info-dialog';
+import { loadPerformance, loadAllTimePerformance } from '@/features/product/product-slice';
 import { getAllPerformance } from '@/features/product/product-selector';
 
 const Products = () => {
   const dispatch = useDispatch();
   const [infoDialog, setInfoDialog] = useState('');
+  const [perfDialog, setPerfDialog] = useState('');
   const [tags, setTags] = useState([]);
   const handleBotInfoDialogClose = () => {
     setInfoDialog('');
+  }
+  const handleBotPerfDialogClose = () => {
+    setPerfDialog('');
   }
 
   const performance = useSelector(getAllPerformance);
@@ -35,6 +40,14 @@ const Products = () => {
       dispatch(loadPerformance());
     }
   },[]);
+  useEffect (() => {
+    if (perfDialog != '' && performance.AllTime[perfDialog] == undefined) {
+      console.log(123);
+      console.log(perfDialog);
+      console.log(`/api/v1/get_performance/${perfDialog}`);
+      dispatch(loadAllTimePerformance(perfDialog));
+    }
+  },[perfDialog]);
 
   return (
     <>
@@ -90,10 +103,16 @@ const Products = () => {
         </Container>
       </Box>
 
+      <PerformanceInfoDialog
+        open={perfDialog != ''}
+        onClose={handleBotPerfDialogClose}
+        data={performance.AllTime[perfDialog]}
+        />
       <RoseInfoDialog
         open={infoDialog == 'ROSE'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <WhaleHuntInfoDialog
         open={infoDialog == 'WHALE'}
