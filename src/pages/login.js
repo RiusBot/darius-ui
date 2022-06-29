@@ -13,6 +13,7 @@ import Snackbar from '@/common/components/snackbar';
 import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
 import * as EmailValidator from 'email-validator';
+import { analytics } from '@/utils/firebase';
 
 const Login = () => {
   const router = useRouter();
@@ -38,6 +39,9 @@ const Login = () => {
         if (additionalUserInfo.isNewUser) {
           dispatch(createUser({ referrer }));
         }
+        analytics().logEvent('login', {
+          method: "google"
+        });
       })
       .catch((error) => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
@@ -54,6 +58,11 @@ const Login = () => {
   const SignInWithPassword = (values) => {
     values.email = emailNormalize(values.email)
     firebase.login(values)
+      .then(() => {
+        analytics().logEvent('login', {
+          method: "password"
+        });
+      })
       .catch(error => {
         dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
       });
