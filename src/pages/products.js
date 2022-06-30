@@ -42,9 +42,6 @@ const Products = () => {
   },[]);
   useEffect (() => {
     if (perfDialog != '' && performance.AllTime[perfDialog] == undefined) {
-      console.log(123);
-      console.log(perfDialog);
-      console.log(`/api/v1/get_performance/${perfDialog}`);
       dispatch(loadAllTimePerformance(perfDialog));
     }
   },[perfDialog]);
