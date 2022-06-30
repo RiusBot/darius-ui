@@ -10,7 +10,7 @@ import TocIcon from '@mui/icons-material/Toc';
 export const RoseInfoDialog = (props) => {
     const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = useState([]);
-    const [shortRecords, setShortRecords] = useState([])
+    const [shortRecords, setShortRecords] = useState([]);
 
     useEffect(() => {
         async function getData(file) {

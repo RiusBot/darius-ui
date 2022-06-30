@@ -107,6 +107,7 @@ const Products = () => {
         open={perfDialog != ''}
         onClose={handleBotPerfDialogClose}
         data={performance.AllTime[perfDialog]}
+        channel={infoDialog}
         />
       <RoseInfoDialog
         open={infoDialog == 'ROSE'}
@@ -118,56 +119,67 @@ const Products = () => {
         open={infoDialog == 'WHALE'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <DailyScalpingInfoDialog
         open={infoDialog == 'DAILYSCALP'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <PerpetualInfoDialog
         open={infoDialog == 'PERPETUAL'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <VegasInfoDialog
         open={infoDialog == 'VEGAS'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <JustinInfoDialog
         open={infoDialog == 'JUSTIN'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <MoonInfoDialog
         open={infoDialog == 'MOON'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <CourageInfoDialog
         open={infoDialog == 'COURAGE'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <AcdcInfoDialog
         open={infoDialog == 'ACDC'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <CtaInfoDialog
         open={infoDialog == 'CTA'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <ArbitrageInfoDialog
         open={infoDialog == 'ARBITRAGE'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
       <WebhookInfoDialog
         open={infoDialog == 'WEBHOOK'}
         onClose={handleBotInfoDialogClose}
         tags={tags}
+        openPerfDialog={() => setPerfDialog(infoDialog)}
         />
     </>
   );
