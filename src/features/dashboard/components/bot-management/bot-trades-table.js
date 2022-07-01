@@ -12,6 +12,7 @@ import { getBotTrades } from '@/features/dashboard/dashboard-selector';
 import { loadBotTrades } from '@/features/dashboard/dashboard-slice';
 import { BotChart } from '@/features/dashboard/components/bot-management/bot-chart';
 
+
 export const BotTradesTable = (props) => {
   const dispatch = useDispatch();
   const { botId } = props;
@@ -71,8 +72,8 @@ export const BotTradesTable = (props) => {
     <>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 520, width: '100%' }}>
-          <Box sx={{ m:4, heightwidth: '85%', margin: 'auto' }} >
-            <BotChart data={botPageTrades} /><br/>
+          <Box sx={{ m:4, height: '100%', margin: 'auto', paddingBottom: '32px' }} >
+            <BotChart data={botPageTrades} />
           </Box>
           <Typography variant="h6" sx={{padding: '0 0 12px 12px'}}>
             Trading History

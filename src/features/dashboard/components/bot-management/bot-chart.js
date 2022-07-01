@@ -37,10 +37,15 @@ export const BotChart = (props) => {
       },
       tooltip: {
         callbacks: {
-          label: (context) => context.parsed.y.toFixed(1),
+          label: (context) => {
+            const balance = context.parsed.y.toFixed(1);
+            const roi = (balance - context.dataset.data[0]) / context.dataset.data[0] * 100;
+            return balance + '  ' + roi.toFixed(2) + '%';
+          },
         }
       }
     },
+    maintainAspectRatio: false,
     scales: {
       x: {
           ticks: {

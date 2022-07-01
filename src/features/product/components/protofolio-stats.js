@@ -10,13 +10,11 @@ import { Card,
          Skeleton,
          Button,
          Typography } from '@mui/material';
-import { loadPerformance, loadAllTimePerformance } from '@/features/product/product-slice';
 import { getAllPerformance } from '@/features/product/product-selector';
 
 
 export const ProtofolioStats = (props) => {
     const dispatch = useDispatch();
-    const performance = useSelector(getAllPerformance);
     const { channel, data } = props;
     const [ portofolioInfo, setPortofolioInfo ] = useState();
   

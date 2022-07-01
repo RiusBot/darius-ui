@@ -21,7 +21,6 @@ const productSlice = createSlice({
     },
     loadAllTimePerformance: () => {},
     loadAllTimePerformanceSuccess: (state, action) => {
-      console.log(action.payload.channel);
       state['AllTime'][action.payload.channel] = action.payload
     },
   },

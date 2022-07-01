@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -13,6 +13,9 @@ import {
 import { productMedia } from '__data__/products';
 import { createUserSubscription } from '@/features/subscription/subscription-slice';
 import { updateSnackbar } from '@/app/app-slice';
+import { loadSubscriptionInfo } from '@/features/subscription/subscription-slice';
+import { getSubscriptionInfo } from '@/features/subscription/subscription-selector';
+
 
 const SubscriptionPlans = (props) => {
   const dispatch = useDispatch();
@@ -21,12 +24,19 @@ const SubscriptionPlans = (props) => {
   const [checked, setChecked] = useState('');
   const [price, setPrice] = useState(0);
   const selectablePlans = {};
+  const subscriptionInfo = useSelector(getSubscriptionInfo);
 
   Object.keys(plans).filter(channel => {
     if (Object.keys(productMedia).includes(channel)) {
       selectablePlans[channel] = plans[channel];
     }
   });
+
+  // useEffect (() => {
+  //   if (planChannel != '' && subscriptionInfo[planChannel] == undefined)
+  //     dispatch(loadSubscriptionInfo(planChannel));
+  //   },[planChannel]
+  // );
 
   const handleCheckBox = (event) => {
     switch (event.target.checked) {
@@ -70,6 +80,7 @@ const SubscriptionPlans = (props) => {
                   margin: '8px'
                 }}
               />
+              <Box>
               <Typography
                 sx={{margin: 'auto 64px auto 8px', width: '160px'}}
                 color="textPrimary"
@@ -78,6 +89,8 @@ const SubscriptionPlans = (props) => {
               >
                 {productMedia[channel].channelDisplayName}
               </Typography>
+              {subscriptionInfo[channel] == undefined || channel != planChannel || true ? '' : subscriptionInfo[channel].count + ' subscribers'}
+              </Box>
             </Button>
 
             {Object.values(selectablePlans[channel]).map((plan, index) => (
