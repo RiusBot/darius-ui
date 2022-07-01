@@ -80,8 +80,6 @@ export const ProtofolioStats = (props) => {
       ];
       
       const formatMetric = (report) => {
-        console.log(report.annual_roi);
-        console.log((report.roi*100).toFixed(2) + '%');
         return {
           roi: (report.roi*100).toFixed(2) + '%',
           annual_roi: (report.annual_roi*100).toFixed(2) + '%',

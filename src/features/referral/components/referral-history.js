@@ -39,7 +39,6 @@ export const UserReferralHistory = () => {
         dispatch(loadUserReferralHistory({page: page, pagesize: rowsPerPage}));
       } else {
         setreferralRecords(userReferralHistory[rowsPerPage][page]);
-        console.log(referralRecords);
       }
     }, [page, rowsPerPage])
   
