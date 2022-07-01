@@ -21,30 +21,25 @@ import { loadUserReferralHistory } from '@/features/referral/referral-slice';
 import { getUserReferralHistory } from '@/features/referral/referral-selector';
 
 
-export const UserReferralHistory = () => {
+export const TradeHistory = (props) => {
     const dispatch = useDispatch();
-    const [referralRecords, setReferralRecords] = useState([]);
+    const { channel, data } = props;
+    const [tradeRecords, setTradeRecords] = useState([]);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(25);
-    const userReferralHistory = useSelector(getUserReferralHistory);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     useEffect (() => {
-      if (userReferralHistory && userReferralHistory[rowsPerPage] && userReferralHistory[rowsPerPage][page]) {
-        setReferralRecords(userReferralHistory[rowsPerPage][page]);
+      if (data != undefined && data.trades != undefined) {
+        const st = page * rowsPerPage;
+        const ed = (page+1) * rowsPerPage;
+        const trades = [...data.trades].sort((a,b) => b.open_timestamp - a.open_timestamp);;
+        setTradeRecords(trades.slice(st, ed));
       }
-    }, [userReferralHistory]);
-
-    useEffect (() => {
-      if (! userReferralHistory || ! userReferralHistory[rowsPerPage] || ! userReferralHistory[rowsPerPage][page]) {
-        dispatch(loadUserReferralHistory({page: page, pagesize: rowsPerPage}));
-      } else {
-        setReferralRecords(userReferralHistory[rowsPerPage][page]);
-      }
-    }, [page, rowsPerPage])
+    }, [data, page, rowsPerPage])
   
     const getTotalCount = () => {
-      if (! userReferralHistory ) return 0;
-      return userReferralHistory.total_count;
+      if (data == undefined || data.trades == undefined) return 0;
+      return data.trades.length;
     }
     
     const handleChangePage = (event, newPage) => {
@@ -55,19 +50,11 @@ export const UserReferralHistory = () => {
       setRowsPerPage(parseInt(event.target.value, 10));
       setPage(0);
     };
-  
-    const recrodType = (bot_id, subscription_id) => {
-      if ( bot_id )
-        return "交易";
-      if ( subscription_id )
-        return "訂閱"
-      return "註冊"
-    }
 
     return (
-      <Card sx={{marginTop: '0px'}}>
+      <Card sx={{marginTop: '32px'}}>
         <CardHeader
-          title="推薦紀錄"
+          title="交易紀錄"
         />
         <Divider />
         <CardContent>
@@ -89,33 +76,39 @@ export const UserReferralHistory = () => {
                     </Tooltip>
                   </TableCell>
                   <TableCell>
-                    好友
+                    幣種
                   </TableCell>
                   <TableCell>
-                    類型
+                    方向
                   </TableCell>
                   <TableCell>
-                    獎金
+                    收益
+                  </TableCell>
+                  <TableCell>
+                    持倉時間
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {referralRecords.map((record, index) => (
+                {tradeRecords.map((record, index) => (
                   <TableRow
                     hover
                     key={index}
                   >
                     <TableCell>
-                      {format(fromUnixTime(record.timestamp), 'yyyy/MM/dd')}
+                      {format(fromUnixTime(record.open_timestamp/1000), 'yyyy/MM/dd kk:mm')}
                     </TableCell>
                     <TableCell>
-                      {record.referral_code}
+                      {record.pair.split('/')[0]}
                     </TableCell>
                     <TableCell>
-                      {recrodType(record.bot_id, record.subscription_id)}
+                      {record.is_short ? '空' : '多'}
                     </TableCell>
                     <TableCell>
-                      {record.rebate}
+                      {(record.profit_ratio > 0 ? '+' : '') + (record.profit_ratio*100).toFixed(2) + '%'}
+                    </TableCell>
+                    <TableCell>
+                      {(record.trade_duration/60).toFixed(1) + '小時'}
                     </TableCell>
                   </TableRow>
                 ))}

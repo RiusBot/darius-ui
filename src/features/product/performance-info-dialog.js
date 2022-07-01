@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import { Dialog, Box, Typography, Divider, IconButton, Link, Grid } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { ProtofolioStats } from '@/features/product/components/protofolio-stats';
+import { TradeHistory } from '@/features/product/components/trade-history';
 
 
 export const PerformanceInfoDialog = (props) => {
@@ -16,29 +17,33 @@ export const PerformanceInfoDialog = (props) => {
             fullWidth
             maxWidth="md">
           <Grid container spacing={1} sx={{
-                    'display': 'flex',
-                    'flexDirection': 'row',
-                    'width:': '100%',
-                    'padding': '32px 24px 32px'
-                }}>
-              <Grid item xs={5.5}>
-                <Typography variant="h5" component="div">
-                  {channel} 策略績效總覽
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-              </Grid>
-              <Grid item xs={0.5}>
-                <IconButton
-                    style={{'marginLeft': 'auto'}}
-                    onClick={onClose}
-                >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-              </Grid>
+                  'display': 'flex',
+                  'flexDirection': 'row',
+                  'width:': '100%',
+                  'padding': '32px 24px 32px'
+              }}>
+            <Grid item xs={5.5}>
+              <Typography variant="h5" component="div">
+                {channel} 策略績效總覽
+              </Typography>
             </Grid>
+            <Grid item xs={6}>
+            </Grid>
+            <Grid item xs={0.5}>
+              <IconButton
+                  style={{'marginLeft': 'auto'}}
+                  onClick={onClose}
+              >
+                  <CloseIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+          </Grid>
           <Divider variant="middle" />
+          <Box sx={{'overflowY': 'scroll', 'padding': '0px 0px 30px 0px'}}>
           <ProtofolioStats channel={channel} data={data} />
+          <Divider />
+          <TradeHistory channel={channel} data={data} />
+          </Box>
         </Dialog>
     )
 }

@@ -11,6 +11,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { format, fromUnixTime } from 'date-fns';
+
 
 ChartJS.register(
   CategoryScale,
@@ -65,8 +67,8 @@ export const BotChart = (props) => {
       const filterData = concatPages.filter(trade => trade.balance).reverse();
       if (filterData.length == 0)
         return;
-      const date = filterData.map(trade => new Date(trade.message.message_timestamp * 1000));
-      const labels = date.map(date => date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate());
+      const date = filterData.map(trade => new Date(trade.message.message_timestamp));
+      const labels = date.map(date => format(fromUnixTime(date), 'yyyy-MM-dd'));
       const roi = ((filterData[filterData.length-1].balance - filterData[0].balance) / filterData[0].balance * 100).toFixed(2);
 
       setChartData( {

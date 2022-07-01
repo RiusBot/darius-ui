@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Card,
          CardContent,
          CardHeader,
@@ -14,7 +13,6 @@ import { getAllPerformance } from '@/features/product/product-selector';
 
 
 export const ProtofolioStats = (props) => {
-    const dispatch = useDispatch();
     const { channel, data } = props;
     const [ portofolioInfo, setPortofolioInfo ] = useState();
   
@@ -114,15 +112,13 @@ export const ProtofolioStats = (props) => {
     return (
       <Card sx={{marginTop: '3px'}}>
         <CardContent>
-          <Box sx={{'height': '80vh', 'overflowY': 'scroll', 'padding': '0px 0px 30px 0px'}}>
-            <Grid container rowSpacing={-1} columns={{ xs: 0, sm: 8, md: 8 }}>
-              {metricGrids(portofolioInfo)}
-            </Grid>
-            <Divider />
-            <Grid container rowSpacing={-1} columns={{ xs: 0, sm: 8, md: 8 }}>
-              {statsGrids(portofolioInfo)}
-            </Grid>
-          </Box>
+          <Grid container rowSpacing={-1} columns={{ xs: 0, sm: 8, md: 8 }}>
+            {metricGrids(portofolioInfo)}
+          </Grid>
+          <Divider />
+          <Grid container rowSpacing={-1} columns={{ xs: 0, sm: 8, md: 8 }}>
+            {statsGrids(portofolioInfo)}
+          </Grid>
         </CardContent>
       </Card>
   );
