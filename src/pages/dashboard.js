@@ -90,16 +90,20 @@ const Dashboard = () => {
       <>
         {Object.values(productMedia).map((sub, index) => {
         if (sub.status == 'active') {
+          if (sub.channel == "ACDC" && subscriptions != undefined) {
+            if (subscriptions.filter(x => (x.plan.channel == "ACDC")).length == 0)
+              return;
+          }
           return <Box
+                  key={index}
+                  style={{'minWidth': '360px',
+                          'paddingRight': '30px'}}>
+                  <BotCard
                     key={index}
-                    style={{'minWidth': '360px',
-                            'paddingRight': '30px'}}>
-                    <BotCard
-                      key={index}
-                      bot={sub}
-                      openCreateBotDialog={handleDialogOpen}
-                    />
-                  </Box>
+                    bot={sub}
+                    openCreateBotDialog={handleDialogOpen}
+                  />
+                </Box>
         }
       })}
       </>

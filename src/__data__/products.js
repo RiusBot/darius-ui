@@ -81,7 +81,7 @@ export const products = [
     channelDisplayName: "ACDC",
     description: ['ACDC學院'],
     media: '/static/images/products/shortcode.jpg',
-    status: 'Comming soon',
+    status: 'active',
     tags: [{'text': "熊市 BEAR", 'color': "error"}, {'text': "高風險", 'color': "warning"}],
   },
   {
@@ -176,7 +176,7 @@ export const productMedia = {
     channelDisplayName: "ACDC",
     media: '/static/images/products/shortcode.jpg',
     channel: 'ACDC',
-    status: 'Comming soon',
+    status: 'active',
   },
   'CTA': {
     channelDisplayName: "CTA",
