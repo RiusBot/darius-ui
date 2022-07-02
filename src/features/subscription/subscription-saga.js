@@ -6,6 +6,8 @@ import {
   loadPlanByIDSuccess,
   loadUserSubscription,
   loadUserSubscriptionSuccess,
+  loadSubscriptionInfo,
+  loadSubscriptionInfoSuccess,
   createUserSubscription,
 } from '@/features/subscription/subscription-slice';
 import { updateSnackbar } from '@/app/app-slice';
@@ -73,6 +75,26 @@ function* loadUserSubscriptionSaga() {
   }
 }
 
+function* loadSubscriptionInfoSaga({payload: channel}) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/get_subscription_info/${channel}`;
+  const requestMethod = 'GET';
+  const params = {
+    uid: auth.uid,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      params,
+    });
+    yield put(loadSubscriptionInfoSuccess({channel: channel, data: res.data}));
+  } catch({response}) {
+    const errorMsg = 'Failed to get subscriptions info.';
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
 function* createUserSubscriptionSaga({ payload: planId }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
@@ -100,6 +122,7 @@ function* subscriptionSaga() {
     takeLatest(loadAllPlan.toString(), loadAllPlanSaga),
     takeLatest(loadPlanByID.toString(), loadPlanByIDSaga),
     takeLatest(loadUserSubscription.toString(), loadUserSubscriptionSaga),
+    takeLatest(loadSubscriptionInfo.toString(), loadSubscriptionInfoSaga),
     takeLatest(createUserSubscription.toString(), createUserSubscriptionSaga),
   ]);
 }

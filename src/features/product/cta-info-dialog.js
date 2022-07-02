@@ -1,12 +1,13 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Link, Chip } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { ProductTags } from '@/features/product/components/tags'
+import { ProductTags } from '@/features/product/components/tags';
+import TocIcon from '@mui/icons-material/Toc';
 
 
 export const CtaInfoDialog = (props) => {
-    const { open, onClose, tags } = props;
+    const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -16,24 +17,40 @@ export const CtaInfoDialog = (props) => {
             fullWidth
             maxWidth="md"
         >
-            <Box
-                sx={{
+            <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 24px 32px'
                 }}>
+              <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
                     Commodity Trading Advisor
                     <ProductTags data={tags} />
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  style={{'margin': 'auto', 'height': '100%'}}
+                  startIcon={<TocIcon />}
+                  onClick={openPerfDialog}
+                >
+                  詳細績效數據
+                </Button>
+              </Grid>
+              <Grid item xs={0.5}>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
                 </IconButton>
-            </Box>
+              </Grid>
+            </Grid>
             <Divider variant="middle" />
             <Box
                 sx={{
