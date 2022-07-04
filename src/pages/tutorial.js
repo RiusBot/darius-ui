@@ -399,8 +399,9 @@ const Tutorial = () => {
 
                     <Typography varient="body1" componenet="div">
                         1. 使用懶人模式<br/>
-                        2. 金額設定帳戶資金 1/10<br/>
-                        3. 其他會在產品介紹頁面各自補充<br/>
+                        2. 建議放置至少3~6個月以上<br/>
+                        3. 建議不要槓桿<br/>
+                        4. 金額設定會在產品介紹頁面各自補充<br/>
                     </Typography>
                   </Box>
                 </AccordionDetails>

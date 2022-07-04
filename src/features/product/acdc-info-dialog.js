@@ -122,16 +122,22 @@ export const AcdcInfoDialog = (props) => {
                     </Typography>
                     <Typography varient="body1" componenet="div">
                         <Link
-                          href="https://www.facebook.com/ACDC2020pi<br/>"
+                          href="https://www.acdccollege.com/"
+                          target="_blank"
+                        >
+                            官網: Acdc亞太區塊鏈發展學院 <br/>
+                        </Link>
+                        <Link
+                          href="https://www.facebook.com/ACDC2020pi"
                           target="_blank"
                         >
                             FB: Acdc亞太區塊鏈發展學院 <br/>
                         </Link>
                         <Link
-                          herf="https://line.me/ti/g2/WakvcisJJweISbR4NI3PIIdH_9L-1quFTbJdaQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default<br/>"
+                          herf="https://line.me/ti/g2/WakvcisJJweISbR4NI3PIIdH_9L-1quFTbJdaQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
                           target="_blank"
                         >
-                            LINE: ACDC亞太學院大廳
+                            LINE: ACDC亞太學院大廳 <br/>
                         </Link>
                     </Typography><br/>
 

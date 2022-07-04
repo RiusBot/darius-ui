@@ -26,9 +26,10 @@ export const FreeCredit = () => {
     <>
       <Card sx={{ height: '100%' }} id="vip">
         <CardHeader
-          title="Rius Bot ⓧ FTX ⓧ Binance ⓧ OKX"
-          subheader="VIP Plan !!!"
+          title="✮✢❂✶✧  RiusBot VIP  ✮✢❂✶✧"
+          subheader="Premium Plan"
           id="vip"
+          titleTypographyProps={{variant:'h5', color:'orange'}}
         />
         <Divider />
         <CardContent>
