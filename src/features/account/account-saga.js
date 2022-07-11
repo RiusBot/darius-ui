@@ -30,7 +30,7 @@ function* createUserSaga({ payload: { referrer } }) {
     });
     if (res.status === 200) {
       yield put(createUserSuccess());
-      yield put(updateSnackbar({ type: 'success', msg: `Create User Success` }));
+      // yield put(updateSnackbar({ type: 'success', msg: `Create User Success` }));
     }
   } catch({response}) {
     const errorMsg = 'Failed to create user';

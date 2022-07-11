@@ -1,30 +1,80 @@
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { format, fromUnixTime } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from '@mui/material';
-import { Box, Tooltip, Typography, Popover } from '@mui/material';
+import { Box, Tooltip, Typography, Popover, Button } from '@mui/material';
+import TablePagination from '@mui/material/TablePagination';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '@/features/dashboard/components/bot-management/severity-pill';
 import { BotTradesDetailPopup } from '@/features/dashboard/components/bot-management/bot-trades-detail-popup';
 import { getBotTrades } from '@/features/dashboard/dashboard-selector';
+import { loadBotTrades } from '@/features/dashboard/dashboard-slice';
+import { BotChart } from '@/features/dashboard/components/bot-management/bot-chart';
+
 
 export const BotTradesTable = (props) => {
   const dispatch = useDispatch();
   const { botId } = props;
   const [botTrades, setBotTrades] = useState([]);
+  const [botPageTrades, setBotPageTrades] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [tradeDetail, setTradeDetail] = useState({info: null, anchorEl: null, open: false});
-
   const allBotTrades = useSelector(getBotTrades);
   useEffect (() => {
-    if (allBotTrades[botId]) {
-      setBotTrades(allBotTrades[botId]);
+    if (allBotTrades[botId] && allBotTrades[botId][rowsPerPage] && allBotTrades[botId][rowsPerPage][page]) {
+      setBotTrades(allBotTrades[botId][rowsPerPage][page]);
+      setBotPageTrades(allBotTrades[botId][rowsPerPage]);
     }
   }, [allBotTrades]);
+
+  useEffect (() => {
+    if (! allBotTrades[botId] || ! allBotTrades[botId][rowsPerPage] || ! allBotTrades[botId][rowsPerPage][page]) {
+      dispatch(loadBotTrades({botId: botId, page: page, pagesize: rowsPerPage}));
+    } else {
+      setBotTrades(allBotTrades[botId][rowsPerPage][page]);
+      setBotPageTrades(allBotTrades[botId][rowsPerPage]);
+    }
+  }, [botId, page, rowsPerPage])
+  
+  const statusColorMap = new Map([
+    ['success', 'warning'],
+    ['SL', 'info'],
+    ['TP', 'error'],
+    ['error', 'success']
+  ])
+  const statusPostprocess = (status, err_msg) => {
+      if (typeof err_msg === 'string' || err_msg instanceof String) {
+        if (err_msg.includes("Position duplicate"))
+          return "Position Duplicate";
+        else if (err_msg.includes("Test only"))
+          return "Test Only";
+      }
+      return status;
+  }
+
+  const getTotalCount = () => {
+    if (! allBotTrades[botId] ) return 0;
+    return allBotTrades[botId].total_count;
+  }
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 520, width: '100%' }}>
+          <Box sx={{ m:4, height: '100%', margin: 'auto', paddingBottom: '32px' }} >
+            <BotChart data={botPageTrades} />
+          </Box>
           <Typography variant="h6" sx={{padding: '0 0 12px 12px'}}>
             Trading History
           </Typography>
@@ -63,7 +113,7 @@ export const BotTradesTable = (props) => {
                   onClick={(event) => setTradeDetail({info: trade, anchorEl: event.currentTarget, open: true})}
                 >
                   <TableCell>
-                    {format(fromUnixTime(trade.message.message_timestamp), 'dd/MM/yyyy kk:mm')}
+                    {format(fromUnixTime(trade.message.message_timestamp), 'yyyy/MM/dd kk:mm')}
                   </TableCell>
                   <TableCell>
                     {trade.message.symbol}
@@ -73,9 +123,9 @@ export const BotTradesTable = (props) => {
                   </TableCell>
                   <TableCell>
                     <SeverityPill
-                      color={trade.status === "success" ? "warning" : (trade.status === "SL" ? "info" : (trade.status === "TP" ? "error" : "success"))}
+                      color={statusColorMap.has(trade.status) ? statusColorMap.get(trade.status) : "success"}
                     >
-                      {trade.status}
+                      {statusPostprocess(trade.status, trade.error)}
                     </SeverityPill>
                   </TableCell>
                 </TableRow>
@@ -97,6 +147,14 @@ export const BotTradesTable = (props) => {
           tradeDetail={tradeDetail.info}
         />
       </Popover>
+      <TablePagination
+        component="div"
+        count={getTotalCount()}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       {/* <Box
         sx={{
           display: 'flex',

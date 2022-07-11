@@ -1,9 +1,8 @@
 dispatch:
-  - url: "*/.*"
+  # for dev
+  # - url: "*/.*"
+  #   service: default
+
+  # for production
+  - url: "prod.riusbot.com/*"
     service: default
-
-  # - url: "darius-ui.riusbot.com/*"
-  #   service: darius-ui
-
-  # - url: "darius-backend.riusbot.com/*"
-  #   service: darius-backend

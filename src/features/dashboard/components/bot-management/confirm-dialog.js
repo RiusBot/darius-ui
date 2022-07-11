@@ -17,6 +17,10 @@ export const ConfirmDialog = (props) => {
                     After you delete the bot, it will no longer be functioning and creating trade orders.
                     You will have to recreate another bot from sketch.
                   </DialogContentText>);
+        case "POSITION":
+          return (<DialogContentText id="confirm-dialog-description">
+                    This operation will close all position in your account. Confirm ?
+                  </DialogContentText>);
       }
     }
     return (

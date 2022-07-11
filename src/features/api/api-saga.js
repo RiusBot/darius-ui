@@ -38,6 +38,7 @@ function* createUserApiSaga({ payload: apiInfo }) {
     uid: auth.uid,
     api_key: apiInfo.api.key,
     api_secret: apiInfo.api.secret,
+    password: apiInfo.api.password,
     exchange: apiInfo.api.exchange,
     subaccount: apiInfo.api.subaccount,
   }

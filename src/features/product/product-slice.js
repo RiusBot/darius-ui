@@ -10,6 +10,7 @@ const productSlice = createSlice({
     VEGAS: [],
     JUSTIN: [],
     WEBHOOK: [],
+    AllTime: {}
   },
   reducers: {
     loadPerformance: () => {},
@@ -17,6 +18,10 @@ const productSlice = createSlice({
       Object.keys(action.payload).forEach(channel => {
         state[channel] = action.payload[channel];
       })
+    },
+    loadAllTimePerformance: () => {},
+    loadAllTimePerformanceSuccess: (state, action) => {
+      state['AllTime'][action.payload.channel] = action.payload
     },
   },
 });
@@ -26,6 +31,8 @@ const { actions, reducer } = productSlice;
 export const {
   loadPerformance,
   loadPerformanceSuccess,
+  loadAllTimePerformance,
+  loadAllTimePerformanceSuccess,
 } = actions
 
 export default reducer;

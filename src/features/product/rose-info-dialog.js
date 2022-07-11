@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
+import { ProductTags } from '@/features/product/components/tags';
+import TocIcon from '@mui/icons-material/Toc';
+
 
 export const RoseInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = useState([]);
-    const [shortRecords, setShortRecords] = useState([])
+    const [shortRecords, setShortRecords] = useState([]);
 
     useEffect(() => {
         async function getData(file) {
@@ -35,23 +38,40 @@ export const RoseInfoDialog = (props) => {
             onClose={onClose}
             fullWidth
             maxWidth="md">
-            <Box
-                sx={{
+            <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 24px 32px'
                 }}>
+              <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
                     Rose Premium
+                    <ProductTags data={tags} />
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  style={{'margin': 'auto', 'height': '100%'}}
+                  startIcon={<TocIcon />}
+                  onClick={openPerfDialog}
+                >
+                  詳細績效數據
+                </Button>
+              </Grid>
+              <Grid item xs={0.5}>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
                 </IconButton>
-            </Box>
+              </Grid>
+            </Grid>
             <Divider variant="middle" />
             <Box
                 sx={{
@@ -61,16 +81,33 @@ export const RoseInfoDialog = (props) => {
                     'padding': '16px 16px',
                 }}>
                 
+                  
                 <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        Rose歷史績效分析
-                    </Typography>
-                    <Typography varient="body1" componenet="div">
-                        目前記錄了績效表現<br/>
-                        1. 計算程式交易比手動交易額外收益的全倉帳戶<br/>
-                        2. 使用最佳化演算法找出的最佳歷史回測表現的全倉帳戶<br/>
-                        歷史績效回測功能之後會一同整合進機器人，可以讓使用者自己嘗試不同參數的績效<br/>
-                    </Typography>
+                  
+                  <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                    簡介
+                  </Typography>
+                  <Typography varient="body1" componenet="div">
+                      Rose 是擁有龐大 Telegram 社群的 Crypto Trader，提供即時的進出場點位，此機器人會自動進行跟單<br/>
+                      ⚡️ROSE 100btc CHALLENGE<br/>
+                  </Typography><br/>
+                        
+                  <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                      • 風險
+                  </Typography>
+                  <Typography varient="body1" componenet="div">
+                      此機器人自動跟單 Trader 提供點位，並非量化交易，風險無法由程式控管<br/>
+                  </Typography><br/>
+                  
+                  <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                      績效
+                  </Typography>
+                  <Typography varient="body1" componenet="div">
+                      目前記錄了績效表現<br/>
+                      1. 計算程式交易比手動交易額外收益的全倉帳戶<br/>
+                      2. 使用最佳化演算法找出的最佳歷史回測表現的全倉帳戶<br/>
+                      歷史績效回測功能之後會一同整合進機器人，可以讓使用者自己嘗試不同參數的績效<br/>
+                  </Typography>
                 </Box>
 
 
@@ -125,11 +162,19 @@ export const RoseInfoDialog = (props) => {
                 </Box>
 
                 <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        機器人建議設定
+                    </Typography>
+                    <Typography varient="body1" componenet="div" color="blue">
+                        下單金額設定總資金 1/10 <br/>
+                    </Typography>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
                         實際使用心得
                     </Typography>
                     <Typography varient="body1" componenet="div">
-                        目前跑2個月都是60%up，2-3倍槓桿<br/>
                         使用心得是勝率不錯，越快進場越好，但價格通常不會跑完整個setup，tp1 tp2 就要出掉比較好或是把止損往上拉。<br/>
                         另一點就是btc在資費過熱，大回調就會讓所有單都止損，所以市場過熱的時候可以止損近一點。<br/>
                     </Typography>

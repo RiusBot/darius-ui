@@ -17,13 +17,21 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import KeyIcon from '@mui/icons-material/Key';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import PeopleIcon from '@mui/icons-material/People';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserProfileFromFirebase } from '@/common/selectors';
 
 const items = [
   {
-    href: '/',
+    href: '/campaign',
+    icon: (<NotificationsIcon fontSize="small" />),
+    title: 'Campaign'
+  },
+  {
+    href: '/tutorial',
     icon: (<LightbulbIcon fontSize="small" />),
     title: 'Tutorial'
   },
@@ -41,6 +49,16 @@ const items = [
     href: '/api-setting',
     icon: (<KeyIcon fontSize="small" />),
     title: 'API Key Setting'
+  },
+  {
+    href: '/trade-pair',
+    icon: (<ListAltIcon fontSize="small" />),
+    title: 'Trading Lists'
+  },
+  {
+    href: '/referral-program',
+    icon: (<PeopleIcon fontSize="small" />),
+    title: 'Referral Program'
   },
   {
     href: '/subscription',

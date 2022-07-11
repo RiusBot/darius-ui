@@ -10,7 +10,8 @@ import {
   Divider,
   Grid,
   TextField,
-  Avatar
+  Avatar,
+  Typography
 } from '@mui/material';
 import { TelegramBindingDialog } from '@/features/account/components/telegram-binding-dialog';
 import { getUserProfileFromFirebase, getUserTelegram } from '@/common/selectors';
@@ -45,7 +46,7 @@ export const AccountProfileDetails = (props) => {
     if (displayName !== originalProfile.displayName) {
       firebase.updateProfile({ displayName });
     }
-    if (referrer !== profile.referrer || displayName !== profile.user_name) {
+    if (displayName !== profile.user_name) {
       // TODO: api call failing
       dispatch(updateUserProfile({username: displayName, referrer: referrer}));
     }
@@ -124,11 +125,10 @@ export const AccountProfileDetails = (props) => {
                 <TextField
                   sx={{margin: '32px 0 0 0'}}
                   fullWidth
-                  label="Referrer"
-                  name="referrer"
-                  onChange={handleChange}
-                  disabled={profile.referrer !== null}
-                  value={newProfile.referrer}
+                  label="Role"
+                  name="role"
+                  disabled
+                  value={profile.role == null ? "" : profile.role.toUpperCase()}
                   variant="outlined"
                 />
               </Grid>

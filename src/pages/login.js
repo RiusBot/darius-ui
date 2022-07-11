@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as Yup from 'yup';
+import * as EmailValidator from 'email-validator';
+
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
 import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
-import * as EmailValidator from 'email-validator';
+import { analytics } from '@/utils/firebase';
 
 const Login = () => {
   const router = useRouter();
@@ -24,6 +26,7 @@ const Login = () => {
     name = name.replace(/[^a-zA-Z0-9.]+/g, "");
     return name + '@' + host;
   };
+  const { referrer } = router.query;
 
   const firebase = useFirebase()
   const auth = useSelector(getAuthUser)
@@ -35,15 +38,21 @@ const Login = () => {
       .then((result) => {
         const additionalUserInfo = result.additionalUserInfo;
         if (additionalUserInfo.isNewUser) {
-          dispatch(createUser());
+          analytics().logEvent('sign_up', {
+            method: 'google'
+          });
+          dispatch(createUser({ referrer }));
         }
+        analytics().logEvent('login', {
+          method: 'google'
+        });
       })
       .catch((error) => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
       });
   };
   const handleGoogleSignInClick = () => {
-    SignInWithGoogle()
+    SignInWithGoogle();
     grecaptcha.enterprise.ready(async () => {
       const action = 'LOGIN'
       const token = await grecaptcha.enterprise.execute(process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_SITE_KEY, { action });
@@ -53,6 +62,11 @@ const Login = () => {
   const SignInWithPassword = (values) => {
     values.email = emailNormalize(values.email)
     firebase.login(values)
+      .then(() => {
+        analytics().logEvent('login', {
+          method: 'password'
+        });
+      })
       .catch(error => {
         dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
       });
@@ -89,6 +103,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoaded(auth) && !isEmpty(auth)) {
+      dispatch(createUser({ referrer }));
       if (auth.emailVerified) {
         router.push('/dashboard');
       } else {
@@ -212,7 +227,7 @@ const Login = () => {
               Don&apos;t have an account?
               {' '}
               <NextLink
-                href="/register"
+                href={referrer ? "/register?referrer=".concat(referrer): "/register"}
               >
                 <Link
                   to="/register"
@@ -223,6 +238,27 @@ const Login = () => {
                   }}
                 >
                   Create account
+                </Link>
+              </NextLink>
+            </Typography>
+            <Typography
+              color="textSecondary"
+              variant="body2"
+            >
+              Forget password ?
+              {' '}
+              <NextLink
+                href="/forget"
+              >
+                <Link
+                  to="/forget"
+                  variant="subtitle2"
+                  underline="hover"
+                  sx={{
+                    cursor: 'pointer'
+                  }}
+                >
+                  Reset password
                 </Link>
               </NextLink>
             </Typography>

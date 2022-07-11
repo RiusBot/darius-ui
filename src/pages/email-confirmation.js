@@ -12,16 +12,29 @@ const EmailConfirmation = () =>{
   const dispatch = useDispatch()
   const firebase = useFirebase();
   useEffect(() => {
-    firebase.auth().applyActionCode(actionCode)
-      .then((resp) => {
-        dispatch(updateSnackbar({ type: 'info', msg: 'Congratulations! You are a member now!'}));
-        router.push('/login')
-      })
-      .catch((error) => {
-        dispatch(updateSnackbar({ type: 'error', 
-          msg: 'Invalid or expired confirmation code, please verify email address again' }))
-        router.push('/register')
-      });
+    if (mode == "resetPassword"){
+      firebase.auth().verifyPasswordResetCode(actionCode)
+        .then((resp) => {
+          router.push('/reset?oobCode='+actionCode)
+        })
+        .catch((error) => {
+          dispatch(updateSnackbar({ type: 'error',
+            msg: error.message }))
+          router.push('/forget')
+        })
+    }
+    else{
+      firebase.auth().applyActionCode(actionCode)
+        .then((resp) => {
+          dispatch(updateSnackbar({ type: 'info', msg: 'Congratulations! You are a member now!'}));
+          router.push('/login')
+        })
+        .catch((error) => {
+          dispatch(updateSnackbar({ type: 'error',
+            msg: 'Invalid or expired confirmation code, please verify email address again' }))
+          router.push('/register')
+        });
+    }
   }, []);
 
   return (

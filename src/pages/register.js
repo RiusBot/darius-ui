@@ -21,6 +21,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Snackbar from '@/common/components/snackbar';
 import TermsAndConditionsDialog from '@/features/register/terms-and-conditions-dialog';
 import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
+import { analytics } from '@/utils/firebase';
 
 const Register = () => {
   const router = useRouter();
@@ -29,8 +30,8 @@ const Register = () => {
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
-  const { referralCode } = router.query;
-    
+  const { referrer } = router.query;
+
   const emailNormalize = (email) => {
     var token = email.split('@');
     var name = token[0];
@@ -62,12 +63,15 @@ const Register = () => {
         { displayName: username, email}
       )
         .then(() => {
-          dispatch(createUser({ referrer }));   
+          dispatch(createUser({ referrer }));
         })
         .then(() => {
           firebase.auth().currentUser.sendEmailVerification();
           dispatch(updateSnackbar({ type: 'info', msg: 'Verification email is sent, please click the confirmation link and login again.' }));
           firebase.logout();
+          analytics().logEvent('sign_up', {
+            method: 'password'
+          });
         })
         .then(() => {
           router.push("/login");
@@ -78,13 +82,13 @@ const Register = () => {
     }
   };
 
-  
+
   const formik = useFormik({
     initialValues: {
       email: '',
       username: '',
       password: '',
-      referrer: referralCode || '',
+      referrer: referrer || '',
       policy: false
     },
     validationSchema: Yup.object({

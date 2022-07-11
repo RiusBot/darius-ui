@@ -1,11 +1,14 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Chip, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { TimeseriesChart } from '@/features/product/components/timeseries-chart';
+import { ProductTags } from '@/features/product/components/tags';
+import TocIcon from '@mui/icons-material/Toc';
+
 
 export const DailyScalpingInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     React.useEffect(() => {
@@ -31,23 +34,40 @@ export const DailyScalpingInfoDialog = (props) => {
             onClose={onClose}
             fullWidth
             maxWidth="md">
-            <Box
-                sx={{
+            <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 24px 32px'
                 }}>
+              <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
-                    Daily Scalping
+                    Daily Scalp
+                    <ProductTags data={tags} />
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  style={{'margin': 'auto', 'height': '100%'}}
+                  startIcon={<TocIcon />}
+                  onClick={openPerfDialog}
+                >
+                  詳細績效數據
+                </Button>
+              </Grid>
+              <Grid item xs={0.5}>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
                 </IconButton>
-            </Box>
+              </Grid>
+            </Grid>
             <Divider variant="middle" />
             <Box
                 sx={{

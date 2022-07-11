@@ -1,12 +1,22 @@
 import PropTypes from 'prop-types';
-import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button } from '@mui/material';
+import { Avatar, Box, Card, CardContent, Divider, Grid, Typography, Button, Chip } from '@mui/material';
 import { Clock as ClockIcon } from '@/icons/clock';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { MixedChart } from '@/features/product/components/mixed-chart';
+import { ProductTags } from '@/features/product/components/tags'
+
+
+function StatusIcon(status){
+  if (status.status == 'active')
+    return <ClockIcon/>
+  else
+    return <NewReleasesIcon/>
+}
 
 export const ProductCard = (props) => {
-  const { product, chartData, openInfoDialog } = props;
-  const reversedData = [...chartData].reverse();
+  const { product, chartData, openInfoDialog, setTags } = props;
+  const reversedData = (chartData === undefined) ? chartData : [...chartData].reverse();
 
   return (
     <Card
@@ -15,8 +25,10 @@ export const ProductCard = (props) => {
         flexDirection: 'column',
         height: '100%'
       }}
+      id={product.channel}
     >
       <CardContent>
+        <ProductTags data={product.tags} /><br/><br/>
         <Box
           sx={{
             display: 'flex',
@@ -72,14 +84,14 @@ export const ProductCard = (props) => {
               display: 'flex'
             }}
           >
-            <ClockIcon color="action" />
+            {StatusIcon(product)}
             <Typography
-              color="textSecondary"
+              color={(product.status == 'active') ? 'active' : 'red'}
               display="inline"
               sx={{ pl: 1 }}
               variant="body2"
             >
-              Updated 2hr ago
+              Status: {product.status.toUpperCase()}
             </Typography>
           </Grid>
           <Grid
@@ -94,7 +106,7 @@ export const ProductCard = (props) => {
               endIcon={<ArrowRightIcon fontSize="small" />}
               size="small"
               variant="text"
-              onClick={() => openInfoDialog(product.channel)}
+              onClick={() => {openInfoDialog(product.channel); setTags(product.tags);}}
             >
               See more
             </Button>

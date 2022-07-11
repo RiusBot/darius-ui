@@ -1,5 +1,27 @@
-PROJECT_ID = darius-332003
 IMAGE_NAME = darius-ui
+APP = app.yaml
+DISPATCH = dispatch.yaml
+
+ENV ?= $(firstword $(MAKECMDGOALS))
+ifeq ($(ENV), prod)
+	PROJECT_ID = darius-prod
+	CREDENTIAL = darius-prod-5bed36160a65.json
+else
+	CREDENTIAL = darius-332003-6391a8358dec.json
+	PROJECT_ID = darius-332003
+endif
+
+ifeq ($(words $(MAKECMDGOALS)), 1)
+prod: build deploy
+dev: build deploy
+pilot: build deploy
+else
+dev: nan
+pilot: nan
+prod: nan
+nan:
+	@:
+endif
 
 install: install-gcloud
 # gcloud auth login
@@ -44,3 +66,6 @@ log:
     
 clean:
 	@find . -name ".ipynb*" -exec rm -rv {} +
+
+dispatch: set-project
+	gcloud app deploy $(DISPATCH)

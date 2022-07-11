@@ -5,6 +5,7 @@ const subscriptionSlice = createSlice({
   initialState: {
     plans: {},
     subscriptions: [],
+    info: {},
   },
   reducers: {
     loadAllPlan: () => {},
@@ -26,6 +27,10 @@ const subscriptionSlice = createSlice({
     loadUserSubscriptionSuccess: (state, action) => {
       state.subscriptions = action.payload;
     },
+    loadSubscriptionInfo: () => {},
+    loadSubscriptionInfoSuccess: (state, action) => {
+      state.info[action.payload.channel] = action.payload.data;
+    },
     createUserSubscription: () => {},
   },
 });
@@ -39,6 +44,8 @@ export const {
   loadPlanByIDSuccess,
   loadUserSubscription,
   loadUserSubscriptionSuccess,
+  loadSubscriptionInfo,
+  loadSubscriptionInfoSuccess,
   createUserSubscription,
 } = actions
 

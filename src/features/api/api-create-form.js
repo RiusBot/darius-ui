@@ -5,13 +5,13 @@ import { Box, Typography, Button } from '@mui/material';
 import { CardContent, TextField } from '@mui/material';
 import { createUserApi } from '@/features/api/api-slice';
 
-const exchanges = ['Binance', 'FTX', 'FTXUS'];
+const exchanges = ['Binance', 'FTX', 'FTXUS', 'OKX'];
 
 export const ApiCreateForm = (props) => {
     const dispatch = useDispatch();
     const { display } = props;
     const [isApiCreateReady, setApiCreate] = useState(false);
-    const [apiValues, setApiValues] = useState({key: '', secret: '', exchange: '', subaccount: ''});
+    const [apiValues, setApiValues] = useState({key: '', secret: '', password: '', exchange: '', subaccount: ''});
 
     const handleChange = (event) => {
         setApiValues({
@@ -24,11 +24,12 @@ export const ApiCreateForm = (props) => {
         switch (field) {
             case 'key':
             case 'secret':
-            return (apiValues[field].length != 0);
+              return (apiValues[field].length != 0);
             case 'exchange':
-            return (apiValues[field] == 'binance' || apiValues[field] == 'ftx' || apiValues[field] == 'ftxus');
+              return exchanges.map(x => x.toLowerCase()).includes(apiValues[field]);
             case 'subaccount':
-            return true;
+            case 'password':
+              return true;
         }
     }
 
@@ -49,7 +50,7 @@ export const ApiCreateForm = (props) => {
     const createButtonClicked = () => {
         const createApiInfo = {api: apiValues};
         dispatch(createUserApi(createApiInfo));
-        setApiValues({key: '', secret: '', exchange: '', subaccount: ''});
+        setApiValues({key: '', secret: '', password: '', exchange: '', subaccount: ''});
     }
     if (!display) {
         return (<></>);
@@ -107,6 +108,17 @@ export const ApiCreateForm = (props) => {
                 inputProps={{ maxLength: 64 }}
                 onChange={handleChange}
                 value={apiValues.secret}
+                variant="outlined"
+            />
+            <TextField
+                sx={{display: (['okx'].includes(apiValues.exchange)) ? 'flex' : 'none'}}
+                fullWidth
+                label="Password"
+                margin="normal"
+                name="password"
+                inputProps={{ maxLength: 32 }}
+                onChange={handleChange}
+                value={apiValues.password}
                 variant="outlined"
             />
         </CardContent>

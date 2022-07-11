@@ -2,16 +2,14 @@ import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardHeader, Box, Tab, Typography, Button } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import { BotTradesTable } from '@/features/dashboard/components/bot-management/bot-trades-table';
 import { BotSettings } from '@/features/dashboard/components/bot-management/bot-settings';
-import { loadUserBots, loadBotTrades } from '@/features/dashboard/dashboard-slice';
+import { loadUserBots } from '@/features/dashboard/dashboard-slice';
 import { getUserBots, getBotTrades } from '@/features/dashboard/dashboard-selector';
 
 export default function BotManagementCard(props) {
     const dispatch = useDispatch();
-    const { openConfirmDialog, openBotEditDialog, userApi } = props;
+    const { openConfirmDialog, openBotEditDialog } = props;
     const [value, setValue] = useState('0');
 
     const userBots = useSelector(getUserBots);
@@ -21,20 +19,13 @@ export default function BotManagementCard(props) {
         }
       },[]
     );
-
-    const allBotTrades = useSelector(getBotTrades);
-    const getCurrentBotTrades = (botId) => {
-        if (! allBotTrades[botId]) {
-            dispatch(loadBotTrades({botId: botId}));
-        }
-    }
      
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
     };
 
     const BotInfo = (props) => {
-      const { value }= props;
+      const { value } = props;
       if (userBots[parseInt(value)]) {
         return (<Box >
                     <Box sx={{ minWidth: '320px' }} >
@@ -49,7 +40,6 @@ export default function BotManagementCard(props) {
                     </Box>
                     <BotTradesTable
                         botId={userBots[parseInt(value)].bot_id}
-                        getBotTrades={getCurrentBotTrades(userBots[parseInt(value)].bot_id)}
                     />
                 </Box>);
       }

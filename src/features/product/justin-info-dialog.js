@@ -1,11 +1,13 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { ProductTags } from '@/features/product/components/tags';
+import TocIcon from '@mui/icons-material/Toc';
 
 
 export const JustinInfoDialog = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -14,23 +16,40 @@ export const JustinInfoDialog = (props) => {
             onClose={onClose}
             fullWidth
             maxWidth="md">
-            <Box
-                sx={{
+            <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 24px 32px'
                 }}>
+              <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
                     Justin's Trading Room
+                    <ProductTags data={tags} />
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  style={{'margin': 'auto', 'height': '100%'}}
+                  startIcon={<TocIcon />}
+                  onClick={openPerfDialog}
+                >
+                  詳細績效數據
+                </Button>
+              </Grid>
+              <Grid item xs={0.5}>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
                 </IconButton>
-            </Box>
+              </Grid>
+            </Grid>
             <Divider variant="middle" />
             <Box
                 sx={{
@@ -41,10 +60,10 @@ export const JustinInfoDialog = (props) => {
                 }}>
                   
                 <Box sx={{p:2}} >
-                    <Typography variant="h6" component="div" sx={{padding: '8px 0 16px'}}>
-                        派網分析師Justin
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        簡介
                     </Typography>
-
+                    此機器人自動跟單 派網分析師Justin<br/>
                     <img
                       alt="Under development"
                       src="/static/images/products/justin_curve.jpg"
@@ -66,6 +85,15 @@ export const JustinInfoDialog = (props) => {
                         Facebook: <a href="https://www.facebook.com/showumoney/">https://www.facebook.com/showumoney/</a><br/>
                         Line: <a href="https://medium.com/@joiesfu.tw">https://medium.com/@joiesfu.tw</a><br/>
                         
+                    </Typography><br/>
+                </Box>
+
+                <Box sx={{p:2}} >
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        建議機器人設定
+                    </Typography>
+                    <Typography varient="body1" componenet="div" color="blue">
+                      下單金額設定總資金 1/10 <br/>
                     </Typography><br/>
                 </Box>
 

@@ -20,3 +20,4 @@ node_modules/
 /pages/
 /components/
 /store/
+.env.local

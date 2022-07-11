@@ -7,6 +7,7 @@ import {
   loadUserBotsSuccess,
   loadBotTrades,
   loadBotTradesSuccess,
+  closeUserPosition,
 } from '@/features/dashboard/dashboard-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -19,6 +20,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
     uid: auth.uid,
     config: {
       api_id: createBotInfo.configOptions.api,
+      pair_id: createBotInfo.configOptions.pair == "" ? null : createBotInfo.configOptions.pair,
       test: createBotInfo.orderOptions.test,
       duplicate: createBotInfo.orderOptions.duplicate,
       target: createBotInfo.configOptions.target,
@@ -31,7 +33,8 @@ function* createUserBotSaga({ payload: createBotInfo }) {
       order_type: createBotInfo.configOptions.orderType,
       stop_loss_type: createBotInfo.configOptions.stopLossType,
       take_profit_type: createBotInfo.configOptions.takeProfitType,
-      hyperopt: createBotInfo.configOptions.hyperopt
+      hyperopt: createBotInfo.configOptions.hyperopt,
+      quote: createBotInfo.configOptions.quote
     },
     channel: createBotInfo.channel
   };
@@ -59,6 +62,7 @@ function* updateUserBotSaga({ payload: updateBotInfo }) {
     status: updateBotInfo.status,
     config: {
       api_id: updateBotInfo.configOptions.api,
+      pair_id: updateBotInfo.configOptions.pair,
       test: updateBotInfo.orderOptions.test,
       hyperopt: updateBotInfo.configOptions.hyperopt,
       duplicate: updateBotInfo.orderOptions.duplicate,
@@ -71,7 +75,8 @@ function* updateUserBotSaga({ payload: updateBotInfo }) {
       take_profit: updateBotInfo.configOptions.takeProfit / 100,
       order_type: updateBotInfo.configOptions.orderType,
       stop_loss_type: updateBotInfo.configOptions.stopLossType,
-      take_profit_type: updateBotInfo.configOptions.takeProfitType
+      take_profit_type: updateBotInfo.configOptions.takeProfitType,
+      quote: updateBotInfo.configOptions.quote
     },
   };
   const url = `/api/v1/update_user_bot`;
@@ -134,21 +139,44 @@ function* loadUserBotsSaga({ payload: userInfo }) {
 function* loadBotTradesSaga({ payload: botInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
-  const url = `/api/v1/get_bot_trades`;
+  const url = `/api/v1/get_bot_trades2`;
   const requestMethod = 'GET';
   const params = {
     uid: auth.uid,
     bot_id: botInfo.botId,
+    page: botInfo.page,
+    pagesize: botInfo.pagesize,
   }
   try {
     const res = yield axios(url, {
       method: requestMethod,
       params
     });
-    yield put(loadBotTradesSuccess(res.data));
+    yield put(loadBotTradesSuccess({res: res.data, bot_id: botInfo.botId}));
   } catch({response}) {
     const errorMsg = 'Failed to get bot trades'
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
+  }
+}
+
+function* closeUserPositionSaga({ payload: botInfo }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/clean_all_position`;
+  const requestMethod = 'DELETE';
+  const data = {
+    uid: auth.uid,
+    bot_id: botInfo.botId,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data
+    });
+    yield put(updateSnackbar({ type: 'success', msg: `Close Position Success` }));
+  } catch({response}) {
+    const errorMsg = 'Failed to close position'
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg}` }));
   }
 }
 
@@ -159,6 +187,7 @@ function* dashboardSaga() {
     takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
     takeLatest(loadUserBots.toString(), loadUserBotsSaga),
     takeLatest(loadBotTrades.toString(), loadBotTradesSaga),
+    takeLatest(closeUserPosition.toString(), closeUserPositionSaga),
   ]);
 }
 
