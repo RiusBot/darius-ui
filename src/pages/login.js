@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik';
 import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as Yup from 'yup';
+import * as EmailValidator from 'email-validator';
+
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Google as GoogleIcon } from '@/icons/Google';
 import Snackbar from '@/common/components/snackbar';
 import { createUser, createRecaptchaAccessment, updateSnackbar } from '@/app/app-slice';
 import { getAuthUser } from '@/common/selectors';
-import * as EmailValidator from 'email-validator';
+import { analytics } from '@/utils/firebase';
 
 const Login = () => {
   const router = useRouter();
@@ -36,8 +38,14 @@ const Login = () => {
       .then((result) => {
         const additionalUserInfo = result.additionalUserInfo;
         if (additionalUserInfo.isNewUser) {
+          analytics().logEvent('sign_up', {
+            method: 'google'
+          });
           dispatch(createUser({ referrer }));
         }
+        analytics().logEvent('login', {
+          method: 'google'
+        });
       })
       .catch((error) => {
         dispatch(updateSnackbar({ type: 'error', msg: error.message }))
@@ -54,6 +62,11 @@ const Login = () => {
   const SignInWithPassword = (values) => {
     values.email = emailNormalize(values.email)
     firebase.login(values)
+      .then(() => {
+        analytics().logEvent('login', {
+          method: 'password'
+        });
+      })
       .catch(error => {
         dispatch(updateSnackbar({ type: 'error', msg: 'Incorrect email address or password.' }))
       });

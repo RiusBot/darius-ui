@@ -30,8 +30,8 @@ const subscriptionLink = {
 const Dashboard = () => {
   const dispatch = useDispatch();
   const [botCreateDialog, setBotCreateDialog] = useState({open: false, channel: "", channelDisplayName: ""});
-  const defaultEditDialog = { open: false, 
-                              channel: "", 
+  const defaultEditDialog = { open: false,
+                              channel: "",
                               channelDisplayName: "",
                               botId: "",
                               config: {},
@@ -71,12 +71,12 @@ const Dashboard = () => {
     const channelDisplayName = Object.keys(productMedia).includes(dialog.channel) ? productMedia[dialog.channel].channelDisplayName : dialog.channel
     switch (dialog.action) {
       case 'botCreate':
-        setBotCreateDialog({open: true, 
-                            channel: dialog.channel, 
+        setBotCreateDialog({open: true,
+                            channel: dialog.channel,
                             channelDisplayName: channelDisplayName});
         break;
       case 'botEdit':
-        setBotEditDialog({open: true, 
+        setBotEditDialog({open: true,
                           channel: dialog.channel,
                           channelDisplayName: channelDisplayName,
                           botId: dialog.botId,
@@ -137,7 +137,7 @@ const Dashboard = () => {
           spacing={3}
         >
           <Box
-            style={{display: 'flex', 
+            style={{display: 'flex',
                     flexDirection: 'row',
                     overflowX: 'auto',
                     height: '200px',
@@ -153,7 +153,7 @@ const Dashboard = () => {
               width: '100%'
             }}
           >
-            <BotManagementCard 
+            <BotManagementCard
               userApi={userApi}
               openConfirmDialog={handleDialogOpen}
               openBotEditDialog={handleDialogOpen}
