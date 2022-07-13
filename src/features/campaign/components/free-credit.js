@@ -73,6 +73,7 @@ export const FreeCredit = () => {
                   https://ftx.com/referrals#a=riusbot
                 </Button>
               </Link>
+              <br />
               <Link href="https://www.okx.com/join/19793639" underline="none" target="_blank">
                 <Button
                   aria-label="okx"
@@ -96,6 +97,18 @@ export const FreeCredit = () => {
                   https://accounts.binance.com/zh-TW/register?ref=GG6RBDDS
                 </Button>
               </Link>
+              <br />
+              <Link href="https://www.kucoin.com/r/af/QBSSSZJP" underline="none" target="_blank">
+                <Button
+                  aria-label="kucoin"
+                  variant="text"
+                  size="small"
+                  sx={{ ml: 10 }}
+                  startIcon={<ForwardIcon/>}
+                >
+                  https://www.kucoin.com/r/af/QBSSSZJP
+                </Button>
+              </Link>
               <br/>
               <ListItem>
                 <ListItemIcon>
@@ -108,7 +121,8 @@ export const FreeCredit = () => {
                   <Looks3Icon color="primary"/>
                 </ListItemIcon>
                 <ListItemText primary="Fill out the application form below and the free credit will be send after verification" />
-              </ListItem> 
+              </ListItem>
+              <br />
               <Link href="https://forms.gle/cYgGdR5xb7KBS3zA8" underline="none" target="_blank" >
                 <Button
                   aria-label="credit"

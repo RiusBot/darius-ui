@@ -98,8 +98,14 @@ const Dashboard = () => {
       <>
         {Object.values(productMedia).map((sub, index) => {
         if (sub.status == 'active') {
-          if (sub.channel == "ACDC" && subscriptions != undefined) {
-            if (subscriptions.filter(x => (x.plan.channel == "ACDC")).length == 0)
+          if (sub.channel == "ACDC") {
+            if (subscriptions != undefined && subscriptions.filter(x => (x.plan.channel == "ACDC")).length != 0)
+              ; // has acdc subscription
+            else if (profile.role == "vip")
+              ; // is vip
+            else if (profile.referrer == "YPT1pL2W")
+              ; // acdc user
+            else
               return;
           }
           return <Box
