@@ -53,7 +53,7 @@ const SubscriptionPlans = (props) => {
 
   const onClickSubmit = () => {
     if (profile.balance >= price || ["vip", "admin"].includes(profile.role)) {
-      dispatch(createUserSubscription(parseInt(checked)));
+      dispatch(createUserSubscription({ planId: parseInt(checked), price }));
     } else {
       dispatch(updateSnackbar({ type: 'info', msg: 'Balance not enough. Head to the Transaction & Payment page to increase your balance.' }));
     }
@@ -66,7 +66,7 @@ const SubscriptionPlans = (props) => {
       <Box sx={{display: 'flex', flexDirection: 'column', paddingTop: '32px'}}>
         {Object.keys(selectablePlans).map((channel, idx) => (
           <Box key={idx} sx={{display: 'flex', flexDirection: 'row', height: '64px', margin: '8px'}}>
-            <Button 
+            <Button
               variant={(planChannel === channel)? 'outlined' : 'text'}
               onClick={() => setChannel(channel)}
               >
@@ -97,7 +97,7 @@ const SubscriptionPlans = (props) => {
               <FormControlLabel
                 key={index}
                 sx={{padding: '0 32px'}}
-                control={<Checkbox 
+                control={<Checkbox
                           id={(plan.plan_id).toString()}
                           disabled={planChannel !== channel}
                           checked={(checked === plan.plan_id.toString())? true : false}

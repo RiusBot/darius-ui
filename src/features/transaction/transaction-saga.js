@@ -7,6 +7,7 @@ import {
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
+import { analytics } from '@/utils/firebase';
 
 function* loadUserTransactionSaga() {
   const axios = yield getAxios();
@@ -46,6 +47,10 @@ function* createUserTransactionSaga({ payload: transactionInfo }) {
       data,
     });
     yield put(loadUserTransaction());
+    analytics().logEvent('add_payment_info', {
+      currency: 'USD',
+      value: transactionInfo.amount,
+    });
   } catch({response}) {
     const errorMsg = 'Failed to create user transaction.';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));

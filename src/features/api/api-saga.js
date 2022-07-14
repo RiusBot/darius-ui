@@ -8,6 +8,7 @@ import {
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
+import { analytics } from '@/utils/firebase';
 
 function* loadUserApiSaga() {
   const axios = yield getAxios();
@@ -49,7 +50,10 @@ function* createUserApiSaga({ payload: apiInfo }) {
     });
     yield put(loadUserApi());
     yield put(updateSnackbar({ type: 'success', msg: `Create API Key Success` }));
-  } catch({response}) { 
+    analytics().logEvent('add_api_key_info', {
+      exchange: apiInfo.api.exchange,
+    });
+  } catch({response}) {
     const errorMsg = 'Failed to create user API Key';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
   }
