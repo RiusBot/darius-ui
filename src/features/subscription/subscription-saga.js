@@ -13,6 +13,7 @@ import {
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
+import { analytics, generateTransactionId } from '@/utils/firebase';
 
 function* loadAllPlanSaga() {
   const axios = yield getAxios();
@@ -95,7 +96,7 @@ function* loadSubscriptionInfoSaga({payload: channel}) {
   }
 }
 
-function* createUserSubscriptionSaga({ payload: planId }) {
+function* createUserSubscriptionSaga({ payload: { planId, price }}) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
   const url = `/api/v1/create_user_subscription`;
@@ -111,6 +112,13 @@ function* createUserSubscriptionSaga({ payload: planId }) {
     });
     yield put(loadUserSubscription());
     yield put(updateSnackbar({ type: 'success', msg: `Create Subscription Success` }));
+    const event = 'purchase'
+    analytics().logEvent(event, {
+      currency: 'USD',
+      transaction_id: generateTransactionId(event),
+      value: price,
+      items: [{ item_id: planId}],
+    });
   } catch({response}) {
     const errorMsg = 'Failed to create user subscription.';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
