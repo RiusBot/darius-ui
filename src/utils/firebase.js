@@ -3,6 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/app-check';
 import 'firebase/compat/analytics';
+import { v4 as uuidv4 } from 'uuid';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -39,10 +40,14 @@ export const initializeFirebaseAppCheck = () => {
 
 export const analytics = () => {
   if (typeof window !== "undefined") {
-    return firebase.analytics()
+    return firebase.analytics();
   } else {
-    return null
+    return null;
   }
+}
+
+export const generateTransactionId = (event='') => {
+  return event + uuidv4();
 }
 
 export default firebase;

@@ -12,11 +12,12 @@ import {
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
 import { getAuthUser } from '@/common/selectors';
+import { analytics, generateTransactionId } from '@/utils/firebase';
 
 function* createUserBotSaga({ payload: createBotInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
-  const data = { 
+  const data = {
     uid: auth.uid,
     config: {
       api_id: createBotInfo.configOptions.api,
@@ -47,6 +48,11 @@ function* createUserBotSaga({ payload: createBotInfo }) {
     });
     yield put(loadUserBots());
     yield put(updateSnackbar({ type: 'success', msg: `Create New Bot Success` }));
+    const event = 'create_bot'
+    analytics().logEvent(event, {
+      channel: createBotInfo.channel,
+      transaction_id: generateTransactionId(event),
+    });
   } catch({response}) {
     const errorMsg = 'Failed to create new bot';
     yield put(updateSnackbar({ type: 'error', msg: `${errorMsg} with error: ${response.data.message}` }));
@@ -56,7 +62,7 @@ function* createUserBotSaga({ payload: createBotInfo }) {
 function* updateUserBotSaga({ payload: updateBotInfo }) {
   const axios = yield getAxios();
   const auth = yield select(getAuthUser);
-  const data = { 
+  const data = {
     uid: auth.uid,
     bot_id: updateBotInfo.botId,
     status: updateBotInfo.status,
