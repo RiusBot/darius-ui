@@ -43,6 +43,7 @@
     "js-cookie": "^3.0.1",
     "Math": "^0.0.1-security",
     "next": "^12.0.3-canary.7",
+    "next-i18next": "^11.2.0",
     "next-redux-wrapper": "^7.0.5",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",

@@ -3,6 +3,7 @@ import App from 'next/app';
 import { useStore } from 'react-redux';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
+import { appWithTranslation } from 'next-i18next';
 import { CacheProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -28,7 +29,7 @@ const MyApp = (props) => {
       useFirestoreForProfile: true,
     },
     dispatch: store.dispatch,
-    createFirestoreInstance, 
+    createFirestoreInstance,
   }
 
   const getLayout = Component.getLayout || ((page) => page);
@@ -63,4 +64,4 @@ MyApp.getInitialProps = async (appContext) => {
   return { ...appProps };
 };
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(appWithTranslation(MyApp));
