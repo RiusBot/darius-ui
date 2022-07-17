@@ -1,0 +1,17 @@
+{
+  "home": "Home",
+  "email-address": "Email Address",
+  "password": "Password",
+  "sign-in": "Sign in",
+  "google-sign-in": "Sign in with Google",
+  "tips": {
+    "no-account": {
+      "question": "Don't have an account?",
+      "answer": "Create account"
+    },
+    "forget-password": {
+      "question": "Forget password?",
+      "answer": "Reset password"
+    }
+  }
+}

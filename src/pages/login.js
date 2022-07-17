@@ -7,6 +7,8 @@ import { useFormik } from 'formik';
 import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import * as Yup from 'yup';
 import * as EmailValidator from 'email-validator';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -19,6 +21,7 @@ import { analytics } from '@/utils/firebase';
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { t } = useTranslation('login');
   const emailNormalize = (email) => {
     var token = email.split('@');
     var name = token[0];
@@ -136,7 +139,7 @@ const Login = () => {
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Home
+              {t('home')}
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -145,7 +148,7 @@ const Login = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
+                {t('sign-in')}
               </Typography>
             </Box>
             <Grid
@@ -164,7 +167,7 @@ const Login = () => {
                   size="large"
                   variant="contained"
                 >
-                  Sign in with Google
+                  {t('google-sign-in')}
                 </Button>
               </Grid>
             </Grid>
@@ -186,7 +189,7 @@ const Login = () => {
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              label={t('email-address')}
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
@@ -199,7 +202,7 @@ const Login = () => {
               error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
-              label="Password"
+              label={t('password')}
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
@@ -217,14 +220,14 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In
+                {t('sign-in')}
               </Button>
             </Box>
             <Typography
               color="textSecondary"
               variant="body2"
             >
-              Don&apos;t have an account?
+              {t('tips.no-account.question')}
               {' '}
               <NextLink
                 href={referrer ? "/register?referrer=".concat(referrer): "/register"}
@@ -237,7 +240,7 @@ const Login = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Create account
+                  {t('tips.no-account.answer')}
                 </Link>
               </NextLink>
             </Typography>
@@ -245,7 +248,7 @@ const Login = () => {
               color="textSecondary"
               variant="body2"
             >
-              Forget password ?
+              {t('tips.forget-password.question')}
               {' '}
               <NextLink
                 href="/forget"
@@ -258,7 +261,7 @@ const Login = () => {
                     cursor: 'pointer'
                   }}
                 >
-                  Reset password
+                  {t('tips.forget-password.answer')}
                 </Link>
               </NextLink>
             </Typography>
@@ -269,5 +272,14 @@ const Login = () => {
     </>
   );
 };
+
+export async function getStaticProps({ locale }) {
+  console.log('rayy locale', locale);
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['login',])),
+    },
+  };
+}
 
 export default Login;

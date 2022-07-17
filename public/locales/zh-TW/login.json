@@ -1,0 +1,17 @@
+{
+  "home": "首頁",
+  "email-address": "信箱",
+  "password": "密碼",
+  "sign-in": "登入",
+  "google-sign-in": "Google 登入",
+  "tips": {
+    "no-account": {
+      "question": "還沒有帳戶嗎?",
+      "answer": "註冊"
+    },
+    "forget-password": {
+      "question": "忘記密碼?",
+      "answer": "重設密碼"
+    }
+  }
+}
