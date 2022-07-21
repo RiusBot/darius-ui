@@ -10,8 +10,6 @@ import { UserReferralStats } from '@/features/referral/components/referral-stats
 import { UserReferralHistory } from '@/features/referral/components/referral-history';
 import { UserReferralRule } from '@/features/referral/components/referral-rule';
 import { DashboardLayout } from '@/common/components/dashboard-layout';
-import { loadUserProfile } from '@/app/app-slice';
-import { getUserProfile } from '@/common/selectors';
 import { loadUserReferral } from '@/features/referral/referral-slice';
 import { getUserReferral } from '@/features/referral/referral-selector';
 
@@ -52,7 +50,9 @@ const ReferralProgram = () => {
           >
             <Grid
               item
-              xs={4}
+              lg={4}
+              md={12}
+              xs={12}
               variant="text"
             >
               <UserReferralStats
@@ -61,7 +61,9 @@ const ReferralProgram = () => {
             </Grid>
             <Grid
               item
-              xs={8}
+              lg={8}
+              md={12}
+              xs={12}
               variant="text"
             >
               <UserReferral

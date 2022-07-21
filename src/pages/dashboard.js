@@ -117,7 +117,7 @@ const Dashboard = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          padding: '64px 32px'
+          padding: '32px 16px'
         }}
       >
         <Grid

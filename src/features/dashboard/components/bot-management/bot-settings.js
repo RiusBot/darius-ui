@@ -8,8 +8,10 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import useWindowDimensions from '@/common/utils/use-window-dimensions';
 
 export const BotSettings = (props) => {
+    const { width } = useWindowDimensions();
     const reverse = (s) => {return s.split("").reverse().join("");}
     const { openConfirmDialog, openEditDialog, config, channel, botId, botStatus } = props;
     const auth = useSelector(getAuthUser);
@@ -66,7 +68,7 @@ export const BotSettings = (props) => {
                                                 })}
                     sx={{marginLeft: 'auto'}}
                 >
-                    Edit Bot Config
+                    {(width > 400) ? "Edit Bot Config" : "" }
                 </Button>
                 <Button
                     color="error"
@@ -76,7 +78,7 @@ export const BotSettings = (props) => {
                     onClick={() => openConfirmDialog({action: "botDelete", botId: botId})}
                     sx={{marginLeft: '8px'}}
                 >
-                    Delete Bot
+                    {(width > 400) ? "Delete Bot" : "" }
                 </Button>
             </Box>
             <Box sx={{pt: 2,}} >

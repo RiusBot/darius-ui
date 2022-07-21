@@ -30,7 +30,7 @@ const Home = () => {
               maxWidth: '100%',
               width: '100%',
               height: '100%',
-              overflowY: 'hidden'
+              overflowY: 'scroll'
           }}
         />
       </Box>

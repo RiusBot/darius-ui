@@ -19,12 +19,14 @@ import WarningIcon from '@mui/icons-material/Warning';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 import Looks3Icon from '@mui/icons-material/Looks3';
+import useWindowDimensions from '@/common/utils/use-window-dimensions';
 
 export const FreeCredit = () => {
   const router = useRouter();
+  const { width } = useWindowDimensions();
   return (
     <>
-      <Card sx={{ height: '100%' }} id="vip">
+      <Card sx={{ height: '100%', overflowX: 'scroll' }} id="vip">
         <CardHeader
           title="Rius Bot ⓧ FTX ⓧ Binance ⓧ OKX"
           subheader="VIP Plan !!!"
@@ -32,7 +34,7 @@ export const FreeCredit = () => {
         />
         <Divider />
         <CardContent>
-          <Box sx={{ padding: '0px 32px' }} >
+          <Box sx={{ padding: width > 400 ? '0px 32px' : '0' }} >
             <List sx={{ listStyleType: 'disc' }}>
               <Typography variant="h6" >
                 What's the deal?

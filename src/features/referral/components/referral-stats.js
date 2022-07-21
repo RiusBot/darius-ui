@@ -27,28 +27,28 @@ export const UserReferralStats = (props) => {
         <CardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 8 }}>
-              <Grid item xs={2} sm={3} md={4}>
+              <Grid item xs={1} sm={3} md={4}>
                 <CardHeader
                   title={referralInfo.total_rebate == null ? 0 : referralInfo.total_rebate}
                   subheader="推薦獎金"
                   titleTypographyProps={{ variant:'h3' }}
                 />
               </Grid>
-              <Grid item xs={2} sm={3} md={4}>
+              <Grid item xs={1} sm={3} md={4}>
                 <CardHeader
                   title={referralInfo.register_count == null ? 0 : referralInfo.register_count}
                   subheader="邀請人數"
                   titleTypographyProps={{ variant:'h3' }}
                 />
               </Grid>
-              <Grid item xs={2} sm={3} md={4}>
+              <Grid item xs={1} sm={3} md={4}>
                 <CardHeader
                   title={referralInfo.bot_count == null ? 0 : referralInfo.bot_count}
                   subheader="交易人數"
                   titleTypographyProps={{ variant:'h3' }}
                 />
               </Grid>
-              <Grid item xs={2} sm={3} md={4}>
+              <Grid item xs={1} sm={3} md={4}>
                 <CardHeader
                   title={referralInfo.subscribe_count == null ? 0 : referralInfo.subscribe_count}
                   subheader="訂閱人數"
