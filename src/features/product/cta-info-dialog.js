@@ -1,12 +1,13 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { Dialog, Box, Typography, Divider, IconButton, Link, Chip } from '@mui/material';
+import { Dialog, Box, Typography, Divider, IconButton, Link, Grid, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { ProductTags } from '@/features/product/components/tags'
+import { ProductTags } from '@/features/product/components/tags';
+import TocIcon from '@mui/icons-material/Toc';
 
 
 export const CtaInfoDialog = (props) => {
-    const { open, onClose, tags } = props;
+    const { open, onClose, tags, openPerfDialog } = props;
     const [completeRecords, setCompleteRecords] = React.useState([]);
 
     return (
@@ -16,24 +17,40 @@ export const CtaInfoDialog = (props) => {
             fullWidth
             maxWidth="md"
         >
-            <Box
-                sx={{
+            <Grid container spacing={1} sx={{
                     'display': 'flex',
                     'flexDirection': 'row',
                     'width:': '100%',
                     'padding': '32px 24px 32px'
                 }}>
+              <Grid item xs={5.5}>
                 <Typography variant="h5" component="div">
                     Commodity Trading Advisor
                     <ProductTags data={tags} />
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+              </Grid>
+              <Grid item xs={2}>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  style={{'margin': 'auto', 'height': '100%'}}
+                  startIcon={<TocIcon />}
+                  onClick={openPerfDialog}
+                >
+                  詳細績效數據
+                </Button>
+              </Grid>
+              <Grid item xs={0.5}>
                 <IconButton
                     style={{'marginLeft': 'auto'}}
                     onClick={onClose}
                 >
                     <CloseIcon fontSize="small" />
                 </IconButton>
-            </Box>
+              </Grid>
+            </Grid>
             <Divider variant="middle" />
             <Box
                 sx={{
@@ -130,20 +147,20 @@ export const CtaInfoDialog = (props) => {
                         <br/>
                         介紹文章：<br/>
                         <Link
-                            to="https://wiki.mbalib.com/zh-tw/%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E9%A1%BE%E9%97%AE%E5%9F%BA%E9%87%91<br/>"
-
+                            href="https://wiki.mbalib.com/zh-tw/%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E9%A1%BE%E9%97%AE%E5%9F%BA%E9%87%91"
+                            target="_blank"
                         >
                             https://wiki.mbalib.com/zh-tw/商品交易顾问基金<br/>
                         </Link>
                         <Link
-                            to="https://eurika.pixnet.net/blog/post/27466491<br/>"
-                            
+                            href="https://eurika.pixnet.net/blog/post/27466491"
+                            target="_blank"
                         >
                             什麼是管理期貨基金(CTA)<br/>
                         </Link>
                         <Link
-                            to="https://www.moneydj.com/funddj/yb/yp059001.djhtm?b=1&a=14A3DFCF-5FA8-4A0D-825D-AD1E53870B7E<br/>"
-                            
+                            href="https://www.moneydj.com/funddj/yb/yp059001.djhtm?b=1&a=14A3DFCF-5FA8-4A0D-825D-AD1E53870B7E"
+                            target="_blank"
                         >
                             CTA投資新法 多空雙向創造絕對報酬<br/>
                         </Link>

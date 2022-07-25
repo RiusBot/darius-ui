@@ -52,8 +52,6 @@ const Reset = () => {
     //   dispatch(createRecaptchaAccessment({ token, action }));
     // });
     const { password, confirm } = values;
-    console.log(password);
-    console.log(confirm);
     if (password != confirm) {
       dispatch(updateSnackbar({ type: 'error', msg: "password mismatch !" }));
     } else {

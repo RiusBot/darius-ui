@@ -7,6 +7,7 @@ import referralSaga from '@/features/referral/referral-saga';
 import subscriptionSaga from '@/features/subscription/subscription-saga';
 import transactionSaga from '@/features/transaction/transaction-saga';
 import productSaga from '@/features/product/product-saga';
+import notifySaga from '@/features/notify/notify-saga';
 
 function* rootSaga() {
   yield all([
@@ -18,6 +19,7 @@ function* rootSaga() {
     transactionSaga(),
     productSaga(),
     referralSaga(),
+    notifySaga(),
   ]);
 };
 

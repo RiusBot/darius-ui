@@ -139,6 +139,121 @@ export const WebhookInfoDialog = (props) => {
                           fontWeight: '700',
                         }}
                       >{JSON.stringify(webhook_example, null, 4)}</Box>
+
+                    <br/><br/>
+
+                    Three keys are optional<br/><br/>
+
+                        <Box
+                          component="div"
+                          sx={{
+                            display: 'inline',
+                            p: 1,
+                            m: 1,
+                            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+                            color: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+                            border: '1px solid',
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+                            borderRadius: 2,
+                            fontSize: '0.875rem',
+                            fontWeight: '700',
+                          }}
+                        >
+                          amount
+                        </Box>
+                        &nbsp; amount of token ( not usdt ). Overwrite "quantity" setting in bot.
+                        <br/><br/>
+
+                        <Box
+                          component="div"
+                          sx={{
+                            display: 'inline',
+                            p: 1,
+                            m: 1,
+                            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+                            color: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+                            border: '1px solid',
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+                            borderRadius: 2,
+                            fontSize: '0.875rem',
+                            fontWeight: '700',
+                          }}
+                        >
+                          price
+                        </Box>
+                        &nbsp; entry price for limit order
+                        <br/><br/>
+
+                        <Box
+                          component="div"
+                          sx={{
+                            display: 'inline',
+                            p: 1,
+                            m: 1,
+                            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+                            color: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+                            border: '1px solid',
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+                            borderRadius: 2,
+                            fontSize: '0.875rem',
+                            fontWeight: '700',
+                          }}
+                        >
+                          position
+                        </Box>
+                        &nbsp; set to zero to close position
+                        <br/><br/>
+
+                        <Box
+                          component="div"
+                          sx={{
+                            display: 'inline',
+                            p: 1,
+                            m: 1,
+                            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+                            color: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+                            border: '1px solid',
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+                            borderRadius: 2,
+                            fontSize: '0.875rem',
+                            fontWeight: '700',
+                          }}
+                        >
+                          stop_loss
+                        </Box>
+                        &nbsp; stop loss price
+                        <br/><br/>
+
+                        <Box
+                          component="div"
+                          sx={{
+                            display: 'inline',
+                            p: 1,
+                            m: 1,
+                            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+                            color: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+                            border: '1px solid',
+                            borderColor: (theme) =>
+                              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+                            borderRadius: 2,
+                            fontSize: '0.875rem',
+                            fontWeight: '700',
+                          }}
+                        >
+                          take_profit
+                        </Box>
+                        &nbsp; take profit price
+                        <br/><br/>
+
                     </Typography><br/>
                 </Box>
             </Box>

@@ -20,6 +20,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import CampaignIcon from '@mui/icons-material/Campaign';
 import PeopleIcon from '@mui/icons-material/People';
 import { NavItem } from '@/common/components/nav-item';
 import { getUserProfileFromFirebase } from '@/common/selectors';
@@ -27,7 +28,7 @@ import { getUserProfileFromFirebase } from '@/common/selectors';
 const items = [
   {
     href: '/campaign',
-    icon: (<NotificationsIcon fontSize="small" />),
+    icon: (<CampaignIcon fontSize="small" />),
     title: 'Campaign'
   },
   {
@@ -69,6 +70,11 @@ const items = [
     href: '/transaction',
     icon: (<AttachMoneyIcon fontSize="small" />),
     title: 'Transaction & Payment'
+  },
+  {
+    href: '/notify',
+    icon: (<NotificationsIcon fontSize="small" />),
+    title: 'Notification'
   },
 ];
 

@@ -13,7 +13,7 @@ import BotManagementCard from '@/features/dashboard/components/bot-management/bo
 import { productMedia } from '__data__/products';
 import { ConfirmDialog } from '@/features/dashboard/components/bot-management/confirm-dialog';
 import Snackbar from '@/common/components/snackbar';
-import { deleteUserBot } from '@/features/dashboard/dashboard-slice';
+import { deleteUserBot, closeUserPosition } from '@/features/dashboard/dashboard-slice';
 import { loadUserApi } from '@/features/api/api-slice';
 import { getUserApi } from '@/features/api/api-selector';
 import { loadUserSubscription } from '@/features/subscription/subscription-slice';
@@ -39,6 +39,7 @@ const Dashboard = () => {
                             };
   const [botEditDialog, setBotEditDialog] = useState(defaultEditDialog);
   const [botDeleteDialog, setBotDeleteDialog] = useState({open: false, botId: null});
+  const [closePositionDialog, setClosePositionDialog] = useState({open: false, botId: null});
 
   const userApi = useSelector(getUserApi);
   const subscriptions = useSelector(getSubscriptions);
@@ -61,6 +62,10 @@ const Dashboard = () => {
     dispatch(deleteUserBot({botId: botDeleteDialog.botId}));
     setBotDeleteDialog({open: false, botId: null});
   }
+  const confirmClosePosition = () => {
+    dispatch(closeUserPosition({botId: closePositionDialog.botId}));
+    setClosePositionDialog({open: false, botId: null});
+  }
 
   const handleDialogOpen = (dialog) => {
     const channelDisplayName = Object.keys(productMedia).includes(dialog.channel) ? productMedia[dialog.channel].channelDisplayName : dialog.channel
@@ -82,6 +87,9 @@ const Dashboard = () => {
       case 'botDelete':
         setBotDeleteDialog({open: true, botId: dialog.botId});
         break;
+      case 'closePosition':
+        setClosePositionDialog({open: true, botId: dialog.botId});
+        break;
     }
   }
 
@@ -90,16 +98,26 @@ const Dashboard = () => {
       <>
         {Object.values(productMedia).map((sub, index) => {
         if (sub.status == 'active') {
+          if (sub.channel == "ACDC") {
+            if (subscriptions != undefined && subscriptions.filter(x => (x.plan.channel == "ACDC")).length != 0)
+              ; // has acdc subscription
+            else if (profile.role == "vip")
+              ; // is vip
+            else if (profile.referrer == "YPT1pL2W")
+              ; // acdc user
+            else
+              return;
+          }
           return <Box
+                  key={index}
+                  style={{'minWidth': '360px',
+                          'paddingRight': '30px'}}>
+                  <BotCard
                     key={index}
-                    style={{'minWidth': '360px',
-                            'paddingRight': '30px'}}>
-                    <BotCard
-                      key={index}
-                      bot={sub}
-                      openCreateBotDialog={handleDialogOpen}
-                    />
-                  </Box>
+                    bot={sub}
+                    openCreateBotDialog={handleDialogOpen}
+                  />
+                </Box>
         }
       })}
       </>
@@ -175,6 +193,12 @@ const Dashboard = () => {
         onConfirm={confirmDeleteBot}
         onClose={() => setBotDeleteDialog({open: false, botId: null})}
         object="BOT"
+      />
+      <ConfirmDialog
+        open={closePositionDialog.open}
+        onConfirm={confirmClosePosition}
+        onClose={() => setClosePositionDialog({open: false, botId: null})}
+        object="POSITION"
       />
     </>
 )};

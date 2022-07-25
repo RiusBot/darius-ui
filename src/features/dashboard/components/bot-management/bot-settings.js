@@ -5,6 +5,7 @@ import {
     Button,
     Typography
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
@@ -69,6 +70,16 @@ export const BotSettings = (props) => {
                     sx={{marginLeft: 'auto'}}
                 >
                     {(width > 400) ? "Edit Bot Config" : "" }
+                </Button>
+                <Button
+                    color="error"
+                    endIcon={<CloseIcon fontSize="small" />}
+                    size="small"
+                    variant="contained"
+                    onClick={() => openConfirmDialog({action: "closePosition", botId: botId})}
+                    sx={{marginLeft: '8px'}}
+                >
+                    Close All Position
                 </Button>
                 <Button
                     color="error"

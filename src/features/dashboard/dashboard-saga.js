@@ -7,6 +7,7 @@ import {
   loadUserBotsSuccess,
   loadBotTrades,
   loadBotTradesSuccess,
+  closeUserPosition,
 } from '@/features/dashboard/dashboard-slice';
 import { updateSnackbar } from '@/app/app-slice';
 import getAxios from '@/common/utils/getAxios';
@@ -158,6 +159,27 @@ function* loadBotTradesSaga({ payload: botInfo }) {
   }
 }
 
+function* closeUserPositionSaga({ payload: botInfo }) {
+  const axios = yield getAxios();
+  const auth = yield select(getAuthUser);
+  const url = `/api/v1/clean_all_position`;
+  const requestMethod = 'DELETE';
+  const data = {
+    uid: auth.uid,
+    bot_id: botInfo.botId,
+  }
+  try {
+    const res = yield axios(url, {
+      method: requestMethod,
+      data
+    });
+    yield put(updateSnackbar({ type: 'success', msg: `Close Position Success` }));
+  } catch({response}) {
+    const errorMsg = 'Failed to close position'
+    yield put(updateSnackbar({ type: 'error', msg: `${errorMsg}` }));
+  }
+}
+
 function* dashboardSaga() {
   yield all([
     takeLatest(createUserBot.toString(), createUserBotSaga),
@@ -165,6 +187,7 @@ function* dashboardSaga() {
     takeLatest(deleteUserBot.toString(), deleteUserBotSaga),
     takeLatest(loadUserBots.toString(), loadUserBotsSaga),
     takeLatest(loadBotTrades.toString(), loadBotTradesSaga),
+    takeLatest(closeUserPosition.toString(), closeUserPositionSaga),
   ]);
 }
 

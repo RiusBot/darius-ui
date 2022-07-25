@@ -27,6 +27,7 @@ const dashboardSlice = createSlice({
         state.userBotTrades[bot_id].total_count = action.payload.res.total_count;
       }
     },
+    closeUserPosition: () => {},
   },
 });
 
@@ -40,6 +41,7 @@ export const {
   loadUserBotsSuccess,
   loadBotTrades,
   loadBotTradesSuccess,
+  closeUserPosition,
 } = actions
 
 export default reducer;

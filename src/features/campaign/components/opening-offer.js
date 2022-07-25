@@ -52,7 +52,7 @@ export const OpenOffer = (props) => {
             color="textSecondary"
             variant="button"
             sx={{ textAlign: 'center', width: '100%'}}>
-            30% refunding for first subscription. 15% refunding for expand subscription.
+            20% refunding for first subscription. 10% refunding for expand subscription.
           </Typography>
           <br/><br/>
           <Box sx={{ display: ((showButton) ? 'block' : 'none') }}>

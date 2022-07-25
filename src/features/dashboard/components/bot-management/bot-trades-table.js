@@ -10,11 +10,14 @@ import { SeverityPill } from '@/features/dashboard/components/bot-management/sev
 import { BotTradesDetailPopup } from '@/features/dashboard/components/bot-management/bot-trades-detail-popup';
 import { getBotTrades } from '@/features/dashboard/dashboard-selector';
 import { loadBotTrades } from '@/features/dashboard/dashboard-slice';
+import { BotChart } from '@/features/dashboard/components/bot-management/bot-chart';
+
 
 export const BotTradesTable = (props) => {
   const dispatch = useDispatch();
   const { botId } = props;
   const [botTrades, setBotTrades] = useState([]);
+  const [botPageTrades, setBotPageTrades] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [tradeDetail, setTradeDetail] = useState({info: null, anchorEl: null, open: false});
@@ -22,6 +25,7 @@ export const BotTradesTable = (props) => {
   useEffect (() => {
     if (allBotTrades[botId] && allBotTrades[botId][rowsPerPage] && allBotTrades[botId][rowsPerPage][page]) {
       setBotTrades(allBotTrades[botId][rowsPerPage][page]);
+      setBotPageTrades(allBotTrades[botId][rowsPerPage]);
     }
   }, [allBotTrades]);
 
@@ -30,6 +34,7 @@ export const BotTradesTable = (props) => {
       dispatch(loadBotTrades({botId: botId, page: page, pagesize: rowsPerPage}));
     } else {
       setBotTrades(allBotTrades[botId][rowsPerPage][page]);
+      setBotPageTrades(allBotTrades[botId][rowsPerPage]);
     }
   }, [botId, page, rowsPerPage])
   
@@ -67,6 +72,9 @@ export const BotTradesTable = (props) => {
     <>
       <PerfectScrollbar>
         <Box sx={{ width: '100%' }}>
+          <Box sx={{ m:4, height: '100%', margin: 'auto', paddingBottom: '32px' }} >
+            <BotChart data={botPageTrades} />
+          </Box>
           <Typography variant="h6" sx={{padding: '0 0 12px 12px'}}>
             Trading History
           </Typography>

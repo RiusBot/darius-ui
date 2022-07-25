@@ -11,6 +11,7 @@ import referralReducer from '@/features/referral/referral-slice';
 import subscriptionReducer from '@/features/subscription/subscription-slice';
 import transactionReducer from '@/features/transaction/transaction-slice';
 import productReducer from '@/features/product/product-slice';
+import notifyReducer from '@/features/notify/notify-slice';
 
 const combined = combineReducers({
   firebase: firebaseReducer,
@@ -23,6 +24,7 @@ const combined = combineReducers({
   transaction: transactionReducer,
   product: productReducer,
   referral: referralReducer,
+  notify: notifyReducer,
 });
 
 const rootReducer = (state, action) => {
