@@ -47,7 +47,8 @@ const tradePair = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 4
+          py: 4,
+          overflowY: 'scroll',
         }}
       >
         <Container maxWidth={false}>

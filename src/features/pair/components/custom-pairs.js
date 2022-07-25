@@ -13,9 +13,11 @@ import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
 import { loadUserPair } from '@/features/pair/pair-slice';
 import { getUserPair } from '@/features/pair/pair-selector';
+import useWindowDimensions from '@/common/utils/use-window-dimensions';
 
 export const CustomPairs = (props) => {
     const dispatch = useDispatch();
+    const { height, width } = useWindowDimensions();
     const { setPairCreateDialog, setPairEditDialog, setPairDeleteDialog } = props;
     const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
     const userPair = useSelector(getUserPair);
@@ -63,7 +65,9 @@ export const CustomPairs = (props) => {
               <Box sx={{display: 'flex', flexDirection: 'row'}} >
                 <ListAltIcon color='primary'/>
                 <Typography
-                  sx={{marginLeft: '16px' }}
+                  sx={{marginLeft: '16px',
+                       maxWidth: width > 400 ? '80%' : '172px', 
+                       wordWrap: "break-word" }}
                   color="textPrimary"
                   gutterBottom
                   variant="h6"
@@ -78,7 +82,7 @@ export const CustomPairs = (props) => {
                     onClick={() => setPairEditDialog({value: pair, open: true})}
                     sx={{marginLeft: 'auto'}}
                 >
-                    Edit
+                    {(width > 400) ? "Edit" : ""}
                 </Button>
                 <Button
                   color="error"
@@ -88,7 +92,7 @@ export const CustomPairs = (props) => {
                   onClick={() => setPairDeleteDialog({open: true, pairId: pair.pair_id})}
                   sx={{marginLeft: '8px'}}
                 >
-                    Delete
+                    {(width > 400) ? "Delete" : ""}
                 </Button>
               </Box>
     

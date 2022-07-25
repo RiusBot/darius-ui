@@ -20,11 +20,11 @@ import ForwardIcon from '@mui/icons-material/Forward';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import { loadUserProfile } from '@/app/app-slice';
 import { getUserProfile } from '@/common/selectors';
-
-
+import useWindowDimensions from '@/common/utils/use-window-dimensions';
 
 export const FreeTrial = () => {
   const dispatch = useDispatch();
+  const { width } = useWindowDimensions();
   const router = useRouter();
   const profile = useSelector(getUserProfile);
   useEffect (() => {
@@ -66,7 +66,7 @@ export const FreeTrial = () => {
         />
         <Divider />
         <CardContent>
-          <Box sx={{ padding: '0px 32px' }} >
+          <Box sx={{ padding: width > 400 ? '0px 32px' : '0' }} >
             <List sx={{ listStyleType: 'disc' }}>
               <Typography variant="h6" >
                 What's the deal?

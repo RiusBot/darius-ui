@@ -97,6 +97,15 @@ export const AcdcInfoDialog = (props) => {
                     <Typography varient="body1" componenet="div">
                         策略短時匡進出，獲利自動套保。<br/>
                     </Typography><br/>
+                        
+                    
+                    <Typography variant="h5" component="div" sx={{padding: '8px 0 16px'}}>
+                        建議機器人設定
+                    </Typography>
+                    <Typography varient="body1" componenet="div">
+                      下單金額設定總資金 1/5 <br/>
+                    </Typography><br/>
+                    
                       
                     
                     <Typography variant="h5" component="div" color="blue" sx={{padding: '8px 0 16px'}}>

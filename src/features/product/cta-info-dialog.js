@@ -147,20 +147,20 @@ export const CtaInfoDialog = (props) => {
                         <br/>
                         介紹文章：<br/>
                         <Link
-                            to="https://wiki.mbalib.com/zh-tw/%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E9%A1%BE%E9%97%AE%E5%9F%BA%E9%87%91<br/>"
-
+                            href="https://wiki.mbalib.com/zh-tw/%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E9%A1%BE%E9%97%AE%E5%9F%BA%E9%87%91"
+                            target="_blank"
                         >
                             https://wiki.mbalib.com/zh-tw/商品交易顾问基金<br/>
                         </Link>
                         <Link
-                            to="https://eurika.pixnet.net/blog/post/27466491<br/>"
-                            
+                            href="https://eurika.pixnet.net/blog/post/27466491"
+                            target="_blank"
                         >
                             什麼是管理期貨基金(CTA)<br/>
                         </Link>
                         <Link
-                            to="https://www.moneydj.com/funddj/yb/yp059001.djhtm?b=1&a=14A3DFCF-5FA8-4A0D-825D-AD1E53870B7E<br/>"
-                            
+                            href="https://www.moneydj.com/funddj/yb/yp059001.djhtm?b=1&a=14A3DFCF-5FA8-4A0D-825D-AD1E53870B7E"
+                            target="_blank"
                         >
                             CTA投資新法 多空雙向創造絕對報酬<br/>
                         </Link>

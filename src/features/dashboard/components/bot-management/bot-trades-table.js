@@ -71,7 +71,7 @@ export const BotTradesTable = (props) => {
   return (
     <>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 520, width: '100%' }}>
+        <Box sx={{ width: '100%' }}>
           <Box sx={{ m:4, height: '100%', margin: 'auto', paddingBottom: '32px' }} >
             <BotChart data={botPageTrades} />
           </Box>

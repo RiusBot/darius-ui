@@ -54,7 +54,7 @@ export const UserReferral = (props) => {
       autoComplete="off"
       noValidate
     >
-      <Card sx={{marginTop: '0px', height: 450}}>
+      <Card sx={{marginTop: '0px', height: 450, overflowX: 'scroll'}}>
         <CardHeader
           title="邀請好友"
         />

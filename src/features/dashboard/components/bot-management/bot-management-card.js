@@ -48,15 +48,14 @@ export default function BotManagementCard(props) {
 
     if (!userBots.length) {
         return (
-            <Card>
+            <Card sx={{ minHeight: '62vh' }}>
                 <CardHeader title="Working Bot Management" />
                     <Box
                         sx={{ display: 'flex', 
                             flexGrow: 1, 
                             bgcolor: 'background.paper', 
-                            minHeight: '460px', 
-                            minWidth: '840px',
-                            paddingRight: '32px' }}
+                            height: '100%',
+                            padding: '32px' }}
                     >
                         <Typography 
                             color="textSecondary"
@@ -77,16 +76,15 @@ export default function BotManagementCard(props) {
                       flexGrow: 1, 
                       bgcolor: 'background.paper', 
                       minHeight: '460px', 
-                      minWidth: '840px',
                       paddingRight: '32px',
-                      overflow: 'scroll' }}
+                      overflowX: 'scroll' }}
             >
                 <TabContext value={value}>
                     <TabList
                         orientation="vertical"
                         variant="scrollable"
                         onChange={handleTabChange}
-                        aria-label="Vertical tabs example"
+                        aria-label="bot-tabs"
                         sx={{ borderRight: 1, borderColor: 'divider', minWidth: '120px' }}
                     >
                         {userBots.map((bot, index) => {

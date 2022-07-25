@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';;
+import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
-import { Box, Container, Typography, Avatar } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { Card, CardHeader, Divider, Button} from '@mui/material';
 import KeyIcon from '@mui/icons-material/Key';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -13,10 +13,11 @@ import { ApiCreateForm } from '@/features/api/api-create-form';
 import { loadUserApi } from '@/features/api/api-slice';
 import { getUserApi } from '@/features/api/api-selector';
 import { deleteUserApi } from '@/features/api/api-slice';
-
+import useWindowDimensions from '@/common/utils/use-window-dimensions';
 
 const apiSetting = () => {
   const dispatch = useDispatch();
+  const { height, width } = useWindowDimensions();
   const [apiDeleteDialog, setApiDeleteDialog] = useState({open: false, apiId: null});
 
   const userApi = useSelector(getUserApi);
@@ -43,7 +44,9 @@ const apiSetting = () => {
           <Box sx={{display: 'flex', flexDirection: 'row'}} >
             <KeyIcon color='primary'/>
             <Typography
-              sx={{marginLeft: '16px' }}
+              sx={{marginLeft: '16px', 
+                   maxWidth: width > 400 ? '80%' : '172px', 
+                   wordWrap: "break-word" }}
               color="textPrimary"
               gutterBottom
               variant="h6"
@@ -57,9 +60,9 @@ const apiSetting = () => {
               size="small"
               variant="contained"
               onClick={() => setApiDeleteDialog({open: true, apiId: api.api_id})}
-              sx={{marginLeft: 'auto'}}
+              sx={{ marginLeft: 'auto' }}
             >
-                Delete API Key
+              {(width > 400) ? "Delete API Key" : ""}
             </Button>
           </Box>
 
